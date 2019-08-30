@@ -20,6 +20,8 @@ export class FullComponent implements OnInit {
   public showMobileMenu = false;
   public expandLogo = false;
   public sidebartype = 'full';
+  public navbarOpen = false;
+
 
   Logo() {
     this.expandLogo = !this.expandLogo;
@@ -27,7 +29,7 @@ export class FullComponent implements OnInit {
 
   ngOnInit() {
     if (this.router.url === '/') {
-      this.router.navigate(['/starter']);
+      this.router.navigate(['/home']);
     }
     this.defaultSidebar = this.sidebartype;
     this.handleSidebar();
@@ -60,4 +62,9 @@ export class FullComponent implements OnInit {
       default:
     }
   }
+    toggleNavbar() {
+      this.navbarOpen = !this.navbarOpen;
+    }
+
+
 }

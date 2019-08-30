@@ -45,9 +45,9 @@
 
     /*sidebar type*/
     &[data-sidebartype="full"] {
-        .page-wrapper {
-            margin-left: $sidebar-width-full;
-        }
+        // .page-wrapper {
+        //     margin-left: $sidebar-width-full;
+        // }
     }
     /*Sidebar position*/
     &[data-sidebar-position="fixed"] {
@@ -117,9 +117,9 @@
             }
         }
         &[data-sidebartype="mini-sidebar"] {
-            .page-wrapper {
-                margin-left: $sidebar-width-mini;
-            }
+            // .page-wrapper {
+            //     margin-left: $sidebar-width-mini;
+            // }
             .sidebar-nav {
                 .hide-menu,
                 .has-arrow:after {
