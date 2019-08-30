@@ -26,12 +26,24 @@
                             "src/assets/scss/style.scss"
                         ],
                         "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "baseHref": "/",
+                            "deployUrl": "https://skatia.github.io/ui-asset-agm"
+                        }
                     }
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
                         "browserTarget": "ng-monster:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "baseHref": "/",
+                            "deployUrl": "https://skatia.github.io/ui-asset-agm"
+                        }
                     }
                 },
                 "extract-i18n": {
