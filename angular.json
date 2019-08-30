@@ -30,7 +30,7 @@
                     "configurations": {
                         "production": {
                             "baseHref": "/",
-                            "deployUrl": "https://skatia.github.io/ui-asset-agm"
+                            "deployUrl": "https://rehamwael.github.io/Antim-project/"
                         }
                     }
                 },
@@ -42,7 +42,7 @@
                     "configurations": {
                         "production": {
                             "baseHref": "/",
-                            "deployUrl": "https://skatia.github.io/ui-asset-agm"
+                            "deployUrl": "https://rehamwael.github.io/Antim-project/"
                         }
                     }
                 },
