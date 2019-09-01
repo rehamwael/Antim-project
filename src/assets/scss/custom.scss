@@ -99,6 +99,9 @@ nav.navbar.navbar-expand-lg{
     .bg-dark-right{
         display: none;
     }
+    body.log-in {
+        background-color: #fff;
+    }
     .navbar-light .navbar-toggler{
         border: 0;
         outline: none;
@@ -233,6 +236,62 @@ nav#navbar.sticky-fixed-header {
     box-shadow: 0px 3px 3px -1px rgba(0, 0, 0, 0.1);
 
 }
+.form-antim{
+    label{
+        font-size: 10px;
+        color: #000000;
+        text-align: left;
+        letter-spacing: 0.06em;
+        line-height: 11px;
+        font-weight: 500;
+    }
+}
+.form-control-lg, .input-group-lg > .form-control, .input-group-lg > .input-group-prepend > .input-group-text, .input-group-lg > .input-group-append > .input-group-text, .input-group-lg > .input-group-prepend > .btn, .input-group-lg > .input-group-append > .btn {
+    padding: 0.5rem 1rem;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 2px;
+    background-color: #ffffff;
+    border: 1px solid #dad9d8;
+    border-radius: 3px;
+    color: #c5c1b8;
+}
+.btn-purple{
+    background-color: #5c20d2;
+    border-radius: 3px;
+    text-transform: uppercase;
+    padding: 10px 1rem;
+    font-size: 13px;
+}
+.form-control-lg::placeholder, .input-group-lg > .form-control::placeholder, .input-group-lg > .input-group-prepend > .input-group-text::placeholder, .input-group-lg > .input-group-append > .input-group-text::placeholder, .input-group-lg > .input-group-prepend > .btn, .input-group-lg > .input-group-append > .btn::placeholder {
+    color: #c5c1b8;
+}
+
+.background-box{
+    background: #fff;
+    border-radius: 9px;
+    margin-top: -6em;
+}
+.grey-text-color{
+    color: #c5c1b8;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+}
+.log-in {
+    background-color: #f9f9f9;
+    .bg-image {
+        background-image: none;
+        height: auto !important;
+    }
+    .container.flex-center.justify-content-start ,.bg-dark-right{
+        display: none;
+    }
+    header.bg-image ul.navbar-nav.ml-auto li a.nav-link {
+        color: #000000;
+    }
+}
+
 header.bg-image nav#navbar.sticky-fixed-header ul.navbar-nav.ml-auto li a.nav-link{
     color: #000;
 }

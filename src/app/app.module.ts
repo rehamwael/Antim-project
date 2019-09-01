@@ -28,6 +28,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { StickyNavModule } from 'ng2-sticky-nav';
+import { LoginComponent } from './login/login.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -45,6 +46,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NavigationComponent,
     SidebarComponent,
     BreadcrumbComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,
