@@ -218,6 +218,24 @@ nav.navbar.navbar-expand-lg{
         text-align: center;
     }
 }
+nav#navbar{
+    position: relative !important;
+    transition: all 0.6s ease-in-out;
+}
+nav#navbar.sticky-fixed-header {
+    background: #fff;
+    width: 100%;
+    max-width: 100%;
+    right: 0;
+    left: 0;
+    z-index: 99999999;
+    position: fixed !important;
+    box-shadow: 0px 3px 3px -1px rgba(0, 0, 0, 0.1);
+
+}
+header.bg-image nav#navbar.sticky-fixed-header ul.navbar-nav.ml-auto li a.nav-link{
+    color: #000;
+}
 @media (min-width: 992px){
     .container {
         max-width: 1100px;
