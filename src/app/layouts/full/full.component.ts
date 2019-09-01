@@ -21,6 +21,8 @@ export class FullComponent implements OnInit {
   public expandLogo = false;
   public sidebartype = 'full';
   public navbarOpen = false;
+  public isSticky = false;
+
 
 
   Logo() {
@@ -33,6 +35,10 @@ export class FullComponent implements OnInit {
     }
     this.defaultSidebar = this.sidebartype;
     this.handleSidebar();
+  }
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    this.isSticky = window.pageYOffset >= 250;
   }
 
   @HostListener('window:resize', ['$event'])

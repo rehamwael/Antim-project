@@ -24,10 +24,6 @@ export const Approutes: Routes = [
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       {
-        path: 'home',
-        loadChildren: './home/home.module#HomeModule'
-      },
-      {
         path: 'component',
         loadChildren: './component/component.module#ComponentsModule'
       }
