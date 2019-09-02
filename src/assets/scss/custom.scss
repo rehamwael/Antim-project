@@ -238,7 +238,7 @@ nav#navbar.sticky-fixed-header {
 }
 .form-antim{
     label{
-        font-size: 10px;
+        font-size: 11px;
         color: #000000;
         text-align: left;
         letter-spacing: 0.06em;
@@ -294,6 +294,67 @@ nav#navbar.sticky-fixed-header {
 
 header.bg-image nav#navbar.sticky-fixed-header ul.navbar-nav.ml-auto li a.nav-link{
     color: #000;
+}
+.red-color{
+    color: #c5003e;
+}
+@media (min-width: 1300px){
+    .row.my-4.steps-antim.mt-3 {
+        margin-left: -6em;
+    }
+    .mt-min-4 {
+        margin-top: -5em;
+        margin-left: -3em;
+    }
+    .mt-14 {
+        margin-top: 14em;
+    }
+    .mt-10 {
+        margin-top: 9em;
+        margin-left: -2em;
+    }
+}
+@media (min-width: 1500px){
+    .row.my-4.steps-antim.mt-3 {
+        margin-left: -11em;
+    }
+    .mt-min-4 {
+        margin-top: -6em;
+        margin-left: -4em;
+    }
+    .mt-14 {
+        margin-top: 13em;
+    }
+    .mt-10 {
+        margin-top: 9em;
+        margin-left: -4em;
+    }
+    div.path-dashed{
+        width: 910px;
+    }
+}
+@media (min-width: 1503px){
+    .row.my-4.steps-antim.mt-3 {
+        margin-left: -10em;
+    }
+    .mt-min-4 {
+        margin-top: -6em;
+        margin-left: -3em;
+    }
+    .mt-14 {
+        margin-top: 13em;
+    }
+    .mt-10 {
+        margin-top: 9em;
+        margin-left: -2em;
+    }
+    div.path-dashed {
+        width: 945px;
+    }
+    .mt-22 {
+        margin-top: 19em;
+        margin-right: -5em;
+    }    
 }
 @media (min-width: 992px){
     .container {
