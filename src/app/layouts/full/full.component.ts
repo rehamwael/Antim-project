@@ -71,6 +71,9 @@ export class FullComponent implements OnInit {
     toggleNavbar() {
       this.navbarOpen = !this.navbarOpen;
     }
+    btnClick= function () {
+      this.router.navigateByUrl('/signup');
+    };
 
 
 }

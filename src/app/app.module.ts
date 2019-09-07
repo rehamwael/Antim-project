@@ -7,7 +7,7 @@ import {
   PathLocationStrategy
 } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -29,6 +29,9 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { StickyNavModule } from 'ng2-sticky-nav';
 import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { ContactComponent } from './contact/contact.component';
+import { WhoWeAreComponent } from './who-we-are/who-we-are.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -47,10 +50,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SidebarComponent,
     BreadcrumbComponent,
     LoginComponent,
+    SignUpComponent,
+    ContactComponent,
+    WhoWeAreComponent,
   ],
   imports: [
     CommonModule,
     BrowserModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,

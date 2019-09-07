@@ -1,11 +1,11 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css']
 })
-export class LoginComponent implements OnInit ,OnDestroy{
+export class SignUpComponent implements OnInit ,OnDestroy{
 
   constructor() { }
 
@@ -17,6 +17,5 @@ export class LoginComponent implements OnInit ,OnDestroy{
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('log-in');
   }
-
 
 }

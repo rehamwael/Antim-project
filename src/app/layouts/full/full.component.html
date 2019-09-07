@@ -10,7 +10,7 @@
     <header class="bg-image h-100">
         <div class="sticky-nav-wrapper">
         <nav id="navbar" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav wow fadeInDown" data-wow-duration="1.4s" data-wow-delay="0.7s" ngStickyNav stickyClass="sticky-fixed-header">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" [routerLink]="[ '/' ]">
                     <img src="assets/images/logo.svg" alt="antim">
 
             </a>
@@ -21,13 +21,13 @@
                 <div class="close-icon d-lg-none d-block"><a (click)="toggleNavbar()" class="btn-close"><i class="ti-close"></i></a> </div>
               <ul class="navbar-nav mr-auto mt-2">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">home</a>
+                  <a class="nav-link" [routerLink]="[ '/' ]" routerLinkActive="active-link">home</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">who we are</a>
+                <li class="nav-item" [routerLinkActive]="['active']">
+                  <a class="nav-link" [routerLink]="[ '/who-we-are' ]">who we are</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">contact us</a>
+                <li class="nav-item" [routerLinkActive]="['active']">
+                  <a class="nav-link" [routerLink]="[ '/contact' ]">contact us</a>
                 </li>
                 <li class="nav-item">
                         <a class="nav-link" href="#">client</a>
@@ -39,10 +39,10 @@
               </ul>
               <ul class="navbar-nav ml-auto mt-2">
                 <li class="nav-item mt-1">
-                  <a class="nav-link" href="login">Log In</a>
+                  <a class="nav-link"  [routerLink]="[ '/login' ]">Log In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link purple-btn" href="#">Sign up</a>
+                    <a class="nav-link purple-btn" [routerLink]="[ '/signup' ]">Sign up</a>
                   </li>
                 
               </ul>
@@ -55,7 +55,7 @@
                         <h1 class="main-header-font wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="0.5s">
                             Select,<br/> Send and Get… <br/>Pay by installment
                         </h1>
-                        <button type="button" class="btn btn-block btn-antim btn-rounded mt-5 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.7s">Get Started</button>
+                        <button type="button" class="btn btn-block btn-antim btn-rounded mt-5 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.7s" (click)="btnClick();">Get Started</button>
                     
                     </div>
                     <div class="col-lg-6 h-100 d-flex justify-content-center flex-column">

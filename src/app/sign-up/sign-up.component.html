@@ -1,0 +1,33 @@
+<div class="container-fluid h-100">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 background-box px-5 py-5 text-center">
+            <h2>Sign Up</h2>
+            <p class="grey-text-color mt-3 mb-2">Very Easy ans straight forward steps to register.
+            <br/> Just follow the lead</p>
+            <form id="SigUpForm" class="form-log-in row mt-4 form-antim d-flex justify-content-center">
+                <div class="col-lg-2">
+                    <h5 class="vertical-text mt-2">what about you ?</h5>
+                </div>
+                <div class="form-group text-left col-lg-5 text-center">
+                    <div class="select-options-radio" [ngClass]="{'active': selectedItem === 'item1'}" (click)="selectedItem = 'item1'">
+                        <label for="Lender"></label>
+                        <input ngModel #usertype="ngModel" name="usertype" id="Lender" type="radio" value="Lender">
+                        <img src="assets/images/lender.svg" alt="antim">
+                        <p class="grey-text-color mt-4">Lender</p>
+                    </div>
+                </div>
+                <div class="form-group text-left col-lg-5 text-center">
+                    <div class="select-options-radio" [ngClass]="{'active': selectedItem === 'item2'}" (click)="selectedItem = 'item2'">
+                            <label for="Borrower"></label>
+                            <input ngModel #usertype="ngModel" name="usertype" id="Borrower" type="radio" value="Borrower">
+                            <img src="assets/images/borrower-2.svg" alt="antim">
+                            <p class="grey-text-color mt-4">Borrower</p>
+                    </div>
+                </div>
+                <div class="form-group mt-4 row col-lg-12 d-flex justify-content-center">
+                    <button class="btn btn-lg btn-block btn-grey mt-5 col-lg-4 col-12">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
