@@ -6,7 +6,8 @@ import { Component, OnInit ,OnDestroy} from '@angular/core';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit ,OnDestroy{
-
+  public selectedItem: any;
+  
   constructor() { }
 
   ngOnInit(): void {
