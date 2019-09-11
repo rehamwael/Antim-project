@@ -157,10 +157,106 @@ header.bg-image ul.navbar-nav.ml-auto li a.nav-link.purple-btn{
     padding: 10px 0;
     width: 48px;
     transition: all 0.5s ease-in-out; 
+}
+button.btn-black {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+    padding: 6.5px 1rem;
+    font-size: 16px;
+    text-transform: uppercase;
     &:hover{
-        background: #5C20D2;
-        border: 2px solid #5C20D2;
+        background: #5b91f7;
+        border: 2px solid #5b91f7;
+        color: #fff;
     }
+}
+.boxes {
+    margin: auto;
+    padding: 50px;
+    background: #484848;
+  }
+  .mt-0{
+      margin-top: -3em !important;
+  }
+  div .form-control {
+    border-radius: 6px !important;
+}
+.font-light {
+    font-weight: 300;
+}
+.phone-number-code input.form-control,.phone-number-code input.form-control::placeholder {
+    text-align: center;
+}
+  /*Checkboxes styles*/
+  input[type="checkbox"] { display: none; }
+  input[type="checkbox"]:checked + label{
+      color: #000;
+      font-weight: 500;
+  }
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+  input[type="checkbox"] + label {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    font-weight: 300;
+    padding-top: 4px;
+    color: #c5c1b8;
+    cursor: pointer;
+    letter-spacing: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+  
+  input[type="checkbox"] + label:last-child { margin-bottom: 0; }
+  
+  input[type="checkbox"] + label:before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border:1px solid #dad9d9;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: .6;
+    -webkit-transition: all .12s, border-color .08s;
+    transition: all .12s, border-color .08s;
+  }
+
+  
+  input[type="checkbox"]:checked + label:before {
+    width: 10px;
+    top: -5px;
+    left: 5px;
+    border-radius: 0;
+    opacity: 1;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border: 1px solid #5c1fd2;
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+input.form-control.form-control-lg, .input-group-lg > input.form-control, .input-group-lg > .input-group-prepend > input.form-control.input-group-text, .input-group-lg > .input-group-append > input.form-control.input-group-text, .input-group-lg > .input-group-prepend > input.form-control.btn, .input-group-lg > .input-group-append > input.form-control.btn{
+    padding: 0.8rem 1rem;
+}
+button.btn-block.purple {
+    background: #5C20D2;
+    border: 2px solid #5C20D2;
+    color: #fff;
 }
 .vertical-text{
     writing-mode: tb-rl;
@@ -300,10 +396,35 @@ div.alert-danger {
     background-color: #fff;
     border-color: #fff;
     padding: 5px 0 !important;
+    margin-bottom: 0;
 }
+.col.col-sm-12.col-md-6.col-lg-5.col-xl-3.background-box.px-5.py-1.pb-4.text-center.mt-0 {
+    padding: 0 2em !important;
+}
+a.close-icon {
+    position: absolute;
+    right: 2em;
+}
+
 @media (max-width: 992px){
     .bg-dark-right{
         display: none;
+    }
+    .mat-card {
+        padding: 7px 14px 40px;
+    }
+    a.close-icon{
+        display: none;
+    }
+    h5.vertical-text {
+        -webkit-writing-mode: tb-rl;
+        -ms-writing-mode: tb-rl;
+        writing-mode: inherit;
+        -webkit-transform: none;
+        transform: none;
+        padding: 12px 0 20px;
+        margin: 0;
+        position: initial;
     }
     .nav-pills .nav-link {
         padding: 13px 15px;
@@ -770,6 +891,12 @@ ul.inline{
     }
 }
 
+.map ,#map {
+    height: 300px;
+    padding: 0;
+    width: 100%;
+}
+  
 .select-options-radio{
     cursor: pointer;
     transition: all 0.5 ease-in-out;
