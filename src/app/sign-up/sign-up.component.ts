@@ -1,5 +1,6 @@
-import { Component, OnInit ,OnDestroy} from '@angular/core';
+import { Component, OnInit ,OnDestroy, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,19 +13,34 @@ export class SignUpComponent implements OnInit ,OnDestroy{
   showSelected: boolean;
   sheckMobileStep: boolean;
   lastStep: boolean;
+  disabledSubmitButton: boolean = true;
+  SigUpForm: FormGroup;
   public id;
   
-  constructor(public router: Router) { 
+
+  @HostListener('input') oninput() {
+    if (this.SigUpForm.valid) {
+      this.disabledSubmitButton = false;
+      }
+  }
+
+  constructor(private fb: FormBuilder) { 
     this.showSelected = false;
     this.sheckMobileStep = false;
     this.lastStep= false;
+
+    this.SigUpForm = fb.group({
+      'FirstName': ['', Validators.required],
+      'NID': ['', Validators.required],
+      'email': ['', Validators.compose([Validators.required, Validators.email])],
+      'phone': ['', Validators.required],
+      });
 
   }
 
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('log-in');
-    this.router.navigate(['/signup']);
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];
@@ -50,7 +66,15 @@ export class SignUpComponent implements OnInit ,OnDestroy{
   }
   lastStepd(){
     this.lastStep = !this.lastStep;
-
+  }
+  closeBack(){
+    this.showSelected = false;
+    this.sheckMobileStep = false;
+  }
+  closeBackLast(){
+    this.showSelected = false;
+    this.sheckMobileStep = false;
+    this.lastStep = false;
   }
 
 }

@@ -18,31 +18,31 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText" [ngClass]="{ 'show': navbarOpen }">
-                <div class="close-icon d-lg-none d-block"><a (click)="toggleNavbar()" class="btn-close"><i class="ti-close"></i></a> </div>
+                <div class="close-icon d-lg-none d-block"><a (click)="toggleNavbar()" id="navButton" class="btn-close"><i class="ti-close"></i></a> </div>
               <ul class="navbar-nav mr-auto mt-2">
                 <li class="nav-item">
-                  <a class="nav-link" [routerLink]="[ '/' ]" routerLinkActive="active-link">home</a>
+                  <a class="nav-link" [routerLink]="[ '/' ]" routerLinkActive="active-link" (click)=closeMenu()>home</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/who-we-are' ]">who we are</a>
+                  <a class="nav-link" [routerLink]="[ '/who-we-are' ]" (click)=closeMenu()>who we are</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/contact' ]">contact us</a>
+                  <a class="nav-link" [routerLink]="[ '/contact' ]" (click)=closeMenu()>contact us</a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="#">client</a>
+                        <a class="nav-link" [routerLink]="[ '/' ]" (click)=closeMenu()>client</a>
                       </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">news</a>
+                    <a class="nav-link" [routerLink]="[ '/' ]" (click)=closeMenu()>news</a>
                   </li>
   
               </ul>
               <ul class="navbar-nav ml-auto mt-2">
                 <li class="nav-item mt-1">
-                  <a class="nav-link"  [routerLink]="[ '/login' ]">Log In</a>
+                  <a class="nav-link"  [routerLink]="[ '/login' ]" (click)=closeMenu()>Log In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link purple-btn" [routerLink]="[ '/signup' ]">Sign up</a>
+                    <a class="nav-link purple-btn" [routerLink]="[ '/signup' ]" (click)=closeMenu()>Sign up</a>
                   </li>
                 
               </ul>

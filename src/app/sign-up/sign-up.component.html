@@ -3,26 +3,26 @@
         <div class="col col-sm-12 col-md-6 col-lg-5 col-xl-3 background-box px-5 py-1 pb-4 text-center mt-0">
             <div *ngIf="!showSelected">
                 <h2 class="mt-5">Sign Up</h2>
-                <p class="grey-text-color mt-3 mb-2">Very Easy ans straight forward steps to register.
+                <p class="grey-text-color mt-3 mb-4">Very Easy ans straight forward steps to register.
                 <br/> Just follow the lead</p>
             </div>
-            <form id="SigUpForm" class="form-log-in mt-4 form-antim">
-                <div class="first-step row" *ngIf="!showSelected">
+            <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm">
+                <div class="first-step row" *ngIf="!showSelected  && !lastStep">
                 <div class="col-lg-2">
-                    <h5 class="vertical-text mt-2">what about you ?</h5>
+                    <h5 class="vertical-text mt-4">what about you ?</h5>
                 </div>
-                <div class="form-group text-left col-lg-4 text-center">
+                <div class="form-group text-left col-lg-4 col-6 text-center">
                     <div class="select-options-radio" [ngClass]="{'active': id === 1 }" id="1" (click)="addClass(id=1)">
                         <label for="Lender"></label>
-                        <input ngModel #usertype="ngModel" name="usertype" id="Lender" type="radio" value="Lender">
+                        <input name="usertype" id="Lender" type="radio" value="Lender">
                         <img src="assets/images/lender.svg" alt="antim">
                         <p class="grey-text-color mt-4">Lender</p>
                     </div>
                 </div>
-                <div class="form-group text-left col-lg-4 text-center">
+                <div class="form-group text-left col-lg-4 col-6 text-center">
                     <div class="select-options-radio" [ngClass]="{'active': id === 2 }" id="2" (click)="addClass(id=2)">
                             <label for="Borrower"></label>
-                            <input ngModel #usertype="ngModel" name="usertype" id="Borrower" type="radio" value="Borrower">
+                            <input name="usertype" id="Borrower" type="radio" value="Borrower">
                             <img src="assets/images/borrower-2.svg" alt="antim">
                             <p class="grey-text-color mt-4">Borrower</p>
                     </div>
@@ -32,31 +32,33 @@
                 </div>
                 </div>
 
-                <div *ngIf="showSelected && !sheckMobileStep">
+                <div *ngIf="showSelected && !sheckMobileStep" class="px-4">
                         <img src="assets/images/borrower.svg" alt="antim" class="mb-2">
                         <p class="grey-text-color mt-2 mb-4">Alright Borrower, Fill the below please</p>
                         <div class="row mt-3">
                         <div class="form-group text-left col-lg-6">
                                 <label for="name">First Name<span class="red-color"> *</span></label>
-                                <input ngModel name="username" class="form-control form-control-lg" placeholder="user name type here..." type="text" #username="ngModel" required>
-                                <div class="alert alert-danger" *ngIf="username.touched && !username.valid">First name required</div>
+                                <input formControlName="FirstName" class="form-control form-control-lg" placeholder="user name type here..." type="text">
+                                <div *ngIf="SigUpForm.controls['FirstName'].touched && !SigUpForm.controls['FirstName'].valid" class="error-msg alert alert-danger text-left">First Name required</div>
+
                             </div>
                             <div class="form-group text-left col-lg-6">
                                 <label for="NID">National ID No/Iqama<span class="red-color"> *</span></label>
-                                <input ngModel name="NID" class="form-control form-control-lg" placeholder="Ex : 0000" type="text" #NID="ngModel" required>
-                                <div class="alert alert-danger" *ngIf="NID.touched && !NID.valid">National ID is required</div>
+                                <input formControlName="NID" class="form-control form-control-lg" placeholder="Ex : 0000" type="text">
+                                <div *ngIf="SigUpForm.controls['NID'].touched && !SigUpForm.controls['NID'].valid" class="error-msg alert alert-danger text-left">National ID is required</div>
+
         
                             </div>
                             <div class="form-group text-left col-lg-12">
                                     <label for="email">Email<span class="red-color"> *</span></label>
-                                    <input ngModel name="email" class="form-control form-control-lg" placeholder="user name type here..." type="email" #email="ngModel" required>
-                                    <div class="alert alert-danger" *ngIf="email.touched && !email.valid">Email is required</div>
+                                    <input formControlName="email" class="form-control form-control-lg" placeholder="user name type here..." type="email">
+                                    <div *ngIf="SigUpForm.controls['email'].touched && !SigUpForm.controls['email'].valid" class="error-msg alert alert-danger text-left">Email is required</div>
+
                              </div>
                              <div class="form-group text-left col-lg-12">
                                     <label for="phone">Phone No<span class="red-color"> *</span></label>
-                                    <input ngModel name="phone" class="form-control form-control-lg" placeholder="Ex : 011 XXX XXXX" type="number" #phone="ngModel" required>
-                                    <div class="alert alert-danger" *ngIf="phone.touched && !phone.valid">Phone is required</div>
-            
+                                    <input  formControlName="phone" class="form-control form-control-lg" placeholder="Ex : 011 XXX XXXX" type="number">
+                                    <div *ngIf="SigUpForm.controls['phone'].touched && !SigUpForm.controls['phone'].valid" class="error-msg alert alert-danger text-left">Phone is required</div>            
                              </div>
                              <div class="row justify-content-center align-items-center">
                              <div class="col-lg-8 col-11 text-center">                              
@@ -67,12 +69,12 @@
                                     <input type="checkbox" id="box-2" checked>
                                     <label for="box-2">I agree on intime Terms & Condtions</label>
                              </div>
-                             <div class="col-lg-11 mt-3 row">     
-                             <div class="form-group col-lg-7">
+                             <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">     
+                             <div class="form-group col-lg-6">
                                     <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="PrevStep()">back</button>
                             </div>
-                            <div class="form-group col-lg-5">
-                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()">Sign Up</button>
+                            <div class="form-group col-lg-4">
+                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()" [disabled]="disabledSubmitButton">Sign Up</button>
                             </div>
                             </div>
                         </div>
@@ -80,8 +82,8 @@
                </div>
 
 
-               <div *ngIf="sheckMobileStep && !lastStep">
-                   <a class="close-icon" href="/signup"><img src="assets/images/close.svg"></a>
+               <div *ngIf="showSelected && sheckMobileStep && !lastStep">
+                   <a class="close-icon" (click)="closeBack()"><img src="assets/images/close.svg"></a>
                     <img src="assets/images/mobile.svg" alt="antim" class="mb-2 mt-5">
                     <p class="mt-2 mb-4 text-left">Well!<br/>
                             just to be sure, Please enter your verification code to verify your <br/>
@@ -113,7 +115,7 @@
 
 
            <div *ngIf="lastStep">
-                <a class="close-icon" href="/signup"><img src="assets/images/close.svg"></a>
+                <a class="close-icon" (click)="closeBackLast()"><img src="assets/images/close.svg"></a>
                  <img src="assets/images/borrower-lg.svg" alt="antim" class="mb-2 mt-5">
                  <p class="grey-text-color mt-4 mb-4">The last thing, Please approve the below</p>
 

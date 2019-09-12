@@ -74,6 +74,13 @@ export class FullComponent implements OnInit {
     btnClick= function () {
       this.router.navigateByUrl('/signup');
     };
+    closeMenu() {
+      var isMobile = /iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        this.navbarOpen = !this.navbarOpen;
+      }
+    }
+  
 
 
 }
