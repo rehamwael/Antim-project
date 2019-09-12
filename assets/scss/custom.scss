@@ -181,6 +181,7 @@ button.btn-black {
   }
   div .form-control {
     border-radius: 6px !important;
+    color: #000;
 }
 .font-light {
     font-weight: 300;
@@ -235,6 +236,7 @@ input[type=number] {
     opacity: .6;
     -webkit-transition: all .12s, border-color .08s;
     transition: all .12s, border-color .08s;
+    border-radius: 5px;
   }
 
   
@@ -265,7 +267,7 @@ button.btn-block.purple {
     -o-transform: rotate(180deg);
     -ms-transform:rotate(180deg);
     transform: rotate(180deg);
-    padding: 0;
+    padding: 0 2em;
     margin: 0;
     position: relative;
     top: 15px;
@@ -347,12 +349,20 @@ ul.nav.nav-pills.justify-content-start {
 .form-control.ng-valid.custom-select{
     color: #000;
 }
+textarea {resize: none}
+svg.arrow {
+    position: absolute;
+    display: block;
+    top: 3.6em;
+    right: 2em;
+}
 .custom-select{
     border: 1px solid #dad9d8;
     height: 62px;
     padding: 1.175rem 1.5rem;
     color: #c5c5c5;
     border-radius: 3px !important;
+    background: none;
     option{
         color: #c5c5c5;
     }
@@ -397,9 +407,10 @@ div.alert-danger {
     border-color: #fff;
     padding: 5px 0 !important;
     margin-bottom: 0;
+    font-size: 10px;
 }
 .col.col-sm-12.col-md-6.col-lg-5.col-xl-3.background-box.px-5.py-1.pb-4.text-center.mt-0 {
-    padding: 0 2em !important;
+    padding: 0 1em !important;
 }
 a.close-icon {
     position: absolute;
@@ -412,6 +423,13 @@ a.close-icon {
     }
     .mat-card {
         padding: 7px 14px 40px;
+    }
+    input, button, select, optgroup, textarea{
+        font-size: 16px !important;
+    }
+    div .form-control {
+        font-size: 16px;
+        padding: 12px 15px !important;
     }
     a.close-icon{
         display: none;
@@ -450,6 +468,9 @@ a.close-icon {
     .navbar-light .navbar-toggler{
         border: 0;
         outline: none;
+        font-size: 20px !important;
+        position: relative;
+        top: 6px;
     }
     body header ul.navbar-nav li {
         padding: 10px 15px;
@@ -460,13 +481,15 @@ a.close-icon {
     }
     header ul.navbar-nav li a.nav-link {
         font-size: 16px;
-        padding: 15px 0;
+        padding: 20px 0;
     }
     header.bg-image ul.navbar-nav.ml-auto li a.nav-link {
         color: #000;
     }
     header.bg-image ul.navbar-nav.ml-auto li a.nav-link.purple-btn{
         margin: 0 auto;
+        border: none;
+        color: inherit;
     }
     
     div.navbar-collapse {
@@ -564,6 +587,7 @@ a.close-icon {
     }
     header .col-lg-6.h-100.d-flex.justify-content-center.flex-column{
         text-align: center;
+        height: 80vh !important;
     }
 }
 nav#navbar{
