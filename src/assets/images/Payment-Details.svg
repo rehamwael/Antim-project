@@ -1,0 +1,26 @@
+<svg width="56" height="55" viewBox="0 0 56 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28 54C42.9117 54 55 41.9117 55 27C55 12.0883 42.9117 0 28 0C13.0883 0 1 12.0883 1 27C1 41.9117 13.0883 54 28 54Z" fill="white" stroke="#5C20D2"/>
+<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="-1" width="56" height="56">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28 54C42.9117 54 55 41.9117 55 27C55 12.0883 42.9117 0 28 0C13.0883 0 1 12.0883 1 27C1 41.9117 13.0883 54 28 54Z" fill="white" stroke="white"/>
+</mask>
+<g mask="url(#mask0)">
+<g clip-path="url(#clip0)">
+<rect opacity="0.244257" x="-16.926" y="47.3535" width="57" height="34.3676" rx="3" transform="rotate(-44 -16.926 47.3535)" fill="#C7C7C7"/>
+<rect x="-17" y="51.5955" width="57" height="34.3676" rx="3" transform="rotate(-44 -17 51.5955)" fill="url(#paint0_linear)"/>
+<rect x="18.0748" y="27.4553" width="10" height="2" rx="1" transform="rotate(-44 18.0748 27.4553)" fill="#C7C7C7"/>
+<rect x="24.7993" y="47.3745" width="10" height="2" rx="1" transform="rotate(-44 24.7993 47.3745)" fill="#C7C7C7"/>
+<rect x="14.7285" y="57.0999" width="10" height="2" rx="1" transform="rotate(-44 14.7285 57.0999)" fill="#C7C7C7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M38.7587 39.4958C39.7577 38.531 39.7855 36.939 38.8208 35.94C37.856 34.9409 36.264 34.9131 35.265 35.8779C34.2659 36.8427 34.2382 38.4346 35.2029 39.4337C36.1677 40.4327 37.7597 40.4605 38.7587 39.4958Z" fill="black"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M39.9646 38.3312C40.9637 37.3664 40.9915 35.7745 40.0267 34.7754C39.0619 33.7764 37.47 33.7486 36.4709 34.7133C35.4719 35.6781 35.4441 37.2701 36.4088 38.2691C37.3736 39.2682 38.9656 39.296 39.9646 38.3312Z" fill="#5C20D2"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="-17" y1="51.5955" x2="-17" y2="85.9631" gradientUnits="userSpaceOnUse">
+<stop stop-color="#5C20D2"/>
+<stop offset="1" stop-color="#39A4E9"/>
+</linearGradient>
+<clipPath id="clip0">
+<rect width="60" height="50" fill="white" transform="translate(-19.084 49.4375) rotate(-44)"/>
+</clipPath>
+</defs>
+</svg>

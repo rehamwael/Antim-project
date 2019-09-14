@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ContactComponent } from './contact/contact.component';
 import { WhoWeAreComponent } from './who-we-are/who-we-are.component';
+import { DashboredComponent } from './dashbored/dashbored.component';
+import { CreateOrderComponent } from './create-order/create-order.component';
 
 
 
@@ -39,6 +41,17 @@ export const Approutes: Routes = [
         path: 'who-we-are',
         component: WhoWeAreComponent
       },
+      {
+        path: 'dashbored',
+        component: DashboredComponent
+
+      },
+      {
+        path: 'create-order',
+        component: CreateOrderComponent
+
+      },
+      
       
     ]
   },

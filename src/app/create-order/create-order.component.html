@@ -1,0 +1,203 @@
+<div>
+        <div class="row">
+            <aside class="left-sidebar col-lg-4">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <app-sidebar></app-sidebar>
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+                <div class="page-wraper-right row">
+                    <ul class="navbar-nav float-right text-right mt-4 col-lg-11">
+                        <li class="nav-item m-r-20 dashbored-nav">
+                            <i class="mr-2">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.4 15C19.1277 15.6171 19.2583 16.3378 19.73 16.82L19.79 16.88C20.1656 17.2551 20.3766 17.7642 20.3766 18.295C20.3766 18.8258 20.1656 19.3349 19.79 19.71C19.4149 20.0856 18.9058 20.2966 18.375 20.2966C17.8442 20.2966 17.3351 20.0856 16.96 19.71L16.9 19.65C16.4178 19.1783 15.6971 19.0477 15.08 19.32C14.4755 19.5791 14.0826 20.1724 14.08 20.83V21C14.08 22.1046 13.1846 23 12.08 23C10.9754 23 10.08 22.1046 10.08 21V20.91C10.0642 20.2327 9.63587 19.6339 9 19.4C8.38291 19.1277 7.66219 19.2583 7.18 19.73L7.12 19.79C6.74486 20.1656 6.23582 20.3766 5.705 20.3766C5.17418 20.3766 4.66514 20.1656 4.29 19.79C3.91445 19.4149 3.70343 18.9058 3.70343 18.375C3.70343 17.8442 3.91445 17.3351 4.29 16.96L4.35 16.9C4.82167 16.4178 4.95235 15.6971 4.68 15.08C4.42093 14.4755 3.82764 14.0826 3.17 14.08H3C1.89543 14.08 1 13.1846 1 12.08C1 10.9754 1.89543 10.08 3 10.08H3.09C3.76733 10.0642 4.36613 9.63587 4.6 9C4.87235 8.38291 4.74167 7.66219 4.27 7.18L4.21 7.12C3.83445 6.74486 3.62343 6.23582 3.62343 5.705C3.62343 5.17418 3.83445 4.66514 4.21 4.29C4.58514 3.91445 5.09418 3.70343 5.625 3.70343C6.15582 3.70343 6.66486 3.91445 7.04 4.29L7.1 4.35C7.58219 4.82167 8.30291 4.95235 8.92 4.68H9C9.60447 4.42093 9.99738 3.82764 10 3.17V3C10 1.89543 10.8954 1 12 1C13.1046 1 14 1.89543 14 3V3.09C14.0026 3.74764 14.3955 4.34093 15 4.6C15.6171 4.87235 16.3378 4.74167 16.82 4.27L16.88 4.21C17.2551 3.83445 17.7642 3.62343 18.295 3.62343C18.8258 3.62343 19.3349 3.83445 19.71 4.21C20.0856 4.58514 20.2966 5.09418 20.2966 5.625C20.2966 6.15582 20.0856 6.66486 19.71 7.04L19.65 7.1C19.1783 7.58219 19.0477 8.30291 19.32 8.92V9C19.5791 9.60447 20.1724 9.99738 20.83 10H21C22.1046 10 23 10.8954 23 12C23 13.1046 22.1046 14 21 14H20.91C20.2524 14.0026 19.6591 14.3955 19.4 15Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </i>
+                            <span class="font-size-13">setting</span>
+                        </li>
+                    </ul>
+                </div>
+        
+        
+        
+        <div class="page-wraper-right">
+                <div class="mat-card p-1 col-lg-11 mt-5">
+                <div class="mat-card row welcome-card p-0 m-1">
+                        <img class="col-lg-2" src="assets/images/bookWithMen 2.svg">
+                        <div class="col-lg-10 px-0">
+                            <p class="grey-text-color mt-4">Well, it is very easy to make a request, just follow the below step and we will<br/> take care of it!
+                                </p>
+                        </div>
+                </div>
+                      
+                        <mat-horizontal-stepper linear #stepper class="mt-5">
+                                <mat-step [stepControl]="firstFormGroup">
+                                  <form [formGroup]="firstFormGroup">
+                                    <ng-template matStepLabel>
+                                        <img src="assets/images/add-product.svg">
+                                        <p class="font-size-13 mt-2">Add Product</p>
+                                    </ng-template>
+                                    <mat-form-field>
+                                      <h3 class="mb-4 mt-4">Enter product link(s)</h3>
+                                      <label for="Link1" class="font-bold mt-2">Link1</label>
+                                      <input matInput class="form-control form-control-lg" placeholder="placeholder type here …" formControlName="link1" required>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                            <label for="Link2" class="font-bold mt-2">Link2</label>
+                                            <input matInput class="form-control form-control-lg" placeholder="placeholder type here …" formControlName="link2" required>
+                                     </mat-form-field>
+
+                                    <mat-form-field>
+                                            <label for="Link3" class="font-bold mt-2">Link3</label>
+                                            <input matInput class="form-control form-control-lg" placeholder="placeholder type here …" formControlName="link3" required>
+                                     </mat-form-field>
+
+
+                                     <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-3">     
+                                           <div class="form-group col-lg-3">
+                                                <button mat-button matStepperNext class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="disabledSubmitButton">Next</button>
+                                           </div>
+                                    </div>
+                                  </form>
+                                </mat-step>
+                                <mat-step [stepControl]="secondFormGroup">
+
+                                  <form [formGroup]="secondFormGroup" class="Payment-Details-form">
+                                    <ng-template matStepLabel>
+                                        <img src="assets/images/Payment-Details.svg">
+                                        <p class="font-size-13 mt-2">Payment Details</p>
+                                    </ng-template>
+                                    <mat-form-field>
+                                        <label for="Installment" class="font-bold mt-2">Installment Peroid</label>
+                                        <select formControlName="firstCtrl" matNativeControl required class="form-control form-control-lg mt-3">
+                                                <option value="6-Months-ex" selected>Ex: 6 Months</option>
+                                                <option value="6-Months">6 Months</option>
+                                                <option value="3-Months">3 Months</option>
+                                                <option value="9-Months">9 Months</option>
+                                        </select>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <label for="amount" class="font-bold mt-2"> The amount of the monthly installment</label>
+                                        <input matInput placeholder="1500 SAR" class="form-control form-control-lg" formControlName="secondCtrl" required> 
+                                    </mat-form-field>
+                                    <p class="my-5 grey-text-color">
+                                        <span class="mr-1">
+                                            <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.0899 15 14 12.0899 14 8.5C14 4.91015 11.0899 2 7.5 2C3.91015 2 1 4.91015 1 8.5C1 12.0899 3.91015 15 7.5 15Z" stroke="#607AE6"/>
+                                                <path d="M7.5 11.1V8.5" stroke="#607AE6"/>
+                                             </svg>
+                                        </span>
+                                                
+                                        The information selected at the top is subject to change based on your credit record and your premitted amount of SIMAH. We will call you if any change is made within a period not exceeding one hour.
+                                        </p>
+                                    <div>
+                                    <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">     
+                                            <div class="form-group col-lg-4">
+                                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
+                                            </div>
+                                            <div class="form-group col-lg-3">
+                                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext [disabled]="disabledSubmitButtonSecond">Next</button>
+                                            </div>
+                                    </div>
+                                    </div>
+                                  </form>
+                                </mat-step>
+                                <mat-step>
+                                    <ng-template matStepLabel>
+                                            <img src="assets/images/confirm.svg">
+                                            <p class="font-size-13 mt-2">Confirm</p>
+                                    </ng-template>
+                                    <br/>
+
+                                    <p class="my-5 grey-text-color">
+                                            <span class="mr-1">
+                                                <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.0899 15 14 12.0899 14 8.5C14 4.91015 11.0899 2 7.5 2C3.91015 2 1 4.91015 1 8.5C1 12.0899 3.91015 15 7.5 15Z" stroke="#607AE6"/>
+                                                    <path d="M7.5 11.1V8.5" stroke="#607AE6"/>
+                                                 </svg>
+                                            </span>
+                                                    
+                                            I agree on purchasing the request #1032 showing in the request screen. 
+                                            <br/>and with the price showing in the request screen. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,<br/> but also the leap into electronic typesetting, remaining essentially unchanged.
+                                        </p>
+
+                                  <div>
+
+
+                                        <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">     
+                                                <div class="form-group col-lg-3">
+                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2">Save as Draft</button>
+                                                </div>
+                                                <div class="form-group col-lg-3">
+                                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext>Agree & Prceed
+                                                        </button>
+                                                </div>
+                                        </div>
+                                  </div>
+                                </mat-step>
+                                <mat-step [stepControl]="lastFormGroup">
+                                    <ng-template matStepLabel>
+                                            <img src="assets/images/summary.svg">
+                                            <p class="font-size-13 mt-2">Summary</p>
+                                    </ng-template>
+                                    <h3 class="mb-4 mt-5">Undertaking to Purchase</h3>
+                                    <form [formGroup]="lastFormGroup" class="Payment-Details-form">
+                                            <mat-form-field>
+                                                <label for="numberOfProduct" class="font-bold mt-2">Number of product</label>
+                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct"> 
+                                            </mat-form-field>
+        
+                                            <mat-form-field>
+                                                <label for="total" class="font-bold mt-2"> Totql price of products:</label>
+                                                <input matInput class="form-control form-control-lg" formControlName="TotalPrice"> 
+                                            </mat-form-field>
+
+                                            <mat-form-field>
+                                                <label for="InstallmentPeriod" class="font-bold mt-2">Installment Period</label>
+                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod"> 
+                                            </mat-form-field>
+
+                                            <mat-form-field>
+                                                    <label for="InstallmentPerMonth" class="font-bold mt-2">Installment amount per month</label>
+                                                    <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth"> 
+                                            </mat-form-field>
+
+                                            <mat-form-field>
+                                                    <label for="FinalProduct" class="font-bold mt-2">Final product price (with profit)</label>
+                                                    <input matInput class="form-control form-control-lg" formControlName="FinalProduct"> 
+                                            </mat-form-field>
+                                            <p class="my-5 grey-text-color">
+                                                <span class="mr-1">
+                                                    <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.0899 15 14 12.0899 14 8.5C14 4.91015 11.0899 2 7.5 2C3.91015 2 1 4.91015 1 8.5C1 12.0899 3.91015 15 7.5 15Z" stroke="#607AE6"/>
+                                                        <path d="M7.5 11.1V8.5" stroke="#607AE6"/>
+                                                     </svg>
+                                                </span>
+                                                        
+                                                Selecting this option will require you to pay additional delivery fees of 30 SR.
+                                            </p>
+                                            <div>
+                                            <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">     
+                                                    <div class="form-group col-lg-3">
+                                                            <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext>Send Request</button>
+                                                    </div>
+                                            </div>
+                                            </div>
+                                          </form>
+                            </mat-step>
+                              </mat-horizontal-stepper>
+                              
+                </div>
+            </div>
+        </div>
