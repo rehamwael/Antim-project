@@ -8,7 +8,8 @@ import { ContactComponent } from './contact/contact.component';
 import { WhoWeAreComponent } from './who-we-are/who-we-are.component';
 import { DashboredComponent } from './dashbored/dashbored.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
-
+import { ProfileComponent } from './profile/profile.component';
+import { RequestsComponent } from './requests/requests.component';
 
 
 export const Approutes: Routes = [
@@ -51,6 +52,15 @@ export const Approutes: Routes = [
         component: CreateOrderComponent
 
       },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      {
+        path: 'requests',
+        component: RequestsComponent
+      }
+      
       
       
     ]

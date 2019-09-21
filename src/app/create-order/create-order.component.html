@@ -43,17 +43,17 @@
                                     <mat-form-field>
                                       <h3 class="mb-4 mt-4">Enter product link(s)</h3>
                                       <label for="Link1" class="font-bold mt-2">Link1</label>
-                                      <input matInput class="form-control form-control-lg" placeholder="placeholder type here …" formControlName="link1" required>
+                                      <input matInput formControlName="link1" class="form-control form-control-lg" placeholder="placeholder type here …" required>
                                     </mat-form-field>
 
                                     <mat-form-field>
                                             <label for="Link2" class="font-bold mt-2">Link2</label>
-                                            <input matInput class="form-control form-control-lg" placeholder="placeholder type here …" formControlName="link2" required>
+                                            <input matInput formControlName="link2" class="form-control form-control-lg" placeholder="placeholder type here …"  required>
                                      </mat-form-field>
 
                                     <mat-form-field>
                                             <label for="Link3" class="font-bold mt-2">Link3</label>
-                                            <input matInput class="form-control form-control-lg" placeholder="placeholder type here …" formControlName="link3" required>
+                                            <input matInput formControlName="link3" class="form-control form-control-lg" placeholder="placeholder type here …" required>
                                      </mat-form-field>
 
 
@@ -190,14 +190,24 @@
                                                             <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
                                                     </div>
                                                     <div class="form-group col-lg-3">
-                                                        <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext>Send Request</button>
+                                                        <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext (click)="openVerticallyCentered(content3)">Send Request</button>
                                                     </div>
                                             </div>
                                             </div>
                                           </form>
                             </mat-step>
                               </mat-horizontal-stepper>
-                              
+                              <ng-template #content3 let-modal>
+                                    <div class="modal-body">
+                                      <p>
+                                            Thank you Ismael,<br/>
+                                             Your request has been Successfully sent, and will be verified if you are qualified for funding and will be responded to within 30 minutes
+
+                                      </p>
+                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/home' ]" (click)="modal.close('Close click')">Back to home</button></div>
+
+                                    </div>
+                                  </ng-template>
                 </div>
             </div>
         </div>

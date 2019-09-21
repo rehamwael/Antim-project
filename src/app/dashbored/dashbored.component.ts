@@ -12,10 +12,14 @@ export class DashboredComponent implements OnInit ,OnDestroy{
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
+    body.classList.add('dashbored-home');
+
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
+    body.classList.remove('dashbored-home');
+
   }
 
 }

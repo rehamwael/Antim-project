@@ -1,5 +1,6 @@
 import { Component, OnInit ,OnDestroy ,HostListener} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-order',
@@ -24,7 +25,8 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
         this.disabledSubmitButtonSecond = false;
       }
   }
-  constructor(private _formBuilder: FormBuilder) {}
+
+  constructor(private _formBuilder: FormBuilder ,private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -49,11 +51,18 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
     });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
+    body.classList.add('dashbored-home');
+
 
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
+    body.classList.remove('dashbored-home');
+
+  }
+  openVerticallyCentered(content3) {
+    this.modalService.open(content3, { centered: true });
   }
 
 }

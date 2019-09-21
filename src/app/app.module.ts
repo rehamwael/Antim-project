@@ -35,6 +35,10 @@ import { WhoWeAreComponent } from './who-we-are/who-we-are.component';
 import { DashboredComponent } from './dashbored/dashbored.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
 import { MatStepperModule, MatInputModule, MatButtonModule, MatAutocompleteModule } from '@angular/material';
+import { ProfileComponent } from './profile/profile.component';
+import { RequestsComponent } from './requests/requests.component';
+import { MatTableModule } from '@angular/material'  ;
+import { MatCheckboxModule } from '@angular/material';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -58,6 +62,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     WhoWeAreComponent,
     DashboredComponent,
     CreateOrderComponent,
+    ProfileComponent,
+    RequestsComponent,
   ],
   imports: [
     CommonModule,
@@ -70,6 +76,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatStepperModule,
     MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
+    MatTableModule,
     MatAutocompleteModule, 
 	PerfectScrollbarModule,
     NgbModule.forRoot(),

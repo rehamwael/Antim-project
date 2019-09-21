@@ -1,0 +1,160 @@
+<div>
+        <div class="row">
+            <aside class="left-sidebar col-lg-4">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <app-sidebar></app-sidebar>
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+                <div class="page-wraper-right row">
+                    <ul class="navbar-nav float-right text-right mt-4 col-lg-11">
+                        <li class="nav-item m-r-20 dashbored-nav">
+                            <i class="mr-2">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.4 15C19.1277 15.6171 19.2583 16.3378 19.73 16.82L19.79 16.88C20.1656 17.2551 20.3766 17.7642 20.3766 18.295C20.3766 18.8258 20.1656 19.3349 19.79 19.71C19.4149 20.0856 18.9058 20.2966 18.375 20.2966C17.8442 20.2966 17.3351 20.0856 16.96 19.71L16.9 19.65C16.4178 19.1783 15.6971 19.0477 15.08 19.32C14.4755 19.5791 14.0826 20.1724 14.08 20.83V21C14.08 22.1046 13.1846 23 12.08 23C10.9754 23 10.08 22.1046 10.08 21V20.91C10.0642 20.2327 9.63587 19.6339 9 19.4C8.38291 19.1277 7.66219 19.2583 7.18 19.73L7.12 19.79C6.74486 20.1656 6.23582 20.3766 5.705 20.3766C5.17418 20.3766 4.66514 20.1656 4.29 19.79C3.91445 19.4149 3.70343 18.9058 3.70343 18.375C3.70343 17.8442 3.91445 17.3351 4.29 16.96L4.35 16.9C4.82167 16.4178 4.95235 15.6971 4.68 15.08C4.42093 14.4755 3.82764 14.0826 3.17 14.08H3C1.89543 14.08 1 13.1846 1 12.08C1 10.9754 1.89543 10.08 3 10.08H3.09C3.76733 10.0642 4.36613 9.63587 4.6 9C4.87235 8.38291 4.74167 7.66219 4.27 7.18L4.21 7.12C3.83445 6.74486 3.62343 6.23582 3.62343 5.705C3.62343 5.17418 3.83445 4.66514 4.21 4.29C4.58514 3.91445 5.09418 3.70343 5.625 3.70343C6.15582 3.70343 6.66486 3.91445 7.04 4.29L7.1 4.35C7.58219 4.82167 8.30291 4.95235 8.92 4.68H9C9.60447 4.42093 9.99738 3.82764 10 3.17V3C10 1.89543 10.8954 1 12 1C13.1046 1 14 1.89543 14 3V3.09C14.0026 3.74764 14.3955 4.34093 15 4.6C15.6171 4.87235 16.3378 4.74167 16.82 4.27L16.88 4.21C17.2551 3.83445 17.7642 3.62343 18.295 3.62343C18.8258 3.62343 19.3349 3.83445 19.71 4.21C20.0856 4.58514 20.2966 5.09418 20.2966 5.625C20.2966 6.15582 20.0856 6.66486 19.71 7.04L19.65 7.1C19.1783 7.58219 19.0477 8.30291 19.32 8.92V9C19.5791 9.60447 20.1724 9.99738 20.83 10H21C22.1046 10 23 10.8954 23 12C23 13.1046 22.1046 14 21 14H20.91C20.2524 14.0026 19.6591 14.3955 19.4 15Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </i>
+                            <span class="font-size-13">setting</span>
+                        </li>
+                    </ul>
+                </div>
+        
+        
+        
+        <div class="page-wraper-right">
+                        <div class="mat-card col-lg-11 mt-5 row welcome-card p-2">
+                            <img class="col-lg-2" src="assets/images/bookWithMen 2.svg">
+                            <div class="col-lg-7 px-0">
+                                <p class="grey-text-color mt-4">My Profile</p>
+                            </div>
+                            <form class="col-lg-3">
+                            <div class="form-group">
+                                <label for="profileInformation" class="font-size-13 mt-2">Select profile infomation </label>
+                                <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
+                                        <option value="Personal" selected>Personal Information</option>
+                                        <option value="Bank">Bank Information</option>
+                                </select>
+                                <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            </form>
+                        </div>
+        
+        
+        
+                        <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
+                            <div class="justify-content-center col-lg-9">
+                            <form class="row antim-form" [formGroup]="EditForm" *ngIf="!isShown">
+                            <div class="col-lg-12 mb-3"><h3 class="headingh3">Personal Information</h3></div>
+                            <div class="col-lg-6">
+                                <label for="Name" class="font-bold mt-2">Name</label>
+                                <input matInput formControlName="Name" class="form-control form-control-lg" value="Isamael alaksras" placeholder="name" [attr.disabled]="disabledButton?'true':false">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="mobile" class="font-bold mt-2">Mobile No</label>
+                                <input matInput formControlName="MobileNo" class="form-control form-control-lg" value="0112323232" placeholder="mobile" [attr.disabled]="disabledButton?'true':false">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label for="email" class="font-bold mt-2">Email address </label>
+                                <input matInput formControlName="Email" class="form-control form-control-lg" value="dpremakumara@gmail.com" placeholder="email" [attr.disabled]="disabledButton?'true':false">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="National" class="font-bold mt-2">National ID / Iqama</label>
+                                <input matInput formControlName="NID" class="form-control form-control-lg" value="3483984390843" placeholder="National ID" [attr.disabled]="disabledButton?'true':false">
+                            </div>
+                            <div class="col-lg-12">
+                                    <label for="Address" class="font-bold mt-2">Address</label>
+                                    <input matInput formControlName="Address" class="form-control form-control-lg" value="Saudi Arabia" placeholder="Address" [attr.disabled]="disabledButton?'true':false">
+                                </div>
+                            </form>
+
+
+
+                            <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="isShown">
+                                    <div class="col-lg-12 mb-3"><h3 class="headingh3">Bank Information</h3></div>
+                                    <div class="col-lg-6">
+                                        <label for="BankName" class="font-bold mt-2">Bank Name</label>
+                                        <input matInput formControlName="BankName" class="form-control form-control-lg" value="NHU Bank" placeholder="Bank Name" [attr.disabled]="disabledBankButton">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="BankAccount" class="font-bold mt-2">Bank Account Name</label>
+                                        <input matInput formControlName="BankAccountName" class="form-control form-control-lg" value="0112323232" placeholder="Bank Account Name" [attr.disabled]="disabledBankButton">
+                                    </div>
+        
+                                    <div class="col-lg-6">
+                                        <label for="emailadd" class="font-bold mt-2">Email address </label>
+                                        <input matInput formControlName="EmailAdd" class="form-control form-control-lg" value="dpremakumara@gmail.com" placeholder="email" [attr.disabled]="disabledBankButton">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="NationalId" class="font-bold mt-2">National ID / Iqama</label>
+                                        <input matInput formControlName="Iqama" class="form-control form-control-lg" value="3483984390843" placeholder="National ID" [attr.disabled]="disabledBankButton">
+                                    </div>
+                                    <div class="col-lg-12 h-70">
+                                            <label for="AccountStatement" class="font-bold mt-2">Account Statement for last 3 months </label>
+                                            <input type="file" class="custom-file-input">
+                                            <div class="file-input">
+                                                <p class="text-center">
+                                                    <span class="px-3">
+                                                        <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.68117 2.2677L1.96299 4.4627C1.06069 4.80906 0.610006 5.82131 0.956368 6.72361L5.97352 19.7937C6.31988 20.696 7.33212 21.1467 8.23443 20.8004L18.037 17.0375C18.9393 16.6911 19.39 15.6789 19.0436 14.7766L15.5944 5.79087L7.68117 2.2677Z" fill="#F9F9F9" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path d="M7.68115 2.26758L9.87616 7.98576L15.5943 5.79075" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.2069 2.62589L14.3816 0.733163C13.4624 0.434498 12.4752 0.937537 12.1765 1.85673L7.85027 15.1715C7.5516 16.0907 8.05464 17.078 8.97384 17.3767L18.9599 20.6213C19.8791 20.92 20.8664 20.417 21.1651 19.4978L24.1393 10.3438L20.2069 2.62589Z" fill="#FEFCF8" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        </span>
+                                                    Darg and drop here</p>
+                                            </div>
+
+                                    </div>
+                                    <div class="col-lg-12 h-70">
+                                            <label for="SalaryStatement" class="font-bold mt-2">Salary Statement</label>
+                                            <input type="file" class="custom-file-input">
+                                            <div class="file-input">
+                                               <p class="text-center">
+                                                    <span class="px-3">
+                                                        <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.68117 2.2677L1.96299 4.4627C1.06069 4.80906 0.610006 5.82131 0.956368 6.72361L5.97352 19.7937C6.31988 20.696 7.33212 21.1467 8.23443 20.8004L18.037 17.0375C18.9393 16.6911 19.39 15.6789 19.0436 14.7766L15.5944 5.79087L7.68117 2.2677Z" fill="#F9F9F9" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path d="M7.68115 2.26758L9.87616 7.98576L15.5943 5.79075" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.2069 2.62589L14.3816 0.733163C13.4624 0.434498 12.4752 0.937537 12.1765 1.85673L7.85027 15.1715C7.5516 16.0907 8.05464 17.078 8.97384 17.3767L18.9599 20.6213C19.8791 20.92 20.8664 20.417 21.1651 19.4978L24.1393 10.3438L20.2069 2.62589Z" fill="#FEFCF8" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        </span>   
+                                                Darg and drop here</p>
+                                            </div>
+
+                                    </div>
+                                    </form>
+                        </div>
+                        </div>
+        
+                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" *ngIf="!isShown">     
+                                <div class="form-group col-lg-2">
+                                       <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditInfo()">
+                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="px-3">Edit</span>
+                                        </button>
+                                    </div>
+                               <div class="form-group col-lg-2">
+                                   <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="SaveInfo()">Save</button>
+                               </div>
+                        </div>
+
+                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-2" *ngIf="isShown">     
+                                <div class="form-group col-lg-2">
+                                       <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBankInfo()">
+                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="px-3">Edit</span>
+                                        </button>
+                                    </div>
+                               <div class="form-group col-lg-2">
+                                   <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="SaveBankInfo()">Save</button>
+                               </div>
+                        </div>
+            </div>
+        </div>
