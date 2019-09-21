@@ -158,6 +158,55 @@ header.bg-image ul.navbar-nav.ml-auto li a.nav-link.purple-btn{
     width: 48px;
     transition: all 0.5s ease-in-out; 
 }
+.file-input p {
+    color: #C5C1B8;
+    margin-top: 2em;
+}
+.h-70{
+    height: 170px;
+}
+input.custom-file-input {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 90px;
+}
+.file-input {
+    border: 1px dashed #dad9d8;
+    top: -88px;
+    position: relative;
+    height: 100px;
+}
+.dashbored-home{
+    .home span {
+        color: #5c1fd2;
+        font-weight: 500;
+    }
+    .home svg path{
+        stroke: #5c1fd2;
+    }
+    .home mask{
+        fill: #5c1fd2;
+    }
+}
+.profile{
+    .user-info{
+        .cursor-pointer{
+            background-color: #5c20d2;
+            border-radius: 25px;
+            padding: 6px !important;
+            margin: 16px 3px;
+        }
+        .material-icons svg {
+            top: 23px;
+            right: 7px;
+        }
+        span{
+            color: #39a4e9;
+        }
+    }
+
+}
 button.btn-black {
     background: #fff;
     color: #000;
@@ -169,6 +218,9 @@ button.btn-black {
         background: #5b91f7;
         border: 2px solid #5b91f7;
         color: #fff;
+        svg path{
+            stroke: #fff;
+        }
     }
 }
 .boxes {
@@ -436,6 +488,67 @@ form .mat-form-field {
     label{
         font-size: 13px;
         margin: 11px 0;
+    }
+}
+select.form-control.form-control-lg{
+    border: 1px solid #694f70;
+    font-size: 13px;
+}
+.headingh3{
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+}
+.antim-form{
+    label {
+        font-size: 13px;
+        padding: 15px 0 5px;
+    }
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #f9f9f9 !important;
+        opacity: 0.6 !important;
+        color: #6d6c6d !important;
+   }
+    .form-control{
+        font-size: 12px !important;
+        line-height: 1.5  !important;
+        border-radius: 2px  !important;
+        background-color: #ffffff  !important;
+        border: 1px solid #dad9d8  !important; 
+   }
+}
+.requests{
+    .my-request{
+        span{
+            color: #5c1fd2;
+        }
+        svg path{
+            stroke : #5c1fd2;
+        }
+    }
+}
+div.modal-dialog-centered{
+    align-items: flex-end;
+    right: 1em;
+    left: auto;
+    position: absolute;
+    width: 100%;
+    max-width: 550px;
+    .modal-content{
+        box-shadow: 0px 0px 7px 0px #8e8e8e;
+        background-clip: padding-box;
+        border: 0;
+        border-radius: 15px;
+        color: #4c447b;
+        .modal-body{
+            padding: 3rem 2.5rem 1em;
+        }
+        p{
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 1.7;
+        }
     }
 }
 .mat-horizontal-stepper-content{
@@ -815,14 +928,81 @@ nav#navbar.sticky-fixed-header {
     margin-left: 285px;
     width: 100%;
 }
+.mat-checkbox-background, .mat-checkbox-frame{
+    border: 1px solid #efefef;
+    border-radius: 5px !important;
+}
+table td.mat-cell:first-child, td.mat-footer-cell, table th.mat-header-cell:first-child {
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}
+table td.mat-cell:last-child, td.mat-footer-cell, table th.mat-header-cell:last-child {
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+table td.mat-cell, td.mat-footer-cell, table th.mat-header-cell {
+    padding: 13px;
+    border-bottom-width: 1px;
+    border-bottom-style: none;
+    background: #fff;
+    margin: 10px 0;
+    font-size: 13px;
+}
+.mat-checkbox-layout{
+    margin: 0;
+}
+div.mat-checkbox-inner-container{
+    width: 19px;
+    height: 19px;
+}
+td.mat-cell.Ongoing {
+    color: #52cb5f;
+    text-transform: uppercase;
+}
+td.mat-cell.Reject {
+    color: #c5003e;
+    text-transform: uppercase;
+}
+td.mat-cell.Under {
+    color: #f6cf00;
+    text-transform: uppercase;
+}
+td.mat-cell.Wating{
+    color: #fb9e58;
+    text-transform: uppercase;
+}
+.mat-checkbox-checkmark-path {
+    stroke: #5c20d2;
+}
+table.mat-table {
+    border-spacing: 0px 6px !important;
+    border-collapse: inherit;
+}
+.mat-checkbox-checked .mat-checkbox-frame  ,.mat-checkbox-checked .mat-checkbox-background{
+    border: 1px solid #4a1aa7 !important;
+}
+
+table th.mat-header-cell {
+    background: none;
+    font-size: 14px;
+    color: #c5c1b8;
+    font-weight: 400;
+}
+table tr.mat-footer-row, table tr.mat-row {
+    height: 74px;
+}
+table.mat-table {
+    width: 100%;
+}
 input.date-picker{    
     padding: 10px 15px;
     font-size: 13px;
+    height: 48px;
 }
 i.fa.fa-calendar {
     position: absolute;
     right: 12px;
-    top: 11px;
+    top: 17px;
     color: #e2e2e2;
 }
 .font-size-13{

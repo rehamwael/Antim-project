@@ -6,7 +6,9 @@ $sidebar-icon-size:21px;
 /*******************
 Main sidebar
 ******************/
-
+.cursor-pointer{
+    cursor: pointer;
+}
 .left-sidebar {
     position: fixed;
     width: $sidebar-width-full;
