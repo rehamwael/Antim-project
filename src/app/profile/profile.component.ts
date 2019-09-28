@@ -17,18 +17,18 @@ export class ProfileComponent implements OnInit ,OnDestroy{
 
   constructor(private fb: FormBuilder) { 
     this.EditForm = fb.group({
-      'Name': ['',{disabled:true}],
-      'MobileNo': ['',{disabled:true}],
-      'Email': ['',{disabled:true}],
-      'NID': ['',{disabled:true}],
-      'Address': ['',{disabled:true}]
+      'Name': [{value: null, disabled: this.disabledButton}],
+      'MobileNo':  [{value: null, disabled: this.disabledButton}],
+      'Email':  [{value: null, disabled: this.disabledButton}],
+      'NID': [{value: null, disabled: this.disabledButton}],
+      'Address': [{value: null, disabled: this.disabledButton}],
       });
 
       this.BankInfoForm = fb.group({
-        'BankName': [''],
-        'BankAccount': [''],
-        'EmailAdd': [''],
-        'Iqama': [''],
+        'BankName': ['',{disabled:this.disabledBankButton}],
+        'BankAccountName': ['',{disabled:this.disabledBankButton}],
+        'EmailAdd': ['',{disabled:this.disabledBankButton}],
+        'Iqama': ['',{disabled:this.disabledBankButton}],
         });
 
   }
@@ -37,6 +37,10 @@ export class ProfileComponent implements OnInit ,OnDestroy{
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('profile');
+    this.BankInfoForm.get('BankName').disable();
+    this.BankInfoForm.get('BankAccountName').disable();
+    this.BankInfoForm.get('EmailAdd').disable();
+    this.BankInfoForm.get('Iqama').disable();
 
   }
   ngOnDestroy(): void{
@@ -46,16 +50,32 @@ export class ProfileComponent implements OnInit ,OnDestroy{
 
   }
   EditInfo(){
-    this.disabledButton = false;
+    this.EditForm.get('Name').enable();
+    this.EditForm.get('MobileNo').enable();
+    this.EditForm.get('Email').enable();
+    this.EditForm.get('NID').enable();
+    this.EditForm.get('Address').enable();
+
+
   }
   SaveInfo(){
-    this.disabledButton = true;
+    this.EditForm.get('Name').disable();
+    this.EditForm.get('MobileNo').disable();
+    this.EditForm.get('Email').disable();
+    this.EditForm.get('NID').disable();
+    this.EditForm.get('Address').disable();
   }
   EditBankInfo(){
-    this.disabledBankButton = false;
+    this.BankInfoForm.get('BankName').enable();
+    this.BankInfoForm.get('BankAccountName').enable();
+    this.BankInfoForm.get('EmailAdd').enable();
+    this.BankInfoForm.get('Iqama').enable();
   }
   SaveBankInfo(){
-    this.disabledBankButton = true;
+    this.BankInfoForm.get('BankName').disable();
+    this.BankInfoForm.get('BankAccountName').disable();
+    this.BankInfoForm.get('EmailAdd').disable();
+    this.BankInfoForm.get('Iqama').disable();
   }
   onChange(deviceValue) {
       if(deviceValue == "Bank"){

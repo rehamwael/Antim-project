@@ -40,6 +40,8 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
+  requestType: string ="All Requests";
+  slectedProduct : boolean = false;
 
   constructor() { }
   ngOnInit(): void {
@@ -77,6 +79,18 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   }
   onChange(deviceValue) {
     this.dataSource.filter = deviceValue;
+    this.requestType = deviceValue;
+    if(deviceValue == ""){
+      this.requestType = "All Requests";
+    }
+
+  }
+  openProductDetails(row){
+    console.log(row);
+    this.slectedProduct = true;
+  }
+  closeProductDetails(){
+    this.slectedProduct = false;
 
   }
 }
