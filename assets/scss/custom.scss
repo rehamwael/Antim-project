@@ -560,7 +560,7 @@ button.btn-red {
     color: #c5003e;
     border: 1px solid #c5003e;
     border-radius: 10px;
-    width: 80%;
+    width: 73%;
     float: right;
     text-transform: uppercase;
     font-size: 15px;
@@ -569,6 +569,13 @@ button.btn-red {
         position: relative;
         top: 5px;
         transform: scale(.8);
+    }
+    &:hover{
+        svg{
+            path{
+                stroke: #fff;
+            }
+        }
     }
 }
 .dashbored-nav .dropdown-item {
@@ -1097,7 +1104,7 @@ div.mat-checkbox-inner-container{
     width: 19px;
     height: 19px;
 }
-td.mat-cell.Ongoing {
+td.mat-cell.Ongoing ,td.mat-cell.Closed {
     color: #52cb5f !important;
     text-transform: uppercase;
 }
