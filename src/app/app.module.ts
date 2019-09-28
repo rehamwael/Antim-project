@@ -39,6 +39,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RequestsComponent } from './requests/requests.component';
 import { MatTableModule } from '@angular/material'  ;
 import { MatCheckboxModule } from '@angular/material';
+import { NotificationComponent } from './notification/notification.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -64,6 +65,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CreateOrderComponent,
     ProfileComponent,
     RequestsComponent,
+    NotificationComponent,
   ],
   imports: [
     CommonModule,
