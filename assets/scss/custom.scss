@@ -506,7 +506,7 @@ select.form-control.form-control-lg{
         padding: 15px 0 5px;
     }
     .form-control:disabled, .form-control[readonly] {
-        background-color: #f9f9f9 !important;
+        background-color: inherit !important;
         opacity: 0.6 !important;
         color: #6d6c6d !important;
    }
@@ -637,6 +637,11 @@ button.btn-red {
     color: inherit !important;
 
 }
+input.form-control.input-inner{
+    padding: 10px 15px;
+    font-size: 13px;
+    height: 48px;
+}
 .welcome-card.inner{
     img {
         position: relative;
@@ -644,7 +649,7 @@ button.btn-red {
         top: -0.6em;
         height: 113px;
     }
-    .col-lg-4.px-0 ,.col-lg-3.px-0{
+    .col-lg-4.px-0 ,.col-lg-3.px-0 ,.col-lg-2.px-0,.col-lg-7.px-0{
         margin-left: -2.3em;
     }
 }
@@ -1139,6 +1144,34 @@ table th.mat-header-cell {
 }
 table tr.mat-footer-row, table tr.mat-row {
     height: 74px;
+    cursor: pointer;
+}
+.mat-card{
+    .header{
+        p{
+            margin-left: 5em;
+            margin-top: 10px;
+            color: #B4B2AD;
+            letter-spacing: 0.1em;
+        }
+    }
+}
+span.icon-close {
+    position: absolute;
+    width: 13px;
+    height: 30px;
+    transform: rotate(180deg);
+    cursor: pointer;
+    svg{
+        transform: scale(1.5);
+        &:hover{
+            transform: scale(1.6);
+
+        }
+        path{
+            stroke: #694F70;
+        }
+    }
 }
 tr.mat-row:after {
     border-style: solid;
