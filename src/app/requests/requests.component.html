@@ -179,7 +179,7 @@
                   <p>Product Details</p>
                 </div>
               </div>
-            <form class="justify-content-center col-lg-9 row antim-form p-5 mt-2 mb-5 m-auto">
+            <form class="col-lg-9 row antim-form p-5 mt-2 mb-5 m-auto">
             <div class="col-lg-12"><h3 class="headingh3">product link(s)</h3></div>
             <div class="col-lg-12">
                 <label for="Link1" class="font-bold mt-2">Link1</label>
@@ -193,22 +193,38 @@
                 <label for="Link3" class="font-bold mt-2">Link3</label>
                 <input class="form-control form-control-lg" value="https://ar-sa.namshi.com/buy-kocostar-aloe-slice-mask-332427.html" placeholder="Link3"  [attr.disabled]="true">
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-3">
                 <label for="RequestDate" class="font-bold mt-2">Request Date</label>
                 <input class="form-control form-control-lg" value="22 Desember 2018" placeholder="Request Date"  [attr.disabled]="true">
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-3">
                 <label for="Amount" class="font-bold mt-2">Amount of funding</label>
                 <input class="form-control form-control-lg" value="2200 SAR" placeholder="Amount of funding"  [attr.disabled]="true">
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-3">
                 <label for="Installment" class="font-bold mt-2">Installment Period</label>
                 <input class="form-control form-control-lg" value="6 Months" placeholder="Installment Period" [attr.disabled]="true">
             </div>
-            <div class="col-lg-6">
-                <label for="InstallmentAmount" class="font-bold mt-2">Installment amount per month</label>
+            <div class="col-lg-3">
+                <label for="InstallmentAmount" class="font-bold mt-2">Monthly INstallment</label>
                 <input class="form-control form-control-lg" value="830 SAR" placeholder="Installment amount per month" [attr.disabled]="true">
+            </div>
+            <div class="col-lg-3">
+              <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
+              <input class="form-control form-control-lg {{productStatus}}" value="{{productStatus}}" [attr.disabled]="true">
+            </div>
+            <div class="col-lg-9"></div>
+            <div class="col-lg-12" *ngIf="productStatus == 'Ongoing'">
+              <label for="installmentPiad" class="font-bold mt-2">Number of installment paid</label>
+              <div class="installment-period">
+                <mat-checkbox [checked]= "true"></mat-checkbox>
+                <mat-checkbox [checked]= "true"></mat-checkbox>
+                <mat-checkbox [checked]= "true"></mat-checkbox>
+                <mat-checkbox></mat-checkbox>
+                <mat-checkbox></mat-checkbox>
+
+             </div>
             </div>
             </form>
             <br/>

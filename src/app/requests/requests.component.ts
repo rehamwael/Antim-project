@@ -42,6 +42,7 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType: string ="All Requests";
   slectedProduct : boolean = false;
+  productStatus : any;
 
   constructor() { }
   ngOnInit(): void {
@@ -87,6 +88,7 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   }
   openProductDetails(row){
     console.log(row);
+    this.productStatus = row.status;
     this.slectedProduct = true;
   }
   closeProductDetails(){
