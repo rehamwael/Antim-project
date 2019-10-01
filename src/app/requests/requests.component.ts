@@ -1,6 +1,7 @@
 import { Component, OnInit ,OnDestroy} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 export interface PeriodicElement {
   position: number;
@@ -44,7 +45,8 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   slectedProduct : boolean = false;
   productStatus : any;
 
-  constructor() { }
+  constructor(private modalService: NgbModal) {}
+
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -93,6 +95,8 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   }
   closeProductDetails(){
     this.slectedProduct = false;
-
+  }
+  openVerticallyCentered(content3) {
+    this.modalService.open(content3, { centered: true });
   }
 }
