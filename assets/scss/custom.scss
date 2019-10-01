@@ -1109,6 +1109,26 @@ div.mat-checkbox-inner-container{
     width: 19px;
     height: 19px;
 }
+.antim-form .form-control.Ongoing:disabled, .antim-form .form-control.Ongoing[readonly]{
+    color: #52cb5f !important;
+    text-transform: uppercase;
+}
+.antim-form .form-control.Closed:disabled, .antim-form .form-control.Closed[readonly]{
+    color: #52cb5f !important;
+    text-transform: uppercase;
+}
+.antim-form .form-control.Reject:disabled, .antim-form .form-control.Reject[readonly]{
+    color: #c5003e !important;
+    text-transform: uppercase;
+}
+.antim-form .form-control.Under:disabled, .antim-form .form-control.Under[readonly]{
+    color: #f6cf00 !important;
+    text-transform: uppercase;
+}
+.antim-form .form-control.Wating:disabled, .antim-form .form-control.Wating[readonly]{
+    color: #fb9e58 !important;
+    text-transform: uppercase;
+}
 td.mat-cell.Ongoing ,td.mat-cell.Closed {
     color: #52cb5f !important;
     text-transform: uppercase;
@@ -1134,6 +1154,14 @@ table.mat-table {
 }
 .mat-checkbox-checked .mat-checkbox-frame  ,.mat-checkbox-checked .mat-checkbox-background{
     border: 1px solid #4a1aa7 !important;
+}
+.installment-period div.mat-checkbox-inner-container {
+    width: 34px;
+    height: 34px;
+    margin-right: 14px;
+}
+.installment-period label{
+    padding: 0 !important;
 }
 
 table th.mat-header-cell {
