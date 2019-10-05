@@ -1,0 +1,245 @@
+<div>
+        <div class="row">
+            <aside class="left-sidebar col-lg-4">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <app-sidebar></app-sidebar>
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+                <div class="page-wraper-right row">
+                    <ul class="navbar-nav float-right text-right mt-4 col-lg-11">
+                        <li class="nav-item m-r-20 dashbored-nav">
+
+                            <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+                                    <i class="mr-1">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.4 15C19.1277 15.6171 19.2583 16.3378 19.73 16.82L19.79 16.88C20.1656 17.2551 20.3766 17.7642 20.3766 18.295C20.3766 18.8258 20.1656 19.3349 19.79 19.71C19.4149 20.0856 18.9058 20.2966 18.375 20.2966C17.8442 20.2966 17.3351 20.0856 16.96 19.71L16.9 19.65C16.4178 19.1783 15.6971 19.0477 15.08 19.32C14.4755 19.5791 14.0826 20.1724 14.08 20.83V21C14.08 22.1046 13.1846 23 12.08 23C10.9754 23 10.08 22.1046 10.08 21V20.91C10.0642 20.2327 9.63587 19.6339 9 19.4C8.38291 19.1277 7.66219 19.2583 7.18 19.73L7.12 19.79C6.74486 20.1656 6.23582 20.3766 5.705 20.3766C5.17418 20.3766 4.66514 20.1656 4.29 19.79C3.91445 19.4149 3.70343 18.9058 3.70343 18.375C3.70343 17.8442 3.91445 17.3351 4.29 16.96L4.35 16.9C4.82167 16.4178 4.95235 15.6971 4.68 15.08C4.42093 14.4755 3.82764 14.0826 3.17 14.08H3C1.89543 14.08 1 13.1846 1 12.08C1 10.9754 1.89543 10.08 3 10.08H3.09C3.76733 10.0642 4.36613 9.63587 4.6 9C4.87235 8.38291 4.74167 7.66219 4.27 7.18L4.21 7.12C3.83445 6.74486 3.62343 6.23582 3.62343 5.705C3.62343 5.17418 3.83445 4.66514 4.21 4.29C4.58514 3.91445 5.09418 3.70343 5.625 3.70343C6.15582 3.70343 6.66486 3.91445 7.04 4.29L7.1 4.35C7.58219 4.82167 8.30291 4.95235 8.92 4.68H9C9.60447 4.42093 9.99738 3.82764 10 3.17V3C10 1.89543 10.8954 1 12 1C13.1046 1 14 1.89543 14 3V3.09C14.0026 3.74764 14.3955 4.34093 15 4.6C15.6171 4.87235 16.3378 4.74167 16.82 4.27L16.88 4.21C17.2551 3.83445 17.7642 3.62343 18.295 3.62343C18.8258 3.62343 19.3349 3.83445 19.71 4.21C20.0856 4.58514 20.2966 5.09418 20.2966 5.625C20.2966 6.15582 20.0856 6.66486 19.71 7.04L19.65 7.1C19.1783 7.58219 19.0477 8.30291 19.32 8.92V9C19.5791 9.60447 20.1724 9.99738 20.83 10H21C22.1046 10 23 10.8954 23 12C23 13.1046 22.1046 14 21 14H20.91C20.2524 14.0026 19.6591 14.3955 19.4 15Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </i>
+                                    <button class="btn btn-outline-primary mr-1" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Setting</button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                      <button ngbDropdownItem class="pruple">
+                                          <span>
+                                            <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12Z" stroke="#5C20D2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M7.79995 4.2002L4.19995 7.8002" stroke="#5C20D2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M4.19995 4.2002L7.79995 7.8002" stroke="#5C20D2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             </svg>
+                                        </span>
+                                        Deactivate the account</button>
+                                      <button ngbDropdownItem class="pruple">
+                                        <span>
+                                            <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0 2.6665H1.33333H12" stroke="#5C20D2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M2.83325 2.66667C2.83325 1.83824 2.16168 1.16667 1.33325 1.16667V2.16667C1.60939 2.16667 1.83325 2.39052 1.83325 2.66667H2.83325ZM2.83325 12V2.66667H1.83325V12H2.83325ZM2.66659 11.8333C2.75863 11.8333 2.83325 11.908 2.83325 12H1.83325C1.83325 12.4602 2.20635 12.8333 2.66659 12.8333V11.8333ZM9.33325 11.8333H2.66659V12.8333H9.33325V11.8333ZM9.16658 12C9.16658 11.908 9.2412 11.8333 9.33325 11.8333V12.8333C9.79349 12.8333 10.1666 12.4602 10.1666 12H9.16658ZM9.16658 2.66667V12H10.1666V2.66667H9.16658ZM10.6666 1.16667C9.83816 1.16667 9.16658 1.83824 9.16658 2.66667H10.1666C10.1666 2.39052 10.3904 2.16667 10.6666 2.16667V1.16667ZM12.1666 2.66667C12.1666 1.83824 11.495 1.16667 10.6666 1.16667V2.16667C10.9427 2.16667 11.1666 2.39052 11.1666 2.66667H12.1666ZM12.1666 12V2.66667H11.1666V12H12.1666ZM9.33325 14.8333C10.8981 14.8333 12.1666 13.5648 12.1666 12H11.1666C11.1666 13.0125 10.3458 13.8333 9.33325 13.8333V14.8333ZM2.66659 14.8333H9.33325V13.8333H2.66659V14.8333ZM-0.166748 12C-0.166748 13.5648 1.10178 14.8333 2.66659 14.8333V13.8333C1.65406 13.8333 0.833252 13.0125 0.833252 12H-0.166748ZM-0.166748 2.66667V12H0.833252V2.66667H-0.166748ZM1.33325 1.16667C0.504825 1.16667 -0.166748 1.83824 -0.166748 2.66667H0.833252C0.833252 2.39052 1.05711 2.16667 1.33325 2.16667V1.16667ZM4.83325 1.33333C4.83325 1.42538 4.75863 1.5 4.66659 1.5V0.5C4.20635 0.5 3.83325 0.873096 3.83325 1.33333H4.83325ZM4.83325 2.66667V1.33333H3.83325V2.66667H4.83325ZM3.33325 4.16667C4.16168 4.16667 4.83325 3.49509 4.83325 2.66667H3.83325C3.83325 2.94281 3.60939 3.16667 3.33325 3.16667V4.16667ZM1.83325 2.66667C1.83325 3.49509 2.50482 4.16667 3.33325 4.16667V3.16667C3.05711 3.16667 2.83325 2.94281 2.83325 2.66667H1.83325ZM1.83325 1.33333V2.66667H2.83325V1.33333H1.83325ZM4.66659 -1.5C3.10178 -1.5 1.83325 -0.231473 1.83325 1.33333H2.83325C2.83325 0.320811 3.65406 -0.5 4.66659 -0.5V-1.5ZM7.33325 -1.5H4.66659V-0.5H7.33325V-1.5ZM10.1666 1.33333C10.1666 -0.231474 8.89806 -1.5 7.33325 -1.5V-0.5C8.34577 -0.5 9.16659 0.320811 9.16659 1.33333H10.1666ZM10.1666 2.66667V1.33333H9.16659V2.66667H10.1666ZM8.66659 4.16667C9.49501 4.16667 10.1666 3.49509 10.1666 2.66667H9.16659C9.16659 2.94281 8.94273 3.16667 8.66659 3.16667V4.16667ZM7.16659 2.66667C7.16659 3.49509 7.83816 4.16667 8.66659 4.16667V3.16667C8.39044 3.16667 8.16659 2.94281 8.16659 2.66667H7.16659ZM7.16659 1.33333V2.66667H8.16659V1.33333H7.16659ZM7.33325 1.5C7.2412 1.5 7.16659 1.42538 7.16659 1.33333H8.16659C8.16659 0.873096 7.79349 0.5 7.33325 0.5V1.5ZM4.66659 1.5H7.33325V0.5H4.66659V1.5Z" fill="#5C20D2"/>
+                                                <path d="M4.66675 6V10" stroke="#5C20D2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M7.33325 6V10" stroke="#5C20D2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>   
+                                        </span>  
+                                        Delete the account</button>
+                                      <button ngbDropdownItem [routerLink]="[ '/login' ]">
+                                          <span>
+                                              <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect y="5" width="10" height="6.11111" rx="2" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M2.22217 5V2.77778C2.22217 1.24365 3.46582 0 4.99995 0C6.53407 0 7.77772 1.24365 7.77772 2.77778V5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            </span>
+                                          Sign Out</button>
+                                    </div>
+                             </div>
+                        </li>
+                    </ul>
+                </div>
+        
+        
+        
+        <div class="page-wraper-right">
+                        <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2">
+                            <img class="col-lg-2" src="assets/images/bookWithMen 2.svg">
+                            <div class="col-lg-7 px-0">
+                                <p class="grey-text-color mt-4">My Profile</p>
+                            </div>
+                            <form class="col-lg-3">
+                            <div class="form-group">
+                                <label for="profileInformation" class="font-size-13 mt-2">Select profile infomation </label>
+                                <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
+                                        <option value="Personal" selected>Personal Information</option>
+                                        <option value="Bank">Bank Information</option>
+                                        <option value="TotalProfit">Total profits</option>
+                                </select>
+                                <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            </form>
+                        </div>
+        
+        
+        
+                        <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
+                            <div class="justify-content-center col-lg-9">
+                            <form class="row antim-form" [formGroup]="EditForm" *ngIf="!isShown && !showProfit">
+                            <div class="col-lg-12 mb-3"><h3 class="headingh3">Personal Information</h3></div>
+                            <div class="col-lg-6">
+                                <label for="Name" class="font-bold mt-2">Name</label>
+                                <input matInput formControlName="Name" class="form-control form-control-lg" value="Isamael alaksras" placeholder="name">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="mobile" class="font-bold mt-2">Mobile No</label>
+                                <input matInput formControlName="MobileNo" class="form-control form-control-lg" value="0112323232" placeholder="mobile">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label for="email" class="font-bold mt-2">Email address </label>
+                                <input matInput formControlName="Email" class="form-control form-control-lg" value="dpremakumara@gmail.com" placeholder="email">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="National" class="font-bold mt-2">National ID / Iqama</label>
+                                <input matInput formControlName="NID" class="form-control form-control-lg" value="3483984390843" placeholder="National ID">
+                            </div>
+                            </form>
+
+
+
+                            <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="isShown && !showProfit">
+                                    <div class="col-lg-12 mb-3"><h3 class="headingh3">Bank Information</h3></div>
+                                    <div class="col-lg-12">
+                                        <label for="MaximunLimit" class="font-bold mt-2">Maximun limit funding</label>
+                                        <mat-slider
+                                        thumbLabel
+                                        [displayWith]="formatLabel"
+                                        tickInterval="100"
+                                        min="1"
+                                        max="10000"></mat-slider>
+                                                                                    
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="BankName" class="font-bold mt-2">Bank Name</label>
+                                        <input matInput formControlName="BankName" class="form-control form-control-lg" value="NHU Bank" placeholder="Bank Name">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="BankAccount" class="font-bold mt-2">Bank Account Name</label>
+                                        <input matInput formControlName="BankAccountName" class="form-control form-control-lg" value="0112323232" placeholder="Bank Account Name">
+                                    </div>
+        
+                                    <div class="col-lg-6">
+                                        <label for="investmentPerYear" class="font-bold mt-2">Expected capital investment per year</label>
+                                        <input matInput formControlName="investmentPerYear" class="form-control form-control-lg" value="250,000" placeholder="Expected capital investment per year">
+                                    </div>
+                                    <div class="col-lg-6">
+                                    </div>
+                                    <div class="col-lg-12 h-70">
+                                            <label for="AccountStatement" class="font-bold mt-2">Account Statement for last 3 months </label>
+                                            <input type="file" class="custom-file-input">
+                                            <div class="file-input">
+                                                <p class="text-center">
+                                                    <span class="px-3">
+                                                        <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.68117 2.2677L1.96299 4.4627C1.06069 4.80906 0.610006 5.82131 0.956368 6.72361L5.97352 19.7937C6.31988 20.696 7.33212 21.1467 8.23443 20.8004L18.037 17.0375C18.9393 16.6911 19.39 15.6789 19.0436 14.7766L15.5944 5.79087L7.68117 2.2677Z" fill="#F9F9F9" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path d="M7.68115 2.26758L9.87616 7.98576L15.5943 5.79075" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.2069 2.62589L14.3816 0.733163C13.4624 0.434498 12.4752 0.937537 12.1765 1.85673L7.85027 15.1715C7.5516 16.0907 8.05464 17.078 8.97384 17.3767L18.9599 20.6213C19.8791 20.92 20.8664 20.417 21.1651 19.4978L24.1393 10.3438L20.2069 2.62589Z" fill="#FEFCF8" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        </span>
+                                                    Darg and drop here</p>
+                                            </div>
+
+                                    </div>
+                                    </form>
+                        </div>
+                        </div>
+        
+                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" *ngIf="!isShown && !showProfit">     
+                                <div class="form-group col-lg-2">
+                                       <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditInfo()">
+                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="px-3">Edit</span>
+                                        </button>
+                                    </div>
+                               <div class="form-group col-lg-2">
+                                   <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="SaveInfo()">Save</button>
+                               </div>
+                        </div>
+
+                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-2" *ngIf="isShown && !showProfit">     
+                                <div class="form-group col-lg-2">
+                                       <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBankInfo()">
+                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="px-3">Edit</span>
+                                        </button>
+                                    </div>
+                               <div class="form-group col-lg-2">
+                                   <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="SaveBankInfo()">Save</button>
+                               </div>
+                        </div>
+
+
+                        <div class="col-lg-11 row justify-content-around" *ngIf="showProfit">
+                            <div class="col-lg-5 row bank-info-card card-purple">
+                                <div class="col-lg-2 mt-4 px-3">
+                                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.312802" fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#F9F9F9"/>
+                                            <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="white"/>
+                                            </mask>
+                                            <g mask="url(#mask0)">
+                                            <path d="M19.6792 46.0236C19.7342 48.7756 22.0032 50.9656 24.7555 50.9231L82.4811 50.0308C85.2498 49.988 87.4565 47.7032 87.4029 44.9347L86.8428 15.9796C86.7895 13.2263 84.5199 11.0344 81.7664 11.0769L24.0221 11.9691C21.2522 12.0119 19.045 14.2987 19.1004 17.0685L19.6792 46.0236Z" fill="black"/>
+                                            <path d="M17.6792 48.5236C17.7342 51.2756 20.0032 53.4656 22.7555 53.4231L80.4811 52.5308C83.2498 52.488 85.4565 50.2032 85.4029 47.4347L84.8428 18.4796C84.7895 15.7263 82.5199 13.5344 79.7664 13.5769L22.0221 14.4691C19.2522 14.5119 17.045 16.7987 17.1004 19.5685L17.6792 48.5236Z" fill="#C7C7C7"/>
+                                            <path d="M17.7299 49.4746C17.7568 51.6938 19.5852 53.4669 21.8042 53.4255L80.5318 52.3305C80.5318 52.3305 68.7353 31.1838 56.4759 24.9084C44.2165 18.6329 17.3733 20.0006 17.3733 20.0006L17.7299 49.4746Z" fill="black" fill-opacity="0.0962358"/>
+                                            <rect x="38.5" y="42" width="40" height="3" rx="1.5" fill="#441997"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M27 47C28.933 47 30.5 45.433 30.5 43.5C30.5 41.567 28.933 40 27 40C25.067 40 23.5 41.567 23.5 43.5C23.5 45.433 25.067 47 27 47Z" fill="black"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30.5 47C32.433 47 34 45.433 34 43.5C34 41.567 32.433 40 30.5 40C28.567 40 27 41.567 27 43.5C27 45.433 28.567 47 30.5 47Z" fill="#39A4E9"/>
+                                            </g>
+                                            </svg>
+                                            
+                                 </div>
+                                 <div class="card-info col-lg-8 mt-4 px-4">
+                                     <p>Converted profits</p>
+                                     <h4>12,400 SAR</h4>
+                                 </div>
+
+                            </div>
+                            <div class="col-lg-5 row bank-info-card card-dark">
+                                    <div class="col-lg-2 mt-4 px-3">
+                                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path opacity="0.312802" fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#F9F9F9"/>
+                                                <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="white"/>
+                                                </mask>
+                                                <g mask="url(#mask0)">
+                                                <path d="M19.6792 46.0236C19.7342 48.7756 22.0032 50.9656 24.7555 50.9231L82.4811 50.0308C85.2498 49.988 87.4565 47.7032 87.4029 44.9347L86.8428 15.9796C86.7895 13.2263 84.5199 11.0344 81.7664 11.0769L24.0221 11.9691C21.2522 12.0119 19.045 14.2987 19.1004 17.0685L19.6792 46.0236Z" fill="black"/>
+                                                <path d="M17.6792 48.5236C17.7342 51.2756 20.0032 53.4656 22.7555 53.4231L80.4811 52.5308C83.2498 52.488 85.4565 50.2032 85.4029 47.4347L84.8428 18.4796C84.7895 15.7263 82.5199 13.5344 79.7664 13.5769L22.0221 14.4691C19.2522 14.5119 17.045 16.7987 17.1004 19.5685L17.6792 48.5236Z" fill="#C7C7C7"/>
+                                                <path d="M17.7299 49.4746C17.7568 51.6938 19.5852 53.4669 21.8042 53.4255L80.5318 52.3305C80.5318 52.3305 68.7353 31.1838 56.4759 24.9084C44.2165 18.6329 17.3733 20.0006 17.3733 20.0006L17.7299 49.4746Z" fill="black" fill-opacity="0.0962358"/>
+                                                <rect x="38.5" y="42" width="40" height="3" rx="1.5" fill="#441997"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M27 47C28.933 47 30.5 45.433 30.5 43.5C30.5 41.567 28.933 40 27 40C25.067 40 23.5 41.567 23.5 43.5C23.5 45.433 25.067 47 27 47Z" fill="black"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M30.5 47C32.433 47 34 45.433 34 43.5C34 41.567 32.433 40 30.5 40C28.567 40 27 41.567 27 43.5C27 45.433 28.567 47 30.5 47Z" fill="#39A4E9"/>
+                                                </g>
+                                                </svg>
+                                                
+                                     </div>
+                                     <div class="card-info col-lg-8 mt-4 px-4">
+                                         <p>Current profits</p>
+                                         <h4>122,400 SAR</h4>
+                                     </div>
+    
+                                </div>      
+                                <div class="col-lg-11 mt-5 mb-5 chart-container">
+                                    <p class="font-bold">Financial analysis of your operations</p>
+                                <canvas baseChart
+                                [datasets]="barChartData"
+                                [labels]="barChartLabels"
+                                [options]="barChartOptions"
+                                [plugins]="barChartPlugins"
+                                [colors]="barChartColors"
+                                [legend]="barChartLegend"
+                                [chartType]="barChartType">
+                              </canvas>
+                            </div>
+
+                        </div>
+            </div>
+        </div>

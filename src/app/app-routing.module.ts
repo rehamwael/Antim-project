@@ -11,7 +11,10 @@ import { CreateOrderComponent } from './create-order/create-order.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestsComponent } from './requests/requests.component';
 import { NotificationComponent } from './notification/notification.component';
-
+import { DashboredLenderComponent } from './dashbored-lender/dashbored-lender.component';
+import { RequestLenderComponent } from './request-lender/request-lender.component';
+import { ProfileLenderComponent } from './profile-lender/profile-lender.component';
+import { NotificationLenderComponent } from './notification-lender/notification-lender.component';
 
 export const Approutes: Routes = [
   {
@@ -44,7 +47,7 @@ export const Approutes: Routes = [
         component: WhoWeAreComponent
       },
       {
-        path: 'dashbored',
+        path: 'dashbored-borrower',
         component: DashboredComponent
 
       },
@@ -54,16 +57,28 @@ export const Approutes: Routes = [
 
       },
       {
-        path: 'profile',
+        path: 'profile-borrower',
         component: ProfileComponent
       },
       {
-        path: 'requests',
+        path: 'requests-borrower',
         component: RequestsComponent
       },{
-        path: 'notification',
+        path: 'notification-borrower',
         component: NotificationComponent
-      },
+      },{
+        path: 'dashbored-lender',
+        component: DashboredLenderComponent
+      },{
+        path: 'requests-lender',
+        component: RequestLenderComponent
+      } ,{
+        path: 'profile-lender',
+        component: ProfileLenderComponent
+      },{
+        path: 'notification-lender',
+        component: NotificationLenderComponent
+      }
       
       
       

@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
+import { ChartsModule } from 'ng2-charts';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -40,6 +41,11 @@ import { RequestsComponent } from './requests/requests.component';
 import { MatTableModule } from '@angular/material'  ;
 import { MatCheckboxModule } from '@angular/material';
 import { NotificationComponent } from './notification/notification.component';
+import { DashboredLenderComponent } from './dashbored-lender/dashbored-lender.component';
+import { RequestLenderComponent } from './request-lender/request-lender.component';
+import { ProfileLenderComponent } from './profile-lender/profile-lender.component';
+import {MatSliderModule} from '@angular/material/slider';
+import { NotificationLenderComponent } from './notification-lender/notification-lender.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -66,6 +72,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ProfileComponent,
     RequestsComponent,
     NotificationComponent,
+    DashboredLenderComponent,
+    RequestLenderComponent,
+    ProfileLenderComponent,
+    NotificationLenderComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +83,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatSliderModule,
+    ChartsModule,
     LeafletModule.forRoot(),
     HttpClientModule,
     MatStepperModule,

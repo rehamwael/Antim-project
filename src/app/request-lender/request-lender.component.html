@@ -58,7 +58,7 @@
         <div class="page-wraper-right" *ngIf="!slectedProduct">
                         <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2">
                             <img class="col-lg-2" src="assets/images/bookWithMen 2.svg">
-                            <div class="col-lg-2 px-0">
+                            <div class="col-lg-3 px-0">
                                 <p class="grey-text-color mt-4" [innerHTML]="requestType"></p>
                             </div>
                             <form class="col-lg-3">
@@ -66,10 +66,10 @@
                                 <label for="Type" class="font-size-13 mt-2">Select Request Type</label>
                                 <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
                                         <option value="" selected>All requests</option>
-                                        <option value="Ongoing">On going</option>
+                                        <option value="Ongoing">Ongoing request</option>
                                         <option value="Under Review">Under Review</option>
                                         <option value="Reject">Reject</option>
-                                        <option value="Wating your approval">Wating your approval</option>
+                                        <option value="Wating Fund">Wating Fund</option>
                                         <option value="Closed">Previous Requests</option>
 
                                         
@@ -78,7 +78,23 @@
                                 <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
                             </form>
-                            <form class="col-lg-3">
+                            <form class="col-lg-2">
+                                    <div class="form-group">
+                                      <label for="amount" class="font-size-13 mt-2">Funding amount (SAR)</label>
+                                      <div class="input-group">
+                                            <select class="form-control form-control-lg mb-2§ custom-select">
+                                                    <option value="0 - 1000" selected>0 - 1000</option>
+                                                    <option value="1000 - 2000">1000 - 2000</option>
+                                                    <option value="2000 - 4000">2000 - 4000</option>
+                                                    <option value="4000 - 6000">4000 - 6000</option>
+                                                    <option value="6000 - 10000">6000 - 10000</option>
+                                                    <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                  </form>
+                            <form class="col-lg-2">
                                     <div class="form-group">
                                         <label for="Filter" class="font-size-13 mt-2">Filter Date</label>
                                         <div class="input-group">
@@ -88,30 +104,11 @@
                                     </div>
                                     </form>
 
-                                    <form class="col-lg-2">
-                                      <div class="form-group">
-                                        <label for="amount" class="font-size-13 mt-2">Amount of funding</label>
-                                        <div class="input-group">
-                                          <input type="text" placeholder="amount" class="form-control input-inner">
-                                        </div>
-                                      </div>
-                                    </form>
                         </div>
         
         
         
                         <div class="col-lg-11 row justify-content-end mt-5 dashbored-info">
-                            <div class="form-group justify-content-end col-lg-3">
-                                <button class="btn btn-danger btn-lg btn-block btn-red mt-2">
-                                    <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M1 6H3H19" stroke="#C5003E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                      <path d="M5 6C5 4.89543 4.10457 4 3 4V6H5ZM5 20V6H3V20H5ZM5 20H3C3 21.1046 3.89543 22 5 22V20ZM15 20H5V22H15V20ZM15 20V22C16.1046 22 17 21.1046 17 20H15ZM15 6V20H17V6H15ZM17 4C15.8954 4 15 4.89543 15 6H17V4ZM19 6C19 4.89543 18.1046 4 17 4V6H19ZM19 20V6H17V20H19ZM15 24C17.2091 24 19 22.2091 19 20H17C17 21.1046 16.1046 22 15 22V24ZM5 24H15V22H5V24ZM1 20C1 22.2091 2.79086 24 5 24V22C3.89543 22 3 21.1046 3 20H1ZM1 6V20H3V6H1ZM3 4C1.89543 4 1 4.89543 1 6H3V4ZM8 4V2C6.89543 2 6 2.89543 6 4H8ZM8 6V4H6V6H8ZM6 8C7.10457 8 8 7.10457 8 6H6V8ZM4 6C4 7.10457 4.89543 8 6 8V6H4ZM4 4V6H6V4H4ZM8 0C5.79086 0 4 1.79086 4 4H6C6 2.89543 6.89543 2 8 2V0ZM12 0H8V2H12V0ZM16 4C16 1.79086 14.2091 0 12 0V2C13.1046 2 14 2.89543 14 4H16ZM16 6V4H14V6H16ZM14 8C15.1046 8 16 7.10457 16 6H14V8ZM12 6C12 7.10457 12.8954 8 14 8V6H12ZM12 4V6H14V4H12ZM12 4H14C14 2.89543 13.1046 2 12 2V4ZM8 4H12V2H8V4Z" fill="#C5003E"/>
-                                      <path d="M8 11V17" stroke="#C5003E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                      <path d="M12 11V17" stroke="#C5003E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                      </svg>                                      
-                                     <span class="px-3">Delete</span>
-                                 </button>
-                             </div>
                             <div class="justify-content-center col-lg-12">
                                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mb-5" cellpadding="20">
 
@@ -218,7 +215,7 @@
               <input class="form-control form-control-lg {{productStatus}}" value="{{productStatus}}" [attr.disabled]="true">
             </div>
             <div class="col-lg-9"></div>
-            <div class="col-lg-12" *ngIf="productStatus == 'Ongoing'">
+            <div class="col-lg-12" *ngIf="productStatus == 'Ongoing request'">
               <label for="installmentPiad" class="font-bold mt-2">Number of installment paid</label>
               <div class="installment-period">
                 <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
