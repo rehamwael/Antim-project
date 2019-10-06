@@ -1178,6 +1178,26 @@ td.mat-cell.Wating{
     background: #fff;
     padding: 40px;
 }
+.modal-content{
+    button.btn-black{
+        font-size: 12.4px;
+    }
+}
+
+.transfer-btn{
+    position: absolute;
+    right: 0;
+    left: auto;
+    top: -18px;
+    button.btn-black {
+        background: #fff;
+        color: #5c20d2;
+        border: 2px solid #5c20d2;
+        padding: 8.5px 1rem;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+}
 .bank-info-card {
     height: 215px;
     border-radius: 25px;
