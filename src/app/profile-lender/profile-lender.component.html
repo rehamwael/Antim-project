@@ -225,6 +225,11 @@
                                          <p>Current profits</p>
                                          <h4>122,400 SAR</h4>
                                      </div>
+                                     <div class="col-lg-12 mt-3 row d-flex align-items-end py-4 mt-5">     
+                                            <div class="form-group col-lg-7 transfer-btn">
+                                                   <button class="btn btn-info btn-lg btn-block btn-black" (click)="openVerticallyCentered(content3)">Transfer to my bank account</button>
+                                           </div>
+                                    </div>
     
                                 </div>      
                                 <div class="col-lg-11 mt-5 mb-5 chart-container">
@@ -243,3 +248,28 @@
                         </div>
             </div>
         </div>
+
+        <ng-template #content3 let-modal>
+                <div class="modal-body">
+                  <p>
+                        Why would you like to refund?
+                  </p>
+                  <div class="d-flex justify-content-end pb-3 mt-4">
+                        <button class="btn btn-info btn-lg btn-block btn-black mt-2 col-lg-4 mr-3" (click)="modal.close('Close click')">Cancellation</button>
+                      <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" (click)="openVerticallyCentered(content4)">Exception</button>
+                   </div>
+
+                </div>
+              </ng-template>
+
+              <ng-template #content4 let-modal>
+                    <div class="modal-body">
+                      <p>
+                            Your savings have been transferred to your bank account
+                      </p>
+                      <div class="d-flex justify-content-end pb-3 mt-4">
+                          <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" (click)="modal.close('Close click')">OK</button>
+                       </div>
+    
+                    </div>
+                  </ng-template>

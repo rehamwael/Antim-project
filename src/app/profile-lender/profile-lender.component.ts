@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label ,Color } from 'ng2-charts';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -46,7 +47,7 @@ export class ProfileLenderComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder ,private modalService: NgbModal) { 
     this.EditForm = fb.group({
       'Name': [{value: null, disabled: this.disabledButton}],
       'MobileNo':  [{value: null, disabled: this.disabledButton}],
@@ -119,6 +120,9 @@ export class ProfileLenderComponent implements OnInit {
         this.showProfit = false;
 
       }
+  }
+  openVerticallyCentered(content3) {
+    this.modalService.open(content3, { centered: true });
   }
   public barChartColors: Color[] = [
     { backgroundColor: '#39A4E9' },

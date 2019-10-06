@@ -52,7 +52,7 @@ export const Approutes: Routes = [
 
       },
       {
-        path: 'create-order',
+        path: 'createorder-borrower',
         component: CreateOrderComponent
 
       },
