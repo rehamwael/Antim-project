@@ -76,5 +76,13 @@ export class SignUpComponent implements OnInit ,OnDestroy{
     this.sheckMobileStep = false;
     this.lastStep = false;
   }
+  keytab(event){
+    let element = event.srcElement.nextElementSibling; // get the sibling element
+
+    if(element == null)  // check if its null
+        return;
+    else
+        element.focus();   // focus if not null
+   }
 
 }

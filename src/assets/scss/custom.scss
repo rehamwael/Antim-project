@@ -1416,9 +1416,27 @@ header.bg-image nav#navbar.sticky-fixed-header ul.navbar-nav.ml-auto li a.nav-li
     top: 10px;
     right: 20px;
 }
-.first-step .mat-checkbox-background,.first-step .mat-checkbox-frame {
-    border: 1px solid #efefef;
+.mat-checkbox-background svg {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    display: none;
+}
+.select-options-radio.active{
+    .mat-checkbox-background svg {
+        display: block;
+    }
+    .mat-checkbox-background, .first-step .mat-checkbox-frame {
+        border: 1px solid #5c20d2;
+    }
+}
+.first-step .mat-checkbox-background, .first-step .mat-checkbox-frame {
+    border: 2px solid #efefef;
     border-radius: 14px !important;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 0px;
 }
 @media (min-width: 1300px){
     .row.my-4.steps-antim.mt-3 {
