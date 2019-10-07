@@ -175,7 +175,7 @@
                   <span class="icon-close" (click)="closeProductDetails()"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 14" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
                   <p>Product Details</p>
                 </div>
-                <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-3" *ngIf="productStatus == 'Ongoing'" (click)="openVerticallyCentered(content3)">Request reschedule</button>
+                <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-3" *ngIf="productStatus == 'Ongoing request'" (click)="openVerticallyCentered(content3)">Request reschedule</button>
 
               </div>
 
@@ -242,6 +242,19 @@
 
               </div>
             </ng-template>
+
+            <ng-template #content4 let-modal>
+                    <div class="modal-body">
+                      <p>
+                            Thanks Dear, Your request has been successfully submitted. Pending the approval of the fund requester until the proceedings are carried out. Once you send the approval to the fund requester you will not be able to cancel.
+                      </p>
+                      <div class="d-flex justify-content-end pb-3 mt-4">
+                            <button class="btn btn-info btn-lg btn-block btn-black mt-2 col-lg-4 mr-3" (click)="modal.close('Close click')">Close</button>
+                          <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" (click)="openVerticallyCentered(content4)">Confirm</button>
+                       </div>
+    
+                    </div>
+                  </ng-template>
         </div>
             
         </div>

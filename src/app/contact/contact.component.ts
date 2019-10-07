@@ -2,6 +2,7 @@ import { Component, OnInit ,OnDestroy ,HostListener} from '@angular/core';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {latLng, tileLayer} from "leaflet";
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -21,7 +22,7 @@ export class ContactComponent implements OnInit ,OnDestroy{
       }
   }
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder ,private router: Router) { 
     this.contactForm = fb.group({
       'contactFormName': ['', Validators.required],
       'contactFormEmail': ['', Validators.compose([Validators.required, Validators.email])],
@@ -32,9 +33,9 @@ export class ContactComponent implements OnInit ,OnDestroy{
       });
       this.leafletLayers = [tileLayer(
         'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        { maxZoom:7 , attribution: '...'})];
-      this.mapCenter = latLng(64.805606, 9.910027);
-      this.zoomLevel=5;
+        { })];
+      this.mapCenter = latLng(24.8085046, 46.6711241);
+      this.zoomLevel=10;
   }
   currentJustify = 'start';
   currentOrientation = 'horizontal';
@@ -51,6 +52,12 @@ export class ContactComponent implements OnInit ,OnDestroy{
     }
   }
   ngOnInit(): void {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0)
+  });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('contact');
     window.dispatchEvent(new Event('resize'));

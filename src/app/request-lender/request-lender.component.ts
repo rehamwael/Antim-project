@@ -1,4 +1,4 @@
-import { Component, OnInit ,OnDestroy} from '@angular/core';
+import { Component, OnInit ,OnDestroy,ElementRef , ViewChild } from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -38,12 +38,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 export class RequestLenderComponent implements OnInit ,OnDestroy{
+  @ViewChild('clickMe',{static: false}) clickMe: ElementRef<HTMLElement>;
+
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType: string ="All Requests";
   slectedProduct : boolean = false;
   productStatus : any;
+  content4: any;
+
 
   constructor(private modalService: NgbModal) {}
 
@@ -51,6 +55,9 @@ export class RequestLenderComponent implements OnInit ,OnDestroy{
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
+    if(this.productStatus == "Wating Fund"){
+      this.modalService.open(this.content4, { centered: true }); 
+    }
 
   }
   ngOnDestroy(): void{

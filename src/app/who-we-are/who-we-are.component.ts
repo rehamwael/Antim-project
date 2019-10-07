@@ -14,10 +14,13 @@ export class WhoWeAreComponent implements OnInit ,OnDestroy {
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('contact');
+    body.classList.add('who-we-are');
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('contact');
+    body.classList.remove('who-we-are');
+
   }
   btnClick= function () {
     this.router.navigateByUrl('/contact');
