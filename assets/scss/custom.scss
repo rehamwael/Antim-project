@@ -852,7 +852,51 @@ div .mat-horizontal-stepper-header{
         color: inherit;
     }
     div.page-wraper-right {
-        margin-left: 39%;
+        margin-left: 0;
+        padding-right: 17px;
+        padding-left: 40px;
+        width: 100%;
+    }
+    table.mat-table {
+        border-spacing: 0;
+        margin-left: -30px;
+    }
+    body div.modal-dialog-centered{
+        right: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        max-width: -webkit-fill-available
+    }
+    .mat-stepper-horizontal, .mat-stepper-vertical {
+        padding: 10px 0;
+    }
+    .mat-step-label img {
+        -webkit-filter: grayscale(1);
+        filter: gray;
+        filter: grayscale(1);
+        opacity: 0.2;
+        transform: scale(.7);
+        position: relative;
+        left: -6px;
+        top: 4px;
+    }
+    .dropdown-menu.show{
+        transform: translate(-141px, 38px) !important;
+    }
+    tr.mat-row:after{
+        display: none !important;
+    }
+    button.btn.btn-danger.btn-lg.btn-block.btn-red.mt-2 {
+        margin-bottom: 3em;
+    }
+    .align-fixed-mobile{
+        position: fixed;
+        bottom: 0;
+        background: #fff;
+        z-index: 9999;
+        right: 10px;
+        left: auto;
         width: 100%;
     }
     div.welcome-card {
@@ -889,6 +933,7 @@ div .mat-horizontal-stepper-header{
     .left-sidebar {
         position: fixed;
         width: 35%;
+        display: none;
         .user-info{
             span.hide-menu.ml-3 {
                 margin-left: 10px !important;
@@ -1267,7 +1312,7 @@ table.mat-table {
 button.btn.btn-secondary.btn-bor-red {
     border-color: #c0234d;
     color: #c0234d;
-    font-size: 8px;
+    font-size: 8px !important;
 }
 .installment-period label{
     padding: 0 !important;
@@ -1628,6 +1673,16 @@ img.antim-phone {
     font-size: 14px !important;
     font-weight: 300;
     padding: 9px 1rem !important;
+}
+.easy-for-you .col-lg-10 {
+    position: relative;
+    top: -34px;
+    h2.font-purple.font-bold.mb-4.col-lg-4 {
+        font-size: 2.5rem;
+    }
+    p{
+        opacity: 0.7;
+    }
 }
 div.d-hotline {
     background-color: #5c1fd2 !important;
