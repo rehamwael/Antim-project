@@ -1409,14 +1409,14 @@ header.bg-image nav#navbar.sticky-fixed-header ul.navbar-nav.ml-auto li a.nav-li
 .red-color{
     color: #c5003e;
 }
-.first-step div.mat-checkbox-inner-container {
+.log-in .first-step div.mat-checkbox-inner-container {
     width: 15px;
     height: 15px;
     position: absolute;
     top: 10px;
     right: 20px;
 }
-.mat-checkbox-background svg {
+.log-in .first-step .mat-checkbox-background svg {
     position: absolute;
     left: 3px;
     top: 3px;
