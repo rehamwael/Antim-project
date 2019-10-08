@@ -15,6 +15,7 @@ import { DashboredLenderComponent } from './dashbored-lender/dashbored-lender.co
 import { RequestLenderComponent } from './request-lender/request-lender.component';
 import { ProfileLenderComponent } from './profile-lender/profile-lender.component';
 import { NotificationLenderComponent } from './notification-lender/notification-lender.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 
 export const Approutes: Routes = [
   {
@@ -78,6 +79,10 @@ export const Approutes: Routes = [
       },{
         path: 'notification-lender',
         component: NotificationLenderComponent
+      },{
+        path: 'terms-conditions',
+        component: TermsConditionsComponent
+        
       }
       
       

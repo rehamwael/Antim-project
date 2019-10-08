@@ -71,11 +71,11 @@
                              <div class="row justify-content-center align-items-center">
                              <div class="col-lg-8 col-11 text-center">                              
                                     <input type="checkbox" id="box-1">
-                                    <label for="box-1">I agree on my <span class="text-underline">Terms & Condtions</span></label>
+                                    <label for="box-1">I agree on my <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label>
                              </div>
                              <div class="col-lg-8 col-11 mt-4 text-center">                                      
                                     <input type="checkbox" id="box-2" checked>
-                                    <label for="box-2">I agree on intime <span class="text-underline">Terms & Condtions</span></label>
+                                    <label for="box-2">I agree on intime <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label>
                              </div>
                              <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">     
                              <div class="form-group col-lg-6">
@@ -130,15 +130,15 @@
                  <div class="row mt-3 justify-content-center align-items-center phone-number-code pb-5">
                         <div class="col-lg-7 col-11 text-center mt-3">                              
                                 <input type="checkbox" id="box-1">
-                                <label for="box-1">I agree on my Terms & Condtions</label>
+                                <label for="box-1">I agree on my <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label>
                          </div>
                          <div class="col-lg-7 col-11 mt-4 text-center mb-5">                                      
                                 <input type="checkbox" id="box-2" checked>
-                                <label for="box-2">I agree on intime Terms & Condtions</label>
+                                <label for="box-2">I agree on intime <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label>
                          </div>
                       <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">     
                       <div class="form-group col-lg-9 ">
-                         <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [routerLink]="[ '/dashbored-borrower' ]">Sign Up</button>
+                         <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [routerLink]="['/', dashboredUrl]">Sign Up</button>
                      </div>
                  </div>
                  </div>

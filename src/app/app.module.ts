@@ -47,6 +47,7 @@ import { RequestLenderComponent } from './request-lender/request-lender.componen
 import { ProfileLenderComponent } from './profile-lender/profile-lender.component';
 import {MatSliderModule} from '@angular/material/slider';
 import { NotificationLenderComponent } from './notification-lender/notification-lender.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -77,6 +78,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RequestLenderComponent,
     ProfileLenderComponent,
     NotificationLenderComponent,
+    TermsConditionsComponent,
   ],
   imports: [
     CommonModule,

@@ -1209,6 +1209,37 @@ td.mat-cell.Wating{
     height: 48px;
     min-width: 100% !important;
 }
+.my-custom-class .tooltip-inner {
+    background-color: #fff;
+    border: 1px solid #979797;
+    color: #0c0b3a;
+    height: 45px;
+    width: 138px;
+    font-size: 10px;
+    padding: 7px 4em 10px 2em;
+    border-radius: 13px;
+    font-weight: 400;
+  }
+  .my-custom-class .arrow::before {
+    border-top-color: #f9f9f9;
+    color: #f9f9f9;
+  }
+.installment-period .btn-secondary{
+    background-color: inherit;
+    border-color: #b4b2ad;
+    height: 34px;
+    width: 34px;
+    border-radius: 5px;
+    margin: 0 2px;
+    margin-right: 8px;
+    padding: 0;
+    color: #b4b2ad;
+}
+.installment-period .btn-secondary:focus{
+    border-color: #b4b2ad;
+    border: 1px solid #b4b2ad;
+    box-shadow: none;
+}
 .card-info{
     p{
         color: #f9f9f9;
@@ -1231,7 +1262,12 @@ table.mat-table {
 .installment-period div.mat-checkbox-inner-container {
     width: 34px;
     height: 34px;
-    margin-right: 14px;
+    margin-right: 10px;
+}
+button.btn.btn-secondary.btn-bor-red {
+    border-color: #c0234d;
+    color: #c0234d;
+    font-size: 8px;
 }
 .installment-period label{
     padding: 0 !important;
@@ -1593,6 +1629,11 @@ img.antim-phone {
     font-weight: 300;
     padding: 9px 1rem !important;
 }
+div.d-hotline {
+    background-color: #5c1fd2 !important;
+    color: #FFFFFF !important;
+    border-color: transparent #6e3ad7 transparent transparent;
+}
 .dashbored-info-content {
     position: absolute;
     top: 30%;
@@ -1600,6 +1641,7 @@ img.antim-phone {
     p{
         color: #c7c7c7;
         font-size: 13px;
+        text-transform: capitalize;
     }
     div{
         font-size: 25px;

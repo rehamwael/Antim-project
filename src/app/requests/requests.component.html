@@ -210,7 +210,7 @@
                 <input class="form-control form-control-lg" value="6 Months" placeholder="Installment Period" [attr.disabled]="true">
             </div>
             <div class="col-lg-3">
-                <label for="InstallmentAmount" class="font-bold mt-2">Monthly INstallment</label>
+                <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
                 <input class="form-control form-control-lg" value="830 SAR" placeholder="Installment amount per month" [attr.disabled]="true">
             </div>
             <div class="col-lg-3">
@@ -224,8 +224,14 @@
                 <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
                 <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
                 <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
-                <mat-checkbox></mat-checkbox>
-                <mat-checkbox></mat-checkbox>
+                <button
+                type="button"
+                class="btn btn-secondary btn-bor-red"
+                placement="bottom"
+                ngbTooltip="Next Due Date 22-dec-2018" tooltipClass="my-custom-class">
+                delyed
+              </button>
+              <button type="button" class="btn btn-secondary"></button>
 
              </div>
             </div>

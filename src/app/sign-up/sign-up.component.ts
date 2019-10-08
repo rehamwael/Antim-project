@@ -15,6 +15,8 @@ export class SignUpComponent implements OnInit ,OnDestroy{
   lastStep: boolean;
   disabledSubmitButton: boolean = true;
   SigUpForm: FormGroup;
+  userType: any;
+  dashboredUrl: any;
   public id;
   
 
@@ -48,6 +50,12 @@ export class SignUpComponent implements OnInit ,OnDestroy{
   }
   addClass(id: any) {
     this.id = id;
+    if(this.id == "1"){
+      this.userType = "lender"
+    }else{
+      this.userType = "borrower"
+    }
+    this.dashboredUrl = "dashbored-" + this.userType;
     if(this.disabledNextButton){
       this.disabledNextButton = false;
     }
