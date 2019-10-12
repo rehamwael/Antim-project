@@ -21,5 +21,9 @@ export class NotificationLenderComponent implements OnInit ,OnDestroy {
     body.classList.remove('notification');
 
   }
+  toggleNavbar(){
+    window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
+
+  }
 
 }

@@ -773,13 +773,64 @@ div .mat-horizontal-stepper-header{
     padding: 16px 24px;
     text-align: center;
 }
+nav#navbar-app {
+    display: none;
+    right: 0;
+    left: 0;
+    padding: 17px 15px !important;
+    .navbar-toggler{
+        top: -2px;
+    }
+    .navbar-toggler-icon{
+        background-image: $navbar-light-toggler-icon-bg;
+    }
+    .navbar-brand {
+        width: 55%;
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+        text-align: center;
+        top: -3px;
+        right: -27px;
+        position: relative;
+    }
+}
+@media (max-width: 370px){
+    div.easy-for-you .col-lg-10 {
+        position: relative;
+        top: 100px;
+    }
+    h1.main-header-font {
+        font-size: 36px;
+    }
+    body div.easy-for-you {
+        margin-top: 26em;
+        margin-bottom: 20em;
+    }
+    body div img.women-image {
+        position: relative;
+        top: 2em;
+    }
+    section.start-journey h2 {
+        color: #d8d8d8;
+        font-size: 2.6rem;
+        margin-bottom: 34px;
+    }
+}
 
 @media (max-width: 992px){
     .bg-dark-right{
         display: none;
     }
+    nav#navbar-app {
+        display: block;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#5c5768), to(#000000));
+        background-image: linear-gradient(-180deg, #5c5768 0%, #000000 100%);
+    }
     .map, div#map {
         margin-top: 30px;
+    }
+    aside.left-sidebar.showmobile {
+        display: block;
     }
     .mat-card {
         padding: 7px 14px 40px;
@@ -884,20 +935,36 @@ div .mat-horizontal-stepper-header{
     .dropdown-menu.show{
         transform: translate(-141px, 38px) !important;
     }
+    ngb-datepicker.dropdown-menu.show{
+        -webkit-transform: inherit !important;
+        transform: inherit !important;
+    }
     tr.mat-row:after{
         display: none !important;
     }
     button.btn.btn-danger.btn-lg.btn-block.btn-red.mt-2 {
         margin-bottom: 3em;
+        width: 50%;
+    }
+    form.col-lg-9.row.antim-form {
+        padding: 33px 10px !important;
     }
     .align-fixed-mobile{
         position: fixed;
         bottom: 0;
         background: #fff;
-        z-index: 9999;
+        z-index: 9;
         right: 10px;
         left: auto;
         width: 100%;
+        padding: 9px 0 0 !important;
+    }
+    div.dashbored-info-content p {
+        color: #c7c7c7;
+        font-size: 17px;
+    }
+    .col-lg-11.row.justify-content-around.mt-5.dashbored-info {
+        margin-bottom: 7em;
     }
     div.welcome-card {
         height: auto;
@@ -932,7 +999,7 @@ div .mat-horizontal-stepper-header{
     }
     .left-sidebar {
         position: fixed;
-        width: 35%;
+        width: 55%;
         display: none;
         .user-info{
             span.hide-menu.ml-3 {
@@ -943,6 +1010,10 @@ div .mat-horizontal-stepper-header{
                 text-align: center;
                 img{
                     padding: 0 25px !important;
+                    padding: 0 25px !important;
+                    width: 62%;
+                    display: block;
+                    margin: 0 auto;
                 }
                 i.material-icons {
                     display: none;
@@ -1034,7 +1105,7 @@ div .mat-horizontal-stepper-header{
         position: relative;
         top: -4em;
         height: 550px;
-        width: 80%;
+        width: auto;
         margin: 0 auto;
         display: block;
         right: auto;

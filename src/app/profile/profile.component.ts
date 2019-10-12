@@ -84,4 +84,8 @@ export class ProfileComponent implements OnInit ,OnDestroy{
         this.isShown = ! this.isShown;
       }
   }
+  toggleNavbar(){
+    window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
+
+  }
 }

@@ -21,5 +21,9 @@ export class DashboredComponent implements OnInit ,OnDestroy{
     body.classList.remove('dashbored-home');
 
   }
+  toggleNavbar(){
+    window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
+
+  }
 
 }

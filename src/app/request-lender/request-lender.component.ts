@@ -66,6 +66,10 @@ export class RequestLenderComponent implements OnInit ,OnDestroy{
     body.classList.remove('requests');
 
   }
+  toggleNavbar(){
+    window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
+
+  }
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;

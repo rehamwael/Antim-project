@@ -64,5 +64,9 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
   openVerticallyCentered(content3) {
     this.modalService.open(content3, { centered: true });
   }
+  toggleNavbar(){
+    window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
+
+  }
 
 }
