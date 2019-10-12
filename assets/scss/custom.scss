@@ -823,6 +823,21 @@ nav#navbar-app {
     .bg-dark-right{
         display: none;
     }
+    .antim-form .form-control{
+        font-size: 16px !important;
+    }
+    .setting-dropdown-hide-small{
+        display: none !important;
+    }
+    .welcome-card.inner img {
+        position: relative;
+        left: 0;
+        height: 90px;
+        margin-bottom: 14px;
+    }
+    label.font-size-13{
+        text-align: left;
+    }
     nav#navbar-app {
         display: block;
         background-image: -webkit-gradient(linear, left top, left bottom, from(#5c5768), to(#000000));
@@ -914,12 +929,30 @@ nav#navbar-app {
         margin-left: 0;
         padding-right: 17px;
         padding-left: 40px;
+        margin-top: 20px;
         width: 100%;
+    }
+    .page-wraper-right.full-width {
+        padding-left: 17px;
     }
     table.mat-table {
         border-spacing: 0;
         margin-left: -30px;
     }
+    body .mat-step-label {
+        display: inline-block;
+        white-space: pre-wrap;
+        overflow: initial;
+        text-overflow: inherit;
+        min-width: 49px;
+        vertical-align: middle;
+        padding-bottom: 2em;
+    }  
+    body .mat-horizontal-stepper-header-container {
+        white-space: nowrap;
+        display: flex;
+        align-items: baseline;
+    }  
     body div.modal-dialog-centered{
         right: 0;
         left: 0;
