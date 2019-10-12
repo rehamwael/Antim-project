@@ -4,6 +4,7 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label ,Color } from 'ng2-charts';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class ProfileLenderComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder ,private modalService: NgbModal) { 
+  constructor(private fb: FormBuilder ,private modalService: NgbModal,public router: Router) { 
     this.EditForm = fb.group({
       'Name': [{value: null, disabled: this.disabledButton}],
       'MobileNo':  [{value: null, disabled: this.disabledButton}],
@@ -71,7 +72,12 @@ export class ProfileLenderComponent implements OnInit {
     this.BankInfoForm.get('BankName').disable();
     this.BankInfoForm.get('BankAccountName').disable();
     this.BankInfoForm.get('investmentPerYear').disable();
-
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0)
+  });
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];

@@ -960,6 +960,22 @@ nav#navbar-app {
         width: 100%;
         max-width: -webkit-fill-available
     }
+    div.bank-info-card {
+        height: 178px;
+    }
+    .profile .col-lg-11.row.justify-content-around.mt-5.dashbored-info {
+        margin-bottom: 0;
+    }
+    div.chart-container {
+        background: #fff;
+        padding: 25px 7px;
+    }
+    .transfer-btn button.btn-black{
+        font-size: 12px !important;
+    }
+    div.card-purple{
+        margin-bottom: 15px;
+    }
     .mat-stepper-horizontal, .mat-stepper-vertical {
         padding: 10px 0;
     }

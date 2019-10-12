@@ -1,5 +1,6 @@
 import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ export class ProfileComponent implements OnInit ,OnDestroy{
 
 
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder,public router: Router) { 
     this.EditForm = fb.group({
       'Name': [{value: null, disabled: this.disabledButton}],
       'MobileNo':  [{value: null, disabled: this.disabledButton}],
@@ -41,7 +42,12 @@ export class ProfileComponent implements OnInit ,OnDestroy{
     this.BankInfoForm.get('BankAccountName').disable();
     this.BankInfoForm.get('EmailAdd').disable();
     this.BankInfoForm.get('Iqama').disable();
-
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0)
+  });
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];

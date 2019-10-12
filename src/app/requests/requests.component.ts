@@ -2,6 +2,7 @@ import { Component, OnInit ,OnDestroy} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router, NavigationEnd } from '@angular/router';
 
 export interface PeriodicElement {
   position: number;
@@ -45,13 +46,18 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   slectedProduct : boolean = false;
   productStatus : any;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal,public router: Router) {}
 
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
-
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0)
+  });
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];
