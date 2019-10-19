@@ -29,7 +29,7 @@
                                             </i>
                                         <button class="btn btn-outline-primary mr-1" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Setting</button>
                                         <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                                          <button ngbDropdownItem>
+                                          <button ngbDropdownItem (click)="openVerticallyCentered(content5)">
                                               <span>
                                                 <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12Z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
@@ -38,7 +38,7 @@
                                                  </svg>
                                             </span>
                                             Deactivate the account</button>
-                                          <button ngbDropdownItem>
+                                          <button ngbDropdownItem (click)="openVerticallyCentered(content4)">
                                             <span>
                                                 <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M0 2.6665H1.33333H12" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
@@ -252,3 +252,26 @@
                 </div>
             </div>
         </div>
+
+        <ng-template #content4 let-modal>
+                <div class="modal-body py-5">
+                  <p class="my-4">
+                        If you want to delete you account, you will not be able to log in again, and you must register again to request funding.
+  
+                  </p>
+                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" (click)="modal.close('Close click')">CLOSE</button></div>
+  
+                </div>
+              </ng-template>
+
+
+              <ng-template #content5 let-modal>
+                    <div class="modal-body py-5">
+                      <p class="my-4">
+                            Sorry, you can't deactivate your account, because there are ongoing transactions.
+                      </p>
+                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" (click)="modal.close('Close click')">CLOSE</button></div>
+      
+                    </div>
+                  </ng-template>
+        

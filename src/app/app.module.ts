@@ -51,6 +51,7 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { LenderInfoComponent } from './lender-info/lender-info.component';
 import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
 import { MatTabsModule } from '@angular/material';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -83,6 +84,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TermsConditionsComponent,
     LenderInfoComponent,
     BorrowerInfoComponent,
+    ForgetPasswordComponent,
   ],
   imports: [
     CommonModule,

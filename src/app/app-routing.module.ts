@@ -18,6 +18,7 @@ import { NotificationLenderComponent } from './notification-lender/notification-
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { LenderInfoComponent } from './lender-info/lender-info.component';
 import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 export const Approutes: Routes = [
   {
@@ -91,6 +92,10 @@ export const Approutes: Routes = [
       {
         path: 'borrower-info',
         component: BorrowerInfoComponent
+      },
+      {
+        path: 'forget-password',
+        component: ForgetPasswordComponent
       }
       
       
