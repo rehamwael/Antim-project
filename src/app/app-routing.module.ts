@@ -16,6 +16,8 @@ import { RequestLenderComponent } from './request-lender/request-lender.componen
 import { ProfileLenderComponent } from './profile-lender/profile-lender.component';
 import { NotificationLenderComponent } from './notification-lender/notification-lender.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { LenderInfoComponent } from './lender-info/lender-info.component';
+import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
 
 export const Approutes: Routes = [
   {
@@ -82,8 +84,15 @@ export const Approutes: Routes = [
       },{
         path: 'terms-conditions',
         component: TermsConditionsComponent
-        
+      },{
+        path: 'lender-info',
+        component: LenderInfoComponent
+      },
+      {
+        path: 'borrower-info',
+        component: BorrowerInfoComponent
       }
+      
       
       
       

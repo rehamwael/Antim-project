@@ -48,7 +48,9 @@ import { ProfileLenderComponent } from './profile-lender/profile-lender.componen
 import {MatSliderModule} from '@angular/material/slider';
 import { NotificationLenderComponent } from './notification-lender/notification-lender.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
-
+import { LenderInfoComponent } from './lender-info/lender-info.component';
+import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
+import { MatTabsModule } from '@angular/material';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -79,6 +81,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ProfileLenderComponent,
     NotificationLenderComponent,
     TermsConditionsComponent,
+    LenderInfoComponent,
+    BorrowerInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -93,6 +97,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     MatStepperModule,
     MatInputModule,
+    MatTabsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatTableModule,

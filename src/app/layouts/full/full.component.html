@@ -27,14 +27,15 @@
                   <a class="nav-link" [routerLink]="[ '/who-we-are' ]" (click)=closeMenu()>who we are</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
+                  <a class="nav-link" [routerLink]="[ '/lender-info' ]" (click)=closeMenu()>Lender</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']">
+                  <a class="nav-link" [routerLink]="[ '/borrower-info' ]" (click)=closeMenu()>Borrower</a>
+                </li>
+                
+                <li class="nav-item" [routerLinkActive]="['active']">
                   <a class="nav-link" [routerLink]="[ '/contact' ]" (click)=closeMenu()>contact us</a>
                 </li>
-                <li class="nav-item">
-                        <a class="nav-link" [routerLink]="[ '/' ]" (click)=closeMenu()>client</a>
-                      </li>
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="[ '/' ]" (click)=closeMenu()>news</a>
-                  </li>
   
               </ul>
               <ul class="navbar-nav ml-auto mt-2">
