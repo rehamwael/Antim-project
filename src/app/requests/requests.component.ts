@@ -2,7 +2,7 @@ import { Component, OnInit ,OnDestroy} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 export interface PeriodicElement {
   position: number;
@@ -46,7 +46,7 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   slectedProduct : boolean = false;
   productStatus : any;
 
-  constructor(private modalService: NgbModal,public router: Router) {}
+  constructor(private modalService: NgbModal,public router: Router,private route: ActivatedRoute,) {}
 
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
@@ -58,6 +58,9 @@ export class RequestsComponent implements OnInit ,OnDestroy{
       }
       window.scrollTo(0, 0)
   });
+  let requestTypeParams = this.route.snapshot.paramMap.get('type');
+  this.dataSource.filter = requestTypeParams;
+  this.requestType = requestTypeParams;
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];

@@ -39,7 +39,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
     this.href = this.router.url;
-    let x = this.href.split("-");
+    let x = this.href.split("/")[1].split("-");
     this.userType = x[1];
     this.requestUrl = "requests-" + this.userType;
     this.dashboredUrl = "dashbored-" + this.userType;

@@ -42,31 +42,31 @@
 
 
                 <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
-                    <div class="col-lg-2 blue-bg">
+                    <div class="col-lg-2 blue-bg cursor-pointer" [routerLink]="[ '/requests-borrower' , 'Ongoing']">
                         <div class="dashbored-info-content">
-                            <p>approved requests</p>
+                            <p>On going requests</p>
                             <div>03</div>
                         </div>
                     </div>
-                <div class="col-lg-2 purple-bg">
+                <div class="col-lg-2 purple-bg cursor-pointer" [routerLink]="[ '/requests-borrower' ,'Under Review']">
                     <div class="dashbored-info-content">
                         <p>Under review Requests</p>
                         <div>03</div>
                     </div>
                     </div>
-                    <div class="col-lg-2 black-bg">
+                    <div class="col-lg-2 black-bg cursor-pointer" [routerLink]="[ '/requests-borrower' ,'Reject']">
                         <div class="dashbored-info-content">
-                            <p>approved requests</p>
+                            <p>Rejected requests</p>
                             <div>03</div>
                         </div>
                     </div>
-                    <div class="col-lg-2 blue-bg-2">
+                    <div class="col-lg-2 blue-bg-2 cursor-pointer" [routerLink]="[ '/requests-borrower' ,'' ]">
                         <div class="dashbored-info-content">
                             <p>Total Installment Paid</p>
                             <div>3600 SAR </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 purple-bg-2">
+                    <div class="col-lg-2 purple-bg-2 cursor-pointer" [routerLink]="[ '/requests-borrower' ,'Wating your approval']">
                         <div class="dashbored-info-content">
                             <p>under review requests</p>
                             <div>03</div>
@@ -76,7 +76,7 @@
 
                 <div class="col-lg-11 mt-3 row justify-content-center align-items-center py-4 mt-5 align-fixed-mobile">     
                         <div class="form-group col-lg-2 col-6">
-                               <button class="btn btn-info btn-lg btn-block btn-black mt-2 btn-lowecase" [routerLink]="[ '/requests-borrower' ]">All Request</button>
+                               <button class="btn btn-info btn-lg btn-block btn-black mt-2 btn-lowecase" [routerLink]="[ '/requests-borrower', 'All' ]">All Request</button>
                        </div>
                        <div class="form-group col-lg-3 col-6">
                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2 btn-lowecase" [routerLink]="[ '/createorder-borrower' ]">Make New Request</button>

@@ -65,7 +65,7 @@ export const Approutes: Routes = [
         component: ProfileComponent
       },
       {
-        path: 'requests-borrower',
+        path: 'requests-borrower/:type',
         component: RequestsComponent
       },{
         path: 'notification-borrower',
