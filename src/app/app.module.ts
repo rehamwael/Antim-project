@@ -21,7 +21,6 @@ import { NavigationComponent } from './shared/header-navigation/navigation.compo
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 
-
 import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
@@ -52,6 +51,7 @@ import { LenderInfoComponent } from './lender-info/lender-info.component';
 import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
 import { MatTabsModule } from '@angular/material';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { SettingComponent } from './shared/setting/setting.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -85,6 +85,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     LenderInfoComponent,
     BorrowerInfoComponent,
     ForgetPasswordComponent,
+    SettingComponent,
   ],
   imports: [
     CommonModule,

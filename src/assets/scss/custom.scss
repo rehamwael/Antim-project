@@ -189,6 +189,26 @@ input.custom-file-input {
         fill: #5c1fd2;
     }
 }
+div.card-header button:hover {
+    text-decoration: none;
+}
+button.btn.btn-link.collapsed:after {
+    content: "+";
+    font-size: 26px;
+    position: absolute;
+    right: 26px;
+    top: 12px;
+    font-weight: 300;
+}
+button.btn.btn-link:after {
+    content: "-";
+    font-size: 26px;
+    position: absolute;
+    right: 26px;
+    top: 12px;
+    font-weight: 300;
+    transition: all 0.6s ease-in;
+}
 .profile{
     .user-info{
         .cursor-pointer{
@@ -598,6 +618,9 @@ button.btn-red {
         transform: scale(1.2);
     }
 }
+app-setting {
+    width: 70%;
+}
 .pruple{
     color: #5c20d2 !important;
 }
@@ -687,6 +710,8 @@ div.card-header button {
     width: 100%;
     text-align: left;
     white-space: inherit;
+    color: #5c20d2;
+    text-decoration: none !important;
 }
 ol {
     margin: 0 !important;

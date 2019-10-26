@@ -74,5 +74,6 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
     window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
 
   }
+  
 
 }

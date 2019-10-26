@@ -13,7 +13,6 @@ export class SettingComponent implements OnInit ,OnDestroy{
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
-    body.classList.add('dashbored-home');
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
           return;
@@ -25,7 +24,6 @@ export class SettingComponent implements OnInit ,OnDestroy{
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
-    body.classList.remove('dashbored-home');
 
   }
   openVerticallyCentered(content3) {
