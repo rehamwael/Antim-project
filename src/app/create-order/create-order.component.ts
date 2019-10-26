@@ -16,7 +16,8 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
   isEditable = false;
   disabledSubmitButton: boolean = true;
   disabledSubmitButtonSecond: boolean = true;
-  
+  addMoreItem: boolean = false;
+
 
   @HostListener('input') oninput() {
     if (this.firstFormGroup.valid) {
@@ -31,24 +32,23 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      link1: ['', Validators.required],
-      link2: ['', Validators.required],
-      link3: ['', Validators.required]
-
+      link1: [''],
+      link2: [''],
+      link3: ['']
 
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
-      firstCtrl: ['', Validators.required]
+      firstCtrl: ['6-Months-ex', Validators.required]
     });
 
 
     this.lastFormGroup = this._formBuilder.group({
-      numberOfProduct: [''],
-      TotalPrice: [''],
-      InstallmentPeriod: [''],
-      InstallmentPerMonth: [''],
-      FinalProduct: ['']
+      numberOfProduct: [{value: null, disabled: true}],
+      TotalPrice: [{value: null, disabled: true}],
+      InstallmentPeriod: [{value: null, disabled: true}],
+      InstallmentPerMonth: [{value: null, disabled: true}],
+      FinalProduct: [{value: null, disabled: true}]
     });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -73,6 +73,9 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
   toggleNavbar(){
     window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
 
+  }
+  addMoreItems(){
+    this.addMoreItem = true;
   }
   
 

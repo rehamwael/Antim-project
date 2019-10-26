@@ -418,6 +418,14 @@ ul.nav.nav-pills.justify-content-start {
         color: #c5c5c5;
     }
 }
+.mat-form-field-placeholder  ,.mat-form-placeholder {
+    display:block !important;
+ }
+.form-control:disabled, .form-control[readonly] {
+    background-color: #ffffff;
+    color: #c7c7c7;
+    opacity: 1;
+}
 .form-control.ng-valid.custom-select{
     color: #000;
 }
@@ -617,6 +625,25 @@ button.btn-red {
         -webkit-transform: scale(0.8);
         transform: scale(1.2);
     }
+}
+.more-item-button {
+    border: 1px dashed #5c20d2;
+    padding: 5px 0 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    &:hover{
+        background: none;
+        color: #5600ff !important;
+        border: 1px dashed #5600ff !important;
+    }
+    svg {
+        transform: scale(.8);
+        position: relative;
+        right: 4px;
+        top: 5px;
+    }
+    
 }
 app-setting {
     width: 70%;
@@ -866,7 +893,7 @@ div.modal-dialog-centered{
     opacity: 0.2;
 }
 div select.mat-input-element {
-    height: 51.3px !important;
+    height: 48.5px !important;
     padding: 3px 16px;
     padding-top: 0em;
     top: -1em;

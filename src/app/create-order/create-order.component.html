@@ -39,26 +39,38 @@
                                         <img src="assets/images/add-product.svg">
                                         <p class="font-size-13 mt-2">Add Product</p>
                                     </ng-template>
-                                    <mat-form-field>
+                                    <div class="my-4">
                                       <h3 class="mb-4 mt-4">Enter product link(s)</h3>
                                       <label for="Link1" class="font-bold mt-2">Link1</label>
-                                      <input matInput  formControlName="link1" class="form-control form-control-lg" placeholder="placeholder type here …" required>
-                                    </mat-form-field>
+                                      <input  formControlName="link1" class="form-control form-control-lg" placeholder="placeholder type here …">
+                                    </div>
 
-                                    <mat-form-field>
+                                    <div class="my-4">
                                             <label for="Link2" class="font-bold mt-2">Link2</label>
-                                            <input matInput formControlName="link2" class="form-control form-control-lg" placeholder="placeholder type here …"  required>
-                                     </mat-form-field>
+                                            <input formControlName="link2" class="form-control form-control-lg" placeholder="placeholder type here …" >
+                                    </div>
 
-                                    <mat-form-field>
+                                    <div class="my-4">
                                             <label for="Link3" class="font-bold mt-2">Link3</label>
-                                            <input matInput formControlName="link3" class="form-control form-control-lg" placeholder="placeholder type here …" required>
-                                     </mat-form-field>
+                                            <input formControlName="link3" class="form-control form-control-lg" placeholder="placeholder type here …">
+                                    </div>
+                                     <div class="my-4" *ngIf="addMoreItem">
+                                            <label for="Link4" class="font-bold mt-2">Link4</label>
+                                            <input  formControlName="link4" class="form-control form-control-lg" placeholder="placeholder type here …">
+                                     </div>
+                                     <button class="btn btn-block btn-outline-primary more-item-button mt-4" (click)="addMoreItems()" *ngIf="!addMoreItem">
+                                            <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10 21.5217C15.5228 21.5217 20 16.8499 20 11.0869C20 5.32391 15.5228 0.6521 10 0.6521C4.47715 0.6521 0 5.32391 0 11.0869C0 16.8499 4.47715 21.5217 10 21.5217Z" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10 6.91309V15.2609" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M6 11.0869H14" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             </svg>
+                                                 
+                                        More Item</button>
 
 
                                      <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-3">     
                                            <div class="form-group col-lg-3">
-                                                <button mat-button matStepperNext class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="disabledSubmitButton">Next</button>
+                                                <button mat-button matStepperNext class="btn btn-info btn-lg btn-block btn-purple mt-2">Next</button>
                                            </div>
                                     </div>
                                   </form>
@@ -70,7 +82,8 @@
                                         <img src="assets/images/Payment-Details.svg">
                                         <p class="font-size-13 mt-2">Payment Details</p>
                                     </ng-template>
-                                    <mat-form-field>
+                                    <div class="row mt-4">
+                                    <div class="col-lg-6">
                                         <label for="Installment" class="font-bold mt-2">Installment Peroid</label>
                                         <select formControlName="firstCtrl" matNativeControl required class="form-control form-control-lg mt-3">
                                                 <option value="6-Months-ex" selected>Ex: 6 Months</option>
@@ -78,12 +91,13 @@
                                                 <option value="3-Months">3 Months</option>
                                                 <option value="9-Months">9 Months</option>
                                         </select>
-                                    </mat-form-field>
+                                    </div>
 
-                                    <mat-form-field>
+                                    <div class="col-lg-6">
                                         <label for="amount" class="font-bold mt-2"> The amount of the monthly installment</label>
-                                        <input matInput placeholder="1500 SAR" class="form-control form-control-lg" formControlName="secondCtrl" required style="height: 53px;"> 
-                                    </mat-form-field>
+                                        <input placeholder="1500 SAR" class="form-control form-control-lg" formControlName="secondCtrl" required style="height: 53px;"> 
+                                    </div>
+                                </div>
                                     <p class="my-5 grey-text-color">
                                         <span class="mr-1">
                                             <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -151,27 +165,27 @@
                                     <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                             <mat-form-field>
                                                 <label for="numberOfProduct" class="font-bold mt-2">Number of product</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct"> 
+                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="3 product"> 
                                             </mat-form-field>
         
                                             <mat-form-field>
                                                 <label for="total" class="font-bold mt-2"> Totql price of products:</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="TotalPrice"> 
+                                                <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="1500 SAR"> 
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                 <label for="InstallmentPeriod" class="font-bold mt-2">Installment Period</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod"> 
+                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="6 Months"> 
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                     <label for="InstallmentPerMonth" class="font-bold mt-2">Installment amount per month</label>
-                                                    <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth"> 
+                                                    <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="830 SAR"> 
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                     <label for="FinalProduct" class="font-bold mt-2">Final product price (with profit)</label>
-                                                    <input matInput class="form-control form-control-lg" formControlName="FinalProduct"> 
+                                                    <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="1875 SAR"> 
                                             </mat-form-field>
                                             <p class="my-5 grey-text-color">
                                                 <span class="mr-1">
