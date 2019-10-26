@@ -1,6 +1,7 @@
 import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
+import {latLng, tileLayer} from "leaflet";
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,14 @@ export class ProfileComponent implements OnInit ,OnDestroy{
   BankInfoForm: FormGroup;
   isShown: boolean = false ; // hidden by default
   disabledBankButton: boolean = true;
+  zoom: number;
+  center: L.LatLng;
+  fitBounds: L.LatLngBounds;
+  baseLayers: L.TileLayer[];
+  leafletLayers;
+  leafletOptions;
+  mapCenter;
+  zoomLevel;
 
 
 
@@ -31,7 +40,11 @@ export class ProfileComponent implements OnInit ,OnDestroy{
         'EmailAdd': ['',{disabled:this.disabledBankButton}],
         'Iqama': ['',{disabled:this.disabledBankButton}],
         });
-
+        this.leafletLayers = [tileLayer(
+          'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          { })];
+        this.mapCenter = latLng(24.8085046, 46.6711241);
+        this.zoomLevel=7;
   }
 
   ngOnInit(): void {
