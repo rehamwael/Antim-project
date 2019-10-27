@@ -74,7 +74,7 @@ export const Approutes: Routes = [
         path: 'dashbored-lender',
         component: DashboredLenderComponent
       },{
-        path: 'requests-lender',
+        path: 'requests-lender/:type',
         component: RequestLenderComponent
       } ,{
         path: 'profile-lender',

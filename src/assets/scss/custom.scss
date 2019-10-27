@@ -256,7 +256,7 @@ button.btn-black {
   }
   div .form-control {
     border-radius: 6px !important;
-    color: #000;
+    color: #000 !important;
 }
 .font-light {
     font-weight: 300;
@@ -602,11 +602,9 @@ button.btn-red {
         transform: scale(.8);
     }
     &:hover{
-        svg{
-            path{
-                stroke: #fff;
-            }
-        }
+        background: none !important;
+        background-color: none !important;
+        color: #c5003e !important;
     }
 }
 .dashbored-nav .dropdown-item {
@@ -623,7 +621,7 @@ button.btn-red {
     }
     svg {
         position: relative;
-        top: 2px;
+        top: 4px;
         margin: 0 10px;
         -webkit-transform: scale(0.8);
         transform: scale(1.2);
