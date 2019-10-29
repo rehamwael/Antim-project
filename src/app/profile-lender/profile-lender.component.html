@@ -23,14 +23,15 @@
         
         
         <div class="page-wraper-right">
-                        <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2">
+                <div class="mat-card col-lg-11 mt-5 px-0 py-0 m-0 mb-5">
+                        <div class="mat-card col-lg-12 row welcome-card inner p-2 m-0 align-items-center">
                             <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
                             <div class="col-lg-7 px-0 col-8">
-                                <p class="grey-text-color mt-4">My Profile</p>
+                                <p class="grey-text-color">My Profile</p>
                             </div>
                             <form class="col-lg-3">
                             <div class="form-group">
-                                <label for="profileInformation" class="font-size-13 mt-2">Select profile infomation </label>
+                                <label for="profileInformation" class="font-size-13">Select profile infomation </label>
                                 <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
                                         <option value="Personal" selected>Personal Information</option>
                                         <option value="Bank">Bank Information</option>
@@ -43,7 +44,7 @@
         
         
         
-                        <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
+                        <div class="col-lg-12 row justify-content-around mt-5 dashbored-info">
                             <div class="justify-content-center col-lg-9">
                             <form class="row antim-form" [formGroup]="EditForm" *ngIf="!isShown && !showProfit">
                             <div class="col-lg-12 mb-3"><h3 class="headingh3">Personal Information</h3></div>
@@ -145,7 +146,7 @@
                         </div>
 
 
-                        <div class="col-lg-11 row justify-content-around" *ngIf="showProfit">
+                        <div class="col-lg-12 row justify-content-around" *ngIf="showProfit">
                             <div class="col-lg-5 row bank-info-card card-purple">
                                 <div class="col-lg-2 mt-4 px-3 col-3">
                                         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -164,7 +165,7 @@
                                             </svg>
                                             
                                  </div>
-                                 <div class="card-info col-lg-8 mt-4 px-4 col-8">
+                                 <div class="card-info col-lg-8 mt-4 px-5 col-8">
                                      <p>Converted profits</p>
                                      <h4>12,400 SAR</h4>
                                  </div>
@@ -188,7 +189,7 @@
                                                 </svg>
                                                 
                                      </div>
-                                     <div class="card-info col-lg-8 mt-4 px-4 col-8">
+                                     <div class="card-info col-lg-8 mt-4 px-5 col-8">
                                          <p>Current profits</p>
                                          <h4>122,400 SAR</h4>
                                      </div>
@@ -213,6 +214,7 @@
                             </div>
 
                         </div>
+                    </div>
             </div>
         </div>
 

@@ -42,7 +42,7 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
-  requestType: string ="All Requests";
+  requestType: string = "All Requests";
   slectedProduct : boolean = false;
   productStatus : any;
 
@@ -60,7 +60,12 @@ export class RequestsComponent implements OnInit ,OnDestroy{
   });
   let requestTypeParams = this.route.snapshot.paramMap.get('type');
   this.dataSource.filter = requestTypeParams;
-  this.requestType = requestTypeParams;
+  if(requestTypeParams == ""){
+    this.requestType =  "All Requests";
+  }else{
+    this.requestType = requestTypeParams;
+
+  }
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];

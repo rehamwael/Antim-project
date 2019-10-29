@@ -23,14 +23,15 @@
         
         
         <div class="page-wraper-right">
-                        <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2">
+                <div class="mat-card col-lg-11 mt-5 px-0 py-0 m-0 mb-5">
+                        <div class="mat-card col-lg-12 row welcome-card inner p-2 m-0 align-items-center">
                             <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
                             <div class="col-lg-7 px-0 col-8">
-                                <p class="grey-text-color mt-4">My Profile</p>
+                                <p class="grey-text-color">My Profile</p>
                             </div>
                             <form class="col-lg-3">
                             <div class="form-group">
-                                <label for="profileInformation" class="font-size-13 mt-2">Select profile infomation </label>
+                                <label for="profileInformation" class="font-size-13">Select profile infomation </label>
                                 <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
                                         <option value="Personal" selected>Personal Information</option>
                                         <option value="Bank">Bank Information</option>
@@ -166,4 +167,5 @@
                                </div>
                         </div>
             </div>
+        </div>
         </div>

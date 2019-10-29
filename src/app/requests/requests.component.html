@@ -23,14 +23,14 @@
         
         
         <div class="page-wraper-right" *ngIf="!slectedProduct">
-                        <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2">
+                        <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2 align-items-center">
                             <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
                             <div class="col-lg-2 px-0 col-8">
-                                <p class="grey-text-color mt-4" [innerHTML]="requestType"></p>
+                                <p class="grey-text-color" [innerHTML]="requestType"></p>
                             </div>
                             <form class="col-lg-3">
                             <div class="form-group">
-                                <label for="Type" class="font-size-13 mt-2">Select Request Type</label>
+                                <label for="Type" class="font-size-13">Select Request Type</label>
                                 <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
                                         <option value="" selected>All requests</option>
                                         <option value="Ongoing">On going</option>
@@ -47,7 +47,7 @@
                             </form>
                             <form class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="Filter" class="font-size-13 mt-2">Filter Date</label>
+                                        <label for="Filter" class="font-size-13">Filter Date</label>
                                         <div class="input-group">
                                         <input (click)="dp.toggle()" class="form-control date-picker" placeholder="mm-dd-yyyy" name="dp" ngbDatepicker #dp="ngbDatepicker">
                                         <i class="fa fa-calendar"></i>
@@ -57,7 +57,7 @@
 
                                     <form class="col-lg-2">
                                       <div class="form-group">
-                                        <label for="amount" class="font-size-13 mt-2">Amount of funding</label>
+                                        <label for="amount" class="font-size-13">Amount of funding</label>
                                         <div class="input-group">
                                           <input type="text" placeholder="amount" class="form-control input-inner">
                                         </div>
