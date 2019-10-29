@@ -97,6 +97,9 @@
                         </div>
                             <p class="dark-text-color col-lg-12">Dear Customer, Congratulations! your request has been approved by the Antime platform, will be follow-up by sending.....
                             </p>
+                            <p class="dark-text-color col-lg-12" *ngIf="isCollapsed1">Dear Customer, Congratulations! your request has been approved by the Antime platform, will be follow-up by sending.....
+                            </p>
+                            <p class="dark-text-color col-lg-12 text-right mb-0 cursor-pointer" (click)="isCollapsed1 = !isCollapsed1">{{isCollapsed1? 'less' : 'more'}}</p>
                         </div>
                         <div class="mat-card col-lg-11 row mt-1 mb-5">
                           <div>
@@ -117,6 +120,11 @@
                         </div>
                             <p class="dark-text-color col-lg-12">Dear Customer, Congratulations! your request has been approved by the Antime platform, will be follow-up by sending.....
                             </p>
+                            <p class="dark-text-color col-lg-12" *ngIf="isCollapsed2">Dear Customer, Congratulations! your request has been approved by the Antime platform, will be follow-up by sending.....
+                            </p>
+                            
+                            <p class="dark-text-color col-lg-12 text-right mb-0 cursor-pointer" (click)="isCollapsed2 = !isCollapsed2">{{isCollapsed2? 'less' : 'more'}}</p>
+
                         </div>
         
         

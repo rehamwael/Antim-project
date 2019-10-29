@@ -6,7 +6,8 @@ import { Component, OnInit , OnDestroy} from '@angular/core';
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent implements OnInit , OnDestroy {
-
+  isCollapsed1 = false;
+  isCollapsed2 = false;
   constructor() { }
 
   ngOnInit(): void {
