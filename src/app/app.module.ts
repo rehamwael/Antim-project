@@ -52,6 +52,7 @@ import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
 import { MatTabsModule } from '@angular/material';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SettingComponent } from './shared/setting/setting.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -86,6 +87,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BorrowerInfoComponent,
     ForgetPasswordComponent,
     SettingComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,

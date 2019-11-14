@@ -19,6 +19,7 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { LenderInfoComponent } from './lender-info/lender-info.component';
 import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const Approutes: Routes = [
   {
@@ -67,25 +68,32 @@ export const Approutes: Routes = [
       {
         path: 'requests-borrower/:type',
         component: RequestsComponent
-      },{
+      },
+      {
         path: 'notification-borrower',
         component: NotificationComponent
-      },{
+      },
+      {
         path: 'dashbored-lender',
         component: DashboredLenderComponent
-      },{
+      },
+      {
         path: 'requests-lender/:type',
         component: RequestLenderComponent
-      } ,{
+      } ,
+      {
         path: 'profile-lender',
         component: ProfileLenderComponent
-      },{
+      },
+      {
         path: 'notification-lender',
         component: NotificationLenderComponent
-      },{
+      },
+      {
         path: 'terms-conditions',
         component: TermsConditionsComponent
-      },{
+      },
+      {
         path: 'lender-info',
         component: LenderInfoComponent
       },
@@ -97,14 +105,12 @@ export const Approutes: Routes = [
         path: 'forget-password',
         component: ForgetPasswordComponent
       }
-      
-      
-      
-      
+
     ]
   },
-  {
-    path: '**',
-    redirectTo: '/home'
-  }
+  // {
+  //   path: '**',
+  //   redirectTo: '/home'
+  // }
+  { path: '**', component: PageNotFoundComponent }
 ];
