@@ -29,6 +29,11 @@ export class AuthService {
     } else {
       this.authState.next(null);
     }
+    // if (token === null) {
+    //   this.authState.next(null);
+    // } else {
+    //   this.authState.next(token);
+    // }
   }
   login(user: any): Observable<any> {
     return this.httpClient.post(`${this.Url}/users/login`, user).pipe(
@@ -42,6 +47,8 @@ export class AuthService {
 }
   logout(): Observable<boolean> {
     this.authState.next(null);
+     localStorage.removeItem('access_token');
+     this.loadUser();
     return of(false).pipe(
       tap(val => this.isLoggedIn = false)
     );
