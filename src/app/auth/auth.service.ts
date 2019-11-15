@@ -12,7 +12,7 @@ export class AuthService {
   Url = environment.baseAPIURL;
   authState  =  new BehaviorSubject(null);
   User: Observable<any>;
-  // redirectUrl: string;
+  redirectUrl: string;
 
   constructor(private httpClient: HttpClient) {
    this.loadUser();
