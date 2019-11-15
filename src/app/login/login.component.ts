@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit , OnDestroy {
   LoginForm: FormGroup;
   disabledSubmitButton = true;
+  loginUsername: any;
+  loginPassword: any;
   @HostListener('input') oninput() {
     if (this.LoginForm.valid) {
       this.disabledSubmitButton = false;
@@ -20,8 +22,14 @@ export class LoginComponent implements OnInit , OnDestroy {
     private authservice: AuthService,
     private router: Router) {
     this.LoginForm = fb.group({
-      'username': ['', Validators.required],
-      'password': ['', Validators.required],
+      'username': [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(4)
+      ])],
+      'password': [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(9)
+      ])],
       });
   }
 
@@ -33,11 +41,14 @@ export class LoginComponent implements OnInit , OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('log-in');
   }
-  login() {
-    console.log('inlogin.');
-    this.authservice.login().subscribe( (res) => {
-      console.log('Logged in!', res);
-      this.router.navigate(['/dashbored-borrower']);
+  login( Username: any, Password: any) {
+    console.log('inlogin.', Username, Password);
+    this.authservice.login({
+      email: Username,
+      password: Password
+    }).subscribe( (res) => {
+          console.log('Logged in!', res);
+          this.router.navigate(['/dashbored-borrower']);
     }, async err => {
         console.log('Errrrrror : ', err);
     // if (err.error.status === 'fail') {
