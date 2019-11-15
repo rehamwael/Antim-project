@@ -1,4 +1,4 @@
-import { Component, OnInit ,OnDestroy, HostListener} from '@angular/core';
+import { Component, OnInit , OnDestroy, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -7,18 +7,18 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit ,OnDestroy{
+export class SignUpComponent implements OnInit , OnDestroy {
   public selectedItem: any;
-  disabledNextButton: boolean = true;
+  disabledNextButton = true;
   showSelected: boolean;
   sheckMobileStep: boolean;
   lastStep: boolean;
-  disabledSubmitButton: boolean = true;
+  disabledSubmitButton = true;
   SigUpForm: FormGroup;
   userType: any;
   dashboredUrl: any;
   public id;
-  
+
 
   @HostListener('input') oninput() {
     if (this.SigUpForm.valid) {
@@ -26,16 +26,41 @@ export class SignUpComponent implements OnInit ,OnDestroy{
       }
   }
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder) {
     this.showSelected = false;
     this.sheckMobileStep = false;
-    this.lastStep= false;
+    this.lastStep = false;
 
     this.SigUpForm = fb.group({
-      'FirstName': ['', Validators.required],
-      'NID': ['', Validators.required],
-      'email': ['', Validators.compose([Validators.required, Validators.email])],
-      'phone': ['', Validators.required],
+      'FirstName': [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(5)
+      ])],
+      'username': [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(5)
+      ])],
+      'NID': [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(8)
+      ])],
+      'email': ['', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
+      ])],
+      'phone': [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(11)
+      ])],
+      'password': [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(9)
+      ])],
+      'confirmPassword': [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(9)
+      ])]
+
       });
 
   }
@@ -44,53 +69,54 @@ export class SignUpComponent implements OnInit ,OnDestroy{
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('log-in');
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('log-in');
   }
   addClass(id: any) {
     this.id = id;
-    if(this.id == "1"){
-      this.userType = "lender"
-    }else{
-      this.userType = "borrower"
+    if (this.id === '1') {
+      this.userType = 'lender';
+    } else {
+      this.userType = 'borrower';
     }
-    this.dashboredUrl = "dashbored-" + this.userType;
-    if(this.disabledNextButton){
+    this.dashboredUrl = 'dashbored-' + this.userType;
+    if (this.disabledNextButton) {
       this.disabledNextButton = false;
     }
   }
 
-  Nextstep(){
+  Nextstep() {
     this.showSelected = !this.showSelected;
   }
-  PrevStep(){
+  PrevStep() {
     this.showSelected = !this.showSelected;
 
   }
-  thirdStep(){
+  thirdStep() {
     this.sheckMobileStep = !this.sheckMobileStep;
 
   }
-  lastStepd(){
+  lastStepd() {
     this.lastStep = !this.lastStep;
   }
-  closeBack(){
+  closeBack() {
     this.showSelected = false;
     this.sheckMobileStep = false;
   }
-  closeBackLast(){
+  closeBackLast() {
     this.showSelected = false;
     this.sheckMobileStep = false;
     this.lastStep = false;
   }
-  keytab(event){
-    let element = event.srcElement.nextElementSibling; // get the sibling element
+  keytab(event) {
+    const element = event.srcElement.nextElementSibling; // get the sibling element
 
-    if(element == null)  // check if its null
+    if (element == null) {  // check if its null
         return;
-    else
-        element.focus();   // focus if not null
+    } else {
+        element.focus();
+    }   // focus if not null
    }
 
 }

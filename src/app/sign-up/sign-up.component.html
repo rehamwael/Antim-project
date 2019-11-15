@@ -45,12 +45,19 @@
                         <p class="grey-text-color mt-2 mb-4">Alright Borrower, Fill the below please</p>
                         <div class="row mt-3">
                         <div class="form-group text-left col-lg-6">
-                                <label for="name">First Name<span class="red-color"> *</span></label>
-                                <input formControlName="FirstName" class="form-control form-control-lg" placeholder="user name type here..." type="text">
+                                <label for="name">Name<span class="red-color"> *</span></label>
+                                <input formControlName="FirstName" class="form-control form-control-lg" placeholder="Name type here..." type="text">
                                 <div *ngIf="SigUpForm.controls['FirstName'].touched && !SigUpForm.controls['FirstName'].valid" class="error-msg alert alert-danger text-left">First Name required</div>
 
                             </div>
+
                             <div class="form-group text-left col-lg-6">
+                                <label for="username">User Name<span class="red-color"> *</span></label>
+                                <input formControlName="username" class="form-control form-control-lg" placeholder="user name type here..." type="text">
+                                <div *ngIf="SigUpForm.controls['username'].touched && !SigUpForm.controls['username'].valid" class="error-msg alert alert-danger text-left">Username required</div>
+
+                            </div>
+                            <div class="form-group text-left col-lg-12">
                                 <label for="NID">National ID No/Iqama<span class="red-color"> *</span></label>
                                 <input formControlName="NID" class="form-control form-control-lg" placeholder="Ex : 0000" type="text">
                                 <div *ngIf="SigUpForm.controls['NID'].touched && !SigUpForm.controls['NID'].valid" class="error-msg alert alert-danger text-left">National ID is required</div>
@@ -59,10 +66,22 @@
                             </div>
                             <div class="form-group text-left col-lg-12">
                                     <label for="email">Email<span class="red-color"> *</span></label>
-                                    <input formControlName="email" class="form-control form-control-lg" placeholder="user name type here..." type="email">
+                                    <input formControlName="email" class="form-control form-control-lg" placeholder="Email type here..." type="email">
                                     <div *ngIf="SigUpForm.controls['email'].touched && !SigUpForm.controls['email'].valid" class="error-msg alert alert-danger text-left">Email is required</div>
 
                              </div>
+                             <div class="form-group text-left col-lg-12">
+                                <label for="password">Password<span class="red-color"> *</span></label>
+                                <input formControlName="password" class="form-control form-control-lg" placeholder="***************" type="password">
+                                <div *ngIf="SigUpForm.controls['password'].touched && !SigUpForm.controls['password'].valid" class="error-msg alert alert-danger text-left">Password is required</div>
+
+                            </div>
+                            <div class="form-group text-left col-lg-12">
+                              <label for="confirmPassword">Confirm Password<span class="red-color"> *</span></label>
+                              <input formControlName="confirmPassword" class="form-control form-control-lg" placeholder="***************" type="password">
+                              <div *ngIf="SigUpForm.controls['confirmPassword'].touched && !SigUpForm.controls['confirmPassword'].valid" class="error-msg alert alert-danger text-left">Confirm Password is required</div>
+
+                            </div>
                              <div class="form-group text-left col-lg-12">
                                     <label for="phone">Phone No<span class="red-color"> *</span></label>
                                     <input  formControlName="phone" class="form-control form-control-lg" placeholder="Ex : 011 XXX XXXX" type="number">

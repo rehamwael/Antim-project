@@ -12,7 +12,7 @@ export class AuthService {
   Url = environment.baseAPIURL;
   authState  =  new BehaviorSubject(null);
   User: Observable<any>;
-  redirectUrl: string;
+  // redirectUrl: string;
 
   constructor(private httpClient: HttpClient) {
    this.loadUser();
@@ -29,22 +29,28 @@ export class AuthService {
     } else {
       this.authState.next(null);
     }
-    // if (token === null) {
-    //   this.authState.next(null);
-    // } else {
-    //   this.authState.next(token);
-    // }
   }
+
   login(user: any): Observable<any> {
     return this.httpClient.post(`${this.Url}/users/login`, user).pipe(
       tap((res: any ) => {
         this.isLoggedIn = true;
-       localStorage.setItem('access_token', res.token);
-       // localStorage.setItem('User', res.data);
+      localStorage.setItem('access_token', res.token);
+      // localStorage.setItem('User', res.data);
         this.authState.next(user);
       })
-  );
-}
+    );
+  }
+
+  register(user: any): Observable<any> {
+    return this.httpClient.post(`${this.Url}/users/signup`, user).pipe(
+      tap((res: any ) => {
+        localStorage.setItem('access_token', res.token);
+        this.authState.next(user);
+        })
+    );
+  }
+
   logout(): Observable<boolean> {
     this.authState.next(null);
      localStorage.removeItem('access_token');
