@@ -15,7 +15,8 @@
                         <div *ngIf="LoginForm.controls['password'].touched && !LoginForm.controls['password'].valid" class="error-msg alert alert-danger text-left">Password is required</div>
                     </div>
                     <div class="form-group mt-4">
-                        <button class="btn btn-info btn-lg btn-block btn-purple mt-5" [routerLink]="[ '/dashbored-borrower' ]" [disabled]="disabledSubmitButton">Sign In</button>
+                        <!-- <button class="btn btn-info btn-lg btn-block btn-purple mt-5" [routerLink]="[ '/dashbored-borrower' ]" [disabled]="disabledSubmitButton">Sign In</button> -->
+                        <button class="btn btn-info btn-lg btn-block btn-purple mt-5" (click)="login()" [disabled]="disabledSubmitButton">Sign In</button>
                     </div>
                     <p class="grey-text-color pt-4 cursor-pointer" [routerLink]="[ '/forget-password' ]" >forgot password ?</p>
                 </form>

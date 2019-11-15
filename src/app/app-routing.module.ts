@@ -20,6 +20,7 @@ import { LenderInfoComponent } from './lender-info/lender-info.component';
 import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './auth/auth.guard';
 
 export const Approutes: Routes = [
   {
@@ -53,41 +54,50 @@ export const Approutes: Routes = [
       },
       {
         path: 'dashbored-borrower',
-        component: DashboredComponent
+        component: DashboredComponent,
+        canActivate: [AuthGuard],
 
       },
       {
         path: 'createorder-borrower',
-        component: CreateOrderComponent
+        component: CreateOrderComponent,
+        canActivate: [AuthGuard],
 
       },
       {
         path: 'profile-borrower',
-        component: ProfileComponent
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'requests-borrower/:type',
-        component: RequestsComponent
+        component: RequestsComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'notification-borrower',
-        component: NotificationComponent
+        component: NotificationComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'dashbored-lender',
-        component: DashboredLenderComponent
+        component: DashboredLenderComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'requests-lender/:type',
-        component: RequestLenderComponent
+        component: RequestLenderComponent,
+        canActivate: [AuthGuard]
       } ,
       {
         path: 'profile-lender',
-        component: ProfileLenderComponent
+        component: ProfileLenderComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'notification-lender',
-        component: NotificationLenderComponent
+        component: NotificationLenderComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'terms-conditions',

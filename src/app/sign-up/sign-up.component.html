@@ -30,7 +30,7 @@
                                 <path d="M7.33329 1.33325L2.74996 6.33325L0.666626 4.06053" stroke="#5C20D2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                                 <div class="mat-checkbox-mixedmark"></div></div>
-                        </div> 
+                        </div>
                             <img src="assets/images/borrower-2.svg" alt="antim">
                             <p class="grey-text-color mt-4">Borrower</p>
                     </div>
@@ -55,7 +55,7 @@
                                 <input formControlName="NID" class="form-control form-control-lg" placeholder="Ex : 0000" type="text">
                                 <div *ngIf="SigUpForm.controls['NID'].touched && !SigUpForm.controls['NID'].valid" class="error-msg alert alert-danger text-left">National ID is required</div>
 
-        
+
                             </div>
                             <div class="form-group text-left col-lg-12">
                                     <label for="email">Email<span class="red-color"> *</span></label>
@@ -66,18 +66,18 @@
                              <div class="form-group text-left col-lg-12">
                                     <label for="phone">Phone No<span class="red-color"> *</span></label>
                                     <input  formControlName="phone" class="form-control form-control-lg" placeholder="Ex : 011 XXX XXXX" type="number">
-                                    <div *ngIf="SigUpForm.controls['phone'].touched && !SigUpForm.controls['phone'].valid" class="error-msg alert alert-danger text-left">Phone is required</div>            
+                                    <div *ngIf="SigUpForm.controls['phone'].touched && !SigUpForm.controls['phone'].valid" class="error-msg alert alert-danger text-left">Phone is required</div>
                              </div>
                              <div class="row justify-content-center align-items-center">
-                             <div class="col-lg-8 col-11 text-center">                              
+                             <div class="col-lg-8 col-11 text-center">
                                     <input type="checkbox" id="box-1">
                                     <label for="box-1">I agree on my <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label>
                              </div>
-                             <div class="col-lg-8 col-11 mt-4 text-center">                                      
+                             <div class="col-lg-8 col-11 mt-4 text-center">
                                     <input type="checkbox" id="box-2" checked>
                                     <label for="box-2">I agree on intime <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label>
                              </div>
-                             <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">     
+                             <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
                              <div class="form-group col-lg-6">
                                     <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="PrevStep()">back</button>
                             </div>
@@ -110,7 +110,7 @@
                             <input class="form-control form-control-lg" placeholder="0" type="number"w (keyup.enter)="keytab($event)">
                         </div>
                         <p class="mt-3 col-lg-12">The code will expire : 4:36</p>
-                         <div class="col-lg-11 mt-3 row justify-content-center align-items-center">     
+                         <div class="col-lg-11 mt-3 row justify-content-center align-items-center">
                          <div class="form-group col-lg-6">
                             <button class="btn btn-info btn-lg btn-block btn-black mt-2">Resend</button>
                         </div>
@@ -128,15 +128,15 @@
                  <p class="grey-text-color mt-4 mb-4">The last thing, Please approve the below</p>
 
                  <div class="row mt-3 justify-content-center align-items-center phone-number-code pb-5">
-                        <div class="col-lg-7 col-11 text-center mt-3">                              
+                        <div class="col-lg-7 col-11 text-center mt-3">
                                 <input type="checkbox" id="box-1">
                                 <label for="box-1">I agree on my <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label>
                          </div>
-                         <div class="col-lg-7 col-11 mt-4 text-center mb-5">                                      
+                         <div class="col-lg-7 col-11 mt-4 text-center mb-5">
                                 <input type="checkbox" id="box-2" checked>
                                 <label for="box-2">I agree on intime <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label>
                          </div>
-                      <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">     
+                      <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
                       <div class="form-group col-lg-9 ">
                          <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [routerLink]="['/', dashboredUrl]">Sign Up</button>
                      </div>
