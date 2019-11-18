@@ -1,6 +1,7 @@
 import { Component, OnInit , OnDestroy, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MustMatch } from './password.validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,7 +16,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   lastStep: boolean;
   disabledSubmitButton = true;
   SigUpForm: FormGroup;
-  userType: any;
+  userType = '';
   dashboredUrl: any;
   public id;
 
@@ -56,12 +57,11 @@ export class SignUpComponent implements OnInit , OnDestroy {
         Validators.required,
         Validators.minLength(9)
       ])],
-      'confirmPassword': [null, Validators.compose([
-        Validators.required,
-        Validators.minLength(9)
-      ])]
-
-      });
+      'confirmPassword': [null, Validators.compose([ Validators.required ])]
+      },
+      {
+        validator: MustMatch('password', 'confirmPassword')
+    });
 
   }
 
@@ -73,11 +73,11 @@ export class SignUpComponent implements OnInit , OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('log-in');
   }
-  addClass(id: any) {
-    this.id = id;
-    if (this.id === '1') {
+  addClass(ID: any) {
+    this.id = ID;
+    if (this.id === 1) {
       this.userType = 'lender';
-    } else {
+    } if (this.id === 2) {
       this.userType = 'borrower';
     }
     this.dashboredUrl = 'dashbored-' + this.userType;
@@ -90,6 +90,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.showSelected = !this.showSelected;
   }
   PrevStep() {
+    this.userType = '';
     this.showSelected = !this.showSelected;
 
   }
@@ -101,10 +102,12 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.lastStep = !this.lastStep;
   }
   closeBack() {
+    this.userType = '';
     this.showSelected = false;
     this.sheckMobileStep = false;
   }
   closeBackLast() {
+    this.userType = '';
     this.showSelected = false;
     this.sheckMobileStep = false;
     this.lastStep = false;
