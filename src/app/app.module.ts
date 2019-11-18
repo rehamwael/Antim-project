@@ -1,6 +1,7 @@
 // import * as $ from 'jquery';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import {
   CommonModule,
   LocationStrategy,
@@ -87,7 +88,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BorrowerInfoComponent,
     ForgetPasswordComponent,
     SettingComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -95,6 +96,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatRadioModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     FormsModule,
     MatSliderModule,
     ChartsModule,

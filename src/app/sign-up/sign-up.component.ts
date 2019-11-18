@@ -1,7 +1,7 @@
 import { Component, OnInit , OnDestroy, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MustMatch } from './password.validator';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,8 +18,15 @@ export class SignUpComponent implements OnInit , OnDestroy {
   SigUpForm: FormGroup;
   userType = '';
   dashboredUrl: any;
-  public id;
-
+  public id: number;
+  signupName: any;
+  signupUserName: any;
+  signupEmail: any;
+  signupPassword: any;
+  signupCPassword: any;
+  signupIdNum: any;
+  signupPhone: any;
+  options: IndividualConfig;
 
   @HostListener('input') oninput() {
     if (this.SigUpForm.valid) {
@@ -27,15 +34,18 @@ export class SignUpComponent implements OnInit , OnDestroy {
       }
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private toastr: ToastrService) {
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-bottom-right';
+    this.options.timeOut = 3000;
+
     this.showSelected = false;
     this.sheckMobileStep = false;
     this.lastStep = false;
 
     this.SigUpForm = fb.group({
       'FirstName': [null, Validators.compose([
-        Validators.required,
-        Validators.minLength(5)
+        Validators.required
       ])],
       'username': [null, Validators.compose([
         Validators.required,
@@ -43,7 +53,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
       ])],
       'NID': [null, Validators.compose([
         Validators.required,
-        Validators.minLength(8)
+        Validators.minLength(11)
       ])],
       'email': ['', Validators.compose([
         Validators.required,
@@ -51,19 +61,21 @@ export class SignUpComponent implements OnInit , OnDestroy {
       ])],
       'phone': [null, Validators.compose([
         Validators.required,
-        Validators.minLength(11)
+        Validators.minLength(9)
       ])],
       'password': [null, Validators.compose([
         Validators.required,
-        Validators.minLength(9)
+        Validators.pattern('(?=^.{9,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')
       ])],
-      'confirmPassword': [null, Validators.compose([ Validators.required ])]
-      },
-      {
-        validator: MustMatch('password', 'confirmPassword')
+      'confirmPassword': [null, Validators.compose([
+        Validators.required,
+      ])]
     });
 
   }
+  showToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+}
 
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
@@ -85,7 +97,6 @@ export class SignUpComponent implements OnInit , OnDestroy {
       this.disabledNextButton = false;
     }
   }
-
   Nextstep() {
     this.showSelected = !this.showSelected;
   }
@@ -95,8 +106,11 @@ export class SignUpComponent implements OnInit , OnDestroy {
 
   }
   thirdStep() {
-    this.sheckMobileStep = !this.sheckMobileStep;
-
+    if (this.signupCPassword !== this.signupPassword) {
+      this.showToast('Error!!', 'Password Must Match', 'error');
+    } else {
+      this.sheckMobileStep = !this.sheckMobileStep;
+    }
   }
   lastStepd() {
     this.lastStep = !this.lastStep;
@@ -112,7 +126,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.sheckMobileStep = false;
     this.lastStep = false;
   }
-  keytab(event) {
+  keytab(event: { srcElement: { nextElementSibling: any; }; }) {
     const element = event.srcElement.nextElementSibling; // get the sibling element
 
     if (element == null) {  // check if its null

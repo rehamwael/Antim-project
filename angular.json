@@ -24,8 +24,9 @@
                         ],
                         "styles": [
                             "node_modules/leaflet/dist/leaflet.css",
-                            "src/assets/scss/style.scss"
-                        ],
+                            "src/assets/scss/style.scss",
+                            "node_modules/ngx-toastr/toastr.css"
+                          ],
                         "scripts": []
                     },
                     "configurations": {
