@@ -102,6 +102,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   }
   PrevStep() {
     this.userType = '';
+    this.SigUpForm.reset();
     this.showSelected = !this.showSelected;
 
   }
