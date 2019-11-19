@@ -1,7 +1,8 @@
-import { Component, OnInit , OnDestroy, HostListener} from '@angular/core';
+import { Component, OnInit , OnDestroy, HostListener, ViewChild, ElementRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -9,6 +10,10 @@ import { ToastrService, IndividualConfig } from 'ngx-toastr';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit , OnDestroy {
+  @ViewChild('two', {static: false}) twoElement: ElementRef;
+  @ViewChild('three', {static: false}) threeElement: ElementRef;
+  @ViewChild('four', {static: false}) fourElement: ElementRef;
+
   public selectedItem: any;
   disabledNextButton = true;
   showSelected: boolean;
@@ -26,6 +31,11 @@ export class SignUpComponent implements OnInit , OnDestroy {
   signupCPassword: any;
   signupIdNum: any;
   signupPhone: any;
+  first: string;
+  second: string;
+  third: string;
+  Fourth: string;
+  OTP = '';
   options: IndividualConfig;
 
   @HostListener('input') oninput() {
@@ -69,7 +79,11 @@ export class SignUpComponent implements OnInit , OnDestroy {
       ])],
       'confirmPassword': [null, Validators.compose([
         Validators.required,
-      ])]
+      ])],
+      'One': [''],
+      'Two': [''],
+      'Three': [''],
+      'Four': ['']
     });
 
   }
@@ -102,7 +116,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   }
   PrevStep() {
     this.userType = '';
-    this.SigUpForm.reset();
+    this.clear();
     this.showSelected = !this.showSelected;
 
   }
@@ -113,28 +127,57 @@ export class SignUpComponent implements OnInit , OnDestroy {
       this.sheckMobileStep = !this.sheckMobileStep;
     }
   }
-  lastStepd() {
+  goToLastStep() {
     this.lastStep = !this.lastStep;
+    this.OTP = '' + this.first + this.second + this.third + this.Fourth;
+    console.log('OTP', this.OTP);
   }
   closeBack() {
+    this.clear();
     this.userType = '';
     this.showSelected = false;
     this.sheckMobileStep = false;
   }
   closeBackLast() {
+    this.clear();
     this.userType = '';
     this.showSelected = false;
     this.sheckMobileStep = false;
     this.lastStep = false;
   }
-  keytab(event: { srcElement: { nextElementSibling: any; }; }) {
-    const element = event.srcElement.nextElementSibling; // get the sibling element
 
-    if (element == null) {  // check if its null
-        return;
-    } else {
-        element.focus();
-    }   // focus if not null
+  keytab(event, next) {
+    if (next === 1) {
+      setTimeout(() => {
+        this.twoElement.nativeElement.focus();
+      }, 0);
+    } else if (next === 2) {
+      setTimeout(() => {
+        this.threeElement.nativeElement.focus();
+      }, 0);
+    } else if (next === 3) {
+      setTimeout(() => {
+        this.fourElement.nativeElement.focus();
+      }, 0);
+    }
+    // const element = event.srcElement.nextElementSibling; // get the sibling element
+    // console.log(element);
+
+    // if (element == null) {  // check if its null
+    //     return;
+    // } else {
+    //     element.focus();
+    // }   // focus if not null
+   }
+   clear() {
+    this.SigUpForm.reset();
+    this.signupName = '';
+    this.signupUserName = '';
+    this.signupEmail = '';
+    this.signupPassword = '';
+    this.signupCPassword = '';
+    this.signupIdNum = '';
+    this.signupPhone = '';
    }
 
 }
