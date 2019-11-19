@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
@@ -31,23 +31,23 @@ export class AuthGuard implements CanActivate {
         return true;
       } else {
     this.router.navigate(['/login']);
-    this.showToast('Error!!', 'You are not Logged In. Please login to get access.', 'error');
+    this.showToast('Error!!', 'You are not authorized to access this URL. Please login to get access.', 'error');
     return false;
         }
       })
     );
   }
-  checkLogin(url: string): boolean {
-    if (this.authService.isLoggedIn) { return true; }
+  // checkLogin(url: string): boolean {
+  //   if (this.authService.isLoggedIn) { return true; }
 
-    // Store the attempted URL for redirecting
-    this.authService.redirectUrl = url;
+  //   // Store the attempted URL for redirecting
+  //   this.authService.redirectUrl = url;
 
-    // Navigate to the login page with extras
-    this.router.navigate(['/login']);
-    return false;
-  }
-  showToast(title, message, type) {
+  //   // Navigate to the login page with extras
+  //   this.router.navigate(['/login']);
+  //   return false;
+  // }
+  showToast(title: string, message: string, type: string) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
 }
 }
