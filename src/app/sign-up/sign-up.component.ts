@@ -103,7 +103,8 @@ export class SignUpComponent implements OnInit , OnDestroy {
       ])],
       'email': [null, Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
+        // Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
+        Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,5}$')
       ])],
       'password': [null, Validators.compose([
         Validators.required,
