@@ -35,8 +35,36 @@ export class SignUpComponent implements OnInit , OnDestroy {
   second: string;
   third: string;
   Fourth: string;
+  phoneNumber: string;
+  numberEntered = false;
   OTP = '';
   options: IndividualConfig;
+  disabledAgreement1 = false;
+  disabledAgreement2 = false;
+  isSignupButtonDisabled = false;
+
+  changeCheck1(event) {
+    if (event.target.checked) {
+      this.disabledAgreement1 = true;
+    } else {
+      this.disabledAgreement1 = false;
+      this.isSignupButtonDisabled = false;
+    }
+    if (this.disabledAgreement1 && this.disabledAgreement2) {
+      this.isSignupButtonDisabled = true;
+    }
+  }
+  changeCheck2(event) {
+    if (event.target.checked) {
+      this.disabledAgreement2 = true;
+    } else {
+      this.disabledAgreement2 = false;
+      this.isSignupButtonDisabled = false;
+    }
+    if (this.disabledAgreement1 && this.disabledAgreement2) {
+      this.isSignupButtonDisabled = true;
+    }
+  }
 
   @HostListener('input') oninput() {
     if (this.SigUpForm.valid) {
@@ -65,13 +93,9 @@ export class SignUpComponent implements OnInit , OnDestroy {
         Validators.required,
         Validators.minLength(11)
       ])],
-      'email': ['', Validators.compose([
+      'email': [null, Validators.compose([
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
-      ])],
-      'phone': [null, Validators.compose([
-        Validators.required,
-        Validators.minLength(9)
       ])],
       'password': [null, Validators.compose([
         Validators.required,
@@ -79,6 +103,10 @@ export class SignUpComponent implements OnInit , OnDestroy {
       ])],
       'confirmPassword': [null, Validators.compose([
         Validators.required,
+      ])],
+      'phone': [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(9)
       ])],
       'One': [''],
       'Two': [''],
@@ -89,6 +117,14 @@ export class SignUpComponent implements OnInit , OnDestroy {
   }
   showToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
+}
+inputNumber(event) {
+  this.phoneNumber = event.target.value;
+  if (this.phoneNumber.length > 9) {
+  this.numberEntered = true;
+  } else {
+    this.numberEntered = false;
+  }
 }
 
   ngOnInit(): void {
@@ -161,13 +197,12 @@ export class SignUpComponent implements OnInit , OnDestroy {
       }, 0);
     }
     // const element = event.srcElement.nextElementSibling; // get the sibling element
-    // console.log(element);
 
     // if (element == null) {  // check if its null
     //     return;
     // } else {
     //     element.focus();
-    // }   // focus if not null
+    // }
    }
    clear() {
     this.SigUpForm.reset();
@@ -178,6 +213,10 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.signupCPassword = '';
     this.signupIdNum = '';
     this.signupPhone = '';
+    this.first = '';
+    this.second = '';
+    this.third = '';
+    this.Fourth = '';
    }
 
 }

@@ -42,7 +42,7 @@
 
               <div *ngIf="showSelected && !sheckMobileStep" class="px-4">
                       <img src="assets/images/borrower.svg" alt="antim" class="mb-2">
-                      <p class="grey-text-color mt-2 mb-4">Alright {{userType}}, Fill the below please</p>
+                      <p class="grey-text-color mt-2 mb-4">Alright {{userType}}, Fill the below form please!</p>
                       <div class="row mt-3">
                           <div class="form-group text-left col-lg-6">
                               <label for="name">Name<span class="red-color"> *</span></label>
@@ -52,7 +52,7 @@
                           </div>
 
                           <div class="form-group text-left col-lg-6">
-                              <label for="username">User Name<span class="red-color"> *</span></label>
+                              <label for="username">Username<span class="red-color"> *</span></label>
                               <input formControlName="username" class="form-control form-control-lg" placeholder="Type Username here..." type="text" [(ngModel)]="signupUserName">
                               <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('required')" class="error-msg alert alert-danger text-left">Username required</div>
                               <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('minlength')" class="error-msg alert alert-danger text-left">User Name must be at least 5 characters long.</div>
@@ -88,18 +88,21 @@
                             <span id="message"></span>
                           </div>
                            <div class="form-group text-left col-lg-12">
-                                  <label for="phone">Phone No<span class="red-color"> *</span></label>
-                                  <input  formControlName="phone" class="form-control form-control-lg" placeholder="Ex : 011 XXX XXXX" type="number" [(ngModel)]="signupPhone">
-                                  <div *ngIf="SigUpForm.controls['phone'].touched && SigUpForm.controls['phone'].hasError('required')" class="error-msg alert alert-danger text-left">Phone is required</div>
-                                  <div *ngIf="SigUpForm.controls['phone'].touched && SigUpForm.controls['phone'].hasError('minlength')"class="error-msg alert alert-danger text-left">Phone  number must be at least 9 characters long.</div>
+                                  <label for="phone">Phone Number<span class="red-color"> *</span></label>
+                                  <input  formControlName="phone" class="form-control form-control-lg" placeholder="Ex : 011 XXX XXXX" type="number" (keyup)="inputNumber($event)"
+                                  oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
+                                  else { document.getElementById('phonenumber').style.visibility = 'visible'; }" [(ngModel)]="signupPhone">
+                                    <div *ngIf="SigUpForm.controls['phone'].touched && !SigUpForm.controls['phone'].valid" class="error-msg alert alert-danger text-left">Phone Number is required</div>
+                                    <!-- <div *ngIf="SigUpForm.controls['phone'].touched && SigUpForm.controls['phone'].hasError('minlength')" class="error-msg alert alert-danger text-left">Phone number must be at least 9 characters long.</div> -->
+                                  <span class="redColor" id="phonenumber"> Phone number must be at least 9 characters long.</span>
                            </div>
                            <div class="row justify-content-center align-items-center">
                            <div class="col-lg-8 col-11 text-center">
-                                  <input type="checkbox" id="box-1">
+                                  <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
                                   <label for="box-1">I agree on my <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label>
                            </div>
                            <div class="col-lg-8 col-11 mt-4 text-center">
-                                  <input type="checkbox" id="box-2" checked>
+                                  <input type="checkbox" id="box-2"  (change)="changeCheck2($event)">
                                   <label for="box-2">I agree on intime <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label>
                            </div>
                            <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
@@ -107,7 +110,10 @@
                                   <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="PrevStep()">back</button>
                           </div>
                           <div class="form-group col-lg-4">
-                              <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()" [disabled]="disabledSubmitButton">Sign Up</button>
+                              <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
+                              [disabled]="!isSignupButtonDisabled || signupName.length == 0 || signupIdNum.length == 0 || signupUserName.length == 0 ||
+                              signupPassword.length == 0 || signupEmail.length == 0 || !numberEntered || signupCPassword.length == 0">
+                              Sign Up</button>
                           </div>
                           </div>
                       </div>
