@@ -65,6 +65,14 @@ export class SignUpComponent implements OnInit , OnDestroy {
       this.isSignupButtonDisabled = true;
     }
   }
+  inputNumber(event) {
+    this.phoneNumber = event.target.value;
+    if (this.phoneNumber.length >= 9) {
+    this.numberEntered = true;
+    } else {
+      this.numberEntered = false;
+    }
+  }
 
   @HostListener('input') oninput() {
     if (this.SigUpForm.valid) {
@@ -118,16 +126,9 @@ export class SignUpComponent implements OnInit , OnDestroy {
   showToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
 }
-inputNumber(event) {
-  this.phoneNumber = event.target.value;
-  if (this.phoneNumber.length > 9) {
-  this.numberEntered = true;
-  } else {
-    this.numberEntered = false;
-  }
-}
 
   ngOnInit(): void {
+    this.clear();
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('log-in');
   }
@@ -182,7 +183,7 @@ inputNumber(event) {
     this.lastStep = false;
   }
 
-  keytab(event, next) {
+  /* keytab(event, next) {
     if (next === 1) {
       setTimeout(() => {
         this.twoElement.nativeElement.focus();
@@ -196,6 +197,7 @@ inputNumber(event) {
         this.fourElement.nativeElement.focus();
       }, 0);
     }
+
     // const element = event.srcElement.nextElementSibling; // get the sibling element
 
     // if (element == null) {  // check if its null
@@ -203,7 +205,7 @@ inputNumber(event) {
     // } else {
     //     element.focus();
     // }
-   }
+   }*/
    clear() {
     this.SigUpForm.reset();
     this.signupName = '';
