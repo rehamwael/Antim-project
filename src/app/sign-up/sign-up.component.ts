@@ -41,17 +41,17 @@ export class SignUpComponent implements OnInit , OnDestroy {
   options: IndividualConfig;
   disabledAgreement1 = false;
   disabledAgreement2 = false;
-  isSignupButtonDisabled = false;
+  isButtonDisabled = false;
 
   changeCheck1(event) {
     if (event.target.checked) {
       this.disabledAgreement1 = true;
     } else {
       this.disabledAgreement1 = false;
-      this.isSignupButtonDisabled = false;
+      this.isButtonDisabled = false;
     }
     if (this.disabledAgreement1 && this.disabledAgreement2) {
-      this.isSignupButtonDisabled = true;
+      this.isButtonDisabled = true;
     }
   }
   changeCheck2(event) {
@@ -59,10 +59,10 @@ export class SignUpComponent implements OnInit , OnDestroy {
       this.disabledAgreement2 = true;
     } else {
       this.disabledAgreement2 = false;
-      this.isSignupButtonDisabled = false;
+      this.isButtonDisabled = false;
     }
     if (this.disabledAgreement1 && this.disabledAgreement2) {
-      this.isSignupButtonDisabled = true;
+      this.isButtonDisabled = true;
     }
   }
   inputNumber(event) {
@@ -165,6 +165,9 @@ export class SignUpComponent implements OnInit , OnDestroy {
     }
   }
   goToLastStep() {
+    this.isButtonDisabled = false;
+    this.disabledAgreement1 = false;
+    this.disabledAgreement2 = false;
     this.lastStep = !this.lastStep;
     this.OTP = '' + this.first + this.second + this.third + this.Fourth;
     console.log('OTP', this.OTP);

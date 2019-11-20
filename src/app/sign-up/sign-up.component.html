@@ -111,7 +111,7 @@
                           </div>
                           <div class="form-group col-lg-4">
                               <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
-                              [disabled]="!isSignupButtonDisabled || signupName.length == 0 || signupIdNum.length == 0 || signupUserName.length == 0 ||
+                              [disabled]="!isButtonDisabled || signupName.length == 0 || signupIdNum.length == 0 || signupUserName.length == 0 ||
                               signupPassword.length == 0 || signupEmail.length == 0 || !numberEntered || signupCPassword.length == 0">
                               Sign Up</button>
                           </div>
@@ -160,16 +160,16 @@
 
                <div class="row mt-3 justify-content-center align-items-center phone-number-code pb-5">
                       <div class="col-lg-7 col-11 text-center mt-3">
-                              <input type="checkbox" id="box-1">
+                              <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
                               <label for="box-1">I agree on my <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label>
                        </div>
                        <div class="col-lg-7 col-11 mt-4 text-center mb-5">
-                              <input type="checkbox" id="box-2" checked>
+                              <input type="checkbox" id="box-2" (change)="changeCheck2($event)">
                               <label for="box-2">I agree on intime <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label>
                        </div>
                     <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
                     <div class="form-group col-lg-9 ">
-                       <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [routerLink]="['/', dashboredUrl]">Sign Up</button>
+                       <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!isButtonDisabled" [routerLink]="['/', dashboredUrl]">Sign Up</button>
                    </div>
                </div>
                </div>
