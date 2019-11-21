@@ -4,6 +4,13 @@ import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { User } from './../../store/models/users';
+import { AppState, selectAuthenticationState } from './../../store/app.states';
+import { Logout } from './../../store/actions/auth.actions';
+
 declare var $: any;
 
 @Component({
@@ -11,6 +18,11 @@ declare var $: any;
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnInit {
+  user: User;
+  getState: Observable<any>;
+  isAuthenticated = false;
+
+
   showMenu = '';
   showSubMenu = '';
   public sidebarnavItems: any[];
@@ -34,11 +46,17 @@ export class SidebarComponent implements OnInit {
     private modalService: NgbModal,
     private router: Router,
     private route: ActivatedRoute,
-    private authservice: AuthService
-  ) {}
+    private authservice: AuthService,
+    private store: Store<AppState>) {
+      this.getState = this.store.select(selectAuthenticationState);
+    }
 
   // End open close
   ngOnInit() {
+    this.getState.subscribe((state) => {
+      this.isAuthenticated = state.isAuthenticated;
+      this.user = state.user;
+    });
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
     this.href = this.router.url;
     const x = this.href.split('/')[1].split('-');
@@ -50,12 +68,13 @@ export class SidebarComponent implements OnInit {
 
   }
   logout() {
+    this.store.dispatch(new Logout);
     console.log('logout.');
-    this.authservice.logout().subscribe( (res) => {
-      this.router.navigate(['/login']);
-    }, async err => {
-        console.log('Errrrrror : ', err);
-    });
+    // this.authservice.logout().subscribe( (res) => {
+    //   this.router.navigate(['/login']);
+    // }, async err => {
+    //     console.log('Errrrrror : ', err);
+    // });
 
   }
 }

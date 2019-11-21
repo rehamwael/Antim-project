@@ -80,7 +80,8 @@ export class AuthenticationEffects {
       this.router.navigateByUrl('/login');
     })
   );
+
   showToast(title: string, message: string, type: string) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
-}
+  }
 }

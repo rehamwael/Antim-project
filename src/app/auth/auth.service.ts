@@ -50,14 +50,14 @@ export class AuthService {
     );
   }
 
-  logout(): Observable<boolean> {
-    this.authState.next(null);
-     localStorage.removeItem('token');
-     localStorage.removeItem('role');
-     this.loadUser();
-    return of(false).pipe(
-      tap(val => this.isLoggedIn = false)
-    );
-  }
+  // logout(): Observable<boolean> {
+  //   this.authState.next(null);
+  //    localStorage.removeItem('token');
+  //    localStorage.removeItem('role');
+  //    this.loadUser();
+  //   return of(false).pipe(
+  //     tap(val => this.isLoggedIn = false)
+  //   );
+  // }
 
 }
