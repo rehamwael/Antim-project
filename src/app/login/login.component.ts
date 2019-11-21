@@ -2,6 +2,11 @@ import { Component, OnInit , OnDestroy , HostListener} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from './../auth/auth.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, selectAuthenticationState } from './../store/app.states';
+import { Login } from './../store/actions/auth.actions';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,6 +14,10 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent implements OnInit , OnDestroy {
+
+  getState: Observable<any>;
+  errorMessage: string = null;
+
   LoginForm: FormGroup;
   disabledSubmitButton = true;
   loginUsername: any;
@@ -18,9 +27,11 @@ export class LoginComponent implements OnInit , OnDestroy {
       this.disabledSubmitButton = false;
       }
   }
-  constructor(private fb: FormBuilder,
+  constructor(private store: Store<AppState>,
+    private fb: FormBuilder,
     private authservice: AuthService,
     private router: Router) {
+      this.getState = this.store.select(selectAuthenticationState);
     this.LoginForm = fb.group({
       'username': [null, Validators.compose([
         Validators.required,
@@ -36,31 +47,29 @@ export class LoginComponent implements OnInit , OnDestroy {
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('log-in');
+    this.getState.subscribe((state) => {
+      this.errorMessage = state.errorMessage;
+    });
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('log-in');
   }
-  login( Username: any, Password: any) {
-    console.log('inlogin.', Username, Password);
-    this.authservice.login({
-      email: Username,
-      password: Password
-    }).subscribe( (res) => {
-          console.log('Logged in!', res);
-          this.router.navigate(['/dashbored-borrower']);
-    }, async err => {
-        console.log('Errrrrror : ', err);
-    // if (err.error.status === 'fail') {
-    //   const toast = this.toastCtrl.create({
-    //     message: 'Incorrect email or password',
-    //     duration: 3000,
-    //     position: 'top',
-    //     color: 'danger'
-    //   });
-    //   (await toast).present();
-    // }
-    });
+  login() {
+    const actionPayload = {
+      email: this.loginUsername,
+      password: this.loginPassword
+    };
+    this.store.dispatch(new Login(actionPayload));
+    // this.authservice.login({
+    //    email: this.loginUsername,
+    //    password: this.loginPassword
+    // }).subscribe( (res) => {
+    //       console.log('Logged in!', res);
+    //       this.router.navigate(['/dashbored-borrower']);
+    // }, async err => {
+    //     console.log('Errrrrror : ', err);
+    // });
 
   }
 }

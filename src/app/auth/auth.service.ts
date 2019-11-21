@@ -20,10 +20,10 @@ export class AuthService {
   }
 
   loadUser() {
-    // const User = localStorage.getItem('User');
-    const token = localStorage.getItem('access_token');
-    // console.log('Loaded USER: ', localStorage.getItem('User'));
-    console.log('token: ', localStorage.getItem('access_token'));
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    console.log('token: ', token);
+    console.log('role: ', role);
      if (token) {
       this.authState.next(token);
     } else {
@@ -35,8 +35,7 @@ export class AuthService {
     return this.httpClient.post(`${this.Url}/users/login`, user).pipe(
       tap((res: any ) => {
         this.isLoggedIn = true;
-      localStorage.setItem('access_token', res.token);
-      // localStorage.setItem('User', res.data);
+      localStorage.setItem('token', res.token);
         this.authState.next(user);
       })
     );
@@ -45,7 +44,7 @@ export class AuthService {
   register(user: any): Observable<any> {
     return this.httpClient.post(`${this.Url}/users/signup`, user).pipe(
       tap((res: any ) => {
-        localStorage.setItem('access_token', res.token);
+        localStorage.setItem('token', res.token);
         this.authState.next(user);
         })
     );
@@ -53,7 +52,8 @@ export class AuthService {
 
   logout(): Observable<boolean> {
     this.authState.next(null);
-     localStorage.removeItem('access_token');
+     localStorage.removeItem('token');
+     localStorage.removeItem('role');
      this.loadUser();
     return of(false).pipe(
       tap(val => this.isLoggedIn = false)

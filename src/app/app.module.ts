@@ -54,6 +54,11 @@ import { MatTabsModule } from '@angular/material';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SettingComponent } from './shared/setting/setting.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { AuthenticationEffects } from './store/effects/authentication.effects';
+import { reducers } from './store/app.states';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -113,7 +118,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // tslint:disable-next-line: deprecation
     NgbModule.forRoot(),
     RouterModule.forRoot(Approutes, { useHash: false }),
-    StickyNavModule
+    StickyNavModule,
+    EffectsModule.forRoot([AuthenticationEffects]),
+    StoreModule.forRoot(reducers, {})
   ],
   providers: [
     {
