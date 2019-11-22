@@ -21,14 +21,24 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
     const url: string = state.url;
+    const roles = route.data;
+    const expectedRole = roles.userRole[0];
+    const role = localStorage.getItem('role');
+    console.log('role:', role);
 
    // return this.checkLogin(url);
    return this.authService.User.pipe(
     take(1),
-    map(User => {
-      // console.log('login:', User);
-      if (User) {
-        return true;
+    map(token => {
+       console.log('login:', token);
+      if (token) {
+        if ( role === expectedRole) {
+          return true;
+        } else {
+          this.router.navigate(['/dashbored-' + role]);
+          this.showToast('Error!!', 'You have not permission to access this URL.', 'error');
+          return false;
+        }
       } else {
     this.router.navigate(['/login']);
     this.showToast('Error!!', 'You are not authorized to access this URL. Please login to get access.', 'error');

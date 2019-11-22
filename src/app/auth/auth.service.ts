@@ -36,7 +36,7 @@ export class AuthService {
       tap((res: any ) => {
         this.isLoggedIn = true;
       localStorage.setItem('token', res.token);
-        this.authState.next(user);
+        this.authState.next(res.token);
       })
     );
   }
@@ -45,7 +45,7 @@ export class AuthService {
     return this.httpClient.post(`${this.Url}/users/signup`, user).pipe(
       tap((res: any ) => {
         localStorage.setItem('token', res.token);
-        this.authState.next(user);
+        this.authState.next(res.token);
         })
     );
   }

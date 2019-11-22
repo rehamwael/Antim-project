@@ -56,48 +56,56 @@ export const Approutes: Routes = [
         path: 'dashbored-borrower',
         component: DashboredComponent,
         canActivate: [AuthGuard],
-
+        data: { userRole: ['borrower'] }
       },
       {
         path: 'createorder-borrower',
         component: CreateOrderComponent,
         canActivate: [AuthGuard],
+        data: { userRole: ['borrower'] }
 
       },
       {
         path: 'profile-borrower',
         component: ProfileComponent,
         canActivate: [AuthGuard],
+        data: { userRole: ['borrower'] }
       },
       {
         path: 'requests-borrower/:type',
         component: RequestsComponent,
         canActivate: [AuthGuard],
+        data: { userRole: ['borrower'] }
       },
       {
         path: 'notification-borrower',
         component: NotificationComponent,
         canActivate: [AuthGuard],
+        data: { userRole: ['borrower'] }
       },
       {
         path: 'dashbored-lender',
         component: DashboredLenderComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { userRole: ['lender'] }
       },
       {
         path: 'requests-lender/:type',
         component: RequestLenderComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { userRole: ['lender'] }
       } ,
       {
         path: 'profile-lender',
         component: ProfileLenderComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { userRole: ['lender'] }
       },
       {
         path: 'notification-lender',
         component: NotificationLenderComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { userRole: ['lender'] }
       },
       {
         path: 'terms-conditions',
