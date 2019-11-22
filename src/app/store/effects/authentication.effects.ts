@@ -40,7 +40,6 @@ export class AuthenticationEffects {
         .pipe(
           map((user) => {
             console.log('user', user);
-            console.log('role', user.data.user.role);
             this.userRole = user.data.user.role;
             return new LoginSuccess({token: user.token, role: user.data.user.role});
           }),

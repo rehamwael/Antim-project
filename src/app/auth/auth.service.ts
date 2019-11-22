@@ -22,8 +22,8 @@ export class AuthService {
   loadUser() {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
-    console.log('token: ', token);
-    console.log('role: ', role);
+    // console.log('token: ', token);
+    // console.log('role: ', role);
      if (token) {
       this.authState.next(token);
     } else {
