@@ -5,6 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import * as jwt_decode from 'jwt-decode';
 
 import { AuthService } from './../../auth/auth.service';
 import {
@@ -39,9 +40,10 @@ export class AuthenticationEffects {
         return this.authenticationService.login(payload)
         .pipe(
           map((user) => {
-            console.log('in effects(user) :', user);
-          // this.userRole = user.data.user.role;
-          // return new LoginSuccess({token: user.token, role: user.data.user.role});
+            console.log('in ngrx effects :', user);
+            const decoded = jwt_decode(user.access_token);
+          this.userRole = decoded.role;
+          return new LoginSuccess({token: user.access_token, role: decoded.role});
           }),
           catchError((error) => {
             return of(new LoginFailure({ error: error }));
@@ -55,8 +57,7 @@ export class AuthenticationEffects {
     tap((user) => {
       localStorage.setItem('token', user.payload.token);
       localStorage.setItem('role', user.payload.role);
-      // this.router.navigateByUrl('/dashbored-' + this.userRole);
-      this.router.navigateByUrl('/dashbored-funder');
+      this.router.navigateByUrl('/dashbored-' + this.userRole);
     })
   );
 

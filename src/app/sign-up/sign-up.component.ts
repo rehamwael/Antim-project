@@ -187,7 +187,6 @@ export class SignUpComponent implements OnInit , OnDestroy {
         }, async err => {
             console.log('Errrrrror : ', err);
         });
-      this.sheckMobileStep = !this.sheckMobileStep;
     }
   }
   goToLastStep() {
@@ -214,7 +213,6 @@ export class SignUpComponent implements OnInit , OnDestroy {
           }, async err => {
           console.log('Errrrrror : ', err);
       });
-    this.lastStep = !this.lastStep;
   }
   closeBack() {
     this.clear();

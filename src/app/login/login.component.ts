@@ -57,19 +57,9 @@ export class LoginComponent implements OnInit , OnDestroy {
   }
   login() {
     const actionPayload = {
-      email: this.loginUsername,
+      username: this.loginUsername,
       password: this.loginPassword
     };
     this.store.dispatch(new Login(actionPayload));
-    // this.authservice.login({
-    //    email: this.loginUsername,
-    //    password: this.loginPassword
-    // }).subscribe( (res) => {
-    //       console.log('Logged in!', res);
-    //       this.router.navigate(['/dashbored-borrower']);
-    // }, async err => {
-    //     console.log('Errrrrror : ', err);
-    // });
-
   }
 }
