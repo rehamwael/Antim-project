@@ -3,7 +3,7 @@
 <!-- ============================================================== -->
 <div id="main-wrapper" [ngClass]="{'show-sidebar': showMobileMenu}" dir="ltr" data-theme="light" data-layout="vertical"
     [attr.data-sidebartype]="sidebartype" data-sidebar-position="absolute" data-header-position="fixed"
-    data-boxed-layout="full"> 
+    data-boxed-layout="full">
     <!-- ============================================================== -->
     <!-- Topbar header - style you can find in topbar.scss -->
     <!-- ============================================================== -->
@@ -32,20 +32,20 @@
                 <li class="nav-item" [routerLinkActive]="['active']">
                   <a class="nav-link" [routerLink]="[ '/borrower-info' ]" (click)=closeMenu()>Borrower</a>
                 </li>
-                
+
                 <li class="nav-item" [routerLinkActive]="['active']">
                   <a class="nav-link" [routerLink]="[ '/contact' ]" (click)=closeMenu()>contact us</a>
                 </li>
-  
+
               </ul>
               <ul class="navbar-nav ml-auto mt-2">
                 <li class="nav-item mt-1 login-header">
-                  <a class="nav-link"  [routerLink]="[ '/login' ]" (click)=closeMenu()>Log In</a>
+                    <a class="nav-link purple-btn" [routerLink]="[ '/login' ]" (click)=closeMenu()>Log In</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link purple-btn" [routerLink]="[ '/signup' ]" (click)=closeMenu()>Sign up</a>
                   </li>
-                
+
               </ul>
             </div>
           </nav>
@@ -57,12 +57,12 @@
                             Select,<br/> Send and Get… <br/>Pay by installment
                         </h1>
                         <button type="button" class="btn btn-block btn-antim btn-rounded mt-5 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.7s" (click)="btnClick();">Get Started</button>
-                    
+
                     </div>
                     <div class="col-lg-6 h-100 d-flex justify-content-center flex-column">
                             <img src="assets/images/antim-header.svg" alt="antim" class="antim-img-header wow fadeInRight" data-wow-duration="1.4s" data-wow-delay="0.7s">
                     </div>
-                      
+
                     </div>
           </div>
           <div class="bg-dark-right"></div>
