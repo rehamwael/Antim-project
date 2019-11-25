@@ -86,7 +86,7 @@ export const Approutes: Routes = [
       {
         path: 'dashbored-Funder',
         component: DashboredLenderComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: { userRole: ['Funder'] }
       },
       {
