@@ -53,59 +53,59 @@ export const Approutes: Routes = [
         component: WhoWeAreComponent
       },
       {
-        path: 'dashbored-borrower',
+        path: 'dashbored-Customer',
         component: DashboredComponent,
-        canActivate: [AuthGuard],
-        data: { userRole: ['borrower'] }
+        // canActivate: [AuthGuard],
+        data: { userRole: ['Customer'] }
       },
       {
-        path: 'createorder-borrower',
+        path: 'createorder-Customer',
         component: CreateOrderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['borrower'] }
+        data: { userRole: ['Customer'] }
 
       },
       {
-        path: 'profile-borrower',
+        path: 'profile-Customer',
         component: ProfileComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['borrower'] }
+        data: { userRole: ['Customer'] }
       },
       {
-        path: 'requests-borrower/:type',
+        path: 'requests-Customer/:type',
         component: RequestsComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['borrower'] }
+        data: { userRole: ['Customer'] }
       },
       {
-        path: 'notification-borrower',
+        path: 'notification-Customer',
         component: NotificationComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['borrower'] }
+        data: { userRole: ['Customer'] }
       },
       {
-        path: 'dashbored-lender',
+        path: 'dashbored-Funder',
         component: DashboredLenderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['lender'] }
+        data: { userRole: ['Funder'] }
       },
       {
-        path: 'requests-lender/:type',
+        path: 'requests-Funder/:type',
         component: RequestLenderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['lender'] }
+        data: { userRole: ['Funder'] }
       } ,
       {
-        path: 'profile-lender',
+        path: 'profile-Funder',
         component: ProfileLenderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['lender'] }
+        data: { userRole: ['Funder'] }
       },
       {
-        path: 'notification-lender',
+        path: 'notification-Funder',
         component: NotificationLenderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['lender'] }
+        data: { userRole: ['Funder'] }
       },
       {
         path: 'terms-conditions',

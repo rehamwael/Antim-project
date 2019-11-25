@@ -2,6 +2,7 @@ import { Component, OnInit , OnDestroy, HostListener, ViewChild, ElementRef} fro
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { AuthService } from '../auth/auth.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class SignUpComponent implements OnInit , OnDestroy {
   userType = '';
   dashboredUrl: any;
   public id: number;
-  signupName: any;
+  signupFirstName: any;
+  signupLastName: any;
   signupUserName: any;
   signupEmail: any;
   signupPassword: any;
@@ -80,7 +82,11 @@ export class SignUpComponent implements OnInit , OnDestroy {
       }
   }
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(
+    private fb: FormBuilder,
+    private authservice: AuthService,
+    private toastr: ToastrService,
+    private router: Router) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-bottom-right';
     this.options.timeOut = 3000;
@@ -91,6 +97,9 @@ export class SignUpComponent implements OnInit , OnDestroy {
 
     this.SigUpForm = fb.group({
       'FirstName': [null, Validators.compose([
+        Validators.required
+      ])],
+      'LastName': [null, Validators.compose([
         Validators.required
       ])],
       'username': [null, Validators.compose([
@@ -139,9 +148,9 @@ export class SignUpComponent implements OnInit , OnDestroy {
   addClass(ID: any) {
     this.id = ID;
     if (this.id === 1) {
-      this.userType = 'lender';
+      this.userType = 'Funder';
     } if (this.id === 2) {
-      this.userType = 'borrower';
+      this.userType = 'Customer';
     }
     this.dashboredUrl = 'dashbored-' + this.userType;
     if (this.disabledNextButton) {
@@ -161,6 +170,23 @@ export class SignUpComponent implements OnInit , OnDestroy {
     if (this.signupCPassword !== this.signupPassword) {
       this.showToast('Error!!', 'Password Must Match', 'error');
     } else {
+      this.authservice.register({
+        'Email': this.signupEmail,
+        'FirstName': this.signupFirstName,
+        'LastName': this.signupLastName,
+        'NationalIdNumber': this.signupIdNum,
+        'UserName': this.signupUserName,
+        'Password': this.signupPassword,
+        'ConfirmPassword': this.signupCPassword,
+        'PhoneNumber': this.signupPhone.toString(),
+        'DialingCode': '+92',
+        'Role': this.userType
+        }).subscribe( (res) => {
+              console.log('Logged in!', res);
+              this.sheckMobileStep = !this.sheckMobileStep;
+        }, async err => {
+            console.log('Errrrrror : ', err);
+        });
       this.sheckMobileStep = !this.sheckMobileStep;
     }
   }
@@ -168,9 +194,27 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.isButtonDisabled = false;
     this.disabledAgreement1 = false;
     this.disabledAgreement2 = false;
-    this.lastStep = !this.lastStep;
     this.OTP = '' + this.first + this.second + this.third + this.Fourth;
     console.log('OTP', this.OTP);
+    this.authservice.registerWithOTP({
+      'Email': this.signupEmail,
+      'FirstName': this.signupFirstName,
+      'LastName': this.signupLastName,
+      'NationalIdNumber': this.signupIdNum,
+      'UserName': this.signupUserName,
+      'Password': this.signupPassword,
+      'ConfirmPassword': this.signupCPassword,
+      'PhoneNumber': this.signupPhone.toString(),
+      'DialingCode': '+92',
+      'Role': this.userType,
+      'VerificationCode': this.OTP
+      }).subscribe( (res) => {
+            console.log('Logged in!', res);
+            this.lastStep = !this.lastStep;
+          }, async err => {
+          console.log('Errrrrror : ', err);
+      });
+    this.lastStep = !this.lastStep;
   }
   closeBack() {
     this.clear();
@@ -184,6 +228,10 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.showSelected = false;
     this.sheckMobileStep = false;
     this.lastStep = false;
+  }
+  signUp() {
+    console.log('Signup');
+
   }
 
   /* keytab(event, next) {
@@ -211,7 +259,8 @@ export class SignUpComponent implements OnInit , OnDestroy {
    }*/
    clear() {
     this.SigUpForm.reset();
-    this.signupName = '';
+    this.signupFirstName = '';
+    this.signupLastName = '';
     this.signupUserName = '';
     this.signupEmail = '';
     this.signupPassword = '';

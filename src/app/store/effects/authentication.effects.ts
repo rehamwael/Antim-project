@@ -39,9 +39,9 @@ export class AuthenticationEffects {
         return this.authenticationService.login(payload)
         .pipe(
           map((user) => {
-            console.log('user', user);
-            this.userRole = user.data.user.role;
-            return new LoginSuccess({token: user.token, role: user.data.user.role});
+            console.log('in effects(user) :', user);
+          // this.userRole = user.data.user.role;
+          // return new LoginSuccess({token: user.token, role: user.data.user.role});
           }),
           catchError((error) => {
             return of(new LoginFailure({ error: error }));
@@ -55,7 +55,8 @@ export class AuthenticationEffects {
     tap((user) => {
       localStorage.setItem('token', user.payload.token);
       localStorage.setItem('role', user.payload.role);
-      this.router.navigateByUrl('/dashbored-' + this.userRole);
+      // this.router.navigateByUrl('/dashbored-' + this.userRole);
+      this.router.navigateByUrl('/dashbored-funder');
     })
   );
 

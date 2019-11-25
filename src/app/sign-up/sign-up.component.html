@@ -45,11 +45,15 @@
                       <p class="grey-text-color mt-2 mb-4">Alright {{userType}}, Fill the below form please!</p>
                       <div class="row mt-3">
                           <div class="form-group text-left col-lg-6">
-                              <label for="name">Name<span class="red-color"> *</span></label>
-                              <input formControlName="FirstName" class="form-control form-control-lg" placeholder="Type Name here..." type="text" [(ngModel)]="signupName">
+                              <label for="name">First Name<span class="red-color"> *</span></label>
+                              <input formControlName="FirstName" class="form-control form-control-lg" placeholder="Type First Name here..." type="text" [(ngModel)]="signupFirstName">
                               <div *ngIf="SigUpForm.controls['FirstName'].touched && !SigUpForm.controls['FirstName'].valid" class="error-msg alert alert-danger text-left">First Name required</div>
-
                           </div>
+                          <div class="form-group text-left col-lg-6">
+                            <label for="name">Last Name<span class="red-color"> *</span></label>
+                            <input formControlName="LastName" class="form-control form-control-lg" placeholder="Type Last Name here..." type="text" [(ngModel)]="signupLastName">
+                            <div *ngIf="SigUpForm.controls['LastName'].touched && !SigUpForm.controls['LastName'].valid" class="error-msg alert alert-danger text-left">Last Name required</div>
+                        </div>
 
                           <div class="form-group text-left col-lg-6">
                               <label for="username">Username<span class="red-color"> *</span></label>
@@ -58,7 +62,7 @@
                               <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('minlength')" class="error-msg alert alert-danger text-left">User Name must be at least 5 characters long.</div>
 
                           </div>
-                          <div class="form-group text-left col-lg-12">
+                          <div class="form-group text-left col-lg-6">
                               <label for="NID">National ID No/Iqama<span class="red-color"> *</span></label>
                               <input formControlName="NID" class="form-control form-control-lg" placeholder="Ex : 0000" type="text" [(ngModel)]="signupIdNum">
                               <div *ngIf="SigUpForm.controls['NID'].touched && SigUpForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">National ID is required</div>
@@ -111,7 +115,7 @@
                           </div>
                           <div class="form-group col-lg-4">
                               <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
-                              [disabled]="!isButtonDisabled || signupName.length == 0 || signupIdNum.length == 0 || signupUserName.length == 0 ||
+                              [disabled]="!isButtonDisabled || signupFirstName.length == 0 || signupLastName.length == 0 || signupIdNum.length == 0 || signupUserName.length == 0 ||
                               signupPassword.length == 0 || signupEmail.length == 0 || !numberEntered || signupCPassword.length == 0">
                               Sign Up</button>
                           </div>
@@ -169,7 +173,8 @@
                        </div>
                     <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
                     <div class="form-group col-lg-9 ">
-                       <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!isButtonDisabled" [routerLink]="['/', dashboredUrl]">Sign Up</button>
+                       <!-- <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!isButtonDisabled" (click)="signUp()" [routerLink]="['/', dashboredUrl]">Sign Up</button> -->
+                       <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!isButtonDisabled" (click)="signUp()" >Sign Up</button>
                    </div>
                </div>
                </div>
