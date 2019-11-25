@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState, selectAuthenticationState } from './../store/app.states';
+import { Login } from './../store/actions/auth.actions';
 
 
 @Component({
@@ -83,6 +86,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   }
 
   constructor(
+    private store: Store<AppState>,
     private fb: FormBuilder,
     private authservice: AuthService,
     private toastr: ToastrService,
@@ -182,9 +186,9 @@ export class SignUpComponent implements OnInit , OnDestroy {
         'DialingCode': '+92',
         'Role': this.userType
         }).subscribe( (res) => {
-              console.log('Logged in!', res);
+              console.log('next OTP step');
               this.sheckMobileStep = !this.sheckMobileStep;
-        }, async err => {
+        }, err => {
             console.log('Errrrrror : ', err);
         });
     }
@@ -208,7 +212,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
       'Role': this.userType,
       'VerificationCode': this.OTP
       }).subscribe( (res) => {
-            console.log('Logged in!', res);
+            console.log('signUp!', res);
             this.lastStep = !this.lastStep;
           }, async err => {
           console.log('Errrrrror : ', err);
@@ -228,8 +232,8 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.lastStep = false;
   }
   signUp() {
-    console.log('Signup');
-
+    this.router.navigateByUrl('/login');
+    this.showToast('OK!!', 'Your Account Created Successfully!!Please Login to get access.', 'success');
   }
 
   /* keytab(event, next) {
