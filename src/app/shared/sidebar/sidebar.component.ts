@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { User } from './../../store/models/users';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { Logout } from './../../store/actions/auth.actions';
+import { UserDataService } from './userData.service';
 
 declare var $: any;
 
@@ -21,6 +22,7 @@ export class SidebarComponent implements OnInit {
   user: User;
   getState: Observable<any>;
   isAuthenticated = false;
+  currentUser: any;
 
 
   showMenu = '';
@@ -47,12 +49,19 @@ export class SidebarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authservice: AuthService,
-    private store: Store<AppState>) {
+    private store: Store<AppState>,
+    private userDataService: UserDataService
+    ) {
       this.getState = this.store.select(selectAuthenticationState);
     }
 
   // End open close
   ngOnInit() {
+    this.userDataService.getUserData().subscribe(res => {
+      this.currentUser = res;
+      console.log('user:', res.firstName);
+
+    });
     this.getState.subscribe((state) => {
       this.isAuthenticated = state.isAuthenticated;
       this.user = state.user;
