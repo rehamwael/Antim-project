@@ -64,14 +64,4 @@ export class ForgetPasswordComponent implements OnInit  , OnDestroy {
             }
         });
     }
-    show() {
-      console.log('asjbdfkajbsd');
-      this.spinner.show();
-
-      setTimeout(() => {
-        /** spinner ends after 5 seconds */
-        this.spinner.hide();
-      }, 5000);
-
-    }
 }
