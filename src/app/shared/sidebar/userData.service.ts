@@ -22,7 +22,7 @@ export class UserDataService {
     };
     return this.httpClient.get(`${this.Url}User/GetLoggedInUser`, httpOptions).pipe(
       tap((res: any ) => {
-        console.log('In GetLoggedInUser api:', res);
+        // console.log('In GetLoggedInUser api:', res);
         })
     );
   }

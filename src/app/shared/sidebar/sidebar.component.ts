@@ -59,8 +59,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.userDataService.getUserData().subscribe(res => {
       this.currentUser = res;
-      console.log('user:', res.firstName);
-
     });
     this.getState.subscribe((state) => {
       this.isAuthenticated = state.isAuthenticated;
