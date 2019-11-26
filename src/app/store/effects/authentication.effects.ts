@@ -68,6 +68,7 @@ export class AuthenticationEffects {
   LoginFailure: Observable<any> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN_FAILURE),
     tap(() => {
+      this.spinner.hide();
       this.showToast('Error!!',
       'The email address and password that you\'ve entered doesn\'t match any account. Please try again.',
       'error'
