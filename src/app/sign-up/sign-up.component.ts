@@ -35,6 +35,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   signupCPassword: any;
   signupIdNum: any;
   signupPhone: any;
+  signupCountrycode: any;
   first: number;
   second: number;
   third: number;
@@ -91,7 +92,8 @@ export class SignUpComponent implements OnInit , OnDestroy {
     private authservice: AuthService,
     private toastr: ToastrService,
     private router: Router,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private spiner: NgxSpinnerService) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-bottom-right';
     this.options.timeOut = 5000;
@@ -129,6 +131,9 @@ export class SignUpComponent implements OnInit , OnDestroy {
       ])],
       'confirmPassword': [null, Validators.compose([
         Validators.required,
+      ])],
+      'countrycode': [null, Validators.compose([
+        Validators.required
       ])],
       'phone': [null, Validators.compose([
         Validators.required,
@@ -191,14 +196,17 @@ showErrorToast(title, message, type) {
         'Password': this.signupPassword,
         'ConfirmPassword': this.signupCPassword,
         'PhoneNumber': this.signupPhone.toString(),
-        'DialingCode': '+92',
+        'DialingCode': this.signupCountrycode.toString(),
         'Role': this.userType
         }).subscribe(  async (res) => {
             this.spinner.hide();
             this.sheckMobileStep = !this.sheckMobileStep;
-            console.log('next OTP step');
+            console.log('next OTP step: ', res);
         }, err => {
-            console.log('Errrrrror : ', err);
+          this.spinner.hide();
+            if (err.error.result) {
+              this.showErrorToast('Error!!', err.error.result, 'error');
+            }
         });
     }
   }
@@ -207,12 +215,11 @@ showErrorToast(title, message, type) {
 
   }
   goToLastStep() {
+    this.spiner.show();
     this.isButtonDisabled = false;
     this.disabledAgreement1 = false;
     this.disabledAgreement2 = false;
     this.OTP = '' + this.first + this.second + this.third + this.Fourth;
-    console.log('OTP', this.OTP);
-    this.spinner.show();
     this.authservice.registerWithOTP({
       'Email': this.signupEmail,
       'FirstName': this.signupFirstName,
@@ -222,15 +229,17 @@ showErrorToast(title, message, type) {
       'Password': this.signupPassword,
       'ConfirmPassword': this.signupCPassword,
       'PhoneNumber': this.signupPhone.toString(),
-      'DialingCode': '+92',
+      'DialingCode': this.signupCountrycode.toString(),
       'Role': this.userType,
       'VerificationCode': this.OTP
       }).subscribe( (res) => {
-        this.spinner.hide();
-            console.log('signUp!', res);
-            this.lastStep = !this.lastStep;
-          }, async err => {
-          console.log('Errrrrror : ', err);
+        this.spiner.hide();
+        console.log('signUp : ', res);
+        this.lastStep = !this.lastStep;
+        this.showSuccessToast('OK!!', 'A verification link has been sent to your email account.', 'success');
+      }, async err => {
+        this.spiner.hide();
+        console.log('Errrrrror : ', err);
       });
   }
   closeBack() {
@@ -257,12 +266,13 @@ showErrorToast(title, message, type) {
       'Password': this.signupPassword,
       'ConfirmPassword': this.signupCPassword,
       'PhoneNumber': this.signupPhone.toString(),
-      'DialingCode': '+92',
+      'DialingCode': this.signupCountrycode.toString(),
       'Role': this.userType
       }).subscribe( (res) => {
-            console.log('code resend.');
-            this.spinner.hide();
+        console.log('code resend:', res);
+        this.spinner.hide();
       }, err => {
+        this.spinner.hide();
           console.log('Errrrrror : ', err);
       });
   }
@@ -273,7 +283,6 @@ showErrorToast(title, message, type) {
   }
 
    keytab(event, next) {
-     console.log(event.target.value);
     if (next === 1) {
       setTimeout(() => {
         this.twoElement.nativeElement.focus();
@@ -298,6 +307,7 @@ showErrorToast(title, message, type) {
     this.signupCPassword = '';
     this.signupIdNum = '';
     this.signupPhone = '';
+    this.signupCountrycode = '';
     this.first = null;
     this.second = null;
     this.third = null;

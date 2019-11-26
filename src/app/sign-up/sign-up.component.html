@@ -90,9 +90,14 @@
                             <div *ngIf="SigUpForm.value.password != SigUpForm.value.confirmPassword" class="error-msg alert alert-danger text-left">Passwords must be same.</div>
                             <span id="message"></span>
                           </div>
-                           <div class="form-group text-left col-lg-12">
+                          <div class="form-group text-left col-lg-4">
+                              <label for="countrycode">Country Code<span class="red-color"> *</span></label>
+                              <input formControlName="countrycode" class="form-control form-control-lg" placeholder="+966" type="number" [(ngModel)]="signupCountrycode">
+                              <div *ngIf="SigUpForm.controls['countrycode'].touched && !SigUpForm.controls['countrycode'].valid" class="error-msg alert alert-danger text-left">Country Code is required</div>
+                           </div>
+                           <div class="form-group text-left col-lg-8">
                               <label for="phone">Mobile No.<span class="red-color"> *</span></label>
-                              <input  formControlName="phone" class="form-control form-control-lg" placeholder="Ex : 011 XXX XXXX" type="number" (keyup)="inputNumber($event)"
+                              <input  formControlName="phone" class="form-control form-control-lg" placeholder="323 4099635" type="number" (keyup)="inputNumber($event)"
                               oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                               else { document.getElementById('phonenumber').style.visibility = 'visible'; }" [(ngModel)]="signupPhone">
                               <div *ngIf="SigUpForm.controls['phone'].touched && !SigUpForm.controls['phone'].valid" class="error-msg alert alert-danger text-left">Phone Number is required</div>
@@ -101,11 +106,13 @@
                            <div class="row justify-content-center align-items-center">
                            <div class="col-lg-8 col-11 text-center">
                               <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
-                              <label for="box-1">I agree on my <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label>
+                              <!-- <label for="box-1">I agree on my <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label> -->
+                              <label for="box-1">I agree on my <span class="text-underline" ><a href="http://localhost:4200/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
                            </div>
                            <div class="col-lg-8 col-11 mt-4 text-center">
                               <input type="checkbox" id="box-2"  (change)="changeCheck2($event)">
-                              <label for="box-2">I agree on intime <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label>
+                              <!-- <label for="box-2">I agree on intime <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label> -->
+                              <label for="box-1">I agree on intime <span class="text-underline" ><a href="http://localhost:4200/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
                            </div>
                            <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
                            <div class="form-group col-lg-6">
@@ -169,11 +176,13 @@
                <div class="row mt-3 justify-content-center align-items-center phone-number-code pb-5">
                       <div class="col-lg-7 col-11 text-center mt-3">
                               <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
-                              <label for="box-1">I agree on my <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label>
+                              <!-- <label for="box-1">I agree on my <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label> -->
+                              <label for="box-1">I agree on my <a href="http://localhost:4200/terms-conditions" target="blank">Terms & Condtions</a></label>
                        </div>
                        <div class="col-lg-7 col-11 mt-4 text-center mb-5">
                               <input type="checkbox" id="box-2" (change)="changeCheck2($event)">
-                              <label for="box-2">I agree on intime <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label>
+                              <!-- <label for="box-2">I agree on intime <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label> -->
+                              <label for="box-2">I agree on intime <a href="http://localhost:4200/terms-conditions" target="blank">Terms & Condtions</a></label>
                        </div>
                     <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
                     <div class="form-group col-lg-9 ">

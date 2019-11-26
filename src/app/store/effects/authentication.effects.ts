@@ -42,13 +42,15 @@ export class AuthenticationEffects {
         return this.authenticationService.login(payload)
         .pipe(
           map((user) => {
+            this.spinner.hide();
             console.log('in ngrx effects :', user);
             const decoded = jwt_decode(user.access_token);
           this.userRole = decoded.role;
           return new LoginSuccess({token: user.access_token, role: decoded.role});
           }),
           catchError((error) => {
-            return of(new LoginFailure({ error: error }));
+            this.spinner.hide();
+            return of(new LoginFailure({ error: error.error }));
           }));
     }));
 
@@ -59,7 +61,6 @@ export class AuthenticationEffects {
     tap((user) => {
       localStorage.setItem('token', user.payload.token);
       localStorage.setItem('role', user.payload.role);
-      this.spinner.hide();
       this.router.navigateByUrl('/dashbored-' + this.userRole);
     })
   );
@@ -67,12 +68,15 @@ export class AuthenticationEffects {
   @Effect({ dispatch: false })
   LoginFailure: Observable<any> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN_FAILURE),
-    tap(() => {
-      this.spinner.hide();
-      this.showToast('Error!!',
-      'The email address and password that you\'ve entered doesn\'t match any account. Please try again.',
-      'error'
-      );
+    tap((res) => {
+      if (res.payload.error.error_description) {
+        this.showToast('Error!!', res.payload.error.error_description, 'error');
+      } else {
+        this.showToast('Error!!',
+        'The email address and password that you\'ve entered doesn\'t match any account. Please try again.',
+        'error'
+        );
+      }
     })
   );
 
