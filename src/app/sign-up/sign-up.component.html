@@ -112,9 +112,11 @@
                               <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="PrevStep()">back</button>
                           </div>
                           <div class="form-group col-lg-4">
-                              <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()" [disabled]="disabledSubmitButton || !isButtonDisabled">Sign Up</button>
-                              <!-- [disabled]="!isButtonDisabled || signupFirstName.length == 0 || signupLastName.length == 0 || signupIdNum.length == 0 || signupUserName.length == 0 ||
-                              signupPassword.length == 0 || signupEmail.length == 0 || !numberEntered || signupCPassword.length == 0"> -->
+                              <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
+                                [disabled]="!isButtonDisabled || !SigUpForm.valid">Sign Up</button>
+                                <!-- <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
+                              [disabled]="!isButtonDisabled  || signupFirstName.length == 0 || signupLastName.length == 0 || signupIdNum.length == 0 || signupUserName.length >= 6 ||
+                              signupPassword.length >= 9 || signupEmail.valid || !numberEntered || signupCPassword.length >= 9">Sign Up</button> -->
                               <!-- <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="next()" >NEXT</button> -->
                           </div>
                           <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
