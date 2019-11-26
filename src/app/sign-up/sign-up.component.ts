@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
 import { Store } from '@ngrx/store';
-import { AppState, selectAuthenticationState } from './../store/app.states';
+import { AppState } from './../store/app.states';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -92,8 +92,8 @@ export class SignUpComponent implements OnInit , OnDestroy {
     private authservice: AuthService,
     private toastr: ToastrService,
     private router: Router,
-    private spinner: NgxSpinnerService,
-    private spiner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService
+    ) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-bottom-right';
     this.options.timeOut = 5000;
@@ -210,12 +210,9 @@ showErrorToast(title, message, type) {
         });
     }
   }
-  next() {
-    this.sheckMobileStep = !this.sheckMobileStep;
 
-  }
   goToLastStep() {
-    this.spiner.show();
+    this.spinner.show();
     this.isButtonDisabled = false;
     this.disabledAgreement1 = false;
     this.disabledAgreement2 = false;
@@ -233,12 +230,12 @@ showErrorToast(title, message, type) {
       'Role': this.userType,
       'VerificationCode': this.OTP
       }).subscribe( (res) => {
-        this.spiner.hide();
+        this.spinner.hide();
         console.log('signUp : ', res);
         this.lastStep = !this.lastStep;
         this.showSuccessToast('OK!!', 'A verification link has been sent to your email account.', 'success');
       }, async err => {
-        this.spiner.hide();
+        this.spinner.hide();
         console.log('Errrrrror : ', err);
       });
   }
