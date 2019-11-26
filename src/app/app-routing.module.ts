@@ -21,6 +21,7 @@ import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 export const Approutes: Routes = [
   {
@@ -122,6 +123,10 @@ export const Approutes: Routes = [
       {
         path: 'forget-password',
         component: ForgetPasswordComponent
+      },
+      {
+        path: 'reset-password',
+        component: ResetPasswordComponent
       }
 
     ]
