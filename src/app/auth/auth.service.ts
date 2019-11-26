@@ -41,14 +41,21 @@ export class AuthService {
   register(user: any): Observable<any> {
     return this.httpClient.post(`${this.Url}Account/Register`, user).pipe(
       tap((res: any ) => {
-        console.log('In register auth service', res);
+        console.log('In register auth service:', res);
         })
     );
   }
   registerWithOTP(user: any): Observable<any> {
     return this.httpClient.post(`${this.Url}Account/RegisterWithOTP`, user).pipe(
       tap((res: any ) => {
-        console.log('In RegisterWithOTP auth service', res);
+        console.log('In RegisterWithOTP auth service:', res);
+        })
+    );
+  }
+  ResendOtp(user: any): Observable<any> {
+    return this.httpClient.post(`${this.Url}Account/ResendOtp`, user).pipe(
+      tap((res: any ) => {
+        console.log('In ResendOtp auth service: ', res);
         })
     );
   }

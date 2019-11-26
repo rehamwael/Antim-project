@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import * as jwt_decode from 'jwt-decode';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { AuthService } from './../../auth/auth.service';
 import {
@@ -23,8 +24,8 @@ export class AuthenticationEffects {
     private actions: Actions,
     private authenticationService: AuthService,
     private router: Router,
-    private toastr: ToastrService
-  ) {
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 6000;
@@ -37,6 +38,7 @@ export class AuthenticationEffects {
       ofType(AuthenticationActionTypes.LOGIN),
       map((action: Login) => action.payload),
       switchMap(payload => {
+        this.spinner.show();
         return this.authenticationService.login(payload)
         .pipe(
           map((user) => {
@@ -57,6 +59,7 @@ export class AuthenticationEffects {
     tap((user) => {
       localStorage.setItem('token', user.payload.token);
       localStorage.setItem('role', user.payload.role);
+      this.spinner.hide();
       this.router.navigateByUrl('/dashbored-' + this.userRole);
     })
   );

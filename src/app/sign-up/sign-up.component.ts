@@ -5,8 +5,7 @@ import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthenticationState } from './../store/app.states';
-import { Login } from './../store/actions/auth.actions';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-sign-up',
@@ -36,14 +35,15 @@ export class SignUpComponent implements OnInit , OnDestroy {
   signupCPassword: any;
   signupIdNum: any;
   signupPhone: any;
-  first: string;
-  second: string;
-  third: string;
-  Fourth: string;
+  first: number;
+  second: number;
+  third: number;
+  Fourth: number;
   phoneNumber: string;
   numberEntered = false;
   OTP = '';
   options: IndividualConfig;
+  option: IndividualConfig;
   disabledAgreement1 = false;
   disabledAgreement2 = false;
   isButtonDisabled = false;
@@ -90,10 +90,14 @@ export class SignUpComponent implements OnInit , OnDestroy {
     private fb: FormBuilder,
     private authservice: AuthService,
     private toastr: ToastrService,
-    private router: Router) {
+    private router: Router,
+    private spinner: NgxSpinnerService) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-bottom-right';
-    this.options.timeOut = 3000;
+    this.options.timeOut = 5000;
+    this.option = this.toastr.toastrConfig;
+    this.option.positionClass = 'toast-top-right';
+    this.option.timeOut = 5000;
 
     this.showSelected = false;
     this.sheckMobileStep = false;
@@ -120,7 +124,8 @@ export class SignUpComponent implements OnInit , OnDestroy {
       ])],
       'password': [null, Validators.compose([
         Validators.required,
-        Validators.pattern('(?=^.{9,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')
+        // Validators.pattern('(?=^.{9,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')
+        Validators.pattern('^.*(?=.{9,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$')
       ])],
       'confirmPassword': [null, Validators.compose([
         Validators.required,
@@ -136,10 +141,12 @@ export class SignUpComponent implements OnInit , OnDestroy {
     });
 
   }
-  showToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
+  showSuccessToast(title, message, type) {
+    this.toastr.show(message, title, this.option, 'toast-' + type);
 }
-
+showErrorToast(title, message, type) {
+  this.toastr.show(message, title, this.options, 'toast-' + type);
+}
   ngOnInit(): void {
     this.clear();
     const body = document.getElementsByTagName('body')[0];
@@ -172,8 +179,9 @@ export class SignUpComponent implements OnInit , OnDestroy {
   }
   thirdStep() {
     if (this.signupCPassword !== this.signupPassword) {
-      this.showToast('Error!!', 'Password Must Match', 'error');
+      this.showErrorToast('Error!!', 'Password Must Match', 'error');
     } else {
+      this.spinner.show();
       this.authservice.register({
         'Email': this.signupEmail,
         'FirstName': this.signupFirstName,
@@ -185,13 +193,18 @@ export class SignUpComponent implements OnInit , OnDestroy {
         'PhoneNumber': this.signupPhone.toString(),
         'DialingCode': '+92',
         'Role': this.userType
-        }).subscribe( (res) => {
-              console.log('next OTP step');
-              this.sheckMobileStep = !this.sheckMobileStep;
+        }).subscribe(  async (res) => {
+            this.spinner.hide();
+            this.sheckMobileStep = !this.sheckMobileStep;
+            console.log('next OTP step');
         }, err => {
             console.log('Errrrrror : ', err);
         });
     }
+  }
+  next() {
+    this.sheckMobileStep = !this.sheckMobileStep;
+
   }
   goToLastStep() {
     this.isButtonDisabled = false;
@@ -199,6 +212,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.disabledAgreement2 = false;
     this.OTP = '' + this.first + this.second + this.third + this.Fourth;
     console.log('OTP', this.OTP);
+    this.spinner.show();
     this.authservice.registerWithOTP({
       'Email': this.signupEmail,
       'FirstName': this.signupFirstName,
@@ -212,6 +226,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
       'Role': this.userType,
       'VerificationCode': this.OTP
       }).subscribe( (res) => {
+        this.spinner.hide();
             console.log('signUp!', res);
             this.lastStep = !this.lastStep;
           }, async err => {
@@ -231,12 +246,34 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.sheckMobileStep = false;
     this.lastStep = false;
   }
-  signUp() {
-    this.router.navigateByUrl('/login');
-    this.showToast('OK!!', 'Your Account Created Successfully!!Please Login to get access.', 'success');
+  resendOTP() {
+    this.spinner.show();
+    this.authservice.ResendOtp({
+      'Email': this.signupEmail,
+      'FirstName': this.signupFirstName,
+      'LastName': this.signupLastName,
+      'NationalIdNumber': this.signupIdNum,
+      'UserName': this.signupUserName,
+      'Password': this.signupPassword,
+      'ConfirmPassword': this.signupCPassword,
+      'PhoneNumber': this.signupPhone.toString(),
+      'DialingCode': '+92',
+      'Role': this.userType
+      }).subscribe( (res) => {
+            console.log('code resend.');
+            this.spinner.hide();
+      }, err => {
+          console.log('Errrrrror : ', err);
+      });
   }
 
-  /* keytab(event, next) {
+  signUp() {
+    this.router.navigateByUrl('/login');
+    this.showSuccessToast('OK!!', 'Your Account Created Successfully!!Please Login to get access.', 'success');
+  }
+
+   keytab(event, next) {
+     console.log(event.target.value);
     if (next === 1) {
       setTimeout(() => {
         this.twoElement.nativeElement.focus();
@@ -250,15 +287,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
         this.fourElement.nativeElement.focus();
       }, 0);
     }
-
-    // const element = event.srcElement.nextElementSibling; // get the sibling element
-
-    // if (element == null) {  // check if its null
-    //     return;
-    // } else {
-    //     element.focus();
-    // }
-   }*/
+   }
    clear() {
     this.SigUpForm.reset();
     this.signupFirstName = '';
@@ -269,10 +298,10 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.signupCPassword = '';
     this.signupIdNum = '';
     this.signupPhone = '';
-    this.first = '';
-    this.second = '';
-    this.third = '';
-    this.Fourth = '';
+    this.first = null;
+    this.second = null;
+    this.third = null;
+    this.Fourth = null;
    }
 
 }
