@@ -122,7 +122,7 @@ showErrorToast(title, message, type) {
 
   ngOnInit(): void {
     this.profileService.getUserData().subscribe(res => {
-      this.currentUser = res;
+      this.currentUser = res.result;
       this.NID = res.nationalIdNumber;
       this.phone = res.email;
       this.email = res.phoneNumber;

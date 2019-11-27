@@ -14,8 +14,8 @@ export class DashboredLenderComponent implements OnInit , OnDestroy {
 
   ngOnInit(): void {
     this.userDataService.getUserData().subscribe(res => {
-      this.currentUser = res;
-      console.log('user:', res);
+      this.currentUser = res.result;
+      console.log('user:', res.result);
     });
 
     const body = document.getElementsByTagName('body')[0];

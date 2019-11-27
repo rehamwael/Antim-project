@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ResetPasswordService } from './reset-password.service';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,6 +14,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   PasswordForm: FormGroup;
   password: any;
   confirmPassword: any;
+  token: any;
+  userID: any;
   options: IndividualConfig;
   disabledSubmitButton = true;
   @HostListener('input') oninput() {
@@ -30,7 +33,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private RPservice: ResetPasswordService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private activatedRoute: ActivatedRoute,
+    private route: Router) {
       this.options = this.toastr.toastrConfig;
       this.options.positionClass = 'toast-top-right';
       this.options.timeOut = 6000;
@@ -48,6 +53,16 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // this.token = this.activatedRoute.snapshot.paramMap.get('code');
+    // console.log('token:', this.token);
+    // this.userID = this.activatedRoute.snapshot.paramMap.get('userId');
+    // console.log('ID:', this.userID);
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.token = params.get('code');
+      this.userID = params.get('userId');
+      console.log('ID:', this.userID);
+      console.log('token:', this.token);
+    });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('log-in');
   }

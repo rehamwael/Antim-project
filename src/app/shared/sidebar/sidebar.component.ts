@@ -3,7 +3,6 @@ import { ROUTES } from './menu-items';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from 'src/app/auth/auth.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -48,7 +47,6 @@ export class SidebarComponent implements OnInit {
     private modalService: NgbModal,
     private router: Router,
     private route: ActivatedRoute,
-    private authservice: AuthService,
     private store: Store<AppState>,
     private userDataService: ProfileService
     ) {
@@ -58,7 +56,7 @@ export class SidebarComponent implements OnInit {
   // End open close
   ngOnInit() {
     this.userDataService.getUserData().subscribe(res => {
-      this.currentUser = res;
+      this.currentUser = res.result;
     });
     this.getState.subscribe((state) => {
       this.isAuthenticated = state.isAuthenticated;
