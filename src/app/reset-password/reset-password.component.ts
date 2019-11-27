@@ -1,6 +1,6 @@
 import { Component, OnInit , OnDestroy , HostListener} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ResetPasswordService } from './reset-password.service';
+import { UserPasswordService } from './../services/user-password.service';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,11 +31,11 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 }
 
   constructor(private fb: FormBuilder,
-    private RPservice: ResetPasswordService,
+    private RPservice: UserPasswordService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
-    private route: Router) {
+    private router: Router) {
       this.options = this.toastr.toastrConfig;
       this.options.positionClass = 'toast-top-right';
       this.options.timeOut = 6000;
@@ -53,15 +53,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.token = this.activatedRoute.snapshot.paramMap.get('code');
-    // console.log('token:', this.token);
-    // this.userID = this.activatedRoute.snapshot.paramMap.get('userId');
-    // console.log('ID:', this.userID);
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.token = params.get('code');
-      this.userID = params.get('userId');
-      console.log('ID:', this.userID);
-      console.log('token:', this.token);
+    this.activatedRoute.queryParamMap.subscribe(queryParams => {
+      this.token = queryParams.get('code');
+      this.userID = queryParams.get('userId');
     });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('log-in');
@@ -71,20 +65,27 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     body.classList.remove('log-in');
   }
   ResetPassword() {
+    if (this.password !== this.confirmPassword) {
+      this.showErrorToast('Error!!', 'Password Must Match', 'error');
+    } else {
     this.spinner.show();
     this.RPservice.resetPassword({
-      'userId': '',
-      'code': 'this.email',
-      'newPassword': ''
+      'userId': this.userID,
+      'code': this.token,
+      'newPassword': this.password
       }).subscribe(  async (res) => {
+        console.log('res', res);
           this.spinner.hide();
-          // this.showSuccessToast('OK!!', res, 'success');
+          this.router.navigateByUrl('/login');
+          this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
+        console.log('err', err);
         this.spinner.hide();
-          if (err) {
-            // this.showErrorToast('Error!!', err.error, 'error');
+          if (err.error.message) {
+            this.showErrorToast('Error!!', err.error.message, 'error');
           }
       });
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit , OnDestroy , HostListener} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ForgetPasswordService } from './forget-password.service';
+import { UserPasswordService } from './../services/user-password.service';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -20,7 +20,7 @@ export class ForgetPasswordComponent implements OnInit  , OnDestroy {
       }
   }
   constructor(private fb: FormBuilder,
-    private FPservice: ForgetPasswordService,
+    private FPservice: UserPasswordService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService) {
       this.options = this.toastr.toastrConfig;
@@ -55,12 +55,13 @@ export class ForgetPasswordComponent implements OnInit  , OnDestroy {
       this.FPservice.sendEmailToUser({
         'Email': this.email
         }).subscribe(  async (res) => {
-            this.spinner.hide();
-            this.showSuccessToast('OK!!', res, 'success');
+          console.log('res', res.message);
+          this.spinner.hide();
+          this.showSuccessToast('OK!!', res.message, 'success');
         }, err => {
           this.spinner.hide();
             if (err) {
-              this.showErrorToast('Error!!', err.error, 'error');
+              this.showErrorToast('Error!!', err.error.message, 'error');
             }
         });
     }
