@@ -44,7 +44,6 @@ export class ProfileComponent implements OnInit , OnDestroy {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
     ) {
-      console.log('constrctr', this.NID)
 
       this.options = this.toastr.toastrConfig;
       this.options.positionClass = 'toast-bottom-right';
@@ -88,7 +87,7 @@ showErrorToast(title, message, type) {
   this.toastr.show(message, title, this.options, 'toast-' + type);
 }
 
-  async ngOnInit(): Promise<void> {
+   ngOnInit(): void {
      this.userDataService.getUserData().subscribe(res => {
       this.currentUser = res;
       this.NID = res.nationalIdNumber;
@@ -97,7 +96,6 @@ showErrorToast(title, message, type) {
       this.name = res.firstName;
       console.log('user:', res);
     });
-    await console.log('ngonit', this.NID)
 
 
     const body = document.getElementsByTagName('body')[0];
