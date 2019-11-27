@@ -204,8 +204,8 @@ showErrorToast(title, message, type) {
             console.log('next OTP step: ', res);
         }, err => {
           this.spinner.hide();
-            if (err.error.result) {
-              this.showErrorToast('Error!!', err.error.result, 'error');
+            if (err.error.message) {
+              this.showErrorToast('Error!!', err.error.message, 'error');
             }
         });
     }
