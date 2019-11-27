@@ -101,7 +101,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
 
       this.BankInfoForm = fb.group({
         'BankName': ['', {disabled: this.disabledBankButton}],
-        'BankAccountName': ['', {disabled: this.disabledBankButton}],
+        'BankAccountNo': ['', {disabled: this.disabledBankButton}],
+        'AccountTitle': ['', {disabled: this.disabledBankButton}],
+        'BankAddress': ['', {disabled: this.disabledBankButton}],
         'investmentPerYear': ['', {disabled: this.disabledBankButton}],
         });
         this.leafletLayers = [tileLayer(
@@ -133,7 +135,9 @@ showErrorToast(title, message, type) {
     body.classList.add('dashbored');
     body.classList.add('profile');
     this.BankInfoForm.get('BankName').disable();
-    this.BankInfoForm.get('BankAccountName').disable();
+    this.BankInfoForm.get('BankAccountNo').disable();
+    this.BankInfoForm.get('AccountTitle').disable();
+    this.BankInfoForm.get('BankAddress').disable();
     this.BankInfoForm.get('investmentPerYear').disable();
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
@@ -185,12 +189,16 @@ showErrorToast(title, message, type) {
   }
   EditBankInfo() {
     this.BankInfoForm.get('BankName').enable();
-    this.BankInfoForm.get('BankAccountName').enable();
+    this.BankInfoForm.get('BankAccountNo').enable();
+    this.BankInfoForm.get('AccountTitle').enable();
+    this.BankInfoForm.get('BankAddress').enable();
     this.BankInfoForm.get('investmentPerYear').enable();
   }
   SaveBankInfo() {
     this.BankInfoForm.get('BankName').disable();
-    this.BankInfoForm.get('BankAccountName').disable();
+    this.BankInfoForm.get('BankAccountNo').disable();
+    this.BankInfoForm.get('AccountTitle').disable();
+    this.BankInfoForm.get('BankAddress').disable();
     this.BankInfoForm.get('investmentPerYear').disable();
   }
   onChange(deviceValue) {

@@ -68,9 +68,9 @@ export class ProfileComponent implements OnInit , OnDestroy {
 
       this.BankInfoForm = fb.group({
         'BankName': ['', {disabled: this.disabledBankButton}],
-        'BankAccountName': ['', {disabled: this.disabledBankButton}],
-        'EmailAdd': ['', {disabled: this.disabledBankButton}],
-        'Iqama': ['', {disabled: this.disabledBankButton}],
+        'BankAccountNo': ['', {disabled: this.disabledBankButton}],
+        'AccountTitle': ['', {disabled: this.disabledBankButton}],
+        'Address': ['', {disabled: this.disabledBankButton}],
         });
         this.leafletLayers = [tileLayer(
           'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -100,9 +100,9 @@ showErrorToast(title, message, type) {
     body.classList.add('dashbored');
     body.classList.add('profile');
     this.BankInfoForm.get('BankName').disable();
-    this.BankInfoForm.get('BankAccountName').disable();
-    this.BankInfoForm.get('EmailAdd').disable();
-    this.BankInfoForm.get('Iqama').disable();
+    this.BankInfoForm.get('BankAccountNo').disable();
+    this.BankInfoForm.get('AccountTitle').disable();
+    this.BankInfoForm.get('Address').disable();
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
           return;
@@ -148,15 +148,15 @@ showErrorToast(title, message, type) {
   }
   EditBankInfo() {
     this.BankInfoForm.get('BankName').enable();
-    this.BankInfoForm.get('BankAccountName').enable();
-    this.BankInfoForm.get('EmailAdd').enable();
-    this.BankInfoForm.get('Iqama').enable();
+    this.BankInfoForm.get('BankAccountNo').enable();
+    this.BankInfoForm.get('AccountTitle').enable();
+    this.BankInfoForm.get('Address').enable();
   }
   SaveBankInfo() {
     this.BankInfoForm.get('BankName').disable();
-    this.BankInfoForm.get('BankAccountName').disable();
-    this.BankInfoForm.get('EmailAdd').disable();
-    this.BankInfoForm.get('Iqama').disable();
+    this.BankInfoForm.get('BankAccountNo').disable();
+    this.BankInfoForm.get('AccountTitle').disable();
+    this.BankInfoForm.get('Address').disable();
   }
   onChange(deviceValue) {
       if (deviceValue === 'Bank') {
