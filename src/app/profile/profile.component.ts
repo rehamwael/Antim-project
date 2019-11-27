@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import {latLng, tileLayer} from 'leaflet';
 import { UserDataService } from '../services/userData.service';
-import { ProfileService } from '../services/profile.service';
+import { ProfileService } from '../services/userProfile.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 
