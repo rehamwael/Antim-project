@@ -93,7 +93,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       ])],
       'NID': [{value: this.NID, disabled: this.disabledButton}, Validators.compose([
         Validators.required,
-        Validators.minLength(11)
+        Validators.minLength(10)
       ])],
       'Address': [{value: null, disabled: this.disabledButton}],
       });

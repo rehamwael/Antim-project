@@ -118,7 +118,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
       ])],
       'NID': [null, Validators.compose([
         Validators.required,
-        Validators.minLength(11)
+        Validators.minLength(10)
       ])],
       'email': [null, Validators.compose([
         Validators.required,
