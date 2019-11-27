@@ -58,14 +58,14 @@
                           <div class="form-group text-left col-lg-6">
                               <label for="username">Username<span class="red-color"> *</span></label>
                               <input formControlName="username" class="form-control form-control-lg" placeholder="Type Username here..." type="text" [(ngModel)]="signupUserName">
-                              <div *ngIf="SigUpForm.controls['username'].touched && !SigUpForm.controls['username'].valid" class="error-msg alert alert-danger text-left">Username required</div>
+                              <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('required')" class="error-msg alert alert-danger text-left">Username required</div>
                               <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('minlength')" class="error-msg alert alert-danger text-left">User Name must be at least 5 characters long.</div>
 
                           </div>
                           <div class="form-group text-left col-lg-6">
                               <label for="NID">National ID No/Iqama<span class="red-color"> *</span></label>
                               <input formControlName="NID" class="form-control form-control-lg" placeholder="Ex : 0000" type="text" [(ngModel)]="signupIdNum">
-                              <div *ngIf="SigUpForm.controls['NID'].touched && !SigUpForm.controls['NID'].valid" class="error-msg alert alert-danger text-left">National ID is required</div>
+                              <div *ngIf="SigUpForm.controls['NID'].touched && SigUpForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">National ID is required</div>
                               <div *ngIf="SigUpForm.controls['NID'].touched && SigUpForm.controls['NID'].hasError('minlength')" class="error-msg alert alert-danger text-left">National ID number must be at least 11 characters long.</div>
 
 
@@ -73,20 +73,20 @@
                           <div class="form-group text-left col-lg-12">
                                   <label for="email">Email<span class="red-color"> *</span></label>
                                   <input formControlName="email" class="form-control form-control-lg" placeholder="Type Email here..." type="email" value="signupEmail" [(ngModel)]="signupEmail">
-                                  <div *ngIf="SigUpForm.controls['email'].touched && !SigUpForm.controls['email'].valid" class="error-msg alert alert-danger text-left">Email is required</div>
+                                  <div *ngIf="SigUpForm.controls['email'].touched && SigUpForm.controls['email'].hasError('required')" class="error-msg alert alert-danger text-left">Email is required</div>
                                   <div *ngIf="SigUpForm.controls['email'].touched && SigUpForm.controls['email'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter proper Email.</div>
                            </div>
                            <div class="form-group text-left col-lg-12">
                               <label for="password">Password<span class="red-color"> *</span></label>
                               <input formControlName="password" class="form-control  form-control-lg" placeholder="************" type="password" [(ngModel)]="signupPassword">
-                              <div *ngIf="SigUpForm.controls['password'].touched && !SigUpForm.controls['password'].valid" class="error-msg alert alert-danger text-left">Password is required</div>
+                              <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('required')" class="error-msg alert alert-danger text-left">Password is required</div>
                               <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('pattern')" class="error-msg alert alert-danger text-left">Password must contain UpperCases, LowerCases, Numbers, SpecialCharacters and at least 9 characters long.</div>
 
                           </div>
                           <div class="form-group text-left col-lg-12">
                             <label for="confirmPassword">Confirm Password<span class="red-color"> *</span></label>
                             <input formControlName="confirmPassword" class="form-control form-control-lg" placeholder="************" type="password"  [(ngModel)]="signupCPassword">
-                            <div *ngIf="SigUpForm.controls['confirmPassword'].touched && !SigUpForm.controls['confirmPassword'].valid" class="error-msg alert alert-danger text-left">Confirm Password is required</div>
+                            <div *ngIf="SigUpForm.controls['confirmPassword'].touched && SigUpForm.controls['confirmPassword'].hasError('required')" class="error-msg alert alert-danger text-left">Confirm Password is required</div>
                             <div *ngIf="SigUpForm.value.password != SigUpForm.value.confirmPassword" class="error-msg alert alert-danger text-left">Passwords must be same.</div>
                             <span id="message"></span>
                           </div>
@@ -100,7 +100,7 @@
                               <input  formControlName="phone" class="form-control form-control-lg" placeholder="323 4099635" type="number" (keyup)="inputNumber($event)"
                               oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                               else { document.getElementById('phonenumber').style.visibility = 'visible'; }" [(ngModel)]="signupPhone">
-                              <div *ngIf="SigUpForm.controls['phone'].touched && !SigUpForm.controls['phone'].valid" class="error-msg alert alert-danger text-left">Phone Number is required</div>
+                              <div *ngIf="SigUpForm.controls['phone'].touched && SigUpForm.controls['phone'].hasError('required')" class="error-msg alert alert-danger text-left">Phone Number is required</div>
                               <span class="redColor" id="phonenumber"> Phone number must be at least 9 characters long.</span>
                            </div>
                            <div class="row justify-content-center align-items-center">
