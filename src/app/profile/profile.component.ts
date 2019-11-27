@@ -17,10 +17,15 @@ export class ProfileComponent implements OnInit , OnDestroy {
   email: any;
   phone: any;
   NID: any;
+  address: any;
+  city: any;
+  country: any;
+  zip: any;
+  state: any;
   disabledButton = true;
   EditForm: FormGroup;
   BankInfoForm: FormGroup;
-  isShown = false ; // hidden by default
+  AddressForm: FormGroup;
   disabledBankButton = true;
   zoom: number;
   center: L.LatLng;
@@ -34,6 +39,10 @@ export class ProfileComponent implements OnInit , OnDestroy {
   phoneNumber: any;
   numberEntered = false;
   disableButton = false;
+  showAddress = false ;
+  showBank = false ;
+  showUser = false ;
+
 
   constructor(
     private fb: FormBuilder,
@@ -63,8 +72,27 @@ export class ProfileComponent implements OnInit , OnDestroy {
         Validators.required,
         Validators.minLength(11)
       ])],
-      'Address': [{value: null, disabled: this.disabledButton}],
+      // 'Address': [{value: null, disabled: this.disabledButton}],
       });
+
+      this.AddressForm = fb.group({
+        'Address': [{value: this.name, disabled: this.disabledButton}, Validators.compose([
+          Validators.required
+        ])],
+        'City':  [{value: this.phone, disabled: this.disabledButton}, Validators.compose([
+          Validators.required
+        ])],
+        'Country':  [{value: this.email, disabled: this.disabledButton}, Validators.compose([
+          Validators.required
+        ])],
+        'State': [{value: this.NID, disabled: this.disabledButton}, Validators.compose([
+          Validators.required
+        ])],
+        'Zip':  [{value: this.NID, disabled: this.disabledButton}, Validators.compose([
+          Validators.required
+        ])],
+        });
+
 
       this.BankInfoForm = fb.group({
         'BankName': ['', {disabled: this.disabledBankButton}],
@@ -86,6 +114,7 @@ showErrorToast(title, message, type) {
 }
 
    ngOnInit(): void {
+     this.showUser = true;
     this.profileService.getUserData().subscribe(res => {
       this.currentUser = res.result;
       this.NID = res.nationalIdNumber;
@@ -122,7 +151,7 @@ showErrorToast(title, message, type) {
     this.EditForm.get('MobileNo').enable();
     this.EditForm.get('Email').enable();
     this.EditForm.get('NID').enable();
-    this.EditForm.get('Address').enable();
+    // this.EditForm.get('Address').enable();
 
 
   }
@@ -144,7 +173,7 @@ showErrorToast(title, message, type) {
     this.EditForm.get('MobileNo').disable();
     this.EditForm.get('Email').disable();
     this.EditForm.get('NID').disable();
-    this.EditForm.get('Address').disable();
+    // this.EditForm.get('Address').disable();
   }
   EditBankInfo() {
     this.BankInfoForm.get('BankName').enable();
@@ -159,11 +188,42 @@ showErrorToast(title, message, type) {
     this.BankInfoForm.get('Address').disable();
   }
   onChange(deviceValue) {
+    if (deviceValue === 'Personal') {
+      this.showUser = true;
+      this.showBank = false;
+      this.showAddress = false;
+    } else {
+      this.showUser = false;
+    }
       if (deviceValue === 'Bank') {
-        this.isShown = ! this.isShown;
+        this.showUser = false;
+        this.showBank = true;
+        this.showAddress = false;
       } else {
-        this.isShown = ! this.isShown;
+        this.showBank = false;
       }
+      if (deviceValue === 'address') {
+        this.showUser = false;
+      this.showBank = false;
+      this.showAddress = true;
+      } else {
+        this.showAddress = false;
+      }
+  }
+
+  EditAddressInfo() {
+    this.BankInfoForm.get('Address').enable();
+    this.BankInfoForm.get('City').enable();
+    this.BankInfoForm.get('Country').enable();
+    this.BankInfoForm.get('State').enable();
+    this.BankInfoForm.get('Zip').enable();
+  }
+  SaveAddressInfo() {
+    this.BankInfoForm.get('Address').disable();
+    this.BankInfoForm.get('City').disable();
+    this.BankInfoForm.get('Country').disable();
+    this.BankInfoForm.get('State').disable();
+    this.BankInfoForm.get('Zip').disable();
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');

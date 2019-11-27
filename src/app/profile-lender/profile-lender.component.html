@@ -46,7 +46,7 @@
 
                         <div class="col-lg-12 row justify-content-around mt-5 dashbored-info">
                             <div class="justify-content-center col-lg-9">
-                              <form class="row antim-form" [formGroup]="EditForm" *ngIf="!isShown">
+                              <form class="row antim-form" [formGroup]="EditForm" *ngIf="!isShown && !showProfit">
                                 <div class="col-lg-12 mb-3"><h3 class="headingh3">Personal Information</h3></div>
                                 <div class="col-lg-6">
                                     <label for="Name" class="font-bold mt-2">Name</label>
@@ -148,6 +148,36 @@
 
                                     </div>
                                     </form>
+
+                                    <!-- <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser">
+                                      <div class="col-lg-12 mb-3"><h3 class="headingh3">User Address Information.</h3></div>
+                                      <div class="col-lg-12">
+                                          <label for="address" class="font-bold mt-2">Complete Address</label>
+                                          <input matInput formControlName="Address" type="text" class="form-control form-control-lg"  placeholder="enter your Address here">
+                                          <div *ngIf="AddressForm.controls['Address'].touched && !AddressForm.controls['Address'].valid" class="error-msg alert alert-danger text-left">Address is required</div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <label for="city" class="font-bold mt-2">City </label>
+                                        <input matInput formControlName="City" type="text" class="form-control form-control-lg"  placeholder="enter your city here">
+                                        <div *ngIf="AddressForm.controls['City'].touched && !AddressForm.controls['City'].valid" class="error-msg alert alert-danger text-left">City is required</div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <label for="country" class="font-bold mt-2">Country</label>
+                                      <input matInput formControlName="Country" type="text" class="form-control form-control-lg"  placeholder="enter your country here">
+                                      <div *ngIf="AddressForm.controls['Country'].touched && !AddressForm.controls['Country'].valid" class="error-msg alert alert-danger text-left">Country is required</div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                    <label for="state" class="font-bold mt-2">State</label>
+                                    <input matInput formControlName="State" type="text" class="form-control form-control-lg"  placeholder="enter your State here">
+                                    <div *ngIf="AddressForm.controls['State'].touched && !AddressForm.controls['State'].valid" class="error-msg alert alert-danger text-left">State is required</div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <label for="zip" class="font-bold mt-2">ZIP code</label>
+                                  <input matInput formControlName="Zip" type="text" class="form-control form-control-lg"  placeholder="enter your Zip here">
+                                  <div *ngIf="AddressForm.controls['Zip'].touched && !AddressForm.controls['Zip'].valid" class="error-msg alert alert-danger text-left">Zip is required</div>
+                              </div>
+
+                          </form> -->
                         </div>
                         </div>
 
@@ -185,7 +215,7 @@
                         </div>
 
 
-                        <div class="col-lg-12 row justify-content-around" *ngIf="showProfit">
+                        <div class="col-lg-12 row justify-content-around" *ngIf="showProfit && !isShown">
                             <div class="col-lg-5 row bank-info-card card-purple">
                                 <div class="col-lg-2 mt-4 px-3 col-3">
                                         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">

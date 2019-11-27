@@ -35,6 +35,7 @@
                                 <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
                                         <option value="Personal" selected>Personal Information</option>
                                         <option value="Bank">Bank Information</option>
+                                        <option value="address">Address Information</option>
                                 </select>
                                 <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
@@ -45,7 +46,7 @@
 
                         <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
                             <div class="justify-content-center col-lg-9">
-                            <form class="row antim-form" [formGroup]="EditForm" *ngIf="!isShown">
+                            <form class="row antim-form" [formGroup]="EditForm" *ngIf="!showAddress && !showBank && showUser">
                             <div class="col-lg-12 mb-3"><h3 class="headingh3">Personal Information</h3></div>
                             <div class="col-lg-6">
                                 <label for="Name" class="font-bold mt-2">Name</label>
@@ -75,7 +76,7 @@
                                 <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">National ID is required</div>
                                 <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('minlength')" class="error-msg alert alert-danger text-left">National ID number must be at least 11 characters long.</div>
                             </div>
-                            <div class="col-lg-12">
+                            <!-- <div class="col-lg-12">
                                     <label for="Address" class="font-bold mt-2">Address</label>
                                     <input matInput formControlName="Address" class="form-control form-control-lg" value="Saudi Arabia" placeholder="Address">
                                 </div>
@@ -88,12 +89,12 @@
                                         [leafletLayers]="leafletLayers">
                                     </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </form>
 
 
 
-                            <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="isShown">
+                            <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="!showAddress && showBank && !showUser">
                                     <div class="col-lg-12 mb-3"><h3 class="headingh3">Bank Information</h3></div>
                                     <div class="col-lg-6">
                                         <label for="BankName" class="font-bold mt-2">Bank Name</label>
@@ -147,10 +148,40 @@
 
                                     </div>
                                     </form>
+
+                                    <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser">
+                                      <div class="col-lg-12 mb-3"><h3 class="headingh3">Address Information.</h3></div>
+                                      <div class="col-lg-12">
+                                          <label for="address" class="font-bold mt-2">Complete Address</label>
+                                          <input matInput formControlName="Address" type="text" class="form-control form-control-lg"  placeholder="enter your Address here" [(ngModel)]="address">
+                                          <div *ngIf="AddressForm.controls['Address'].touched && !AddressForm.controls['Address'].valid" class="error-msg alert alert-danger text-left">Address is required</div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <label for="city" class="font-bold mt-2">City </label>
+                                        <input matInput formControlName="City" type="text" class="form-control form-control-lg"  placeholder="enter your city here" [(ngModel)]="city">
+                                        <div *ngIf="AddressForm.controls['City'].touched && !AddressForm.controls['City'].valid" class="error-msg alert alert-danger text-left">City is required</div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <label for="country" class="font-bold mt-2">Country</label>
+                                      <input matInput formControlName="Country" type="text" class="form-control form-control-lg"  placeholder="enter your country here" [(ngModel)]="country">
+                                      <div *ngIf="AddressForm.controls['Country'].touched && !AddressForm.controls['Country'].valid" class="error-msg alert alert-danger text-left">Country is required</div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                    <label for="state" class="font-bold mt-2">State</label>
+                                    <input matInput formControlName="State" type="text" class="form-control form-control-lg"  placeholder="enter your State here" [(ngModel)]="state">
+                                    <div *ngIf="AddressForm.controls['State'].touched && !AddressForm.controls['State'].valid" class="error-msg alert alert-danger text-left">State is required</div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <label for="zip" class="font-bold mt-2">ZIP code</label>
+                                  <input matInput formControlName="Zip" type="text" class="form-control form-control-lg"  placeholder="enter your Zip here" [(ngModel)]="zip">
+                                  <div *ngIf="AddressForm.controls['Zip'].touched && !AddressForm.controls['Zip'].valid" class="error-msg alert alert-danger text-left">Zip is required</div>
+                              </div>
+
+                          </form>
                         </div>
                         </div>
 
-                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" *ngIf="!isShown">
+                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" *ngIf="!showAddress && !showBank && showUser">
                                 <div class="form-group col-lg-2">
                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditInfo()">
                                             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -169,7 +200,26 @@
                                </ngx-spinner>
                         </div>
 
-                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-2" *ngIf="isShown">
+                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" *ngIf="showAddress && !showBank && !showUser">
+                          <div class="form-group col-lg-2">
+                                 <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditAddressInfo()">
+                                      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                      </svg>
+                                      <span class="px-3">Edit</span>
+                                  </button>
+                              </div>
+                         <div class="form-group col-lg-2">
+                             <!-- <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableButton" (click)="SaveInfo()">Save</button> -->
+                             <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  (click)="SaveAddressInfo()">Save</button>
+                         </div>
+                         <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+                         color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
+                         <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+                         </ngx-spinner>
+                  </div>
+
+                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-2" *ngIf="!showAddress && showBank && !showUser">
                                 <div class="form-group col-lg-2">
                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBankInfo()">
                                             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">

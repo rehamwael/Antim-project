@@ -39,4 +39,32 @@ export class ProfileService {
           })
       );
     }
+    addUserAddress(user: any): Observable<any> {
+      const token = localStorage.getItem('token');
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+            authorization: `Bearer ${token}`
+        })
+      };
+      return this.httpClient.post(`${this.Url}UserAddresses/AddUserAddress`, user, httpOptions).pipe(
+        tap((res: any ) => {
+          console.log('In AddUserAddress service:', res);
+          })
+      );
+    }
+    editUserAddress(user: any): Observable<any> {
+      const token = localStorage.getItem('token');
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+            authorization: `Bearer ${token}`
+        })
+      };
+      return this.httpClient.patch(`${this.Url}UserAddresses/EditUserAddress`, user, httpOptions).pipe(
+        tap((res: any ) => {
+          console.log('In EditUserAddress service:', res);
+          })
+      );
+    }
 }

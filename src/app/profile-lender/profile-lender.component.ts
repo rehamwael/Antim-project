@@ -203,12 +203,14 @@ showErrorToast(title, message, type) {
   }
   onChange(deviceValue) {
       if (deviceValue === 'Bank') {
-        this.isShown = ! this.isShown;
+        this.isShown = true;
+        this.showProfit = false;
       } else {
-        this.isShown = ! this.isShown;
+        this.isShown = false;
       }
       if (deviceValue === 'TotalProfit') {
         this.showProfit = true;
+        this.isShown = false;
       } else {
         this.showProfit = false;
 
