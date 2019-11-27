@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { User } from './../../store/models/users';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { Logout } from './../../store/actions/auth.actions';
-import { UserDataService } from '../../services/userData.service';
+import { ProfileService } from '../../services/userProfile.service';
 
 declare var $: any;
 
@@ -50,7 +50,7 @@ export class SidebarComponent implements OnInit {
     private route: ActivatedRoute,
     private authservice: AuthService,
     private store: Store<AppState>,
-    private userDataService: UserDataService
+    private userDataService: ProfileService
     ) {
       this.getState = this.store.select(selectAuthenticationState);
     }
@@ -77,12 +77,6 @@ export class SidebarComponent implements OnInit {
   logout() {
     this.store.dispatch(new Logout);
     console.log('logout.');
-    // this.authservice.logout().subscribe( (res) => {
-    //   this.router.navigate(['/login']);
-    // }, async err => {
-    //     console.log('Errrrrror : ', err);
-    // });
-
   }
 }
 

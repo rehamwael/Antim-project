@@ -2,7 +2,6 @@ import { Component, OnInit , OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import {latLng, tileLayer} from 'leaflet';
-import { UserDataService } from '../services/userData.service';
 import { ProfileService } from '../services/userProfile.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
@@ -39,7 +38,6 @@ export class ProfileComponent implements OnInit , OnDestroy {
   constructor(
     private fb: FormBuilder,
     public router: Router,
-    private userDataService: UserDataService,
     private profileService: ProfileService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
@@ -88,7 +86,7 @@ showErrorToast(title, message, type) {
 }
 
    ngOnInit(): void {
-     this.userDataService.getUserData().subscribe(res => {
+    this.profileService.getUserData().subscribe(res => {
       this.currentUser = res;
       this.NID = res.nationalIdNumber;
       this.phone = res.email;

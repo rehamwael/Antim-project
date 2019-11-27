@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { UserDataService } from '../services/userData.service';
+import { ProfileService } from '../services/userProfile.service';
 
 @Component({
   selector: 'app-dashbored-lender',
@@ -10,7 +10,7 @@ import { UserDataService } from '../services/userData.service';
 export class DashboredLenderComponent implements OnInit , OnDestroy {
   currentUser: any;
 
-  constructor(public router: Router, private userDataService: UserDataService) { }
+  constructor(public router: Router, private userDataService: ProfileService) { }
 
   ngOnInit(): void {
     this.userDataService.getUserData().subscribe(res => {
