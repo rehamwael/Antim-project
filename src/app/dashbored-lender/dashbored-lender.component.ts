@@ -1,16 +1,23 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { UserDataService } from '../services/userData.service';
 
 @Component({
   selector: 'app-dashbored-lender',
   templateUrl: './dashbored-lender.component.html',
   styleUrls: ['./dashbored-lender.component.css']
 })
-export class DashboredLenderComponent implements OnInit ,OnDestroy{
+export class DashboredLenderComponent implements OnInit , OnDestroy {
+  currentUser: any;
 
-  constructor(public router: Router) { }
+  constructor(public router: Router, private userDataService: UserDataService) { }
 
   ngOnInit(): void {
+    this.userDataService.getUserData().subscribe(res => {
+      this.currentUser = res;
+      console.log('user:', res);
+    });
+
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('dashbored-home');
@@ -18,19 +25,17 @@ export class DashboredLenderComponent implements OnInit ,OnDestroy{
       if (!(evt instanceof NavigationEnd)) {
           return;
       }
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
   });
 
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('dashbored-home');
 
   }
-  toggleNavbar(){
-    window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
-
+  toggleNavbar() {
+    window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
   }
-
 }

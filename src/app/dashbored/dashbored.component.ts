@@ -1,6 +1,6 @@
 import { Component, OnInit , OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { UserDataService } from './../shared/sidebar/userData.service';
+import { UserDataService } from '../services/userData.service';
 
 @Component({
   selector: 'app-dashbored',
@@ -15,7 +15,7 @@ export class DashboredComponent implements OnInit , OnDestroy {
   ngOnInit(): void {
     this.userDataService.getUserData().subscribe(res => {
       this.currentUser = res;
-      console.log('user:', res.firstName);
+      console.log('user:', res);
     });
 
     const body = document.getElementsByTagName('body')[0];
@@ -36,7 +36,6 @@ export class DashboredComponent implements OnInit , OnDestroy {
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
-
   }
 
 }

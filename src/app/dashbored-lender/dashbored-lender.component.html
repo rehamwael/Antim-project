@@ -6,7 +6,7 @@
                     </button>
                     <a class="navbar-brand" [routerLink]="[ '/' ]">
                             <img src="assets/images/logo-white.svg" alt="antim">
-        
+
                     </a>
             </nav>
         <aside class="left-sidebar col-lg-4">
@@ -19,14 +19,14 @@
         <div class="page-wraper-right row">
             <app-setting></app-setting>
         </div>
-    
-    
-    
+
+
+
     <div class="page-wraper-right">
                     <div class="mat-card col-lg-11 mt-5 row welcome-card p-2 align-items-center">
                         <img class="col-lg-2" src="assets/images/bookWithMen.svg">
                         <div class="col-lg-7 px-0">
-                            <p class="grey-text-color">Oh! Welcome Home Ismael! we've prepared some useful information below ;)</p>
+                            <p class="grey-text-color">Oh! Welcome Home {{currentUser?.firstName}}! We've prepared some useful information below ;)</p>
                         </div>
                         <form class="col-lg-3">
                         <div class="form-group">
@@ -38,9 +38,9 @@
                         </div>
                         </form>
                     </div>
-    
-    
-    
+
+
+
                     <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
                         <div class="col-lg-2 blue-bg cursor-pointer" [routerLink]="[ '/requests-lender' , 'Ongoing']">                            <div class="dashbored-info-content">
                                 <p>Ongoing requests</p>
@@ -72,8 +72,8 @@
                             </div>
                         </div>
                     </div>
-    
-                    <div class="col-lg-11 mt-3 row justify-content-center align-items-center py-4 mt-5 align-fixed-mobile">     
+
+                    <div class="col-lg-11 mt-3 row justify-content-center align-items-center py-4 mt-5 align-fixed-mobile">
                             <div class="form-group col-lg-2 col-6">
                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2 btn-lowecase" [routerLink]="[ '/requests-lender' , '']">All Request</button>
                            </div>

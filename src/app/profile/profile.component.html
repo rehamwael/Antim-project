@@ -6,7 +6,7 @@
                         </button>
                         <a class="navbar-brand" [routerLink]="[ '/' ]">
                                 <img src="assets/images/logo-white.svg" alt="antim">
-            
+
                         </a>
                 </nav>
             <aside class="left-sidebar col-lg-4">
@@ -19,9 +19,9 @@
             <div class="page-wraper-right row">
                 <app-setting></app-setting>
             </div>
-        
-        
-        
+
+
+
         <div class="page-wraper-right">
                 <div class="mat-card col-lg-11 mt-5 px-0 py-0 m-0 mb-5">
                         <div class="mat-card col-lg-12 row welcome-card inner p-2 m-0 align-items-center">
@@ -40,29 +40,40 @@
                             </div>
                             </form>
                         </div>
-        
-        
-        
+
+
+
                         <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
                             <div class="justify-content-center col-lg-9">
                             <form class="row antim-form" [formGroup]="EditForm" *ngIf="!isShown">
                             <div class="col-lg-12 mb-3"><h3 class="headingh3">Personal Information</h3></div>
                             <div class="col-lg-6">
                                 <label for="Name" class="font-bold mt-2">Name</label>
-                                <input matInput formControlName="Name" class="form-control form-control-lg" value="Isamael alaksras" placeholder="name">
+                                <input matInput formControlName="Name" type="text" class="form-control form-control-lg" value= "{{currentUser?.firstName}}" [(ngModel)]="name" placeholder="name">
+                                <div *ngIf="EditForm.controls['Name'].touched && !EditForm.controls['Name'].valid" class="error-msg alert alert-danger text-left"> Name required</div>
                             </div>
                             <div class="col-lg-6">
                                 <label for="mobile" class="font-bold mt-2">Mobile No</label>
-                                <input matInput formControlName="MobileNo" class="form-control form-control-lg" value="0112323232" placeholder="mobile">
+                                <input matInput formControlName="MobileNo" type="number" class="form-control form-control-lg" value= "{{currentUser?.phoneNumber}}" [(ngModel)]="phone" placeholder="Mobile No." (keyup)="inputNumber($event)"
+                                oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
+                                else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
+                                 <div *ngIf="EditForm.controls['MobileNo'].touched && EditForm.controls['MobileNo'].hasError('required')" class="error-msg alert alert-danger text-left">Mobile Number is required</div>
+                                 <span class="redColor" id="phonenumber"> Phone number must be at least 9 characters long.</span>
+
                             </div>
 
                             <div class="col-lg-6">
-                                <label for="email" class="font-bold mt-2">Email address </label>
-                                <input matInput formControlName="Email" class="form-control form-control-lg" value="dpremakumara@gmail.com" placeholder="email">
+                                <label for="Email" class="font-bold mt-2">Email address </label>
+                                <input matInput formControlName="Email" type="email" class="form-control form-control-lg" value= "{{currentUser?.email}}" [(ngModel)]="email" placeholder="email">
+                                <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('required')" class="error-msg alert alert-danger text-left">Email is required</div>
+                                <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter proper Email.</div>
+
                             </div>
                             <div class="col-lg-6">
-                                <label for="National" class="font-bold mt-2">National ID / Iqama</label>
-                                <input matInput formControlName="NID" class="form-control form-control-lg" value="3483984390843" placeholder="National ID">
+                                <label for="NID" class="font-bold mt-2">National ID / Iqama</label>
+                                <input matInput formControlName="NID" type="text" class="form-control form-control-lg" value= "{{currentUser?.nationalIdNumber}}" [(ngModel)]="NID" placeholder="National ID">
+                                <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">National ID is required</div>
+                                <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('minlength')" class="error-msg alert alert-danger text-left">National ID number must be at least 11 characters long.</div>
                             </div>
                             <div class="col-lg-12">
                                     <label for="Address" class="font-bold mt-2">Address</label>
@@ -92,7 +103,7 @@
                                         <label for="BankAccount" class="font-bold mt-2">Bank Account Name</label>
                                         <input matInput formControlName="BankAccountName" class="form-control form-control-lg" value="0112323232" placeholder="Bank Account Name">
                                     </div>
-        
+
                                     <div class="col-lg-6">
                                         <label for="emailadd" class="font-bold mt-2">Email address </label>
                                         <input matInput formControlName="EmailAdd" class="form-control form-control-lg" value="dpremakumara@gmail.com" placeholder="email">
@@ -130,7 +141,7 @@
                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M20.2069 2.62589L14.3816 0.733163C13.4624 0.434498 12.4752 0.937537 12.1765 1.85673L7.85027 15.1715C7.5516 16.0907 8.05464 17.078 8.97384 17.3767L18.9599 20.6213C19.8791 20.92 20.8664 20.417 21.1651 19.4978L24.1393 10.3438L20.2069 2.62589Z" fill="#FEFCF8" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                             <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                         </svg>
-                                                        </span>   
+                                                        </span>
                                                 Darg and drop here</p>
                                             </div>
 
@@ -138,8 +149,8 @@
                                     </form>
                         </div>
                         </div>
-        
-                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" *ngIf="!isShown">     
+
+                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" *ngIf="!isShown">
                                 <div class="form-group col-lg-2">
                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditInfo()">
                                             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -149,11 +160,16 @@
                                         </button>
                                     </div>
                                <div class="form-group col-lg-2">
-                                   <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="SaveInfo()">Save</button>
+                                   <!-- <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableButton" (click)="SaveInfo()">Save</button> -->
+                                   <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableButton || (!phone && phone!=0) || !EditForm.valid" (click)="SaveInfo()">Save</button>
                                </div>
+                               <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+                               color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
+                               <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+                               </ngx-spinner>
                         </div>
 
-                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-2" *ngIf="isShown">     
+                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-2" *ngIf="isShown">
                                 <div class="form-group col-lg-2">
                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBankInfo()">
                                             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">

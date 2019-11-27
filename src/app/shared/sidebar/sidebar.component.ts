@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { User } from './../../store/models/users';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { Logout } from './../../store/actions/auth.actions';
-import { UserDataService } from './userData.service';
+import { UserDataService } from '../../services/userData.service';
 
 declare var $: any;
 

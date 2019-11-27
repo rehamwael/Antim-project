@@ -1,11 +1,11 @@
 import { Component, OnInit , OnDestroy, HostListener, ViewChild, ElementRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
 import { Store } from '@ngrx/store';
 import { AppState } from './../store/app.states';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -91,8 +91,8 @@ export class SignUpComponent implements OnInit , OnDestroy {
     private fb: FormBuilder,
     private authservice: AuthService,
     private toastr: ToastrService,
-    private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router
     ) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-bottom-right';
