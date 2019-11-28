@@ -20,6 +20,7 @@ import { ToastrService, IndividualConfig } from 'ngx-toastr';
 export class ProfileLenderComponent implements OnInit, OnDestroy {
   currentUser: any;
   userAddress: any;
+  userBankInfo: any;
   name: any;
   email: any;
   phone: any;
@@ -166,6 +167,7 @@ showErrorToast(title, message, type) {
       this.email = res.result.email;
       this.name = res.result.firstName;
       this.userAddress = res.result.userAddresses;
+      this.userBankInfo = res.result.userAddresses;
       console.log('user:', res);
     });
     const body = document.getElementsByTagName('body')[0];

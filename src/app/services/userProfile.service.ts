@@ -89,49 +89,49 @@ export class ProfileService {
       );
     }
 
-    // // GET USER BANK  INFORMATION
-    // getUserAddress(): Observable<any> {
-    //   const token = localStorage.getItem('token');
-    //     const httpOptions = {
-    //       headers: new HttpHeaders({
-    //           authorization: `Bearer ${token}`
-    //       })
-    //     };
-    //     return this.httpClient.get(`${this.Url}UserAddresses/GetLoggedInUserAddress`, httpOptions).pipe(
-    //       tap((res: any ) => {
-    //         })
-    //     );
-    //   }
+    // GET USER BANK  INFORMATION
+    getUserBankInfo(): Observable<any> {
+      const token = localStorage.getItem('token');
+        const httpOptions = {
+          headers: new HttpHeaders({
+              authorization: `Bearer ${token}`
+          })
+        };
+        return this.httpClient.get(`${this.Url}UserBanks/GetLoggedInUserBank`, httpOptions).pipe(
+          tap((res: any ) => {
+            })
+        );
+      }
 
-    //   // Add USER BANK INFORMATION
-    // addUserAddress(user: any): Observable<any> {
-    //   const token = localStorage.getItem('token');
+      // Add USER BANK INFORMATION
+    addUserBankInfo(user: any): Observable<any> {
+      const token = localStorage.getItem('token');
 
-    //   const httpOptions = {
-    //     headers: new HttpHeaders({
-    //         authorization: `Bearer ${token}`
-    //     })
-    //   };
-    //   return this.httpClient.post(`${this.Url}UserAddresses/AddUserAddress`, user, httpOptions).pipe(
-    //     tap((res: any ) => {
-    //       console.log('In AddUserAddress service:', res);
-    //       })
-    //   );
-    // }
+      const httpOptions = {
+        headers: new HttpHeaders({
+            authorization: `Bearer ${token}`
+        })
+      };
+      return this.httpClient.post(`${this.Url}UserBanks/AddUserBank`, user, httpOptions).pipe(
+        tap((res: any ) => {
+          console.log('In AddUserAddress service:', res);
+          })
+      );
+    }
 
-    // // EDIT USER BANK INFORMATION
-    // editUserAddress(user: any): Observable<any> {
-    //   const token = localStorage.getItem('token');
+    // EDIT USER BANK INFORMATION
+    editUserBankInfo(user: any): Observable<any> {
+      const token = localStorage.getItem('token');
 
-    //   const httpOptions = {
-    //     headers: new HttpHeaders({
-    //         authorization: `Bearer ${token}`
-    //     })
-    //   };
-    //   return this.httpClient.patch(`${this.Url}UserAddresses/EditUserAddress`, user, httpOptions).pipe(
-    //     tap((res: any ) => {
-    //       console.log('In EditUserAddress service:', res);
-    //       })
-    //   );
-    // }
+      const httpOptions = {
+        headers: new HttpHeaders({
+            authorization: `Bearer ${token}`
+        })
+      };
+      return this.httpClient.patch(`${this.Url}UserBanks/EditUserBank`, user, httpOptions).pipe(
+        tap((res: any ) => {
+          console.log('In EditUserAddress service:', res);
+          })
+      );
+    }
 }
