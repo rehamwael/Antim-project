@@ -13,6 +13,7 @@ import { ToastrService, IndividualConfig } from 'ngx-toastr';
 })
 export class ProfileComponent implements OnInit , OnDestroy {
   currentUser: any;
+  userAddress: any;
   name: any;
   email: any;
   phone: any;
@@ -38,7 +39,9 @@ export class ProfileComponent implements OnInit , OnDestroy {
   options: IndividualConfig;
   phoneNumber: any;
   numberEntered = false;
-  disableButton = false;
+  disableprofileButton = false;
+  disableBankButton = false;
+  disableAddressButton = false;
   showAddress = false ;
   showBank = false ;
   showUser = false ;
@@ -53,7 +56,7 @@ export class ProfileComponent implements OnInit , OnDestroy {
     ) {
 
       this.options = this.toastr.toastrConfig;
-      this.options.positionClass = 'toast-bottom-right';
+      this.options.positionClass = 'toast-top-right';
       this.options.timeOut = 5000;
 
     this.EditForm = fb.group({
@@ -76,19 +79,23 @@ export class ProfileComponent implements OnInit , OnDestroy {
       });
 
       this.AddressForm = fb.group({
-        'Address': [{value: this.name, disabled: this.disabledButton}, Validators.compose([
-          Validators.required
+        'Address': [{value: this.address, disabled: this.disabledButton}, Validators.compose([
+          Validators.required,
+          Validators.minLength(6)
         ])],
-        'City':  [{value: this.phone, disabled: this.disabledButton}, Validators.compose([
-          Validators.required
+        'City':  [{value: this.city, disabled: this.disabledButton}, Validators.compose([
+          Validators.required,
+          Validators.minLength(4)
         ])],
-        'Country':  [{value: this.email, disabled: this.disabledButton}, Validators.compose([
-          Validators.required
+        'Country':  [{value: this.country, disabled: this.disabledButton}, Validators.compose([
+          Validators.required,
+          Validators.minLength(4)
         ])],
-        'State': [{value: this.NID, disabled: this.disabledButton}, Validators.compose([
-          Validators.required
+        'State': [{value: this.state, disabled: this.disabledButton}, Validators.compose([
+          Validators.required,
+          Validators.minLength(4)
         ])],
-        'Zip':  [{value: this.NID, disabled: this.disabledButton}, Validators.compose([
+        'Zip':  [{value: this.zip, disabled: this.disabledButton}, Validators.compose([
           Validators.required
         ])],
         });
@@ -117,12 +124,22 @@ showErrorToast(title, message, type) {
      this.showUser = true;
     this.profileService.getUserData().subscribe(res => {
       this.currentUser = res.result;
-      this.NID = res.nationalIdNumber;
-      this.phone = res.email;
-      this.email = res.phoneNumber;
-      this.name = res.firstName;
+      this.NID = res.result.nationalIdNumber;
+      this.phone = res.result.phoneNumber;
+      this.email = res.result.email;
+      this.name = res.result.firstName;
+      this.userAddress = res.result.userAddresses;
+      // if (this.userAddress.length > 0) {
+      //   this.showButton = true;
+      // } else {
+      //   this.showButton = false;
+      // }
       console.log('user:', res);
     });
+    // this.profileService.getUserAddress().subscribe(res => {
+    //   this.userAddress = res.result;
+    //   console.log('userAddress:', this.userAddress);
+    // });
 
 
     const body = document.getElementsByTagName('body')[0];
@@ -146,7 +163,7 @@ showErrorToast(title, message, type) {
 
   }
   EditInfo() {
-    this.disableButton = true;
+    this.disableprofileButton = true;
     this.EditForm.get('Name').enable();
     this.EditForm.get('MobileNo').enable();
     this.EditForm.get('Email').enable();
@@ -164,10 +181,10 @@ showErrorToast(title, message, type) {
         'Email': this.email
   }).subscribe((res) => {
     this.spinner.hide();
-      this.showSuccessToast('OK!!', res, 'success');
+      this.showSuccessToast('OK!!', res.message, 'success');
   }, err => {
     this.spinner.hide();
-    this.showErrorToast('Error!!', err.error, 'error');
+    this.showErrorToast('Error!!', err.message, 'error');
   });
     this.EditForm.get('Name').disable();
     this.EditForm.get('MobileNo').disable();
@@ -212,18 +229,52 @@ showErrorToast(title, message, type) {
   }
 
   EditAddressInfo() {
-    this.BankInfoForm.get('Address').enable();
-    this.BankInfoForm.get('City').enable();
-    this.BankInfoForm.get('Country').enable();
-    this.BankInfoForm.get('State').enable();
-    this.BankInfoForm.get('Zip').enable();
+    this.disableAddressButton = true;
+    this.AddressForm.get('Address').enable();
+    this.AddressForm.get('City').enable();
+    this.AddressForm.get('Country').enable();
+    this.AddressForm.get('State').enable();
+    this.AddressForm.get('Zip').enable();
   }
   SaveAddressInfo() {
-    this.BankInfoForm.get('Address').disable();
-    this.BankInfoForm.get('City').disable();
-    this.BankInfoForm.get('Country').disable();
-    this.BankInfoForm.get('State').disable();
-    this.BankInfoForm.get('Zip').disable();
+  if (this.userAddress.length > 0) {
+        this.spinner.show();
+        this.profileService.editUserAddress({
+        'Address': this.address,
+        'City': this.city,
+        'Country': this.country,
+        'State': this.state,
+        'PostalCode': this.zip
+      }).subscribe((res) => {
+        console.log('edit Address:', res);
+        this.spinner.hide();
+          this.showSuccessToast('OK!!', res.message, 'success');
+      }, err => {
+        this.spinner.hide();
+        this.showErrorToast('Error!!', err.message, 'error');
+      });
+    } else {
+          this.spinner.show();
+          this.profileService.addUserAddress({
+          'Address': this.address,
+          'City': this.city,
+          'Country': this.country,
+          'State': this.state,
+          'PostalCode': this.zip
+        }).subscribe((res) => {
+          console.log('Add Address:', res);
+          this.spinner.hide();
+            this.showSuccessToast('OK!!', res.message, 'success');
+        }, err => {
+        this.spinner.hide();
+        this.showErrorToast('Error!!', err.message, 'error');
+      });
+    }
+    this.AddressForm.get('Address').disable();
+    this.AddressForm.get('City').disable();
+    this.AddressForm.get('Country').disable();
+    this.AddressForm.get('State').disable();
+    this.AddressForm.get('Zip').disable();
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
