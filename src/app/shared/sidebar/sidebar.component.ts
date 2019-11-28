@@ -59,23 +59,12 @@ export class SidebarComponent implements OnInit {
 
   // End open close
   ngOnInit() {
-    // this.spinner.show();
-
-    // this.currentUser = this.store.select(state => state.authenticationState.userProfile);
-
-
     this.getState.subscribe((state) => {
-      console.log('state bhai', state);
       this.isAuthenticated = state.isAuthenticated;
       this.user = state.user;
       this.currentUser = state.userProfile;
-      console.log('user bhai', this.currentUser);
       if (!this.currentUser) {
         this.store.dispatch(new UserProfile());
-        // this.userDataService.getUserData().subscribe(res => {
-        //   this.store.dispatch(new UserProfile(res.result));
-        //    this.currentUser = res.result;
-        //  });
       }
     });
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
