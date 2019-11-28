@@ -1,11 +1,11 @@
-import { Component, OnInit , OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label , Color } from 'ng2-charts';
+import { Label, Color } from 'ng2-charts';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
-import {latLng, tileLayer} from 'leaflet';
+import { latLng, tileLayer } from 'leaflet';
 
 import { ProfileService } from '../services/userProfile.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -30,11 +30,20 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   country: any;
   zip: any;
   state: any;
+  addressID: any;
+
+  bankName: any;
+  bankAccountNo: any;
+  bankAddress: any;
+  accountTitle: any;
+  fundingLimit: any;
+
   options: IndividualConfig;
   phoneNumber: any;
   numberEntered = false;
   disableButton = false;
-
+  userBank: any;
+  userAdress: any = [];
   leafletLayers;
   leafletOptions;
   mapCenter;
@@ -45,22 +54,24 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   BankInfoForm: FormGroup;
   AddressForm: FormGroup;
   disabledBankButton = true;
-  showProfit = false ; // hidden by default
-  showAddress = false ;
-  showBank = false ;
-  showUser = false ;
+  showProfit = false; // hidden by default
+  showAddress = false;
+  showBank = false;
+  showUser = false;
   disableprofileButton = false;
   disableBankButton = false;
   disableAddressButton = false;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
-      legend: {
-        display: false
-      },
-    scales: { xAxes: [{
-      barPercentage: 0.2
-    }], yAxes: [{}] },
+    legend: {
+      display: false
+    },
+    scales: {
+      xAxes: [{
+        barPercentage: 0.2
+      }], yAxes: [{}]
+    },
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -88,88 +99,126 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     private profileService: ProfileService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
-    ) {
-      this.showUser = true;
-      this.options = this.toastr.toastrConfig;
-      this.options.positionClass = 'toast-bottom-right';
-      this.options.timeOut = 5000;
+  ) {
+    this.showUser = true;
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-bottom-right';
+    this.options.timeOut = 5000;
 
     this.EditForm = fb.group({
-      'Name': [{value: this.name, disabled: this.disabledButton}, Validators.compose([
+      'Name': [{ value: this.name, disabled: this.disabledButton }, Validators.compose([
         Validators.required
       ])],
-      'MobileNo':  [{value: this.phone, disabled: this.disabledButton}, Validators.compose([
+      'MobileNo': [{ value: this.phone, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
         Validators.minLength(9)
       ])],
-      'Email':  [{value: this.email, disabled: this.disabledButton}, Validators.compose([
+      'Email': [{ value: this.email, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
         Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$')
       ])],
-      'NID': [{value: this.NID, disabled: this.disabledButton}, Validators.compose([
+      'NID': [{ value: this.NID, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
         Validators.minLength(10)
       ])],
-      'Address': [{value: null, disabled: this.disabledButton}],
-      });
+      'Address': [{ value: null, disabled: this.disabledButton }],
+    });
 
 
-      this.BankInfoForm = fb.group({
-        'BankName': ['', {disabled: this.disabledBankButton}],
-        'BankAccountNo': ['', {disabled: this.disabledBankButton}],
-        'AccountTitle': ['', {disabled: this.disabledBankButton}],
-        'BankAddress': ['', {disabled: this.disabledBankButton}],
-        'investmentPerYear': ['', {disabled: this.disabledBankButton}],
-        });
-        this.leafletLayers = [tileLayer(
-          'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          { })];
-        this.mapCenter = latLng(24.8085046, 46.6711241);
-        this.zoomLevel = 7;
+    this.BankInfoForm = fb.group({
+      'BankName': [{ value: this.bankName, disabled: this.disabledBankButton }, Validators.compose([
+        Validators.required,
+        Validators.minLength(4)
+      ])],
+      'BankAccountNo': [{ value: this.bankAccountNo, disabled: this.disabledBankButton }, Validators.compose([
+        Validators.required,
+        Validators.minLength(18),
+        Validators.maxLength(24)
+      ])],
+      'AccountTitle': [{ value: this.accountTitle, disabled: this.disabledBankButton }, Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
+      ])],
+      'BankAddress': [{ value: this.bankAddress, disabled: this.disabledBankButton }, Validators.compose([
+        Validators.required,
+        Validators.minLength(10)
+      ])],
+      'FundingLimit': [{ value: this.fundingLimit, disabled: this.disabledBankButton }, Validators.compose([
+        Validators.required
+      ])]
+      // 'investmentPerYear': [{value: this.investment, disabled: this.disabledBankButton}, Validators.compose([
+      //   Validators.required
+      // ])],
+    });
+    this.leafletLayers = [tileLayer(
+      'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {})];
+    this.mapCenter = latLng(24.8085046, 46.6711241);
+    this.zoomLevel = 7;
 
-        this.AddressForm = fb.group({
-          'Address': [{value: this.address, disabled: this.disabledButton}, Validators.compose([
-            Validators.required,
-            Validators.minLength(6)
-          ])],
-          'City':  [{value: this.city, disabled: this.disabledButton}, Validators.compose([
-            Validators.required,
-            Validators.minLength(4)
-          ])],
-          'Country':  [{value: this.country, disabled: this.disabledButton}, Validators.compose([
-            Validators.required,
-            Validators.minLength(4)
-          ])],
-          'State': [{value: this.state, disabled: this.disabledButton}, Validators.compose([
-            Validators.required,
-            Validators.minLength(4)
-          ])],
-          'Zip':  [{value: this.zip, disabled: this.disabledButton}, Validators.compose([
-            Validators.required
-          ])],
-          });
+    this.AddressForm = fb.group({
+      'Address': [{ value: this.address, disabled: this.disabledButton }, Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
+      ])],
+      'City': [{ value: this.city, disabled: this.disabledButton }, Validators.compose([
+        Validators.required,
+        Validators.minLength(4)
+      ])],
+      'Country': [{ value: this.country, disabled: this.disabledButton }, Validators.compose([
+        Validators.required,
+        Validators.minLength(4)
+      ])],
+      'State': [{ value: this.state, disabled: this.disabledButton }, Validators.compose([
+        Validators.required,
+        Validators.minLength(4)
+      ])],
+      'Zip': [{ value: this.zip, disabled: this.disabledButton }, Validators.compose([
+        Validators.required
+      ])],
+    });
 
 
   }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
-}
-showErrorToast(title, message, type) {
-  this.toastr.show(message, title, this.options, 'toast-' + type);
-}
+  }
+  showErrorToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
 
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.showUser = true;
     this.profileService.getUserData().subscribe(res => {
       this.currentUser = res.result;
       this.NID = res.result.nationalIdNumber;
       this.phone = res.result.phoneNumber;
       this.email = res.result.email;
       this.name = res.result.firstName;
-      this.userAddress = res.result.userAddresses;
-      this.userBankInfo = res.result.userAddresses;
-      console.log('user:', res);
+      this.userAdress = res.result.userAddresses;
+      this.userBank = res.result.userBanks;
+      console.log('userDAtaaa:', res.result);
+    }, err => {
+      console.log('ERROR:', err);
     });
+    console.log('asad');
+    // if (this.userAdress.length > 0) {
+    //   this.profileService.getUserAddress().subscribe(res => {
+    //     this.userAddress = res.result;
+    //     this.address = res.result.address;
+    //     this.city = res.result.city;
+    //     this.country = res.result.country;
+    //     this.zip = res.result.postalCode;
+    //     this.state = res.result.state;
+    //     this.addressID = res.result.id;
+    //     console.log('userAddress:', res.result);
+
+    //   }, err => {
+    //     console.log('ERROR:', err);
+    //   });
+    // }
+
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('profile');
@@ -177,13 +226,14 @@ showErrorToast(title, message, type) {
     this.BankInfoForm.get('BankAccountNo').disable();
     this.BankInfoForm.get('AccountTitle').disable();
     this.BankInfoForm.get('BankAddress').disable();
-    this.BankInfoForm.get('investmentPerYear').disable();
+    this.BankInfoForm.get('FundingLimit').disable();
+    // this.BankInfoForm.get('investmentPerYear').disable();
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
-          return;
+        return;
       }
       window.scrollTo(0, 0);
-  });
+    });
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
@@ -192,7 +242,7 @@ showErrorToast(title, message, type) {
 
   }
   formatLabel(value: number) {
-      return Math.round(value) + 'SAR';
+    return Math.round(value) + 'SAR';
   }
   EditInfo() {
     this.disableprofileButton = true;
@@ -207,17 +257,17 @@ showErrorToast(title, message, type) {
   SaveInfo() {
     this.spinner.show();
     this.profileService.editUser({
-        'FirstName': this.name,
-        'NationalIdNumber': this.NID,
-        'PhoneNumber': this.phone.toString(),
-        'Email': this.email
-  }).subscribe((res) => {
-    this.spinner.hide();
+      'FirstName': this.name,
+      'NationalIdNumber': this.NID,
+      'PhoneNumber': this.phone.toString(),
+      'Email': this.email
+    }).subscribe((res) => {
+      this.spinner.hide();
       this.showSuccessToast('OK!!', res, 'success');
-  }, err => {
-    this.spinner.hide();
-    this.showErrorToast('Error!!', err.error, 'error');
-  });
+    }, err => {
+      this.spinner.hide();
+      this.showErrorToast('Error!!', err.error, 'error');
+    });
 
     this.EditForm.get('Name').disable();
     this.EditForm.get('MobileNo').disable();
@@ -231,49 +281,49 @@ showErrorToast(title, message, type) {
     this.BankInfoForm.get('BankAccountNo').enable();
     this.BankInfoForm.get('AccountTitle').enable();
     this.BankInfoForm.get('BankAddress').enable();
-    this.BankInfoForm.get('investmentPerYear').enable();
+    this.BankInfoForm.get('FundingLimit').enable();
+
+    // this.BankInfoForm.get('investmentPerYear').enable();
   }
   SaveBankInfo() {
+    if (Object.keys(this.userBankInfo).length > 0) {
+      this.spinner.show();
+      this.profileService.editUserBankInfo({
+        'id': '',
+        'BankName': 'string',
+        'Address': 'string',
+        'AccountTitle': 'string',
+        'AccountNumber': 'string'
+      }).subscribe((res) => {
+        console.log('edit Address:', res);
+        this.spinner.hide();
+        this.showSuccessToast('OK!!', res.message, 'success');
+      }, err => {
+        this.spinner.hide();
+        this.showErrorToast('Error!!', err.message, 'error');
+      });
+    } else {
+      this.spinner.show();
+      this.profileService.addUserBankInfo({
+        'BankName': 'string',
+        'Address': 'string',
+        'AccountTitle': 'string',
+        'AccountNumber': 'string'
+      }).subscribe((res) => {
+        console.log('Add Address:', res);
+        this.spinner.hide();
+        this.showSuccessToast('OK!!', res.message, 'success');
+      }, err => {
+        this.spinner.hide();
+        this.showErrorToast('Error!!', err.message, 'error');
+      });
+    }
     this.BankInfoForm.get('BankName').disable();
     this.BankInfoForm.get('BankAccountNo').disable();
     this.BankInfoForm.get('AccountTitle').disable();
     this.BankInfoForm.get('BankAddress').disable();
-    this.BankInfoForm.get('investmentPerYear').disable();
-  }
-
-  onChange(deviceValue: any) {
-      if (deviceValue === 'Personal') {
-        this.showUser = true;
-        this.showBank = false;
-        this.showAddress = false;
-        this.showProfit = false;
-      } else {
-        this.showUser = false;
-      }
-        if (deviceValue === 'Bank') {
-          this.showUser = false;
-          this.showBank = true;
-          this.showAddress = false;
-          this.showProfit = false;
-        } else {
-          this.showBank = false;
-        }
-        if (deviceValue === 'TotalProfit') {
-          this.showUser = false;
-          this.showBank = false;
-          this.showAddress = false;
-          this.showProfit = true;
-        } else {
-          this.showProfit = false;
-        }
-        if (deviceValue === 'funderAddress') {
-          this.showUser = false;
-          this.showBank = false;
-          this.showAddress = true;
-          this.showProfit = false;
-        } else {
-          this.showAddress = false;
-        }
+    this.BankInfoForm.get('FundingLimit').disable();
+    // this.BankInfoForm.get('investmentPerYear').disable();
   }
   EditAddressInfo() {
     this.disableAddressButton = true;
@@ -284,9 +334,10 @@ showErrorToast(title, message, type) {
     this.AddressForm.get('Zip').enable();
   }
   SaveAddressInfo() {
-  if (this.userAddress.length > 0) {
-        this.spinner.show();
-        this.profileService.editUserAddress({
+    if (Object.keys(this.userAddress).length > 0) {
+      this.spinner.show();
+      this.profileService.editUserAddress({
+        'Id': this.addressID,
         'Address': this.address,
         'City': this.city,
         'Country': this.country,
@@ -295,33 +346,68 @@ showErrorToast(title, message, type) {
       }).subscribe((res) => {
         console.log('edit Address:', res);
         this.spinner.hide();
-          this.showSuccessToast('OK!!', res.message, 'success');
+        this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
         this.spinner.hide();
         this.showErrorToast('Error!!', err.message, 'error');
       });
     } else {
-          this.spinner.show();
-          this.profileService.addUserAddress({
-          'Address': this.address,
-          'City': this.city,
-          'Country': this.country,
-          'State': this.state,
-          'PostalCode': this.zip
-        }).subscribe((res) => {
-          console.log('Add Address:', res);
-          this.spinner.hide();
-            this.showSuccessToast('OK!!', res.message, 'success');
-        }, err => {
+      this.spinner.show();
+      this.profileService.addUserAddress({
+        'Address': this.address,
+        'City': this.city,
+        'Country': this.country,
+        'State': this.state,
+        'PostalCode': this.zip
+      }).subscribe((res) => {
+        console.log('Add Address:', res);
+        this.spinner.hide();
+        this.showSuccessToast('OK!!', res.message, 'success');
+      }, err => {
         this.spinner.hide();
         this.showErrorToast('Error!!', err.message, 'error');
       });
-    }
-    this.AddressForm.get('Address').disable();
+    } this.AddressForm.get('Address').disable();
     this.AddressForm.get('City').disable();
     this.AddressForm.get('Country').disable();
     this.AddressForm.get('State').disable();
     this.AddressForm.get('Zip').disable();
+  }
+
+
+  onChange(deviceValue: any) {
+    if (deviceValue === 'Personal') {
+      this.showUser = true;
+      this.showBank = false;
+      this.showAddress = false;
+      this.showProfit = false;
+    } else {
+      this.showUser = false;
+    }
+    if (deviceValue === 'Bank') {
+      this.showUser = false;
+      this.showBank = true;
+      this.showAddress = false;
+      this.showProfit = false;
+    } else {
+      this.showBank = false;
+    }
+    if (deviceValue === 'TotalProfit') {
+      this.showUser = false;
+      this.showBank = false;
+      this.showAddress = false;
+      this.showProfit = true;
+    } else {
+      this.showProfit = false;
+    }
+    if (deviceValue === 'funderAddress') {
+      this.showUser = false;
+      this.showBank = false;
+      this.showAddress = true;
+      this.showProfit = false;
+    } else {
+      this.showAddress = false;
+    }
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
@@ -333,7 +419,7 @@ showErrorToast(title, message, type) {
   inputNumber(event) {
     this.phoneNumber = event.target.value;
     if (this.phoneNumber.length >= 9) {
-    this.numberEntered = true;
+      this.numberEntered = true;
     } else {
       this.numberEntered = false;
     }

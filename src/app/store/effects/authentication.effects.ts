@@ -7,12 +7,15 @@ import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import * as jwt_decode from 'jwt-decode';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ProfileService } from '../../services/userProfile.service';
+import { Store } from '@ngrx/store';
 
 import { AuthService } from './../../auth/auth.service';
 import {
   AuthenticationActionTypes,
-  Login, LoginSuccess, LoginFailure, Logout
+  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile
 } from '../actions/auth.actions';
+import { AppState } from '../app.states';
 
 
 @Injectable()
@@ -25,6 +28,8 @@ export class AuthenticationEffects {
     private authenticationService: AuthService,
     private router: Router,
     private toastr: ToastrService,
+    private userDataService: ProfileService,
+    private store: Store<AppState>,
     private spinner: NgxSpinnerService) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
@@ -89,6 +94,15 @@ export class AuthenticationEffects {
       this.router.navigateByUrl('/login');
     })
   );
+  @Effect({ dispatch: false })
+  UserProfile: Observable<any> = this.actions
+  .pipe(
+    ofType(AuthenticationActionTypes.USER_PROFILE),
+    tap(() => {
+      return this.userDataService.getUserData().subscribe(res => {
+        this.store.dispatch(new SaveUserProfile(res.result));
+      });
+    }));
 
   showToast(title: string, message: string, type: string) {
     this.toastr.show(message, title, this.options, 'toast-' + type);

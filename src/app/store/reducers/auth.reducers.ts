@@ -6,6 +6,7 @@ export interface State {
   isAuthenticated: boolean;
   user: User | null;
   errorMessage: string | null;
+  userProfile: any;
 }
 
 export const initialState: State = {
@@ -14,12 +15,14 @@ export const initialState: State = {
           token: localStorage.getItem('token'),
           role: localStorage.getItem('role')
         },
-  errorMessage: null
+  errorMessage: null,
+  userProfile: null
 };
 
 export function reducer(state = initialState, action: AuthenticationActions): State {
   switch (action.type) {
     case AuthenticationActionTypes.LOGIN_SUCCESS: {
+      console.log(action.payload);
       return {
         ...state,
         isAuthenticated: true,
@@ -38,6 +41,13 @@ export function reducer(state = initialState, action: AuthenticationActions): St
     }
     case AuthenticationActionTypes.LOGOUT: {
       return initialState;
+    }
+    case AuthenticationActionTypes.SAVE_USER_PROFILE: {
+      // console.log(action.payload);
+      return  {
+        ...state,
+        userProfile: action.payload
+      };
     }
     default: {
       return state;

@@ -114,7 +114,7 @@ export class ProfileService {
       };
       return this.httpClient.post(`${this.Url}UserBanks/AddUserBank`, user, httpOptions).pipe(
         tap((res: any ) => {
-          console.log('In AddUserAddress service:', res);
+          console.log('In AddUserBank service:', res);
           })
       );
     }
@@ -130,7 +130,7 @@ export class ProfileService {
       };
       return this.httpClient.patch(`${this.Url}UserBanks/EditUserBank`, user, httpOptions).pipe(
         tap((res: any ) => {
-          console.log('In EditUserAddress service:', res);
+          console.log('In EditUserBank service:', res);
           })
       );
     }

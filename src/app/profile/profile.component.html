@@ -97,21 +97,29 @@
                             <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="!showAddress && showBank && !showUser">
                                     <div class="col-lg-12 mb-3"><h3 class="headingh3">Bank Information</h3></div>
                                     <div class="col-lg-6">
-                                        <label for="BankName" class="font-bold mt-2">Bank Name</label>
-                                        <input matInput formControlName="BankName" class="form-control form-control-lg" value="HBL Bank" placeholder="Bank Name">
-                                    </div>
+                                        <label for="bankName" class="font-bold mt-2">Bank Name</label>
+                                        <input matInput formControlName="BankName" class="form-control form-control-lg" value="{{bankName}}" [(ngModel)]="bankName" placeholder="Bank Name...">
+                                        <div *ngIf="BankInfoForm.controls['BankName'].touched && BankInfoForm.controls['BankName'].hasError('required')" class="error-msg alert alert-danger text-left">Bank Name is required</div>
+                                        <div *ngIf="BankInfoForm.controls['BankName'].touched && BankInfoForm.controls['BankName'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank Name must be at least 6 characters long.</div>
+                                      </div>
                                     <div class="col-lg-6">
-                                        <label for="BankAccount" class="font-bold mt-2">Bank Account Number</label>
-                                        <input matInput formControlName="BankAccountNo" class="form-control form-control-lg" value="0112323232" placeholder="Bank Account Name">
+                                        <label for="bankAccountNo" class="font-bold mt-2">Bank Account Number</label>
+                                        <input matInput formControlName="BankAccountNo" class="form-control form-control-lg" value="{{bankAccountNo}}" [(ngModel)]="bankAccountNo" placeholder="Bank Account Name...">
+                                        <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('required')" class="error-msg alert alert-danger text-left">Bank AccountNo is required</div>
+                                        <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank AccountNo must be at least 6 characters long.</div>
                                     </div>
 
                                     <div class="col-lg-6">
-                                        <label for="emailadd" class="font-bold mt-2">Account Title </label>
-                                        <input matInput formControlName="AccountTitle" class="form-control form-control-lg" value="ASAD IRFAN" placeholder="email">
+                                        <label for="accountTitle" class="font-bold mt-2">Account Title </label>
+                                        <input matInput formControlName="AccountTitle" class="form-control form-control-lg" value="{{accountTitle}}" [(ngModel)]="accountTitle" placeholder="Account Title...">
+                                        <div *ngIf="BankInfoForm.controls['AccountTitle'].touched && BankInfoForm.controls['AccountTitle'].hasError('required')" class="error-msg alert alert-danger text-left">Account Title is required</div>
+                                        <div *ngIf="BankInfoForm.controls['AccountTitle'].touched && BankInfoForm.controls['AccountTitle'].hasError('minlength')" class="error-msg alert alert-danger text-left">Account Title must be at least 6 characters long.</div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <label for="NationalId" class="font-bold mt-2">Bank Address</label>
-                                        <input matInput formControlName="Address" class="form-control form-control-lg" value="Karim block" placeholder="National ID">
+                                        <label for="bankAddress" class="font-bold mt-2">Bank Address</label>
+                                        <input matInput formControlName="BankAddress" class="form-control form-control-lg" value="{{bankAddress}}"[(ngModel)]="bankAddress"  placeholder="Bank Address(Branch Address)...">
+                                        <div *ngIf="BankInfoForm.controls['BankAddress'].touched && BankInfoForm.controls['BankAddress'].hasError('required')" class="error-msg alert alert-danger text-left">Bank Address is required</div>
+                                        <div *ngIf="BankInfoForm.controls['BankAddress'].touched && BankInfoForm.controls['BankAddress'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank Address must be at least 6 characters long.</div>
                                     </div>
                                     <div class="col-lg-12 h-70">
                                             <label for="AccountStatement" class="font-bold mt-2">Account Statement (for last 3 months) </label>
