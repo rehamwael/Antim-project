@@ -287,6 +287,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.EditForm.get('MobileNo').disable();
       this.EditForm.get('Email').disable();
       this.EditForm.get('NID').disable();
+      this.disableprofileButton = false;
     }, err => {
       this.spinner.hide();
       this.showErrorToast('Error!!', err.message, 'error');
@@ -322,6 +323,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.BankInfoForm.get('AccountTitle').disable();
         this.BankInfoForm.get('BankAddress').disable();
         this.BankInfoForm.get('FundingLimit').disable();
+        this.disableBankButton = false;
       }, err => {
         console.log('ERROR', err);
         this.spinner.hide();
@@ -344,6 +346,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.BankInfoForm.get('AccountTitle').disable();
         this.BankInfoForm.get('BankAddress').disable();
         this.BankInfoForm.get('FundingLimit').disable();
+        this.disableBankButton = false;
       }, err => {
         console.log('ERROR', err);
         this.spinner.hide();
@@ -378,6 +381,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.AddressForm.get('Country').disable();
         this.AddressForm.get('State').disable();
         this.AddressForm.get('Zip').disable();
+        this.disableAddressButton = false;
       }, err => {
         this.spinner.hide();
         this.showErrorToast('Error!!', err.error.message, 'error');
@@ -399,6 +403,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.AddressForm.get('Country').disable();
         this.AddressForm.get('State').disable();
         this.AddressForm.get('Zip').disable();
+        this.disableAddressButton = false;
       }, err => {
         this.spinner.hide();
         this.showErrorToast('Error!!', err.error.message, 'error');
