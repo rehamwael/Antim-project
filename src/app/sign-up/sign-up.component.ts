@@ -164,9 +164,9 @@ showErrorToast(title, message, type) {
   addClass(ID: any) {
     this.id = ID;
     if (this.id === 1) {
-      this.userType = 'Funder';
+      this.userType = 'funder';
     } if (this.id === 2) {
-      this.userType = 'Customer';
+      this.userType = 'customer';
     }
     this.dashboredUrl = 'dashbored-' + this.userType;
     if (this.disabledNextButton) {
