@@ -234,14 +234,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
       console.log('User Info edited:', res);
       this.spinner.hide();
       this.showSuccessToast('OK!!', res.message, 'success');
+      this.EditForm.get('Name').disable();
+      this.EditForm.get('MobileNo').disable();
+      this.EditForm.get('Email').disable();
+      this.EditForm.get('NID').disable();
     }, err => {
       this.spinner.hide();
       this.showErrorToast('Error!!', err.message, 'error');
     });
-    this.EditForm.get('Name').disable();
-    this.EditForm.get('MobileNo').disable();
-    this.EditForm.get('Email').disable();
-    this.EditForm.get('NID').disable();
+
     // this.EditForm.get('Address').disable();
   }
   EditBankInfo() {
@@ -264,10 +265,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log('Bank Info edited:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
+        this.BankInfoForm.get('BankName').disable();
+        this.BankInfoForm.get('BankAccountNo').disable();
+        this.BankInfoForm.get('AccountTitle').disable();
+        this.BankInfoForm.get('BankAddress').disable();
       }, err => {
         console.log('ERROR', err);
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.message, 'error');
+        this.showErrorToast('Error!!', err.error.message, 'error');
       });
     } else {
       this.spinner.show();
@@ -280,16 +285,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log('BANK Added:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
+        this.BankInfoForm.get('BankName').disable();
+        this.BankInfoForm.get('BankAccountNo').disable();
+        this.BankInfoForm.get('AccountTitle').disable();
+        this.BankInfoForm.get('BankAddress').disable();
       }, err => {
         console.log('ERROR', err);
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.message, 'error');
+        this.showErrorToast('Error!!', err.error.message, 'error');
       });
     }
-    this.BankInfoForm.get('BankName').disable();
-    this.BankInfoForm.get('BankAccountNo').disable();
-    this.BankInfoForm.get('AccountTitle').disable();
-    this.BankInfoForm.get('BankAddress').disable();
   }
 
   EditAddressInfo() {
@@ -314,9 +319,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log('Address info edited:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
+        this.AddressForm.get('Address').disable();
+        this.AddressForm.get('City').disable();
+        this.AddressForm.get('Country').disable();
+        this.AddressForm.get('State').disable();
+        this.AddressForm.get('Zip').disable();
       }, err => {
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.message, 'error');
+        this.showErrorToast('Error!!', err.error.message, 'error');
       });
     } else {
       this.spinner.show();
@@ -330,16 +340,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log('Address Added:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
+        this.AddressForm.get('Address').disable();
+        this.AddressForm.get('City').disable();
+        this.AddressForm.get('Country').disable();
+        this.AddressForm.get('State').disable();
+        this.AddressForm.get('Zip').disable();
       }, err => {
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.message, 'error');
+        this.showErrorToast('Error!!', err.error.message, 'error');
       });
     }
-    this.AddressForm.get('Address').disable();
-    this.AddressForm.get('City').disable();
-    this.AddressForm.get('Country').disable();
-    this.AddressForm.get('State').disable();
-    this.AddressForm.get('Zip').disable();
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
