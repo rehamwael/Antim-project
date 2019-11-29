@@ -1,4 +1,4 @@
-import { Component, OnInit ,OnDestroy ,HostListener} from '@angular/core';
+import { Component, OnInit , OnDestroy , HostListener} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
@@ -8,27 +8,27 @@ import { Router, NavigationEnd } from '@angular/router';
   templateUrl: './create-order.component.html',
   styleUrls: ['./create-order.component.css']
 })
-export class CreateOrderComponent implements OnInit,OnDestroy{
+export class CreateOrderComponent implements OnInit, OnDestroy {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   lastFormGroup: FormGroup;
   isEditable = false;
-  disabledSubmitButton: boolean = true;
-  disabledSubmitButtonSecond: boolean = true;
-  addMoreItem: boolean = false;
+  disabledSubmitButton = true;
+  disabledSubmitButtonSecond = true;
+  addMoreItem = false;
 
 
   @HostListener('input') oninput() {
     if (this.firstFormGroup.valid) {
       this.disabledSubmitButton = false;
       }
-      if(this.secondFormGroup.valid){
+      if (this.secondFormGroup.valid) {
         this.disabledSubmitButtonSecond = false;
       }
   }
 
-  constructor(public router: Router,private _formBuilder: FormBuilder ,private modalService: NgbModal) {}
+  constructor(public router: Router, private _formBuilder: FormBuilder , private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -57,11 +57,11 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
       if (!(evt instanceof NavigationEnd)) {
           return;
       }
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
   });
 
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('dashbored-home');
@@ -70,13 +70,13 @@ export class CreateOrderComponent implements OnInit,OnDestroy{
   openVerticallyCentered(content3) {
     this.modalService.open(content3, { centered: true });
   }
-  toggleNavbar(){
-    window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
+  toggleNavbar() {
+    window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
 
   }
-  addMoreItems(){
+  addMoreItems() {
     this.addMoreItem = true;
   }
-  
+
 
 }
