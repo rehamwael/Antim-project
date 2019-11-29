@@ -37,6 +37,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   bankAddress: any;
   accountTitle: any;
   fundingLimit: any;
+  bankID: any;
 
   options: IndividualConfig;
   phoneNumber: any;
@@ -89,10 +90,6 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     { data: [28, 48, 40, 19, 86], label: 'Total Profit' }
   ];
 
-
-
-
-
   constructor(private fb: FormBuilder,
     private modalService: NgbModal,
     public router: Router,
@@ -102,7 +99,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   ) {
     this.showUser = true;
     this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-bottom-right';
+    this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
 
     this.EditForm = fb.group({
@@ -111,7 +108,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       ])],
       'MobileNo': [{ value: this.phone, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
-        Validators.minLength(9)
+        // Validators.minLength(9)
       ])],
       'Email': [{ value: this.email, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
@@ -121,7 +118,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(10)
       ])],
-      'Address': [{ value: null, disabled: this.disabledButton }],
+      // 'Address': [{ value: null, disabled: this.disabledButton }],
     });
 
 
@@ -162,19 +159,19 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         Validators.minLength(6)
       ])],
       'City': [{ value: this.city, disabled: this.disabledButton }, Validators.compose([
-        Validators.required,
+        // Validators.required,
         Validators.minLength(4)
       ])],
       'Country': [{ value: this.country, disabled: this.disabledButton }, Validators.compose([
-        Validators.required,
+        // Validators.required,
         Validators.minLength(4)
       ])],
       'State': [{ value: this.state, disabled: this.disabledButton }, Validators.compose([
-        Validators.required,
+        // Validators.required,
         Validators.minLength(4)
       ])],
       'Zip': [{ value: this.zip, disabled: this.disabledButton }, Validators.compose([
-        Validators.required
+        // Validators.required
       ])],
     });
 
@@ -186,38 +183,59 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   showErrorToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
+  getUserINFO() {
+    return new Promise((resolve, reject) => {
+      this.profileService.getUserData().subscribe(res => {
+        this.currentUser = res.result;
+        this.NID = res.result.nationalIdNumber;
+        this.phone = res.result.phoneNumber;
+        this.email = res.result.email;
+        this.name = res.result.firstName;
+        this.userAdress = res.result.userAddresses;
+        this.userBank = res.result.userBanks;
+        resolve(res.result);
+        console.log('userINFO:', res.result);
+
+      }, err => {
+        console.log('ERROR:', err);
+        reject(err);
+      });
+    });
+  }
 
 
   ngOnInit() {
     this.showUser = true;
-    this.profileService.getUserData().subscribe(res => {
-      this.currentUser = res.result;
-      this.NID = res.result.nationalIdNumber;
-      this.phone = res.result.phoneNumber;
-      this.email = res.result.email;
-      this.name = res.result.firstName;
-      this.userAdress = res.result.userAddresses;
-      this.userBank = res.result.userBanks;
-      console.log('userDAtaaa:', res.result);
-    }, err => {
-      console.log('ERROR:', err);
-    });
-    console.log('asad');
-    // if (this.userAdress.length > 0) {
-    //   this.profileService.getUserAddress().subscribe(res => {
-    //     this.userAddress = res.result;
-    //     this.address = res.result.address;
-    //     this.city = res.result.city;
-    //     this.country = res.result.country;
-    //     this.zip = res.result.postalCode;
-    //     this.state = res.result.state;
-    //     this.addressID = res.result.id;
-    //     console.log('userAddress:', res.result);
+    this.spinner.show();
+    this.getUserINFO().then(e => {
+      this.profileService.getUserAddress().subscribe(res => {
+        this.userAddress = res.result;
+        this.address = res.result.address;
+        this.city = res.result.city;
+        this.country = res.result.country;
+        this.zip = res.result.postalCode;
+        this.state = res.result.state;
+        this.addressID = res.result.id;
+        console.log('userAddressINFO:', res.result);
 
-    //   }, err => {
-    //     console.log('ERROR:', err);
-    //   });
-    // }
+      }, err => {
+        console.log('ERROR:', err);
+      });
+      this.profileService.getUserBankInfo().subscribe(res => {
+        this.userBankInfo = res.result;
+        this.bankName = res.result.bankName;
+        this.bankAddress = res.result.address;
+        this.accountTitle = res.result.accountTitle;
+        this.bankAccountNo = res.result.accountNumber;
+        this.fundingLimit = res.result.fundingLimit;
+        this.bankID = res.result.id;
+        console.log('userBankInfo:', this.userBankInfo);
+      }, err => {
+        console.log('ERROR:', err);
+      });
+      this.spinner.hide();
+    });
+
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -250,7 +268,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.EditForm.get('MobileNo').enable();
     this.EditForm.get('Email').enable();
     this.EditForm.get('NID').enable();
-    this.EditForm.get('Address').enable();
+    // this.EditForm.get('Address').enable();
 
 
   }
@@ -262,18 +280,19 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       'PhoneNumber': this.phone.toString(),
       'Email': this.email
     }).subscribe((res) => {
+      console.log('edited User Info:', res);
       this.spinner.hide();
-      this.showSuccessToast('OK!!', res, 'success');
+      this.showSuccessToast('OK!!', res.message, 'success');
     }, err => {
       this.spinner.hide();
-      this.showErrorToast('Error!!', err.error, 'error');
+      this.showErrorToast('Error!!', err.message, 'error');
     });
 
     this.EditForm.get('Name').disable();
     this.EditForm.get('MobileNo').disable();
     this.EditForm.get('Email').disable();
     this.EditForm.get('NID').disable();
-    this.EditForm.get('Address').disable();
+    // this.EditForm.get('Address').disable();
   }
   EditBankInfo() {
     this.disableBankButton = true;
@@ -286,34 +305,38 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     // this.BankInfoForm.get('investmentPerYear').enable();
   }
   SaveBankInfo() {
-    if (Object.keys(this.userBankInfo).length > 0) {
+    if (this.userBank.length > 0) {
       this.spinner.show();
       this.profileService.editUserBankInfo({
-        'id': '',
-        'BankName': 'string',
-        'Address': 'string',
-        'AccountTitle': 'string',
-        'AccountNumber': 'string'
+        'id': this.bankID,
+        'BankName': this.bankName,
+        'Address': this.bankAddress,
+        'AccountTitle': this.accountTitle,
+        'AccountNumber': this.bankAccountNo,
+        'FundingLimit': this.fundingLimit
       }).subscribe((res) => {
-        console.log('edit Address:', res);
+        console.log('edit Bank Info:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
+        console.log('ERROR', err);
         this.spinner.hide();
         this.showErrorToast('Error!!', err.message, 'error');
       });
     } else {
       this.spinner.show();
       this.profileService.addUserBankInfo({
-        'BankName': 'string',
-        'Address': 'string',
-        'AccountTitle': 'string',
-        'AccountNumber': 'string'
+        'BankName': this.bankName,
+        'Address': this.bankAddress,
+        'AccountTitle': this.accountTitle,
+        'AccountNumber': this.bankAccountNo,
+        'FundingLimit': this.fundingLimit
       }).subscribe((res) => {
-        console.log('Add Address:', res);
+        console.log('BANK  Added:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
+        console.log('ERROR', err);
         this.spinner.hide();
         this.showErrorToast('Error!!', err.message, 'error');
       });
@@ -323,7 +346,6 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.BankInfoForm.get('AccountTitle').disable();
     this.BankInfoForm.get('BankAddress').disable();
     this.BankInfoForm.get('FundingLimit').disable();
-    // this.BankInfoForm.get('investmentPerYear').disable();
   }
   EditAddressInfo() {
     this.disableAddressButton = true;
@@ -334,7 +356,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.AddressForm.get('Zip').enable();
   }
   SaveAddressInfo() {
-    if (Object.keys(this.userAddress).length > 0) {
+    if (this.userAdress.length > 0) {
       this.spinner.show();
       this.profileService.editUserAddress({
         'Id': this.addressID,
@@ -344,7 +366,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         'State': this.state,
         'PostalCode': this.zip
       }).subscribe((res) => {
-        console.log('edit Address:', res);
+        console.log('edit Address info:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
@@ -360,14 +382,15 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         'State': this.state,
         'PostalCode': this.zip
       }).subscribe((res) => {
-        console.log('Add Address:', res);
+        console.log('Address Added:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
         this.spinner.hide();
         this.showErrorToast('Error!!', err.message, 'error');
       });
-    } this.AddressForm.get('Address').disable();
+    }
+    this.AddressForm.get('Address').disable();
     this.AddressForm.get('City').disable();
     this.AddressForm.get('Country').disable();
     this.AddressForm.get('State').disable();
