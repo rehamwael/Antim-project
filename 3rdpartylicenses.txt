@@ -93,8 +93,6 @@ THE SOFTWARE.
 
 @angular/material/icon
 
-@angular/material/slider
-
 @angular/material/stepper
 
 @angular/material/table
