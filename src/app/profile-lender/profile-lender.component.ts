@@ -280,7 +280,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       'PhoneNumber': this.phone.toString(),
       'Email': this.email
     }).subscribe((res) => {
-      console.log('edited User Info:', res);
+      console.log('User Info edited:', res);
       this.spinner.hide();
       this.showSuccessToast('OK!!', res.message, 'success');
     }, err => {
@@ -315,7 +315,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         'AccountNumber': this.bankAccountNo,
         'FundingLimit': this.fundingLimit
       }).subscribe((res) => {
-        console.log('edit Bank Info:', res);
+        console.log('Bank Info edited:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
@@ -366,7 +366,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         'State': this.state,
         'PostalCode': this.zip
       }).subscribe((res) => {
-        console.log('edit Address info:', res);
+        console.log('Address info edited:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {

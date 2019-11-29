@@ -231,7 +231,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       'PhoneNumber': this.phone.toString(),
       'Email': this.email
     }).subscribe((res) => {
-      console.log('edited User Info:', res);
+      console.log('User Info edited:', res);
       this.spinner.hide();
       this.showSuccessToast('OK!!', res.message, 'success');
     }, err => {
@@ -261,7 +261,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         'AccountTitle': this.accountTitle,
         'AccountNumber': this.bankAccountNo
       }).subscribe((res) => {
-        console.log('edit Bank Info:', res);
+        console.log('Bank Info edited:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
@@ -277,7 +277,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         'AccountTitle': this.accountTitle,
         'AccountNumber': this.bankAccountNo
       }).subscribe((res) => {
-        console.log('BANK  Added:', res);
+        console.log('BANK Added:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
@@ -311,7 +311,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         'State': this.state,
         'PostalCode': this.zip
       }).subscribe((res) => {
-        console.log('edit Address info:', res);
+        console.log('Address info edited:', res);
         this.spinner.hide();
         this.showSuccessToast('OK!!', res.message, 'success');
       }, err => {
