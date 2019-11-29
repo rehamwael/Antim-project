@@ -51,7 +51,7 @@
                             <div class="col-lg-6">
                                 <label for="Name" class="font-bold mt-2">Name</label>
                                 <input matInput formControlName="Name" type="text" class="form-control form-control-lg" value= "{{name}}" [(ngModel)]="name" placeholder="name" >
-                                <div *ngIf="EditForm.controls['Name'].touched && !EditForm.controls['Name'].valid" class="error-msg alert alert-danger text-left"> Name required</div>
+                                <div *ngIf="EditForm.controls['Name'].touched && EditForm.controls['Name'].hasError('required')" class="error-msg alert alert-danger text-left"> Name is required</div>
                             </div>
                             <div class="col-lg-6">
                                 <label for="mobile" class="font-bold mt-2">Mobile No</label>

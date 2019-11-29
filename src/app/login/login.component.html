@@ -7,13 +7,13 @@
                     <div class="form-group text-left">
                         <label for="name">Username<span class="red-color"> *</span></label>
                         <input formControlName="username" name="username" class="form-control form-control-lg" placeholder="Username type here..." type="text" required minlength="5"  [(ngModel)]="loginUsername">
-                        <div *ngIf="LoginForm.controls['username'].touched && !LoginForm.controls['username'].valid" class="error-msg alert alert-danger text-left">User name required</div>
+                        <div *ngIf="LoginForm.controls['username'].touched && LoginForm.controls['username'].hasError('required')" class="error-msg alert alert-danger text-left">User name required</div>
                         <div *ngIf="LoginForm.controls['username'].touched && LoginForm.controls['username'].hasError('minlength')" class="error-msg alert alert-danger text-left">Username length must be at least 4 characters long. </div>
                     </div>
                     <div class="form-group text-left pt-2">
                         <label for="password">Password<span class="red-color"> *</span></label>
                         <input formControlName="password" name="password" class="form-control form-control-lg" placeholder="***********" type="password" required minlength="9" [(ngModel)]="loginPassword">
-                        <div *ngIf="LoginForm.controls['password'].touched && !LoginForm.controls['password'].valid" class="error-msg alert alert-danger text-left">Password is required</div>
+                        <div *ngIf="LoginForm.controls['password'].touched && LoginForm.controls['password'].hasError('required')" class="error-msg alert alert-danger text-left">Password is required</div>
                         <div *ngIf="LoginForm.controls['password'].touched && LoginForm.controls['password'].hasError('minlength')" class="error-msg alert alert-danger text-left">Password length must be at least 9 characters long.</div>
                     </div>
                     <div class="form-group mt-4">
