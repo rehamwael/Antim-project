@@ -1,4 +1,4 @@
-import { Component, OnInit ,OnDestroy,ElementRef , ViewChild } from '@angular/core';
+import { Component, OnInit , OnDestroy, ElementRef , ViewChild } from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,21 +13,21 @@ export interface PeriodicElement {
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {position: 1, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 2,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 3,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
-  {position: 4,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 5,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Under Review'},
-  {position: 6,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
-  {position: 7,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 8,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Under Review'},
-  {position: 9,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
-  {position: 10,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
-  {position: 11,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 12,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Under Review'},
-  {position: 13,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
-  {position: 14,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 15,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 16,name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
+  {position: 2, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
+  {position: 3, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
+  {position: 4, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
+  {position: 5, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Under Review'},
+  {position: 6, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
+  {position: 7, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
+  {position: 8, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Under Review'},
+  {position: 9, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
+  {position: 10, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
+  {position: 11, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
+  {position: 12, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Under Review'},
+  {position: 13, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
+  {position: 14, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
+  {position: 15, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
+  {position: 16, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
 
 ];
 
@@ -37,15 +37,15 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./request-lender.component.css']
 })
 
-export class RequestLenderComponent implements OnInit ,OnDestroy{
-  @ViewChild('clickMe',{static: false}) clickMe: ElementRef<HTMLElement>;
+export class RequestLenderComponent implements OnInit , OnDestroy {
+  @ViewChild('clickMe', {static: false}) clickMe: ElementRef<HTMLElement>;
 
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
-  requestType: string ="All Requests";
-  slectedProduct : boolean = false;
-  productStatus : any;
+  requestType = 'All Requests';
+  slectedProduct = false;
+  productStatus: any;
   content4: any;
 
 
@@ -55,19 +55,19 @@ export class RequestLenderComponent implements OnInit ,OnDestroy{
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
-    if(this.productStatus == "Wating Fund"){
-      this.modalService.open(this.content4, { centered: true }); 
+    if (this.productStatus === 'Wating Fund') {
+      this.modalService.open(this.content4, { centered: true });
     }
 
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('requests');
 
   }
-  toggleNavbar(){
-    window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
+  toggleNavbar() {
+    window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
 
   }
 
@@ -94,17 +94,17 @@ export class RequestLenderComponent implements OnInit ,OnDestroy{
   onChange(deviceValue) {
     this.dataSource.filter = deviceValue;
     this.requestType = deviceValue;
-    if(deviceValue == ""){
-      this.requestType = "All Requests";
+    if (deviceValue === '') {
+      this.requestType = 'All Requests';
     }
 
   }
-  openProductDetails(row){
+  openProductDetails(row) {
     console.log(row);
     this.productStatus = row.status;
     this.slectedProduct = true;
   }
-  closeProductDetails(){
+  closeProductDetails() {
     this.slectedProduct = false;
   }
   openVerticallyCentered(content3) {
