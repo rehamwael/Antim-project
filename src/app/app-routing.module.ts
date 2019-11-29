@@ -54,59 +54,59 @@ export const Approutes: Routes = [
         component: WhoWeAreComponent
       },
       {
-        path: 'dashbored-Customer',
+        path: 'dashbored-customer',
         component: DashboredComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['Customer'] }
+        data: { userRole: ['customer'] }
       },
       {
-        path: 'createorder-Customer',
+        path: 'createorder-customer',
         component: CreateOrderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['Customer'] }
+        data: { userRole: ['customer'] }
 
       },
       {
-        path: 'profile-Customer',
+        path: 'profile-customer',
         component: ProfileComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['Customer'] }
+        data: { userRole: ['customer'] }
       },
       {
-        path: 'requests-Customer/:type',
+        path: 'requests-customer/:type',
         component: RequestsComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['Customer'] }
+        data: { userRole: ['customer'] }
       },
       {
-        path: 'notification-Customer',
+        path: 'notification-customer',
         component: NotificationComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['Customer'] }
+        data: { userRole: ['customer'] }
       },
       {
-        path: 'dashbored-Funder',
+        path: 'dashbored-funder',
         component: DashboredLenderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['Funder'] }
+        data: { userRole: ['funder'] }
       },
       {
-        path: 'requests-Funder/:type',
+        path: 'requests-funder/:type',
         component: RequestLenderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['Funder'] }
+        data: { userRole: ['funder'] }
       } ,
       {
-        path: 'profile-Funder',
+        path: 'profile-funder',
         component: ProfileLenderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['Funder'] }
+        data: { userRole: ['funder'] }
       },
       {
-        path: 'notification-Funder',
+        path: 'notification-funder',
         component: NotificationLenderComponent,
         canActivate: [AuthGuard],
-        data: { userRole: ['Funder'] }
+        data: { userRole: ['funder'] }
       },
       {
         path: 'terms-conditions',
