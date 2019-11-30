@@ -184,9 +184,18 @@ export class RequestsComponent implements OnInit , OnDestroy {
     }
     this.dataSourceAll.filter = deviceValue;
     this.requestType = deviceValue;
-    // if (deviceValue === '') {
-    //   this.requestType = 'All Requests';
-    // }
+    if (deviceValue === 'Ongoing') {
+      this.awaitingData = false;
+      this.allData = false;
+    }
+    if (deviceValue === 'Reject') {
+      this.awaitingData = false;
+      this.allData = false;
+    }
+    if (deviceValue === 'Closed') {
+      this.awaitingData = false;
+      this.allData = false;
+    }
   }
   openProductDetails(row) {
     console.log(row);
