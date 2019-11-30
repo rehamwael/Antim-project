@@ -10,6 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export interface PeriodicElement {
   position: number;
   name: string;
+  totalPaybackAmount?: number;
   date: string;
   value: string;
   status: string;
@@ -44,12 +45,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class RequestsComponent implements OnInit , OnDestroy {
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
+  // displayedColumns: string[] = ['select', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType = 'All Requests';
   slectedProduct = false;
   productStatus: any;
   options: IndividualConfig;
+  allRequestData: any;
 
   constructor(private modalService: NgbModal,
     public router: Router,
@@ -64,21 +67,29 @@ export class RequestsComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit(): void {
-    this.spinner.show();
-    this.customerRequestService.customerAllRequests().subscribe(res => {
-      // this.userAddress = res.result;
-      // this.address = res.result.address;
-      // this.city = res.result.city;
-      // this.country = res.result.country;
-      // this.zip = res.result.postalCode;
-      // this.state = res.result.state;
-      // this.addressID = res.result.id;
-      console.log('customerAllRequests:', res.result);
-      this.spinner.hide();
+    console.log(ELEMENT_DATA);
+    // this.spinner.show();
+    // this.customerRequestService.customerAllRequests().subscribe(res => {
+    //   this.allRequestData = res.result;
+    //   this.allRequestData.forEach(element => {
+    //     ELEMENT_DATA.push(element);
+    //     console.log(element);
+    //   });
+    //   console.log('ELEMENT_DATA', ELEMENT_DATA);
 
-    }, err => {
-      console.log('ERROR:', err);
-    });
+    //   // this.userAddress = res.result;
+    //   // this.address = res.result.address;
+    //   // this.city = res.result.city;
+    //   // this.country = res.result.country;
+    //   // this.zip = res.result.postalCode;
+    //   // this.state = res.result.state;
+    //   // this.addressID = res.result.id;
+    //   console.log('customerAllRequests:', res.result);
+    //   this.spinner.hide();
+
+    // }, err => {
+    //   console.log('ERROR:', err);
+    // });
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
