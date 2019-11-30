@@ -54,7 +54,29 @@ export class RequestsComponent implements OnInit , OnDestroy {
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
   }
+  getAwaitingData() {
+        this.spinner.show();
+      this.customerRequestService.customerAwaitingRequests().subscribe(res => {
+        this.awaitingRequestData = res.result;
+        console.log('customerAwaitingRequests:', res.result);
+        this.spinner.hide();
+        let i = 1;
+        this.awaitingRequestData.forEach(element => {
+          awaitingRequestData.push(element);
+          element.date = moment(element.createdAt).format('LL');
+          element.value = element.totalPaybackAmount + ' SAR';
+          if (element.type === 4) {
+            element.status = 'Waiting for approval';
+          }
+          element.position = i;
+          i++;
+        });
+      }, err => {
+        this.spinner.hide();
+        console.log('ERROR:', err);
+      });
 
+  }
   ngOnInit(): void {
     this.spinner.show();
     this.customerRequestService.customerAllRequests().subscribe(res => {
@@ -79,6 +101,7 @@ export class RequestsComponent implements OnInit , OnDestroy {
       this.spinner.hide();
       console.log('ERROR:', err);
     });
+    this.getAwaitingData();
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -127,33 +150,37 @@ export class RequestsComponent implements OnInit , OnDestroy {
   }
   onChange(deviceValue) {
     if (deviceValue === '') {
+      this.spinner.show();
       this.awaitingData = false;
       this.allData = true;
+      this.spinner.hide();
     }
     console.log('deviceValue:', deviceValue);
     if (deviceValue === 'Wating your approval') {
-      this.spinner.show();
-      this.customerRequestService.customerAwaitingRequests().subscribe(res => {
-        this.allData = false;
-        this.awaitingData = true;
-        this.awaitingRequestData = res.result;
-        console.log('customerAwaitingRequests:', res.result);
-        this.spinner.hide();
-        let i = 1;
-        this.awaitingRequestData.forEach(element => {
-          awaitingRequestData.push(element);
-          element.date = moment(element.createdAt).format('LL');
-          element.value = element.totalPaybackAmount + ' SAR';
-          if (element.type === 4) {
-            element.status = 'Waiting for approval';
-          }
-          element.position = i;
-          i++;
-        });
-      }, err => {
-        this.spinner.hide();
-        console.log('ERROR:', err);
-      });
+      this.allData = false;
+      this.awaitingData = true;
+      // this.spinner.show();
+      // this.customerRequestService.customerAwaitingRequests().subscribe(res => {
+      //   this.allData = false;
+      //   this.awaitingData = true;
+      //   this.awaitingRequestData = res.result;
+      //   console.log('customerAwaitingRequests:', res.result);
+      //   this.spinner.hide();
+      //   let i = 1;
+      //   this.awaitingRequestData.forEach(element => {
+      //     awaitingRequestData.push(element);
+      //     element.date = moment(element.createdAt).format('LL');
+      //     element.value = element.totalPaybackAmount + ' SAR';
+      //     if (element.type === 4) {
+      //       element.status = 'Waiting for approval';
+      //     }
+      //     element.position = i;
+      //     i++;
+      //   });
+      // }, err => {
+      //   this.spinner.hide();
+      //   console.log('ERROR:', err);
+      // });
     }
     this.dataSourceAll.filter = deviceValue;
     this.requestType = deviceValue;
