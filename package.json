@@ -34,6 +34,7 @@
     "jwt-decode": "^2.2.0",
     "leaflet": "^1.5.1",
     "leaflet-routing-machine": "^3.2.12",
+    "moment": "^2.24.0",
     "ng2-charts": "^2.3.0",
     "ng2-sticky-nav": "^6.0.0",
     "ngx-perfect-scrollbar": "6.1.0",

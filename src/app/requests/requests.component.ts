@@ -6,36 +6,23 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as moment from 'moment';
 
 export interface PeriodicElement {
   position: number;
   name: string;
-  totalPaybackAmount?: number;
   date: string;
   value: string;
   status: string;
+  // id: number;
+  // createdAt: string;
+  // name: string;
+  // totalPaybackAmount: number;
+  // type: number;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing'},
-  {position: 2, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 3, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
-  {position: 4, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 5, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Under Review'},
-  {position: 6, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating your approval'},
-  {position: 7, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 8, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Under Review'},
-  {position: 9, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating your approval'},
-  {position: 10, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
-  {position: 11, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing'},
-  {position: 12, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Under Review'},
-  // tslint:disable-next-line: max-line-length
-  {position: 13, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating your approval'},
-  {position: 14, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing'},
-  {position: 15, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 16, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing'},
-
-];
+const allCustomerRequestData: PeriodicElement[] = [];
+const awaitingRequestData: PeriodicElement[] = [];
 
 @Component({
   selector: 'app-requests',
@@ -45,14 +32,18 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class RequestsComponent implements OnInit , OnDestroy {
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
-  // displayedColumns: string[] = ['select', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType = 'All Requests';
   slectedProduct = false;
   productStatus: any;
   options: IndividualConfig;
   allRequestData: any;
+  awaitingRequestData: any;
+  // requestName: any;
+  // requestDate: Date;
+  // requestAmount: number;
+  // requeststatus: string;
 
   constructor(private modalService: NgbModal,
     public router: Router,
@@ -67,29 +58,34 @@ export class RequestsComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(ELEMENT_DATA);
-    // this.spinner.show();
-    // this.customerRequestService.customerAllRequests().subscribe(res => {
-    //   this.allRequestData = res.result;
-    //   this.allRequestData.forEach(element => {
-    //     ELEMENT_DATA.push(element);
-    //     console.log(element);
-    //   });
-    //   console.log('ELEMENT_DATA', ELEMENT_DATA);
 
-    //   // this.userAddress = res.result;
-    //   // this.address = res.result.address;
-    //   // this.city = res.result.city;
-    //   // this.country = res.result.country;
-    //   // this.zip = res.result.postalCode;
-    //   // this.state = res.result.state;
-    //   // this.addressID = res.result.id;
-    //   console.log('customerAllRequests:', res.result);
-    //   this.spinner.hide();
+    console.log('before allCustomerRequestData:', allCustomerRequestData);
+    this.spinner.show();
+    this.customerRequestService.customerAllRequests().subscribe(res => {
+      this.allRequestData = res.result;
+      let i = 1;
+      this.allRequestData.forEach(element => {
+        allCustomerRequestData.push(element);
+        element.date = moment(element.createdAt).format('LL');
+        element.value = element.totalPaybackAmount + ' SAR';
+        if(element.type === 4) {
+          element.status = 'Waiting for approval';
+        }
+        // element.status = element.totalPaybackAmount + 'SAR';
+        element.position = i;
+        i++;
+        // allCustomerRequestData
+        // console.log(element.name);
+      });
+      console.log('after allCustomerRequestData', allCustomerRequestData);
 
-    // }, err => {
-    //   console.log('ERROR:', err);
-    // });
+      console.log('customerAllRequests:', res.result);
+      this.spinner.hide();
+
+    }, err => {
+      this.spinner.hide();
+      console.log('ERROR:', err);
+    });
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -101,7 +97,7 @@ export class RequestsComponent implements OnInit , OnDestroy {
       window.scrollTo(0, 0);
   });
   const requestTypeParams = this.route.snapshot.paramMap.get('type');
-  this.dataSource.filter = requestTypeParams;
+  this.dataSourceAll.filter = requestTypeParams;
   if (requestTypeParams === '') {
     this.requestType =  'All Requests';
   } else {
@@ -118,7 +114,7 @@ export class RequestsComponent implements OnInit , OnDestroy {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSourceAll.data.length;
     return numSelected === numRows;
   }
 
@@ -126,7 +122,7 @@ export class RequestsComponent implements OnInit , OnDestroy {
   masterToggle() {
     this.isAllSelected() ?
         this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+        this.dataSourceAll.data.forEach(row => this.selection.select(row));
   }
 
   /** The label for the checkbox on the passed row */
@@ -137,7 +133,18 @@ export class RequestsComponent implements OnInit , OnDestroy {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
   onChange(deviceValue) {
-    this.dataSource.filter = deviceValue;
+    if (deviceValue === 'Wating your approval') {
+      this.spinner.show();
+      this.customerRequestService.customerAwaitingRequests().subscribe(res => {
+        this.awaitingRequestData = res.result;
+        console.log('customerAwaitingRequests:', res.result);
+        this.spinner.hide();
+      }, err => {
+        this.spinner.hide();
+        console.log('ERROR:', err);
+      });
+    }
+    this.dataSourceAll.filter = deviceValue;
     this.requestType = deviceValue;
     if (deviceValue === '') {
       this.requestType = 'All Requests';
