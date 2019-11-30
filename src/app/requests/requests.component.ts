@@ -38,6 +38,9 @@ export class RequestsComponent implements OnInit , OnDestroy {
   awaitingRequestData: any;
   allData = false;
   awaitingData = false;
+  ongoingData = false;
+  closedData = false;
+  rejectData = false;
   // requestName: any;
   // requestDate: Date;
   // requestAmount: number;
@@ -150,15 +153,22 @@ export class RequestsComponent implements OnInit , OnDestroy {
   }
   onChange(deviceValue) {
     if (deviceValue === '') {
-      this.spinner.show();
+      // this.spinner.show();
       this.awaitingData = false;
       this.allData = true;
-      this.spinner.hide();
+      this.ongoingData = false;
+      this.rejectData = false;
+      this.closedData = false;
+      // this.spinner.hide();
     }
     console.log('deviceValue:', deviceValue);
     if (deviceValue === 'Wating your approval') {
       this.allData = false;
       this.awaitingData = true;
+      this.ongoingData = false;
+      this.rejectData = false;
+      this.closedData = false;
+    }
       // this.spinner.show();
       // this.customerRequestService.customerAwaitingRequests().subscribe(res => {
       //   this.allData = false;
@@ -181,20 +191,30 @@ export class RequestsComponent implements OnInit , OnDestroy {
       //   this.spinner.hide();
       //   console.log('ERROR:', err);
       // });
-    }
-    this.dataSourceAll.filter = deviceValue;
-    this.requestType = deviceValue;
+
+    // this.dataSourceAll.filter = deviceValue;
+    // this.requestType = deviceValue;
     if (deviceValue === 'Ongoing') {
       this.awaitingData = false;
       this.allData = false;
+      this.ongoingData = true;
+      // this.rejectData = true;
+      // this.closedData = true;
     }
     if (deviceValue === 'Reject') {
       this.awaitingData = false;
       this.allData = false;
+      this.rejectData = true;
+      // this.ongoingData = true;
+      // this.closedData = true;
+
     }
     if (deviceValue === 'Closed') {
       this.awaitingData = false;
       this.allData = false;
+      this.closedData = true;
+      // this.ongoingData = true;
+      // this.rejectData = true;
     }
   }
   openProductDetails(row) {
