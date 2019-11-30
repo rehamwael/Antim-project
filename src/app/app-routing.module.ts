@@ -73,7 +73,8 @@ export const Approutes: Routes = [
         data: { userRole: ['customer'] }
       },
       {
-        path: 'requests-customer/:type',
+        // path: 'requests-customer/:type',
+        path: 'requests-customer',
         component: RequestsComponent,
         canActivate: [AuthGuard],
         data: { userRole: ['customer'] }
