@@ -14,11 +14,6 @@ export interface PeriodicElement {
   date: string;
   value: string;
   status: string;
-  // id: number;
-  // createdAt: string;
-  // name: string;
-  // totalPaybackAmount: number;
-  // type: number;
 }
 
 const allCustomerRequestData: PeriodicElement[] = [];
@@ -61,8 +56,6 @@ export class RequestsComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit(): void {
-
-    console.log('before allCustomerRequestData:', allCustomerRequestData);
     this.spinner.show();
     this.customerRequestService.customerAllRequests().subscribe(res => {
       this.allData = true;
@@ -79,9 +72,7 @@ export class RequestsComponent implements OnInit , OnDestroy {
         element.position = i;
         i++;
       });
-      console.log('after allCustomerRequestData', allCustomerRequestData);
-
-      console.log('customerAllRequests:', res.result);
+      console.log('customerAllRequests:', this.allRequestData);
       this.spinner.hide();
 
     }, err => {
@@ -99,7 +90,6 @@ export class RequestsComponent implements OnInit , OnDestroy {
       window.scrollTo(0, 0);
   });
   const requestTypeParams = this.route.snapshot.paramMap.get('type');
-  console.log('requestTypeParams:', requestTypeParams);
   this.dataSourceAll.filter = requestTypeParams;
   if (requestTypeParams === '') {
     this.requestType =  'All Requests';
@@ -138,7 +128,6 @@ export class RequestsComponent implements OnInit , OnDestroy {
   onChange(deviceValue) {
     if (deviceValue === '') {
       this.awaitingData = false;
-      // this.requestType = 'All Requests';
       this.allData = true;
     }
     console.log('deviceValue:', deviceValue);
