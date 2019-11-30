@@ -33,6 +33,7 @@ const awaitingRequestData: PeriodicElement[] = [];
 export class RequestsComponent implements OnInit , OnDestroy {
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
+  dataSourceAwaiting = new MatTableDataSource<PeriodicElement>(awaitingRequestData);
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType = 'All Requests';
   slectedProduct = false;
@@ -40,6 +41,8 @@ export class RequestsComponent implements OnInit , OnDestroy {
   options: IndividualConfig;
   allRequestData: any;
   awaitingRequestData: any;
+  allData = false;
+  awaitingData = false;
   // requestName: any;
   // requestDate: Date;
   // requestAmount: number;
@@ -62,20 +65,19 @@ export class RequestsComponent implements OnInit , OnDestroy {
     console.log('before allCustomerRequestData:', allCustomerRequestData);
     this.spinner.show();
     this.customerRequestService.customerAllRequests().subscribe(res => {
+      this.allData = true;
       this.allRequestData = res.result;
       let i = 1;
       this.allRequestData.forEach(element => {
         allCustomerRequestData.push(element);
         element.date = moment(element.createdAt).format('LL');
         element.value = element.totalPaybackAmount + ' SAR';
-        if(element.type === 4) {
+        if (element.type === 4) {
           element.status = 'Waiting for approval';
         }
-        // element.status = element.totalPaybackAmount + 'SAR';
+        // element.status = element.type ';
         element.position = i;
         i++;
-        // allCustomerRequestData
-        // console.log(element.name);
       });
       console.log('after allCustomerRequestData', allCustomerRequestData);
 
@@ -97,6 +99,7 @@ export class RequestsComponent implements OnInit , OnDestroy {
       window.scrollTo(0, 0);
   });
   const requestTypeParams = this.route.snapshot.paramMap.get('type');
+  console.log('requestTypeParams:', requestTypeParams);
   this.dataSourceAll.filter = requestTypeParams;
   if (requestTypeParams === '') {
     this.requestType =  'All Requests';
@@ -133,12 +136,31 @@ export class RequestsComponent implements OnInit , OnDestroy {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
   onChange(deviceValue) {
+    if (deviceValue === '') {
+      this.awaitingData = false;
+      // this.requestType = 'All Requests';
+      this.allData = true;
+    }
+    console.log('deviceValue:', deviceValue);
     if (deviceValue === 'Wating your approval') {
       this.spinner.show();
       this.customerRequestService.customerAwaitingRequests().subscribe(res => {
+        this.allData = false;
+        this.awaitingData = true;
         this.awaitingRequestData = res.result;
         console.log('customerAwaitingRequests:', res.result);
         this.spinner.hide();
+        let i = 1;
+        this.awaitingRequestData.forEach(element => {
+          awaitingRequestData.push(element);
+          element.date = moment(element.createdAt).format('LL');
+          element.value = element.totalPaybackAmount + ' SAR';
+          if (element.type === 4) {
+            element.status = 'Waiting for approval';
+          }
+          element.position = i;
+          i++;
+        });
       }, err => {
         this.spinner.hide();
         console.log('ERROR:', err);
@@ -146,10 +168,9 @@ export class RequestsComponent implements OnInit , OnDestroy {
     }
     this.dataSourceAll.filter = deviceValue;
     this.requestType = deviceValue;
-    if (deviceValue === '') {
-      this.requestType = 'All Requests';
-    }
-
+    // if (deviceValue === '') {
+    //   this.requestType = 'All Requests';
+    // }
   }
   openProductDetails(row) {
     console.log(row);
