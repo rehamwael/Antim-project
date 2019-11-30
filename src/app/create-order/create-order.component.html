@@ -40,15 +40,20 @@
                                         <p class="font-size-13 mt-2">Add Product</p>
                                     </ng-template>
                                     <div class="form-group text-left col-lg-12">
-                                      <h3 class="mb-4 mt-4">Enter product link(s)</h3>
-                                      <label for="Link1" class="font-bold mt-2">Link1</label>
-                                      <input  formControlName="link1" class="form-control form-control-lg" placeholder="placeholder type here …" type="text" [(ngModel)]="Link1">
+                                      <h3 class="mb-4 mt-4">Enter product Detail(s)</h3>
+                                      <label for="Link1" class="font-bold mt-2">Product Link</label>
+                                      <input  formControlName="link1" class="form-control form-control-lg" placeholder="Enter product link here …" type="text" [(ngModel)]="Link1">
                                       <div *ngIf="firstFormGroup.controls['link1'].touched && firstFormGroup.controls['link1'].hasError('required')" class="error-msg alert alert-danger text-left">Product link is required.</div>
 
                                     </div>
+                                    <div class="form-group text-left col-lg-12  " >
+                                        <label for="name1" class="font-bold mt-2">Name of Product</label>
+                                        <input formControlName="Name1" class="form-control form-control-lg" placeholder="Enter product name here …"  type="text" [(ngModel)]="name1">
+                                        <div *ngIf="firstFormGroup.controls['Name1'].touched && firstFormGroup.controls['Name1'].hasError('required')" class="error-msg alert alert-danger text-left">Product Name is required.</div>
+                                    </div>
                                     <div class="form-group text-left col-lg-4">
                                       <label for="price1" class="font-bold mt-2">Price : (in SAR)</label>
-                                      <input formControlName="Price1" class="form-control form-control-lg" placeholder="type price here..."  type="number" [(ngModel)]="price1" (keyup)="inputPrice($event)"
+                                      <input formControlName="Price1" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" [(ngModel)]="price1" (keyup)="inputPrice1($event)"
                                       oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                                       else { document.getElementById('phonenumber').style.visibility = 'visible'; }" >
                                       <div *ngIf="firstFormGroup.controls['Price1'].touched && firstFormGroup.controls['Price1'].hasError('required')" class="error-msg alert alert-danger text-left">Product price is required.</div>
@@ -56,24 +61,32 @@
                                   </div>
 
                                     <div class="form-group text-left col-lg-12  " *ngIf="addSecondItem">
-                                            <label for="Link2" class="font-bold mt-2">Link2</label>
-                                            <input formControlName="link2" class="form-control form-control-lg" placeholder="placeholder type here …"  type="text" [(ngModel)]="Link2">
+                                            <label for="Link2" class="font-bold mt-2">Product Link</label>
+                                            <input formControlName="link2" class="form-control form-control-lg" placeholder="Enter product link here …"  type="text" [(ngModel)]="Link2">
+                                        </div>
+                                        <div class="form-group text-left col-lg-12  " *ngIf="addSecondItem">
+                                            <label for="name2" class="font-bold mt-2">Name of Product</label>
+                                            <input formControlName="Name2" class="form-control form-control-lg" placeholder="Enter product name here …"  type="text" [(ngModel)]="name2">
                                         </div>
                                     <div class="form-group text-left col-lg-4" *ngIf="addSecondItem">
                                       <label for="price2" class="font-bold mt-2">Price : (in SAR)</label>
-                                      <input formControlName="Price2" class="form-control form-control-lg" placeholder="type price here..."  type="number" [(ngModel)]="price2" (keyup)="inputPrices($event)"
+                                      <input formControlName="Price2" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" [(ngModel)]="price2" (keyup)="inputPrice2($event)"
                                       oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber2').style.visibility = 'hidden'; }
                                             else { document.getElementById('phonenumber2').style.visibility = 'visible'; }" >
                                             <span class="redColor" id="phonenumber2"> Price must be greater than 200 and less than 10000.</span>
                                    </div>
 
                               <div class="form-group text-left col-lg-12" *ngIf="addThirdItem">
-                                <label for="Link3" class="font-bold mt-2">Link3</label>
-                                <input formControlName="link3" class="form-control form-control-lg" placeholder="placeholder type here …" type="text" [(ngModel)]="Link3">
+                                <label for="Link3" class="font-bold mt-2">Product Link</label>
+                                <input formControlName="link3" class="form-control form-control-lg" placeholder="Enter product link here …" type="text" [(ngModel)]="Link3">
+                              </div>
+                              <div class="form-group text-left col-lg-12  " *ngIf="addThirdItem">
+                                  <label for="name3" class="font-bold mt-2">Name of Product</label>
+                                  <input formControlName="Name3" class="form-control form-control-lg" placeholder="Enter product name here …"  type="text" [(ngModel)]="name3">
                               </div>
                                     <div class="form-group text-left col-lg-4" *ngIf="addThirdItem">
                                       <label for="price3" class="font-bold mt-2">Price : (in SAR)</label>
-                                      <input formControlName="Price3" class="form-control form-control-lg" placeholder="type price here..."  type="number" [(ngModel)]="price3" (keyup)="inputPrices($event)"
+                                      <input formControlName="Price3" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" [(ngModel)]="price3" (keyup)="inputPrice3($event)"
                                       oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber3').style.visibility = 'hidden'; }
                                             else { document.getElementById('phonenumber3').style.visibility = 'visible'; }" >
                                             <span class="redColor" id="phonenumber3"> Price must be greater than 200 and less than 10000.</span>
@@ -81,16 +94,17 @@
 
                                      <!-- <div class="form-group text-left col-lg-12" *ngIf="addMoreItem">
                                             <label for="Link4" class="font-bold mt-2">Link4</label>
-                                            <input  formControlName="link4" class="form-control form-control-lg" placeholder="placeholder type here …" type="text" [(ngModel)]="Link4"
-                                            oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
-                                            else { document.getElementById('phonenumber').style.visibility = 'visible'; }" >
-                                            <span class="redColor" id="phonenumber"> Price must be greater than 200 and less than 10000.</span>
+                                            <input  formControlName="link4" class="form-control form-control-lg" placeholder="placeholder type here …" type="text" [(ngModel)]="Link4">
                                      </div>
                                      <div class="form-group text-left col-lg-4" *ngIf="addMoreItem">
                                       <label for="price4" class="font-bold mt-2">Price : (in SAR)</label>
-                                      <input formControlName="Price4" class="form-control form-control-lg" placeholder="type price here..."  type="number" [(ngModel)]="price4" (keyup)="inputPrices($event)">
+                                      <input formControlName="Price4" class="form-control form-control-lg" placeholder="type price here..."  type="number" [(ngModel)]="price4" (keyup)="inputPrices($event)"
+                                      oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber4').style.visibility = 'hidden'; }
+                                            else { document.getElementById('phonenumber4').style.visibility = 'visible'; }" >
+                                            <span class="redColor" id="phonenumber4"> Price must be greater than 200 and less than 10000.</span>
                               </div> -->
                                      <!-- <button class="btn btn-block btn-outline-primary more-item-button mt-4" (click)="addMoreItems()" *ngIf="!addMoreItem"> -->
+
                                      <button class="btn btn-block btn-outline-primary more-item-button mt-4" (click)="addMoreItems()" *ngIf="!addThirdItem">
                                             <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10 21.5217C15.5228 21.5217 20 16.8499 20 11.0869C20 5.32391 15.5228 0.6521 10 0.6521C4.47715 0.6521 0 5.32391 0 11.0869C0 16.8499 4.47715 21.5217 10 21.5217Z" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -103,7 +117,7 @@
 
                                      <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-3">
                                            <div class="form-group col-lg-3">
-                                                <button mat-button matStepperNext [disabled]="!firstFormGroup.valid || !disableButton" (click)="nextStep()" class="btn btn-info btn-lg btn-block btn-purple mt-2">Next</button>
+                                                <button mat-button matStepperNext [disabled]="!firstFormGroup.valid || !(disableButton1 && disableButton2 &&disableButton3)" (click)="nextStep()" class="btn btn-info btn-lg btn-block btn-purple mt-2">Next</button>
                                            </div>
                                     </div>
                                   </form>
@@ -118,18 +132,18 @@
                                     <div class="row mt-4">
                                     <div class="col-lg-6">
                                         <label for="Installment" class="font-bold mt-2">Installment Peroid</label>
-                                        <select formControlName="firstCtrl" matNativeControl required class="form-control form-control-lg mt-3">
+                                        <select formControlName="firstCtrl" matNativeControl required class="form-control form-control-lg mt-3" (change)="onChange($event.target.value)">
                                                 <option value="6-Months-ex" selected>Ex: 6 Months</option>
-                                                <option value="6-Months">6 Months</option>
-                                                <option value="3-Months">3 Months</option>
-                                                <option value="9-Months">9 Months</option>
-                                                <option value="12-Months">12 Months</option>
+                                                <option value="3-Months" >3 Months</option>
+                                                <option  value="6-Months">6 Months</option>
+                                                <option *ngIf="showOptions" value="9-Months">9 Months</option>
+                                                <option *ngIf="showOptions" value="12-Months">12 Months</option>
                                         </select>
                                     </div>
 
                                     <div class="col-lg-6">
                                         <label for="amount" class="font-bold mt-2"> The amount of the monthly installment</label>
-                                        <input placeholder="1500 SAR" class="form-control form-control-lg" formControlName="secondCtrl" required style="height: 53px;">
+                                        <input placeholder="1500 SAR" class="form-control form-control-lg" formControlName="secondCtrl" type="number" [(ngModel)]="monthlyPrice" value= "{{monthlyPrice}}" required style="height: 53px;">
                                     </div>
                                 </div>
                                     <p class="my-5 grey-text-color">
@@ -148,7 +162,7 @@
                                                     <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
                                             </div>
                                             <div class="form-group col-lg-3">
-                                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext [disabled]="disabledSubmitButtonSecond">Next</button>
+                                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext [disabled]="!disabledSubmitButtonSecond">Next</button>
                                             </div>
                                     </div>
                                     </div>
@@ -180,9 +194,7 @@
                                                 <div class="form-group col-lg-3">
                                                         <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
                                                 </div>
-                                                <div class="form-group col-lg-4">
-                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2">Save as Draft</button>
-                                                </div>
+
                                                 <div class="form-group col-lg-3">
                                                     <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext>Agree & Prceed
                                                         </button>
@@ -199,27 +211,27 @@
                                     <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                             <mat-form-field>
                                                 <label for="numberOfProduct" class="font-bold mt-2">Number of product</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="3 product">
+                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} product">
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                 <label for="total" class="font-bold mt-2"> Totql price of products:</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="1500 SAR">
+                                                <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="{{totalPrice}}">
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                 <label for="InstallmentPeriod" class="font-bold mt-2">Installment Period</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="6 Months">
+                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}">
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                     <label for="InstallmentPerMonth" class="font-bold mt-2">Installment amount per month</label>
-                                                    <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="830 SAR">
+                                                    <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="{{monthlyPrice}}">
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                     <label for="FinalProduct" class="font-bold mt-2">Final product price (with profit)</label>
-                                                    <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="1875 SAR">
+                                                    <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}">
                                             </mat-form-field>
                                             <p class="my-5 grey-text-color">
                                                 <span class="mr-1">
@@ -236,6 +248,9 @@
                                                     <div class="form-group col-lg-3">
                                                             <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
                                                     </div>
+                                                    <div class="form-group col-lg-4">
+                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2">Save as Draft</button>
+                                                </div>
                                                     <div class="form-group col-lg-3">
                                                         <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext (click)="openVerticallyCentered(content3)">Send Request</button>
                                                     </div>
