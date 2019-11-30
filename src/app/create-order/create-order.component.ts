@@ -5,17 +5,13 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { Product} from './product';
 @Component({
   selector: 'app-create-order',
   templateUrl: './create-order.component.html',
   styleUrls: ['./create-order.component.css']
 })
 
-export interface Product {
-  ProductUrl: string;
-  Price: number;
-}
 export class CreateOrderComponent implements OnInit, OnDestroy {
   disableButton1 = false;
   disableButton2 = true;
