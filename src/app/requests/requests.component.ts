@@ -3,6 +3,9 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { CustomerRequestService } from '../services/customer-request.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 export interface PeriodicElement {
   position: number;
@@ -46,10 +49,37 @@ export class RequestsComponent implements OnInit , OnDestroy {
   requestType = 'All Requests';
   slectedProduct = false;
   productStatus: any;
+  options: IndividualConfig;
 
-  constructor(private modalService: NgbModal, public router: Router, private route: ActivatedRoute, ) {}
+  constructor(private modalService: NgbModal,
+    public router: Router,
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
+    private customerRequestService: CustomerRequestService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-top-right';
+    this.options.timeOut = 5000;
+  }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.customerRequestService.customerAllRequests().subscribe(res => {
+      // this.userAddress = res.result;
+      // this.address = res.result.address;
+      // this.city = res.result.city;
+      // this.country = res.result.country;
+      // this.zip = res.result.postalCode;
+      // this.state = res.result.state;
+      // this.addressID = res.result.id;
+      console.log('customerAllRequests:', res.result);
+      this.spinner.hide();
+
+    }, err => {
+      console.log('ERROR:', err);
+    });
+
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
