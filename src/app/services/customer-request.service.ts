@@ -60,18 +60,18 @@ export class CustomerRequestService {
   }
 
 
-  AddCustomerRequest(customer: any): Observable<any> {
+  AddCustomerRequest(customerRequest: any): Observable<any> {
 
-    return this.httpClient.post(`${this.Url}CustomerRequest/AddRequest`, customer, this.httpOptions).pipe(
+    return this.httpClient.post(`${this.Url}CustomerRequest/AddRequest`, customerRequest, this.httpOptions).pipe(
       tap((res: any) => {
         console.log('In AddRequest service:', res);
       })
     );
   }
 
-  EditCustomerRequest(customer: any): Observable<any> {
+  EditCustomerRequest(customerRequest: any): Observable<any> {
 
-    return this.httpClient.patch(`${this.Url}CustomerRequest/EditRequest`, customer, this.httpOptions).pipe(
+    return this.httpClient.patch(`${this.Url}CustomerRequest/EditRequest`, customerRequest, this.httpOptions).pipe(
       tap((res: any) => {
         console.log('In EditRequest service:', res);
       })

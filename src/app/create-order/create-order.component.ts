@@ -3,12 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
-
+import { CustomerRequestService } from '../services/customer-request.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Product } from './product';
 @Component({
   selector: 'app-create-order',
   templateUrl: './create-order.component.html',
   styleUrls: ['./create-order.component.css']
 })
+
 export class CreateOrderComponent implements OnInit, OnDestroy {
   disableButton1 = false;
   disableButton2 = true;
@@ -16,14 +19,12 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   Link1: any;
   Link2: any;
   Link3: any;
-  name1: any;
-  name2: any;
-  name3: any;
-  // Link4: any;
+  requestName: any;
+  // product: Product = [];
+   Products: any = [];
   price1: number;
   price2: number;
   price3: number;
-  // price4: number;
   totalPrice: number;
   monthlyPrice: number;
   totalPriceWithProfit: number;
@@ -31,6 +32,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   installmentPeriod: any;
   installmentPeriod_ENUM: number;
   totalProducts: any;
+  requestType: any;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -56,10 +58,12 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   constructor(public router: Router,
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private customerRequestService: CustomerRequestService,
+    private spinner: NgxSpinnerService
   ) {
     this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-bottom-right';
+    this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
   }
   showSuccessToast(title, message, type) {
@@ -76,11 +80,9 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       ])],
       link2: [''],
       link3: [''],
-      Name1: [null, Validators.compose([
+      Name: [null, Validators.compose([
         Validators.required
       ])],
-      Name2: [''],
-      Name3: [''],
       Price1: [null, Validators.compose([
         Validators.required
       ])],
@@ -119,25 +121,44 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
 
   }
   nextStep() {
+    const Product1 = {
+      Price : this.price1,
+      ProductUrl : this.Link1
+    };
+    const Product2 = {
+      Price : this.price2,
+      ProductUrl : this.Link2
+    };
+    const Product3 = {
+      Price : this.price3,
+      ProductUrl : this.Link3
+    };
+    console.log(this.Products);
     if (this.Link1) {
       this.totalProducts = 1;
+      this.Products.push(Product1);
     }
     if (this.Link1 && this.Link2) {
       this.totalProducts = 2;
+      this.Products.push(Product2);
     }
     if (this.Link1 && this.Link2 && this.Link3) {
       this.totalProducts = 3;
+      this.Products.push(Product3);
     }
-
-    if (!this.price2) {
+    if (!this.Link2) {
       this.price2 = 0;
     }
-    if (!this.price3) {
+    if (!this.Link3) {
       this.price3 = 0;
     }
     this.totalPrice =  this.price1 + this.price2 + this.price3;
     console.log('totalPrice:', this.totalPrice);
-    if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+    if (this.totalPrice < 500 || this.totalPrice > 10000) {
+      // tslint:disable-next-line: max-line-length
+      this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000,Go back and Enter correct price.', 'error');
+    }
+      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
       this.showOptions = false;
       console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
@@ -176,6 +197,9 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.monthlyPrice = this.totalPriceWithProfit / 12;
       this.monthlyPrice = Math.round(this.monthlyPrice);
       this.disabledSubmitButtonSecond = true;
+    }
+    if (this.totalPrice < 500 || this.totalPrice > 10000) {
+      this.disabledSubmitButtonSecond = false;
     }
   }
 
@@ -219,6 +243,24 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     }
   }
   openVerticallyCentered(content3) {
+    this.spinner.show();
+    this.customerRequestService.AddCustomerRequest({
+      'Name': this.requestName,
+      'TotalFundAmount': this.totalPrice,
+      'PaybackPeriod': this.installmentPeriod_ENUM,
+      'MonthlyPaybackAmount': this.monthlyPrice,
+      'TotalPaybackAmount': this.totalPriceWithProfit,
+      'Type': 'Awaiting',
+      'Products': this.Products
+    }).subscribe((res) => {
+      console.log(' Added:', res);
+      this.spinner.hide();
+      this.showSuccessToast('OK!!', res.message, 'success');
+    }, err => {
+      console.log(' ERROR:', err);
+      this.spinner.hide();
+      this.showErrorToast('Error!!', err.error.message, 'error');
+    });
     this.modalService.open(content3, { centered: true });
   }
   toggleNavbar() {
