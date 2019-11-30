@@ -61,6 +61,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AuthenticationEffects } from './store/effects/authentication.effects';
 import { reducers } from './store/app.states';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { NumberOnlyDirective } from './number-only.directive';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -96,7 +97,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ForgetPasswordComponent,
     SettingComponent,
     PageNotFoundComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    NumberOnlyDirective
   ],
   imports: [
     CommonModule,

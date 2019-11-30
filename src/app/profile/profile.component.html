@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <label for="mobile" class="font-bold mt-2">Mobile No</label>
-                                <input matInput formControlName="MobileNo" type="number" class="form-control form-control-lg" value= "{{phone}}" [(ngModel)]="phone" placeholder="Mobile No." (keyup)="inputNumber($event)"
+                                <input matInput formControlName="MobileNo" type="text" class="form-control form-control-lg" value= "{{phone}}" [(ngModel)]="phone" placeholder="Mobile No." (keyup)="inputNumber($event)" digitOnly
                                 oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                                 else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
                                  <div *ngIf="EditForm.controls['MobileNo'].touched && EditForm.controls['MobileNo'].hasError('required')" class="error-msg alert alert-danger text-left">Mobile Number is required</div>

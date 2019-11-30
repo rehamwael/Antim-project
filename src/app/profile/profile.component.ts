@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       ])],
       'MobileNo': [{ value: this.phone, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
-        Validators.minLength(9)
+        // Validators.minLength(9)
       ])],
       'Email': [{ value: this.email, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
