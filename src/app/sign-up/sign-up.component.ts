@@ -124,11 +124,18 @@ export class SignUpComponent implements OnInit , OnDestroy {
         Validators.required,
         Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$')
       ])],
-      'password': [null, Validators.compose([
-        Validators.required,
-        // Validators.pattern('(?=^.{9,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')
-        Validators.pattern('^.*(?=.{9,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$')
-      ])],
+      // 'password': [null, Validators.compose([
+      //   Validators.required,
+      //   // Validators.pattern('(?=^.{9,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')
+      //   Validators.pattern('^.*(?=.{9,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$')
+      // ])],
+      'password': [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+         ]
+      ],
       'confirmPassword': [null, Validators.compose([
         Validators.required,
       ])],
