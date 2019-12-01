@@ -63,6 +63,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     console.log('customerAwaitingRequests:', awaitingRequestData);
     this.spinner.show();
     this.customerRequestService.customerAwaitingRequests().subscribe(res => {
+      this.allData = true;
       this.spinner.hide();
       this.awaitingRequestData = res.result;
       let i = 1;
@@ -109,7 +110,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    this.allData = true;
     this.getAllCustomersRequests();
     this.getAwaitingRequestsData();
 
