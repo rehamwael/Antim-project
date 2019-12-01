@@ -41,10 +41,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
   ongoingData = false;
   closedData = false;
   rejectData = false;
-  // requestName: any;
-  // requestDate: Date;
-  // requestAmount: number;
-  // requeststatus: string;
 
   constructor(private modalService: NgbModal,
     public router: Router,
@@ -128,7 +124,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.requestType = 'All Requests';
     } else {
       this.requestType = requestTypeParams;
-
     }
   }
   ngOnDestroy(): void {
@@ -158,17 +153,24 @@ export class RequestsComponent implements OnInit, OnDestroy {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
+
+  //  MAster BRANCH
+  // onChange(deviceValue) {
+  //   this.dataSource.filter = deviceValue;
+  //   this.requestType = deviceValue;
+  //   if(deviceValue == ""){
+  //     this.requestType = "All Requests";
+  //   }
+  // }
+
   onChange(deviceValue) {
     if (deviceValue === '') {
-      // this.spinner.show();
       this.awaitingData = false;
       this.allData = true;
       this.ongoingData = false;
       this.rejectData = false;
       this.closedData = false;
-      // this.spinner.hide();
     }
-    console.log('deviceValue:', deviceValue);
     if (deviceValue === 'Wating your approval') {
       this.allData = false;
       this.awaitingData = true;
@@ -176,31 +178,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.rejectData = false;
       this.closedData = false;
     }
-    // this.spinner.show();
-    // this.customerRequestService.customerAwaitingRequests().subscribe(res => {
-    //   this.allData = false;
-    //   this.awaitingData = true;
-    //   this.awaitingRequestData = res.result;
-    //   console.log('customerAwaitingRequests:', res.result);
-    //   this.spinner.hide();
-    //   let i = 1;
-    //   this.awaitingRequestData.forEach(element => {
-    //     awaitingRequestData.push(element);
-    //     element.date = moment(element.createdAt).format('LL');
-    //     element.value = element.totalPaybackAmount + ' SAR';
-    //     if (element.type === 4) {
-    //       element.status = 'Waiting for approval';
-    //     }
-    //     element.position = i;
-    //     i++;
-    //   });
-    // }, err => {
-    //   this.spinner.hide();
-    //   console.log('ERROR:', err);
-    // });
 
-    // this.dataSourceAll.filter = deviceValue;
-    // this.requestType = deviceValue;
     if (deviceValue === 'Ongoing') {
       this.awaitingData = false;
       this.allData = false;
@@ -239,4 +217,77 @@ export class RequestsComponent implements OnInit, OnDestroy {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
 
   }
+  // getOngoingRequestsData() {
+  //   OngoingRequestData.length = 0;
+  //   console.log('OngoingRequestData:', OngoingRequestData);
+  //   this.spinner.show();
+  //   this.customerRequestService.customerAwaitingRequests().subscribe(res => {
+  //     this.spinner.hide();
+  //     this.ongoingRequestsData = res.result;
+  //     let i = 1;
+  //     this.ongoingRequestsData.forEach(element => {
+  //       OngoingRequestData.push(element);
+  //       element.date = moment(element.createdAt).format('LL');
+  //       element.value = element.totalPaybackAmount + ' SAR';
+  //       if (element.type === 3) {
+  //         element.status = 'Ongoing';
+  //       }
+  //       element.position = i;
+  //       i++;
+  //     });
+  //     console.log('OngoingRequestData:', OngoingRequestData);
+  //   }, err => {
+  //     this.spinner.hide();
+  //     console.log('ERROR:', err);
+  //   });
+  // }
+  // getRejectedRequestsData() {
+  //   rejectedRequestData.length = 0;
+  //   console.log('rejectedRequestData:', rejectedRequestData);
+  //   this.spinner.show();
+  //   this.customerRequestService.customerRejectedRequests().subscribe(res => {
+  //     this.spinner.hide();
+  //     this.rejectedRequestsData = res.result;
+  //     let i = 1;
+  //     this.rejectedRequestsData.forEach(element => {
+  //       rejectedRequestData.push(element);
+  //       element.date = moment(element.createdAt).format('LL');
+  //       element.value = element.totalPaybackAmount + ' SAR';
+  //       if (element.type === 2) {
+  //         element.status = 'Reject';
+  //       }
+  //       element.position = i;
+  //       i++;
+  //     });
+  //     console.log('rejectedRequestData:', rejectedRequestData);
+  //   }, err => {
+  //     this.spinner.hide();
+  //     console.log('ERROR:', err);
+  //   });
+  // }
+  // getClosedRequestsData() {
+  //   closedRequestsData.length = 0;
+  //   console.log('closedRequestsData:', closedRequestsData);
+  //   this.spinner.show();
+  //   this.customerRequestService.customerClosedRequests().subscribe(res => {
+  //     this.spinner.hide();
+  //     this.closedRequestData = res.result;
+  //     let i = 1;
+  //     this.closedRequestData.forEach(element => {
+  //       closedRequestsData.push(element);
+  //       element.date = moment(element.createdAt).format('LL');
+  //       element.value = element.totalPaybackAmount + ' SAR';
+  //       if (element.type === 1) {
+  //         element.status = 'Closed';
+  //       }
+  //       element.position = i;
+  //       i++;
+  //     });
+  //     console.log('closedRequestsData:', closedRequestsData);
+  //   }, err => {
+  //     this.spinner.hide();
+  //     console.log('ERROR:', err);
+  //   });
+  // }
+
 }
