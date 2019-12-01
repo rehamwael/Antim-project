@@ -87,8 +87,8 @@
                             <label for="confirmPassword">Confirm Password<span class="red-color"> *</span></label>
                             <input formControlName="confirmPassword" class="form-control form-control-lg" placeholder="************" type="password"  [(ngModel)]="signupCPassword">
                             <div *ngIf="SigUpForm.controls['confirmPassword'].touched && SigUpForm.controls['confirmPassword'].hasError('required')" class="error-msg alert alert-danger text-left">Confirm Password is required</div>
-                            <div *ngIf="SigUpForm.value.password != SigUpForm.value.confirmPassword" class="error-msg alert alert-danger text-left">Passwords must be same.</div>
-                            <span id="message"></span>
+                            <div *ngIf="SigUpForm.controls['confirmPassword'].touched && SigUpForm.value.password != SigUpForm.value.confirmPassword" class="error-msg alert alert-danger text-left">Passwords must be same.</div>
+                            <!-- <span id="message"></span> -->
                           </div>
                           <div class="form-group text-left col-lg-4">
                               <label for="countrycode">Country Code<span class="red-color"> *</span></label>
