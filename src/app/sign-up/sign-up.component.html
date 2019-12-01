@@ -6,6 +6,7 @@
               <p class="grey-text-color mt-3 mb-4">Very Easy and straight forward steps to register.
               <br/> Just follow the lead</p>
           </div>
+          <!-- <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm" (submit)="onSubmit()"  #myform="ngForm"> -->
           <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm">
               <div class="first-step row" *ngIf="!showSelected  && !lastStep">
               <div class="col-lg-2">
@@ -48,6 +49,7 @@
                               <label for="name">First Name<span class="red-color"> *</span></label>
                               <input formControlName="FirstName" class="form-control form-control-lg" placeholder="Type First Name here..." type="text" [(ngModel)]="signupFirstName">
                               <div *ngIf="SigUpForm.controls['FirstName'].touched && !SigUpForm.controls['FirstName'].valid" class="error-msg alert alert-danger text-left">First Name required</div>
+                              <!-- <div *ngIf="myform.submitted && !SigUpForm.controls['FirstName'].valid" class="error-msg alert alert-danger text-left">First Name required</div> -->
                           </div>
                           <div class="form-group text-left col-lg-6">
                             <label for="name">Last Name<span class="red-color"> *</span></label>

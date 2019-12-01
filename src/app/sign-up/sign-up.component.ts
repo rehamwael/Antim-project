@@ -48,7 +48,13 @@ export class SignUpComponent implements OnInit , OnDestroy {
   disabledAgreement1 = false;
   disabledAgreement2 = false;
   isButtonDisabled = false;
-
+  // submitted = false;
+  // onSubmit() {
+  //   this.submitted = true;
+  //   if (this.SigUpForm.invalid) {
+  //       return;
+  //   }
+  // }
   changeCheck1(event) {
     if (event.target.checked) {
       this.disabledAgreement1 = true;
