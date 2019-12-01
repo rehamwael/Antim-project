@@ -42,13 +42,11 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       this.options.progressBar = true;
 
     this.PasswordForm = fb.group({
-      'password': [null, Validators.compose([
-        Validators.required,
-        Validators.pattern('^.*(?=.{9,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$')
-      ])],
-      'confirmPassword': [null, Validators.compose([
-        Validators.required,
-      ])],
+      'password': ['', [
+          Validators.required,
+          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+      ]],
+      'confirmPassword': ['', [ Validators.required ] ],
       });
   }
 
