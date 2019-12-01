@@ -58,10 +58,11 @@ export class RequestsComponent implements OnInit , OnDestroy {
     this.options.timeOut = 5000;
   }
   getAwaitingData() {
+    awaitingRequestData.length = 0;
+    console.log('customerAwaitingRequests:', awaitingRequestData);
         this.spinner.show();
       this.customerRequestService.customerAwaitingRequests().subscribe(res => {
         this.awaitingRequestData = res.result;
-        console.log('customerAwaitingRequests:', res.result);
         this.spinner.hide();
         let i = 1;
         this.awaitingRequestData.forEach(element => {
@@ -74,13 +75,16 @@ export class RequestsComponent implements OnInit , OnDestroy {
           element.position = i;
           i++;
         });
+        console.log('customerAwaitingRequests:', awaitingRequestData);
       }, err => {
         this.spinner.hide();
         console.log('ERROR:', err);
       });
 
   }
-  ngOnInit(): void {
+  getAllCustomersRequests() {
+    allCustomerRequestData.length = 0;
+    console.log('customerAllRequests:', allCustomerRequestData);
     this.spinner.show();
     this.customerRequestService.customerAllRequests().subscribe(res => {
       this.allData = true;
@@ -97,14 +101,17 @@ export class RequestsComponent implements OnInit , OnDestroy {
         element.position = i;
         i++;
       });
-      console.log('customerAllRequests:', this.allRequestData);
+      console.log('customerAllRequests:', allCustomerRequestData);
       this.spinner.hide();
 
     }, err => {
       this.spinner.hide();
       console.log('ERROR:', err);
     });
-    this.getAwaitingData();
+  }
+  ngOnInit(): void {
+   // this.getAllCustomersRequests();
+   //  this.getAwaitingData();
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');

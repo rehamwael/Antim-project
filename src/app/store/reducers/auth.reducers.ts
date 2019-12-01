@@ -22,7 +22,7 @@ export const initialState: State = {
 export function reducer(state = initialState, action: AuthenticationActions): State {
   switch (action.type) {
     case AuthenticationActionTypes.LOGIN_SUCCESS: {
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         isAuthenticated: true,

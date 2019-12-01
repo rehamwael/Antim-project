@@ -29,7 +29,7 @@ export class DashboredComponent implements OnInit , OnDestroy {
     // });
     this.getState.subscribe((state) => {
       this.currentUser = state.userProfile;
-      console.log( 'dash' ,  this.currentUser);
+      // console.log( 'dash' ,  this.currentUser);
       if (!this.currentUser) {
         this.store.dispatch(new UserProfile());
       }

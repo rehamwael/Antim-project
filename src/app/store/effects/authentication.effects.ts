@@ -99,8 +99,10 @@ export class AuthenticationEffects {
   .pipe(
     ofType(AuthenticationActionTypes.USER_PROFILE),
     tap(() => {
+      this.spinner.show();
       return this.userDataService.getUserData().subscribe(res => {
         this.store.dispatch(new SaveUserProfile(res.result));
+        this.spinner.hide();
       });
     }));
 
