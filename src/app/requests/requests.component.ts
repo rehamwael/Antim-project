@@ -1,6 +1,6 @@
-import { Component, OnInit , OnDestroy} from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material/table';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
@@ -25,7 +25,7 @@ const awaitingRequestData: PeriodicElement[] = [];
   styleUrls: ['./requests.component.css']
 })
 
-export class RequestsComponent implements OnInit , OnDestroy {
+export class RequestsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
   dataSourceAwaiting = new MatTableDataSource<PeriodicElement>(awaitingRequestData);
@@ -57,29 +57,30 @@ export class RequestsComponent implements OnInit , OnDestroy {
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
   }
-  getAwaitingData() {
+
+  getAwaitingRequestsData() {
     awaitingRequestData.length = 0;
     console.log('customerAwaitingRequests:', awaitingRequestData);
-        this.spinner.show();
-      this.customerRequestService.customerAwaitingRequests().subscribe(res => {
-        this.awaitingRequestData = res.result;
-        this.spinner.hide();
-        let i = 1;
-        this.awaitingRequestData.forEach(element => {
-          awaitingRequestData.push(element);
-          element.date = moment(element.createdAt).format('LL');
-          element.value = element.totalPaybackAmount + ' SAR';
-          if (element.type === 4) {
-            element.status = 'Waiting for approval';
-          }
-          element.position = i;
-          i++;
-        });
-        console.log('customerAwaitingRequests:', awaitingRequestData);
-      }, err => {
-        this.spinner.hide();
-        console.log('ERROR:', err);
+    this.spinner.show();
+    this.customerRequestService.customerAwaitingRequests().subscribe(res => {
+      this.spinner.hide();
+      this.awaitingRequestData = res.result;
+      let i = 1;
+      this.awaitingRequestData.forEach(element => {
+        awaitingRequestData.push(element);
+        element.date = moment(element.createdAt).format('LL');
+        element.value = element.totalPaybackAmount + ' SAR';
+        if (element.type === 4) {
+          element.status = 'Waiting for approval';
+        }
+        element.position = i;
+        i++;
       });
+      console.log('customerAwaitingRequests:', awaitingRequestData);
+    }, err => {
+      this.spinner.hide();
+      console.log('ERROR:', err);
+    });
 
   }
   getAllCustomersRequests() {
@@ -87,7 +88,7 @@ export class RequestsComponent implements OnInit , OnDestroy {
     console.log('customerAllRequests:', allCustomerRequestData);
     this.spinner.show();
     this.customerRequestService.customerAllRequests().subscribe(res => {
-      this.allData = true;
+      this.spinner.hide();
       this.allRequestData = res.result;
       let i = 1;
       this.allRequestData.forEach(element => {
@@ -102,34 +103,33 @@ export class RequestsComponent implements OnInit , OnDestroy {
         i++;
       });
       console.log('customerAllRequests:', allCustomerRequestData);
-      this.spinner.hide();
-
     }, err => {
       this.spinner.hide();
       console.log('ERROR:', err);
     });
   }
   ngOnInit(): void {
-   // this.getAllCustomersRequests();
-   //  this.getAwaitingData();
+    this.allData = true;
+    this.getAllCustomersRequests();
+    this.getAwaitingRequestsData();
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
-          return;
+        return;
       }
       window.scrollTo(0, 0);
-  });
-  const requestTypeParams = this.route.snapshot.paramMap.get('type');
-  this.dataSourceAll.filter = requestTypeParams;
-  if (requestTypeParams === '') {
-    this.requestType =  'All Requests';
-  } else {
-    this.requestType = requestTypeParams;
+    });
+    const requestTypeParams = this.route.snapshot.paramMap.get('type');
+    this.dataSourceAll.filter = requestTypeParams;
+    if (requestTypeParams === '') {
+      this.requestType = 'All Requests';
+    } else {
+      this.requestType = requestTypeParams;
 
-  }
+    }
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
@@ -147,8 +147,8 @@ export class RequestsComponent implements OnInit , OnDestroy {
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSourceAll.data.forEach(row => this.selection.select(row));
+      this.selection.clear() :
+      this.dataSourceAll.data.forEach(row => this.selection.select(row));
   }
 
   /** The label for the checkbox on the passed row */
@@ -176,28 +176,28 @@ export class RequestsComponent implements OnInit , OnDestroy {
       this.rejectData = false;
       this.closedData = false;
     }
-      // this.spinner.show();
-      // this.customerRequestService.customerAwaitingRequests().subscribe(res => {
-      //   this.allData = false;
-      //   this.awaitingData = true;
-      //   this.awaitingRequestData = res.result;
-      //   console.log('customerAwaitingRequests:', res.result);
-      //   this.spinner.hide();
-      //   let i = 1;
-      //   this.awaitingRequestData.forEach(element => {
-      //     awaitingRequestData.push(element);
-      //     element.date = moment(element.createdAt).format('LL');
-      //     element.value = element.totalPaybackAmount + ' SAR';
-      //     if (element.type === 4) {
-      //       element.status = 'Waiting for approval';
-      //     }
-      //     element.position = i;
-      //     i++;
-      //   });
-      // }, err => {
-      //   this.spinner.hide();
-      //   console.log('ERROR:', err);
-      // });
+    // this.spinner.show();
+    // this.customerRequestService.customerAwaitingRequests().subscribe(res => {
+    //   this.allData = false;
+    //   this.awaitingData = true;
+    //   this.awaitingRequestData = res.result;
+    //   console.log('customerAwaitingRequests:', res.result);
+    //   this.spinner.hide();
+    //   let i = 1;
+    //   this.awaitingRequestData.forEach(element => {
+    //     awaitingRequestData.push(element);
+    //     element.date = moment(element.createdAt).format('LL');
+    //     element.value = element.totalPaybackAmount + ' SAR';
+    //     if (element.type === 4) {
+    //       element.status = 'Waiting for approval';
+    //     }
+    //     element.position = i;
+    //     i++;
+    //   });
+    // }, err => {
+    //   this.spinner.hide();
+    //   console.log('ERROR:', err);
+    // });
 
     // this.dataSourceAll.filter = deviceValue;
     // this.requestType = deviceValue;
