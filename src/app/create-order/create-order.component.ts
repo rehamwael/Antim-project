@@ -169,7 +169,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     }
     this.totalPrice =  this.price1 + this.price2 + this.price3;
     console.log('totalPrice:', this.totalPrice);
-    if (this.totalPrice < 500 || this.totalPrice > 10000) {
+    if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
       // tslint:disable-next-line: max-line-length
       this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000,Go back and Enter correct price.', 'error');
     }
@@ -271,12 +271,12 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       console.log(' Added:', res);
       this.spinner.hide();
       this.showSuccessToast('OK!!', res.message, 'success');
+      this.modalService.open(content3, { centered: true });
     }, err => {
       console.log(' ERROR:', err);
       this.spinner.hide();
       this.showErrorToast('Error!!', err.error.message, 'error');
     });
-    this.modalService.open(content3, { centered: true });
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');

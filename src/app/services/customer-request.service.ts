@@ -26,12 +26,12 @@ export class CustomerRequestService {
       })
     );
   }
-  // getRequestTypeData(type: any): Observable<any> {
-  //   return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequests?type=${type}`, this.httpOptions).pipe(
-  //     tap((res: any) => {
-  //     })
-  //   );
-  // }
+  getRequestDataById(id: any): Observable<any> {
+    return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequestById?id=${id}`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
 
   AddCustomerRequest(customerRequest: any): Observable<any> {

@@ -57,7 +57,7 @@
 
                                     <div class="form-group text-left col-lg-4">
                                       <label for="price1" class="font-bold mt-2">Price : (in SAR)</label>
-                                      <input formControlName="Price1" class="form-control form-control-lg" placeholder="Enter price here..."  type="text" digitOnly [(ngModel)]="price1" (keyup)="inputPrice1($event)"
+                                      <input formControlName="Price1" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="price1" (keyup)="inputPrice1($event)"
                                       oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                                       else { document.getElementById('phonenumber').style.visibility = 'visible'; }" >
                                       <div *ngIf="firstFormGroup.controls['Price1'].touched && firstFormGroup.controls['Price1'].hasError('required')" class="error-msg alert alert-danger text-left">Product price is required.</div>
@@ -73,7 +73,7 @@
 
                                     <div class="form-group text-left col-lg-4" *ngIf="addSecondItem">
                                       <label for="price2" class="font-bold mt-2">Price : (in SAR)</label>
-                                      <input formControlName="Price2" class="form-control form-control-lg" placeholder="Enter price here..."  type="text" digitOnly [(ngModel)]="price2" (keyup)="inputPrice2($event)"
+                                      <input formControlName="Price2" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="price2" (keyup)="inputPrice2($event)"
                                       oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber2').style.visibility = 'hidden'; }
                                             else { document.getElementById('phonenumber2').style.visibility = 'visible'; }" >
                                             <span class="redColor" id="phonenumber2"> Price must be greater than 200 and less than 10000.</span>
@@ -87,7 +87,7 @@
                               </div>
                                     <div class="form-group text-left col-lg-4" *ngIf="addThirdItem">
                                       <label for="price3" class="font-bold mt-2">Price : (in SAR)</label>
-                                      <input formControlName="Price3" class="form-control form-control-lg" placeholder="Enter price here..."  type="text" digitOnly [(ngModel)]="price3" (keyup)="inputPrice3($event)"
+                                      <input formControlName="Price3" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="price3" (keyup)="inputPrice3($event)"
                                       oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber3').style.visibility = 'hidden'; }
                                             else { document.getElementById('phonenumber3').style.visibility = 'visible'; }" >
                                             <span class="redColor" id="phonenumber3"> Price must be greater than 200 and less than 10000.</span>
@@ -99,7 +99,7 @@
                                      </div>
                                      <div class="form-group text-left col-lg-4" *ngIf="addMoreItem">
                                       <label for="price4" class="font-bold mt-2">Price : (in SAR)</label>
-                                      <input formControlName="Price4" class="form-control form-control-lg" placeholder="type price here..."  type="text" digitOnly [(ngModel)]="price4" (keyup)="inputPrices($event)"
+                                      <input formControlName="Price4" class="form-control form-control-lg" placeholder="type price here..."  type="number" digitOnly [(ngModel)]="price4" (keyup)="inputPrices($event)"
                                       oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber4').style.visibility = 'hidden'; }
                                             else { document.getElementById('phonenumber4').style.visibility = 'visible'; }" >
                                             <span class="redColor" id="phonenumber4"> Price must be greater than 200 and less than 10000.</span>
@@ -144,7 +144,7 @@
 
                                     <div class="col-lg-6">
                                         <label for="amount" class="font-bold mt-2"> The amount of the monthly installment</label>
-                                        <input placeholder="1500 SAR" class="form-control form-control-lg" formControlName="secondCtrl" type="text" digitOnly [(ngModel)]="monthlyPrice" value= "{{monthlyPrice}}" required readonly style="height: 53px;">
+                                        <input placeholder="1500 SAR" class="form-control form-control-lg" formControlName="secondCtrl" type="number" digitOnly [(ngModel)]="monthlyPrice" value= "{{monthlyPrice}}" required readonly style="height: 53px;">
                                     </div>
                                 </div>
                                     <p class="my-5 grey-text-color">
