@@ -14,6 +14,7 @@ import { UserProfile } from './../store/actions/auth.actions';
 export class DashboredComponent implements OnInit , OnDestroy {
   currentUser: any;
   getState: Observable<any>;
+  isAuthenticated: boolean;
 
   constructor(public router: Router,
     private userDataService: ProfileService,
@@ -23,14 +24,10 @@ export class DashboredComponent implements OnInit , OnDestroy {
      }
 
   ngOnInit(): void {
-    // this.userDataService.getUserData().subscribe(res => {
-    //   this.currentUser = res.result;
-    //   console.log('user:', res.result);
-    // });
     this.getState.subscribe((state) => {
+      const token = localStorage.getItem('token');
       this.currentUser = state.userProfile;
-      // console.log( 'dash' ,  this.currentUser);
-      if (!this.currentUser) {
+      if (!this.currentUser && token) {
         this.store.dispatch(new UserProfile());
       }
     });

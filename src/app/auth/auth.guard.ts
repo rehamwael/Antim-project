@@ -24,13 +24,12 @@ export class AuthGuard implements CanActivate {
     const roles = route.data;
     const expectedRole = roles.userRole[0];
     const role = localStorage.getItem('role');
-    console.log('role:', role);
+    // console.log('role:', role);
 
-   // return this.checkLogin(url);
    return this.authService.User.pipe(
     take(1),
     map(token => {
-       console.log('login:', token);
+      // console.log('login:', token);
       if (token) {
         if ( role === expectedRole) {
           return true;
@@ -47,16 +46,7 @@ export class AuthGuard implements CanActivate {
       })
     );
   }
-  // checkLogin(url: string): boolean {
-  //   if (this.authService.isLoggedIn) { return true; }
 
-  //   // Store the attempted URL for redirecting
-  //   this.authService.redirectUrl = url;
-
-  //   // Navigate to the login page with extras
-  //   this.router.navigate(['/login']);
-  //   return false;
-  // }
   showToast(title: string, message: string, type: string) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
 }

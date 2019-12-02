@@ -14,6 +14,7 @@ import { UserProfile } from './../store/actions/auth.actions';
 export class DashboredLenderComponent implements OnInit , OnDestroy {
   currentUser: any;
   getState: Observable<any>;
+  isAuthenticated: boolean;
 
   constructor(public router: Router, private userDataService: ProfileService,
     private store: Store<AppState>,
@@ -21,13 +22,10 @@ export class DashboredLenderComponent implements OnInit , OnDestroy {
       this.getState = this.store.select(selectAuthenticationState);
      }
   ngOnInit(): void {
-    // this.userDataService.getUserData().subscribe(res => {
-    //   this.currentUser = res.result;
-    //   console.log('user:', res.result);
-    // });
     this.getState.subscribe((state) => {
+      const token = localStorage.getItem('token');
       this.currentUser = state.userProfile;
-      if (!this.currentUser) {
+      if (!this.currentUser && token) {
         this.store.dispatch(new UserProfile());
       }
     });

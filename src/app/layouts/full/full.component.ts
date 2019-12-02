@@ -2,6 +2,10 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState, selectAuthenticationState } from './../../store/app.states';
+
 declare var $: any;
 
 @Component({
@@ -10,10 +14,17 @@ declare var $: any;
   styleUrls: ['./full.component.scss']
 })
 export class FullComponent implements OnInit {
+  userRole: any;
+  islogin = false;
+  getState: Observable<any>;
 
+// tslint:disable-next-line: indent
 	public config: PerfectScrollbarConfigInterface = {};
 
-  constructor(public router: Router) {}
+  constructor(public router: Router,  private store: Store<AppState>,
+    ) {
+      this.getState = this.store.select(selectAuthenticationState);
+     }
 
   public innerWidth: any;
   public defaultSidebar: any;
@@ -30,6 +41,16 @@ export class FullComponent implements OnInit {
   }
 
   ngOnInit() {
+    const role = localStorage.getItem('role');
+    this.userRole = role;
+    this.getState.subscribe((state) => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.islogin = true;
+      } else {
+        this.islogin = false;
+      }
+    });
     if (this.router.url === '/') {
       this.router.navigate(['/home']);
     }
@@ -71,16 +92,17 @@ export class FullComponent implements OnInit {
     toggleNavbar() {
       this.navbarOpen = !this.navbarOpen;
     }
-    btnClick= function () {
+    btnClick = function () {
       this.router.navigateByUrl('/signup');
     };
     closeMenu() {
-      var isMobile = /iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|Android/i.test(navigator.userAgent);
+      if (this.islogin) {
+        this.router.navigateByUrl('/dashbored-' + this.userRole);
+      }
+      const isMobile = /iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|Android/i.test(navigator.userAgent);
       if (isMobile) {
         this.navbarOpen = !this.navbarOpen;
       }
     }
-  
-
 
 }

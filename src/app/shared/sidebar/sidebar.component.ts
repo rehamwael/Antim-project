@@ -8,10 +8,7 @@ import { Observable } from 'rxjs';
 
 import { User } from './../../store/models/users';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
-import { Logout } from './../../store/actions/auth.actions';
-import { ProfileService } from '../../services/userProfile.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { UserProfile } from './../../store/actions/auth.actions';
+import { Logout, UserProfile } from './../../store/actions/auth.actions';
 
 declare var $: any;
 
@@ -23,7 +20,7 @@ declare var $: any;
 export class SidebarComponent implements OnInit {
   user: User;
   getState: Observable<any>;
-  isAuthenticated = false;
+  isAuthenticated: boolean;
   currentUser: any;
 
 
@@ -51,8 +48,6 @@ export class SidebarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>,
-    private userDataService: ProfileService,
-    private spinner: NgxSpinnerService,
     ) {
       this.getState = this.store.select(selectAuthenticationState);
     }
@@ -60,11 +55,12 @@ export class SidebarComponent implements OnInit {
   // End open close
   ngOnInit() {
     this.getState.subscribe((state) => {
+      const token = localStorage.getItem('token');
       this.isAuthenticated = state.isAuthenticated;
       this.user = state.user;
       this.currentUser = state.userProfile;
       console.log( 'hi' ,  this.currentUser);
-      if (!this.currentUser) {
+      if (!this.currentUser && token) {
         this.store.dispatch(new UserProfile());
       }
     });
@@ -79,6 +75,7 @@ export class SidebarComponent implements OnInit {
 
   }
   logout() {
+    localStorage.removeItem('token');
     this.store.dispatch(new Logout);
     console.log('logout.');
   }

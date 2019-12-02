@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit , OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('log-in');
     this.getState.subscribe((state) => {
-      this.errorMessage = state.errorMessage;
+      // this.errorMessage = state.errorMessage;
     });
   }
   ngOnDestroy(): void {
