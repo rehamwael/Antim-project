@@ -21,43 +21,17 @@ export class CustomerRequestService {
     };
   }
   customerAllRequests(): Observable<any> {
-    return this.httpClient.get(`${this.Url}CustomerRequest/CustomerAllRequests`, this.httpOptions).pipe(
+    return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequests`, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
   }
-  customerOngoingRequests(): Observable<any> {
-
-    return this.httpClient.get(`${this.Url}CustomerRequest/CustomerOngoingRequests`, this.httpOptions).pipe(
-      tap((res: any) => {
-      })
-    );
-  }
-  customerAwaitingRequests(): Observable<any> {
-
-    return this.httpClient.get(`${this.Url}CustomerRequest/CustomerAwaitingRequests`, this.httpOptions).pipe(
-      tap((res: any) => {
-      })
-    );
-  }
-  customerRejectedRequests(): Observable<any> {
-    return this.httpClient.get(`${this.Url}CustomerRequest/CustomerRejectedRequests`, this.httpOptions).pipe(
-      tap((res: any) => {
-      })
-    );
-  }
-  customerClosedRequests(): Observable<any> {
-    return this.httpClient.get(`${this.Url}CustomerRequest/CustomerClosedRequests`, this.httpOptions).pipe(
-      tap((res: any) => {
-      })
-    );
-  }
-  customerDraftedRequests(): Observable<any> {
-    return this.httpClient.get(`${this.Url}CustomerRequest/CustomerDraftedRequests`, this.httpOptions).pipe(
-      tap((res: any) => {
-      })
-    );
-  }
+  // getRequestTypeData(type: any): Observable<any> {
+  //   return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequests?type=${type}`, this.httpOptions).pipe(
+  //     tap((res: any) => {
+  //     })
+  //   );
+  // }
 
 
   AddCustomerRequest(customerRequest: any): Observable<any> {

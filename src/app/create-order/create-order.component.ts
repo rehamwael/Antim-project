@@ -72,14 +72,29 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   showErrorToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
-
+  closeSecond() {
+    this.addSecondItem = false;
+  }
+  closeThird() {
+    this.addThirdItem = false;
+  }
   ngOnInit(): void {
+    // tslint:disable-next-line: max-line-length
+    const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+    const regex = new RegExp(expression);
     this.firstFormGroup = this._formBuilder.group({
-      link1: [null, Validators.compose([
-        Validators.required
-      ])],
-      link2: [''],
-      link3: [''],
+      link1:  ['', [
+        Validators.required,
+        // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+        Validators.pattern(regex)
+    ]],
+    // link1: [null, Validators.compose([
+    //   Validators.required,
+    //   // tslint:disable-next-line: max-line-length
+    //   Validators.pattern('[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)')
+    // ])],
+      link2: ['', [ Validators.pattern(regex) ]],
+      link3: ['', [ Validators.pattern(regex) ]],
       Name: [null, Validators.compose([
         Validators.required
       ])],
