@@ -1484,7 +1484,7 @@ table td.mat-cell, td.mat-footer-cell, table th.mat-header-cell {
     border-bottom-style: none;
     background: #fff;
     margin: 10px 0;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
 }
 tr.mat-row.selected td.mat-cell.cdk-column-position.mat-column-position{
@@ -1529,11 +1529,15 @@ td.mat-cell.Waiting ,td.mat-cell.Waiting {
     text-transform: uppercase;
 }
 td.mat-cell.Ongoing  {
-    color: #f6cf00 !important;
+    color: #52cb5f !important;
     text-transform: uppercase;
 }
+td.mat-cell.Draft {
+  color: #bd7eaa !important;
+  text-transform: uppercase;
+}
 td.mat-cell.Closed {
-  color: #52cb5f !important;
+  color: blue !important;
   text-transform: uppercase;
 }
 td.mat-cell.Reject {

@@ -43,16 +43,14 @@ export class CustomerRequestService {
     );
   }
 
-  EditCustomerRequest(customerRequest: any): Observable<any> {
+  // EditCustomerRequest(customerRequest: any): Observable<any> {
 
-    return this.httpClient.patch(`${this.Url}CustomerRequest/EditRequest`, customerRequest, this.httpOptions).pipe(
-      tap((res: any) => {
-        console.log('In EditRequest service:', res);
-      })
-    );
-  }
+  //   return this.httpClient.patch(`${this.Url}CustomerRequest/EditRequest`, customerRequest, this.httpOptions).pipe(
+  //     tap((res: any) => {
+  //       console.log('In EditRequest service:', res);
+  //     })
+  //   );
+  // }
 }
 
-  // CustomerRequest/ChangeCustomerRequestType
-  // CustomerRequest/DeleteRequest
 

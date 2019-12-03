@@ -6,6 +6,11 @@ import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Product} from './product';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState, selectAuthenticationState } from './../store/app.states';
+import { UserProfile } from './../store/actions/auth.actions';
+
 @Component({
   selector: 'app-create-order',
   templateUrl: './create-order.component.html',
@@ -13,6 +18,8 @@ import { Product} from './product';
 })
 
 export class CreateOrderComponent implements OnInit, OnDestroy {
+  getState: Observable<any>;
+  currentUser: any;
   disableButton1 = false;
   disableButton2 = true;
   disableButton3 = true;
@@ -21,7 +28,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   Link3: any;
   requestName: any;
   // product: Product = [];
-   Products: any = [];
+  Products: any = [];
   price1: number;
   price2: number;
   price3: number;
@@ -60,11 +67,13 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private toastr: ToastrService,
     private customerRequestService: CustomerRequestService,
-    private spinner: NgxSpinnerService
-  ) {
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
+    private spinner: NgxSpinnerService,
+    private store: Store<AppState>,
+    ) {
+      this.getState = this.store.select(selectAuthenticationState);
+      this.options = this.toastr.toastrConfig;
+      this.options.positionClass = 'toast-top-right';
+      this.options.timeOut = 5000;
   }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
@@ -79,6 +88,13 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.addThirdItem = false;
   }
   ngOnInit(): void {
+    this.getState.subscribe((state) => {
+      const token = localStorage.getItem('token');
+      this.currentUser = state.userProfile;
+      if (!this.currentUser && token) {
+        this.store.dispatch(new UserProfile());
+      }
+    });
     // tslint:disable-next-line: max-line-length
     const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
     const regex = new RegExp(expression);
@@ -217,6 +233,28 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.disabledSubmitButtonSecond = false;
     }
   }
+  saveAsDraft(content4) {
+    this.spinner.show();
+    this.customerRequestService.AddCustomerRequest({
+      'Name': this.requestName,
+      'TotalFundAmount': this.totalPrice,
+      'PaybackPeriod': this.installmentPeriod_ENUM,
+      'MonthlyPaybackAmount': this.monthlyPrice,
+      'TotalPaybackAmount': this.totalPriceWithProfit,
+      'Type': 'Draft',
+      'Products': this.Products
+    }).subscribe((res) => {
+      console.log(' Added:', res);
+      this.spinner.hide();
+      this.showSuccessToast('OK!!', res.message, 'success');
+      this.modalService.open(content4, { centered: true });
+    }, err => {
+      console.log(' ERROR:', err);
+      this.spinner.hide();
+      this.showErrorToast('Error!!', err.error.message, 'error');
+    });
+  }
+
 
 
   inputPrice1(event) {

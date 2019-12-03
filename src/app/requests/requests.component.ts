@@ -41,6 +41,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
   editRequestForm: FormGroup;
   showSecondLinkPriceRow = false;
   showThirdLinkPriceRow = false;
+  enableSaveButton = false;
+  showOptions = false;
+  editAwaiting = false;
+  editDraft = false;
+  selectDisabled = true;
 
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
@@ -67,6 +72,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
 
   getAllCustomersRequests() {
+    return new Promise((resolve, reject) => {
     allCustomerRequestData.length = 0;
     this.spinner.show();
     this.customerRequestService.customerAllRequests().subscribe(res => {
@@ -90,17 +96,23 @@ export class RequestsComponent implements OnInit, OnDestroy {
         if (element.type === 6) {
           element.status = 'Rejected';
         }
+        if (element.type === 5) {
+          element.status = 'Draft';
+        }
         element.position = i;
         i++;
       });
       console.log('customerAllRequests:', allCustomerRequestData);
+      resolve(res);
     }, err => {
+      reject(err);
       this.spinner.hide();
       console.log('ERROR:', err);
     });
-  }
+  });
+}
   ngOnInit(): void {
-    this.getAllCustomersRequests();
+    this.getAllCustomersRequests().then(e => {
     this.editRequestForm = this._formBuilder.group({
       Link1: ['', [
         Validators.required,
@@ -139,13 +151,45 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.requestType = requestTypeParams;
     }
 
-  }
+  });
+}
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('requests');
   }
+  onSelectChange(Value) {
+      if (Value === '3-Months') {
+        this.monthlyInstallment = this.totalPriceWithProfit / 3;
+        this.monthlyInstallment = Math.round(this.monthlyInstallment);
+      }
+      if (Value === '6-Months') {
+        this.monthlyInstallment = this.totalPriceWithProfit / 6;
+        this.monthlyInstallment = Math.round(this.monthlyInstallment);
+      }
+      if (Value === '9-Months') {
+        this.monthlyInstallment = this.totalPriceWithProfit / 9;
+        this.monthlyInstallment = Math.round(this.monthlyInstallment);
+      }
+      if (Value === '12-Months') {
+        this.monthlyInstallment = this.totalPriceWithProfit / 12;
+        this.monthlyInstallment = Math.round(this.monthlyInstallment);
+      }
+      if (this.totalPrice < 500 || this.totalPrice > 10000) {
+      }
+    }
+
   EditInfo() {
+    this.totalPrice = this.price1 + this.price2 + this.price3;
+    this.selectDisabled = false;
+    this.enableSaveButton = true;
+    this.editRequestForm.get('Link1').enable();
+    this.editRequestForm.get('Link2').enable();
+    this.editRequestForm.get('Link3').enable();
+    this.editRequestForm.get('Price1').enable();
+    this.editRequestForm.get('Price2').enable();
+    this.editRequestForm.get('Price3').enable();
+    this.editRequestForm.get('InstallmentPeriod').enable();
 
   }
   SaveInfo() {
@@ -192,20 +236,42 @@ export class RequestsComponent implements OnInit, OnDestroy {
     if (deviceValue === 'Closed') {
       this.requestType = 'Closed';
     }
+    if (deviceValue === 'Draft') {
+      this.requestType = 'Draft';
+    }
   }
   openProductDetails(row) {
     this.spinner.show();
+    console.log('REQUEST DEATAILS: ', row);
     this.productStatus = row.status;
-    if (row.type === 1) {
+    if (this.productStatus === 'Draft') {
+      this.editDraft = true;
+    }
+    if (this.productStatus === 'Waiting for approval') {
+      this.editAwaiting = true;
+    }
+    if (this.productStatus === 'Ongoing') {
+      this.editDraft = false;
+      this.editAwaiting = false;
+    }
+    if (this.productStatus === 'Rejected') {
+      this.editDraft = false;
+      this.editAwaiting = false;
+    }
+    if (this.productStatus === 'Closed') {
+      this.editDraft = false;
+      this.editAwaiting = false;
+    }
+    if (row.paybackPeriod === 1) {
       this.installmentPeriod = '3-Months';
     }
-    if (row.type === 2) {
+    if (row.paybackPeriod === 2) {
       this.installmentPeriod = '6-Months';
     }
-    if (row.type === 3) {
+    if (row.paybackPeriod === 3) {
       this.installmentPeriod = '9-Months';
     }
-    if (row.type === 4) {
+    if (row.paybackPeriod === 4) {
       this.installmentPeriod = '12-Months';
     }
     this.customerRequestService.getRequestDataById(row.id)
@@ -230,6 +296,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.totalPriceWithProfit = row.value;
     this.requestDate = row.date;
     this.monthlyInstallment = row.monthlyPaybackAmount;
+
     this.slectedProduct = true;
   }
   closeProductDetails() {

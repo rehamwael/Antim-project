@@ -250,7 +250,7 @@
                                                             <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
                                                     </div>
                                                     <div class="form-group col-lg-4">
-                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2">Save as Draft</button>
+                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="saveAsDraft()">Save as Draft</button>
                                                 </div>
                                                     <div class="form-group col-lg-3">
                                                         <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext (click)="openVerticallyCentered(content3)">Send Request</button>
@@ -268,8 +268,19 @@
                               <ng-template #content3 let-modal>
                                     <div class="modal-body">
                                       <p>
-                                            Thank you Ismael,<br/>
+                                            Thank you {{currentUser?.firstName}},<br/>
                                              Your request has been Successfully sent, and will be verified if you are qualified for funding and will be responded to within 30 minutes
+
+                                      </p>
+                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/dashbored-customer' ]" (click)="modal.close('Close click')">Back to home</button></div>
+
+                                    </div>
+                                  </ng-template>
+                                  <ng-template #content4 let-modal>
+                                    <div class="modal-body">
+                                      <p>
+                                            Thank you {{currentUser?.firstName}},<br/>
+                                             Your request has been Saved as Draft.
 
                                       </p>
                                       <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/dashbored-customer' ]" (click)="modal.close('Close click')">Back to home</button></div>
