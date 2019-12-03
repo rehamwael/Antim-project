@@ -3,11 +3,3 @@
   font-size: 10px;
   visibility: hidden;
 }
-
-select.form-control {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 200px;
-  border-color: #444 #333 #333 #444!important;
-}

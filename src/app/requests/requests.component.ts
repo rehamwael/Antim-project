@@ -37,6 +37,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   price3: number;
   totalPrice: number;
   totalPriceWithProfit: number;
+  editTotalPriceWithProfit: number;
   monthlyInstallment: number;
   installmentPeriod: any;
   installmentPeriod_ENUM: number;
@@ -47,6 +48,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   enableSaveButton = false;
   showOptions = false;
   editFields = false;
+  disableButton1 = false;
   // displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
@@ -181,99 +183,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     body.classList.remove('dashbored');
     body.classList.remove('requests');
   }
-  onSelectChange(Value) {
-    if (Value === '3-Months') {
-      this.installmentPeriod_ENUM = 1;
-      this.monthlyInstallment = this.totalPriceWithProfit / 3;
-      this.monthlyInstallment = Math.round(this.monthlyInstallment);
-    }
-    if (Value === '6-Months') {
-      this.installmentPeriod_ENUM = 2;
-      this.monthlyInstallment = this.totalPriceWithProfit / 6;
-      this.monthlyInstallment = Math.round(this.monthlyInstallment);
-    }
-    if (Value === '9-Months') {
-      this.installmentPeriod_ENUM = 3;
-      this.monthlyInstallment = this.totalPriceWithProfit / 9;
-      this.monthlyInstallment = Math.round(this.monthlyInstallment);
-    }
-    if (Value === '12-Months') {
-      this.installmentPeriod_ENUM = 4;
-      this.monthlyInstallment = this.totalPriceWithProfit / 12;
-      this.monthlyInstallment = Math.round(this.monthlyInstallment);
-    }
-    if (this.totalPrice < 500 || this.totalPrice > 10000) {
-    }
-  }
-  calculateProfit() {
-    return new Promise((resolve, reject) => {
-      if (this.link1) {
-        this.editedProducts.push(this.Product1);
-      }
-      if (this.link1 && this.link2) {
-        this.editedProducts.push(this.Product2);
-      }
-      if (this.link1 && this.link2 && this.link3) {
-        this.editedProducts.push(this.Product3);
-      }
-      if (!this.link2) {
-        this.price2 = 0;
-      }
-      if (!this.link3) {
-        this.price3 = 0;
-      }
-      this.totalPrice = this.price1 + this.price2 + this.price3;
-      console.log('totalPrice:', this.totalPrice);
-      if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
-        // tslint:disable-next-line: max-line-length
-        this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000, Please Enter correct price.', 'error');
-      }
-      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
-        this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
-        // console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
-      } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
-        this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
-        // console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
-      }
-      resolve();
-    });
-  }
-  editRequestInfo() {
-    this.totalPrice = this.price1 + this.price2 + this.price3;
-    this.enableSaveButton = true;
-    this.editRequestForm.get('Link1').enable();
-    this.editRequestForm.get('Link2').enable();
-    this.editRequestForm.get('Link3').enable();
-    this.editRequestForm.get('Price1').enable();
-    this.editRequestForm.get('Price2').enable();
-    this.editRequestForm.get('Price3').enable();
-    this.editRequestForm.get('InstallmentPeriod').enable();
-  }
-  SaveEditRequestInfo() {
-    this.calculateProfit().then(e => {
-      this.spinner.show();
-      this.customerRequestService.EditCustomerRequest({
-        'Id': this.reqID,
-        'Name': this.productName,
-        'TotalFundAmount': this.totalPrice,
-        'PaybackPeriod': this.installmentPeriod_ENUM,
-        'MonthlyPaybackAmount': this.monthlyInstallment,
-        'TotalPaybackAmount': this.totalPriceWithProfit,
-        'Type': 'Draft',
-        'Products': this.editedProducts
-      }).subscribe((res) => {
-        console.log(' Edited result:', res);
-        this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
-        this.enableSaveButton = false;
-        // this.modalService.open(content, { centered: true });
-      }, err => {
-        console.log(' ERROR:', err);
-        this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
-      });
-    });
-  }
+
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -324,7 +234,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.reqID = row.id;
     this.productName = row.name;
     this.totalPrice = row.totalFundAmount;
-    console.log('PRICE: ', this.totalPrice);
+    this.editTotalPriceWithProfit = row.totalPaybackAmount;
     if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
       this.showOptions = true;
     } else {
@@ -408,6 +318,138 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.spinner.hide();
       this.modalService.dismissAll();
       this.showErrorToast('Error!!', err.message, 'error');
+    });
+  }
+  inputPrice1(event) {
+    // tslint:disable-next-line: prefer-const
+    let price = event.target.value;
+    if (price >= 200 && price <= 10000) {
+      this.disableButton1 = true;
+    } else {
+      this.disableButton1 = false;
+    }
+  }
+  inputPrice2(event) {
+    // tslint:disable-next-line: prefer-const
+    let price = event.target.value;
+    // if (price >= 200 && price <= 10000) {
+    //   this.disableButton2 = true;
+    // } else {
+    //   this.disableButton2 = false;
+    // }
+    // if (price === '') {
+    //   this.disableButton2 = true;
+    // }
+  }
+  inputPrice3(event) {
+    // if (this.price2 === null ) {
+    //   this.disableButton3 = true;
+    // } else {
+    //   this.disableButton3 = false;
+    // }
+    // // tslint:disable-next-line: prefer-const
+    // let price = event.target.value;
+    // if (price >= 200 && price <= 10000) {
+    //   this.disableButton3 = true;
+    // } else {
+    //   this.disableButton3 = false;
+    // }
+    // if (price === '') {
+    //   this.disableButton3 = true;
+    // }
+  }
+
+
+  onSelectChange(Value) {
+    // console.log(this.monthlyInstallment, this.editTotalPriceWithProfit);
+    if (Value === '3-Months') {
+      this.installmentPeriod_ENUM = 1;
+      this.monthlyInstallment = this.editTotalPriceWithProfit / 3;
+      this.monthlyInstallment = Math.round(this.monthlyInstallment);
+    }
+    if (Value === '6-Months') {
+      this.installmentPeriod_ENUM = 2;
+      this.monthlyInstallment = this.editTotalPriceWithProfit / 6;
+      this.monthlyInstallment = Math.round(this.monthlyInstallment);
+    }
+    if (Value === '9-Months') {
+      this.installmentPeriod_ENUM = 3;
+      this.monthlyInstallment = this.editTotalPriceWithProfit / 9;
+      this.monthlyInstallment = Math.round(this.monthlyInstallment);
+    }
+    if (Value === '12-Months') {
+      this.installmentPeriod_ENUM = 4;
+      this.monthlyInstallment = this.editTotalPriceWithProfit / 12;
+      this.monthlyInstallment = Math.round(this.monthlyInstallment);
+    }
+  }
+  calculateProfit() {
+    return new Promise((resolve, reject) => {
+      if (this.link1) {
+        this.editedProducts.push(this.Product1);
+      }
+      if (this.link1 && this.link2) {
+        this.editedProducts.push(this.Product2);
+      }
+      if (this.link1 && this.link2 && this.link3) {
+        this.editedProducts.push(this.Product3);
+      }
+      if (!this.link2) {
+        this.price2 = 0;
+      }
+      if (!this.link3) {
+        this.price3 = 0;
+      }
+      this.totalPrice = this.price1 + this.price2 + this.price3;
+      console.log('totalPrice:', this.totalPrice);
+      if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
+        // tslint:disable-next-line: max-line-length
+        this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000, Please Enter correct price.', 'error');
+      }
+      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+        this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
+        // console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
+      } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+        this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
+        // console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
+      }
+      resolve();
+    });
+  }
+  editRequestInfo() {
+    this.enableSaveButton = true;
+    this.editRequestForm.get('ProductName').enable();
+    this.editRequestForm.get('Link1').enable();
+    this.editRequestForm.get('Link2').enable();
+    this.editRequestForm.get('Link3').enable();
+    this.editRequestForm.get('Price1').enable();
+    this.editRequestForm.get('Price2').enable();
+    this.editRequestForm.get('Price3').enable();
+    this.editRequestForm.get('InstallmentPeriod').enable();
+  }
+  SaveEditRequestInfo() {
+    this.calculateProfit().then(e => {
+      this.spinner.show();
+      this.customerRequestService.EditCustomerRequest({
+        'Id': this.reqID,
+        'Name': this.productName,
+        'TotalFundAmount': this.totalPrice,
+        'PaybackPeriod': this.installmentPeriod_ENUM,
+        'MonthlyPaybackAmount': this.monthlyInstallment,
+        'TotalPaybackAmount': this.totalPriceWithProfit,
+        'Type': 'Draft',
+        'Products': this.editedProducts
+      }).subscribe((res) => {
+        console.log(' Edited result:', res);
+        this.spinner.hide();
+        this.showSuccessToast('OK!!', res.message, 'success');
+        this.enableSaveButton = false;
+        // this.modalService.open(content, { centered: true });
+      }, err => {
+        console.log(' ERROR:', err);
+        this.spinner.hide();
+        this.showErrorToast('Error!!', err.error.message, 'error');
+      });
     });
   }
   openVerticallyCentered(content3) {

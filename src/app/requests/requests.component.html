@@ -158,16 +158,22 @@
             <div class="col-lg-12">
                 <label for="Name" class="font-bold mt-2">Product Name: </label>
                 <input formControlName="ProductName" class="form-control form-control-lg" value="{{productName}}" [(ngModel)]="productName" placeholder="Product Name"  [attr.disabled]="true">
+                <div *ngIf="editRequestForm.controls['ProductName'].touched && editRequestForm.controls['ProductName'].hasError('required')" class="error-msg alert alert-danger text-left">Product Name is required.</div>
             </div>
           </div>
           <div class="row" style="width: 100%;">
               <div class="col-lg-9">
                   <label for="Link1" class="font-bold mt-2">Link1</label>
                   <input formControlName="Link1" class="form-control form-control-lg" value="{{link1}}" [(ngModel)]="link1" placeholder="Link1"  [attr.disabled]="true">
+                  <div *ngIf="editRequestForm.controls['Link1'].touched && editRequestForm.controls['Link1'].hasError('required')" class="error-msg alert alert-danger text-left">Product Link is required.</div>
               </div>
               <div class="col-lg-3">
                 <label for="price1" class="font-bold mt-2">Price</label>
-                <input formControlName="Price1"  class="form-control form-control-lg" value="{{price1}}" [(ngModel)]="price1"  placeholder="price" digitOnly [attr.disabled]="true">
+                <input formControlName="Price1"  class="form-control form-control-lg" value="{{price1}}" [(ngModel)]="price1"  placeholder="price" digitOnly [attr.disabled]="true"  (keyup)="inputPrice1($event)"
+                oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber1').style.visibility = 'hidden'; }
+                  else { document.getElementById('phonenumber1').style.visibility = 'visible'; }" >
+                  <div *ngIf="editRequestForm.controls['Price1'].touched && editRequestForm.controls['Price1'].hasError('required')" class="error-msg alert alert-danger text-left">Product price is required.</div>
+                  <span class="redColor" id="phonenumber1"> Price must be greater than 200 and less than 10000.</span>
               </div>
           </div>
           <div class="row" style="width: 100%;" *ngIf="showSecondLinkPriceRow">
@@ -177,7 +183,10 @@
             </div>
             <div class="col-lg-3">
               <label for="price1" class="font-bold mt-2">Price</label>
-              <input formControlName="Price2" class="form-control form-control-lg" value="{{price2}}" [(ngModel)]="price2"  placeholder="price" digitOnly [attr.disabled]="true">
+              <input formControlName="Price2" class="form-control form-control-lg" value="{{price2}}" [(ngModel)]="price2"  placeholder="price" digitOnly [attr.disabled]="true" (keyup)="inputPrice2($event)"
+              oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber2').style.visibility = 'hidden'; }
+                    else { document.getElementById('phonenumber2').style.visibility = 'visible'; }" >
+                    <span class="redColor" id="phonenumber2"> Price must be greater than 200 and less than 10000.</span>
             </div>
         </div>
         <div class="row" style="width: 100%;" *ngIf="showThirdLinkPriceRow">
@@ -187,7 +196,10 @@
           </div>
           <div class="col-lg-3">
             <label for="price1" class="font-bold mt-2">Price</label>
-            <input formControlName="Price3" class="form-control form-control-lg" value="{{price3}}" [(ngModel)]="price3"  placeholder="price" digitOnly [attr.disabled]="true">
+            <input formControlName="Price3" class="form-control form-control-lg" value="{{price3}}" [(ngModel)]="price3"  placeholder="price" digitOnly [attr.disabled]="true" (keyup)="inputPrice3($event)"
+            oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber3').style.visibility = 'hidden'; }
+                  else { document.getElementById('phonenumber3').style.visibility = 'visible'; }" >
+                  <span class="redColor" id="phonenumber3"> Price must be greater than 200 and less than 10000.</span>
           </div>
       </div>
       <div class="row" style="width: 100%;">
@@ -201,7 +213,7 @@
             </div>
             <div class="col-lg-4">
               <label for="totalAmount" class="font-bold mt-2">Total Payable Amount</label>
-              <input formControlName="TotalAmount" class="form-control form-control-lg" value="{{totalPriceWithProfit}}" [(ngModel)]="totalPriceWithProfit" placeholder="Installment amount per month" [attr.disabled]="true" readonly>
+              <input formControlName="TotalAmount" class="form-control form-control-lg" value="{{editTotalPriceWithProfit}}" [(ngModel)]="editTotalPriceWithProfit" placeholder="Installment amount per month" [attr.disabled]="true" readonly>
           </div>
         </div>
 
@@ -223,13 +235,13 @@
       </div>
             <div class="col-lg-4">
                 <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
-                <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}" [(ngModel)]="monthlyInstallment" placeholder="Installment amount per month" [attr.disabled]="true">
+                <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}" [(ngModel)]="monthlyInstallment" readonly placeholder="Installment amount per month" [attr.disabled]="true">
             </div>
         </div>
         <div class="row" style="width: 100%;">
             <div class="col-lg-6">
               <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
-              <input formControlName="RequestStatus" class="form-control form-control-lg {{productStatus}}" value="{{productStatus}}" [(ngModel)]="productStatus"[attr.disabled]="true">
+              <input formControlName="RequestStatus" class="form-control form-control-lg {{productStatus}}" value="{{productStatus}}" readonly [(ngModel)]="productStatus"[attr.disabled]="true">
             </div>
 
 
@@ -264,7 +276,7 @@
                       </button>
                   </div>
              <div class="form-group col-lg-4">
-                 <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="enableSaveButton" (click)="SaveEditRequestInfo()">Save</button>
+                 <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="enableSaveButton && disableButton1" (click)="SaveEditRequestInfo()">Save</button>
              </div>
 
       </div>
