@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,9 +15,10 @@ export interface PeriodicElement {
   date: string;
   value: string;
   status: string;
+  id?: string;
 }
 
-const allCustomerRequestData: PeriodicElement[] = [];
+let allCustomerRequestData: PeriodicElement[] = [];
 
 @Component({
   selector: 'app-requests',
@@ -26,6 +27,8 @@ const allCustomerRequestData: PeriodicElement[] = [];
 })
 
 export class RequestsComponent implements OnInit, OnDestroy {
+  productName: any;
+  reqID: any;
   link1: any;
   link2: any;
   link3: any;
@@ -43,11 +46,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
   showThirdLinkPriceRow = false;
   enableSaveButton = false;
   showOptions = false;
-  editAwaiting = false;
-  editDraft = false;
-  selectDisabled = true;
-
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
+  editFields = false;
+  // displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType = 'All Requests';
@@ -73,86 +74,96 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
   getAllCustomersRequests() {
     return new Promise((resolve, reject) => {
-    allCustomerRequestData.length = 0;
-    this.spinner.show();
-    this.customerRequestService.customerAllRequests().subscribe(res => {
-      this.allData = true;
-      this.spinner.hide();
-      this.allRequestData = res.result;
-      let i = 1;
-      this.allRequestData.forEach(element => {
-        allCustomerRequestData.push(element);
-        element.date = moment(element.createdAt).format('LL');
-        element.value = element.totalPaybackAmount + ' SAR';
-        if (element.type === 4) {
-          element.status = 'Waiting for approval';
-        }
-        if (element.type === 2) {
-          element.status = 'Closed';
-        }
-        if (element.type === 3) {
-          element.status = 'Ongoing';
-        }
-        if (element.type === 6) {
-          element.status = 'Rejected';
-        }
-        if (element.type === 5) {
-          element.status = 'Draft';
-        }
-        element.position = i;
-        i++;
+      allCustomerRequestData.length = 0;
+      this.spinner.show();
+      this.customerRequestService.customerAllRequests().subscribe(res => {
+        this.allData = true;
+        this.spinner.hide();
+        this.allRequestData = res.result;
+        let i = 1;
+        this.allRequestData.forEach(element => {
+          allCustomerRequestData.push(element);
+          element.date = moment(element.createdAt).format('LL');
+          element.value = element.totalPaybackAmount + ' SAR';
+          if (element.type === 4) {
+            element.status = 'Waiting for approval';
+          }
+          if (element.type === 2) {
+            element.status = 'Closed';
+          }
+          if (element.type === 3) {
+            element.status = 'Ongoing';
+          }
+          if (element.type === 6) {
+            element.status = 'Rejected';
+          }
+          if (element.type === 5) {
+            element.status = 'Draft';
+          }
+          element.position = i;
+          i++;
+        });
+        console.log('customerAllRequests:', allCustomerRequestData);
+        resolve(res);
+      }, err => {
+        reject(err);
+        this.spinner.hide();
+        console.log('ERROR:', err);
       });
-      console.log('customerAllRequests:', allCustomerRequestData);
-      resolve(res);
-    }, err => {
-      reject(err);
-      this.spinner.hide();
-      console.log('ERROR:', err);
     });
-  });
-}
+  }
   ngOnInit(): void {
     this.getAllCustomersRequests().then(e => {
-    this.editRequestForm = this._formBuilder.group({
-      Link1: ['', [
-        Validators.required,
-      ]],
-      Link2: [''],
-      Link3: [''],
-      Price1: [null, Validators.compose([
-        Validators.required
-      ])],
-      Price2: [''],
-      Price3: [''],
-      RequestDate: [''],
-      TotalAmount: [''],
-      InstallmentPeriod: [''],
-      MonthlyInstallment: [''],
-      FundingAmount: [''],
-      RequestStatus: ['']
+      this.editRequestForm = this._formBuilder.group({
+        Link1: ['', [
+          Validators.required,
+        ]],
+        Link2: [''],
+        Link3: [''],
+        ProductName: ['', [
+          Validators.required,
+        ]],
+        Price1: [null, Validators.compose([
+          Validators.required
+        ])],
+        Price2: [''],
+        Price3: [''],
+        RequestDate: [''],
+        TotalAmount: [''],
+        installmentPeriod: [{ value: '', disabled: true }],
+        InstallmentPeriod: [{ value: '', disabled: true }],
+        MonthlyInstallment: [''],
+        FundingAmount: [''],
+        RequestStatus: [''],
+      });
+      this.editRequestForm.get('InstallmentPeriod').disable();
 
-    });
-
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.add('dashbored');
-    body.classList.add('requests');
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
+      const body = document.getElementsByTagName('body')[0];
+      body.classList.add('dashbored');
+      body.classList.add('requests');
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+          return;
+        }
+        window.scrollTo(0, 0);
+      });
+      const requestTypeParams = this.route.snapshot.paramMap.get('type');
+      console.log('requestTypeParams', requestTypeParams);
+      this.dataSourceAll.filter = requestTypeParams;
+      if (requestTypeParams === '') {
+        this.requestType = 'All Requests';
+      } else {
+        this.requestType = requestTypeParams;
       }
-      window.scrollTo(0, 0);
-    });
-    const requestTypeParams = this.route.snapshot.paramMap.get('type');
-    console.log('requestTypeParams', requestTypeParams);
-    this.dataSourceAll.filter = requestTypeParams;
-    if (requestTypeParams === '') {
-      this.requestType = 'All Requests';
-    } else {
-      this.requestType = requestTypeParams;
-    }
 
-  });
-}
+    });
+  }
+  showSuccessToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+  showErrorToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
@@ -181,7 +192,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
   EditInfo() {
     this.totalPrice = this.price1 + this.price2 + this.price3;
-    this.selectDisabled = false;
     this.enableSaveButton = true;
     this.editRequestForm.get('Link1').enable();
     this.editRequestForm.get('Link2').enable();
@@ -190,11 +200,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.editRequestForm.get('Price2').enable();
     this.editRequestForm.get('Price3').enable();
     this.editRequestForm.get('InstallmentPeriod').enable();
-
   }
   SaveInfo() {
 
   }
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSourceAll.data.length;
@@ -241,37 +251,39 @@ export class RequestsComponent implements OnInit, OnDestroy {
     }
   }
   openProductDetails(row) {
+    this.reqID = row.id;
+    this.productName = row.name;
+    this.totalPrice = row.totalFundAmount;
+    console.log('PRICE: ', this.totalPrice);
+    if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+      this.showOptions = true;
+    } else {
+      this.showOptions = false;
+    }
     this.spinner.show();
     console.log('REQUEST DEATAILS: ', row);
     this.productStatus = row.status;
-    if (this.productStatus === 'Draft') {
-      this.editDraft = true;
+    if (this.productStatus === 'Draft' || this.productStatus === 'Waiting for approval') {
+      this.editFields = true;
     }
-    if (this.productStatus === 'Waiting for approval') {
-      this.editAwaiting = true;
+    if (this.productStatus === 'Ongoing' || this.productStatus === 'Rejected' || this.productStatus === 'Closed') {
+      this.editFields = false;
     }
-    if (this.productStatus === 'Ongoing') {
-      this.editDraft = false;
-      this.editAwaiting = false;
-    }
-    if (this.productStatus === 'Rejected') {
-      this.editDraft = false;
-      this.editAwaiting = false;
-    }
-    if (this.productStatus === 'Closed') {
-      this.editDraft = false;
-      this.editAwaiting = false;
-    }
+
     if (row.paybackPeriod === 1) {
+      this.showOptions = false;
       this.installmentPeriod = '3-Months';
     }
     if (row.paybackPeriod === 2) {
+      this.showOptions = false;
       this.installmentPeriod = '6-Months';
     }
     if (row.paybackPeriod === 3) {
+      this.showOptions = true;
       this.installmentPeriod = '9-Months';
     }
     if (row.paybackPeriod === 4) {
+      this.showOptions = true;
       this.installmentPeriod = '12-Months';
     }
     this.customerRequestService.getRequestDataById(row.id)
@@ -292,7 +304,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
         }
         this.spinner.hide();
       });
-    this.totalPrice = row.totalFundAmount;
+
     this.totalPriceWithProfit = row.value;
     this.requestDate = row.date;
     this.monthlyInstallment = row.monthlyPaybackAmount;
@@ -300,9 +312,33 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.slectedProduct = true;
   }
   closeProductDetails() {
+    this.editRequestForm.get('InstallmentPeriod').disable();
+    this.showOptions = false;
+    this.editFields = false;
     this.showSecondLinkPriceRow = false;
     this.showThirdLinkPriceRow = false;
     this.slectedProduct = false;
+  }
+  openDeletePopup(content) {
+    this.modalService.open(content, { centered: true });
+  }
+
+  deleteRequest() {
+    this.spinner.show();
+    this.customerRequestService.deleteCustomerRequest(this.reqID).subscribe(res => {
+      allCustomerRequestData = allCustomerRequestData.filter(request => {
+        return request.id !== this.reqID;
+      });
+      this.dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
+      this.spinner.hide();
+      this.showSuccessToast('OK!!', res.message, 'success');
+      this.modalService.dismissAll();
+      this.closeProductDetails();
+    }, err => {
+      this.spinner.hide();
+      this.modalService.dismissAll();
+      this.showErrorToast('Error!!', err.message, 'error');
+    });
   }
   openVerticallyCentered(content3) {
     this.modalService.open(content3, { centered: true });
