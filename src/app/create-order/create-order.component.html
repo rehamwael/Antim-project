@@ -42,56 +42,65 @@
                                     <div class="form-group text-left col-lg-12">
                                     <h3 class="mb-4 mt-4">Enter product Detail(s)</h3>
                                     </div>
-                                    <div class="form-group text-left col-lg-12  " >
-                                        <!-- <h4 class="mb-4 mt-4">Request Name</h4> -->
-                                        <label for="name" class="font-bold mt-2">Request Name</label>
-                                        <input formControlName="Name" class="form-control form-control-lg" placeholder="Enter Request name here …"  type="text" [(ngModel)]="requestName">
-                                        <div *ngIf="firstFormGroup.controls['Name'].touched && firstFormGroup.controls['Name'].hasError('required')" class="error-msg alert alert-danger text-left">Request Name is required.</div>
+                                    <div class="row" style="width: 100%;">
+                                      <div class="form-group text-left col-lg-11  " >
+                                          <!-- <h4 class="mb-4 mt-4">Request Name</h4> -->
+                                          <label for="name" class="font-bold mt-2">Request Name</label>
+                                          <input formControlName="Name" class="form-control form-control-lg" placeholder="Enter Request name here …"  type="text" [(ngModel)]="requestName">
+                                          <div *ngIf="firstFormGroup.controls['Name'].touched && firstFormGroup.controls['Name'].hasError('required')" class="error-msg alert alert-danger text-left">Request Name is required.</div>
+                                      </div>
                                     </div>
-                                    <div class="form-group text-left col-lg-12">
-                                      <label for="Link1" class="font-bold mt-2">Product Link</label>
-                                      <input  formControlName="link1" class="form-control form-control-lg" placeholder="Enter product link here …" type="url" [(ngModel)]="Link1">
-                                      <div *ngIf="firstFormGroup.controls['link1'].touched && firstFormGroup.controls['link1'].hasError('required')" class="error-msg alert alert-danger text-left">Product Link is required.</div>
-                                      <div *ngIf="firstFormGroup.controls['link1'].touched && firstFormGroup.controls['link1'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter a Proper Link.</div>
+                                    <div class="row" style="width: 100%;">
+                                        <div class="form-group text-left col-lg-9">
+                                            <label for="Link1" class="font-bold mt-2">Product Link</label>
+                                            <input  formControlName="link1" class="form-control form-control-lg" placeholder="Enter product link here …" type="url" [(ngModel)]="Link1">
+                                            <div *ngIf="firstFormGroup.controls['link1'].touched && firstFormGroup.controls['link1'].hasError('required')" class="error-msg alert alert-danger text-left">Product Link is required.</div>
+                                            <div *ngIf="firstFormGroup.controls['link1'].touched && firstFormGroup.controls['link1'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter a Proper Link.</div>
+                                          </div>
+                                          <div class="form-group text-left col-lg-3">
+                                              <label for="price1" class="font-bold mt-2">Price : (in SAR)</label>
+                                              <input formControlName="Price1" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="price1" (keyup)="inputPrice1($event)"
+                                              oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
+                                              else { document.getElementById('phonenumber').style.visibility = 'visible'; }" >
+                                              <div *ngIf="firstFormGroup.controls['Price1'].touched && firstFormGroup.controls['Price1'].hasError('required')" class="error-msg alert alert-danger text-left">Product price is required.</div>
+                                              <span class="redColor" id="phonenumber"> Price must be greater than 200 and less than 10000.</span>
+                                            </div>
                                     </div>
 
-                                    <div class="form-group text-left col-lg-4">
-                                      <label for="price1" class="font-bold mt-2">Price : (in SAR)</label>
-                                      <input formControlName="Price1" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="price1" (keyup)="inputPrice1($event)"
-                                      oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
-                                      else { document.getElementById('phonenumber').style.visibility = 'visible'; }" >
-                                      <div *ngIf="firstFormGroup.controls['Price1'].touched && firstFormGroup.controls['Price1'].hasError('required')" class="error-msg alert alert-danger text-left">Product price is required.</div>
-                                      <span class="redColor" id="phonenumber"> Price must be greater than 200 and less than 10000.</span>
-                                  </div>
 
+
+                                <div class="row" style="width: 100%;">
                                   <a class="close-icon" (click)="closeSecond()"*ngIf="addSecondItem"><img src="assets/images/close.svg"></a>
-                                    <div class="form-group text-left col-lg-12  " *ngIf="addSecondItem">
+                                    <div class="form-group text-left col-lg-9" *ngIf="addSecondItem">
                                             <label for="Link2" class="font-bold mt-2">Product Link</label>
                                             <input formControlName="link2" class="form-control form-control-lg" placeholder="Enter product link here …"  type="text" [(ngModel)]="Link2">
                                             <div *ngIf="firstFormGroup.controls['link2'].touched && firstFormGroup.controls['link2'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter a Proper Link.</div>
                                         </div>
 
-                                    <div class="form-group text-left col-lg-4" *ngIf="addSecondItem">
+                                    <div class="form-group text-left col-lg-3" *ngIf="addSecondItem">
                                       <label for="price2" class="font-bold mt-2">Price : (in SAR)</label>
                                       <input formControlName="Price2" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="price2" (keyup)="inputPrice2($event)"
                                       oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber2').style.visibility = 'hidden'; }
                                             else { document.getElementById('phonenumber2').style.visibility = 'visible'; }" >
                                             <span class="redColor" id="phonenumber2"> Price must be greater than 200 and less than 10000.</span>
                                    </div>
+                                  </div>
 
-                                   <a class="close-icon" (click)="closeThird()" *ngIf="addThirdItem"><img src="assets/images/close.svg"></a>
-                              <div class="form-group text-left col-lg-12" *ngIf="addThirdItem">
+                            <div class="row" style="width: 100%;">
+                              <a class="close-icon" (click)="closeThird()" *ngIf="addThirdItem"><img src="assets/images/close.svg"></a>
+                              <div class="form-group text-left col-lg-9" *ngIf="addThirdItem">
                                 <label for="Link3" class="font-bold mt-2">Product Link</label>
                                 <input formControlName="link3" class="form-control form-control-lg" placeholder="Enter product link here …" type="text" [(ngModel)]="Link3">
                                 <div *ngIf="firstFormGroup.controls['link3'].touched && firstFormGroup.controls['link3'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter a Proper Link.</div>
                               </div>
-                                    <div class="form-group text-left col-lg-4" *ngIf="addThirdItem">
+                                    <div class="form-group text-left col-lg-3" *ngIf="addThirdItem">
                                       <label for="price3" class="font-bold mt-2">Price : (in SAR)</label>
                                       <input formControlName="Price3" class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="price3" (keyup)="inputPrice3($event)"
                                       oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber3').style.visibility = 'hidden'; }
                                             else { document.getElementById('phonenumber3').style.visibility = 'visible'; }" >
                                             <span class="redColor" id="phonenumber3"> Price must be greater than 200 and less than 10000.</span>
                                    </div>
+                              </div>
 
                                      <!-- <div class="form-group text-left col-lg-12" *ngIf="addMoreItem">
                                             <label for="Link4" class="font-bold mt-2">Link4</label>
@@ -132,9 +141,9 @@
                                     </ng-template>
                                     <div class="row mt-4">
                                     <div class="col-lg-6">
-                                        <label for="Installment" class="font-bold mt-2">Installment Peroid</label>
-                                        <select formControlName="firstCtrl" matNativeControl required class="form-control form-control-lg mt-3" (change)="onChange($event.target.value)">
-                                                <option value="6-Months-ex" selected>Ex: 6 Months</option>
+                                        <label for="Installment" class="font-bold mt-2">Select Installment Peroid</label>
+                                        <select formControlName="firstCtrl"  required class="form-control form-control-lg mt-3" (change)="onChange($event.target.value)">
+                                                <option selected value="E.g. 6-Months" >E.g: 6 Months</option>
                                                 <option value="3-Months" >3 Months</option>
                                                 <option  value="6-Months">6 Months</option>
                                                 <option *ngIf="showOptions" value="9-Months">9 Months</option>
@@ -143,8 +152,8 @@
                                     </div>
 
                                     <div class="col-lg-6">
-                                        <label for="amount" class="font-bold mt-2"> The amount of the monthly installment</label>
-                                        <input placeholder="1500 SAR" class="form-control form-control-lg" formControlName="secondCtrl" type="number" digitOnly [(ngModel)]="monthlyPrice" value= "{{monthlyPrice}}" required readonly style="height: 53px;">
+                                        <label for="amount" class="font-bold mt-2">Installment Amount per Month </label>
+                                        <input placeholder="E.g. 1200 SAR" class="form-control form-control-lg" formControlName="secondCtrl" type="number" digitOnly [(ngModel)]="monthlyPrice" value= "{{monthlyPrice}}" required readonly style="height: 53px;">
                                     </div>
                                 </div>
                                     <p class="my-5 grey-text-color">
@@ -276,7 +285,7 @@
 
                                     </div>
                                   </ng-template>
-                                  <ng-template #content4 let-modal>
+                                  <ng-template #content let-modal>
                                     <div class="modal-body">
                                       <p>
                                             Thank you {{currentUser?.firstName}},<br/>

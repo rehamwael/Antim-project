@@ -57,7 +57,19 @@ export class RequestsComponent implements OnInit, OnDestroy {
   options: IndividualConfig;
   allRequestData: any;
   allData: boolean;
-
+  editedProducts: any = [];
+  Product1 = {
+    Price: this.price1,
+    ProductUrl: this.link1
+  };
+  Product2 = {
+    Price: this.price2,
+    ProductUrl: this.link2
+  };
+  Product3 = {
+    Price: this.price3,
+    ProductUrl: this.link3
+  };
   constructor(private modalService: NgbModal,
     private _formBuilder: FormBuilder,
     public router: Router,
@@ -170,27 +182,63 @@ export class RequestsComponent implements OnInit, OnDestroy {
     body.classList.remove('requests');
   }
   onSelectChange(Value) {
-      if (Value === '3-Months') {
-        this.monthlyInstallment = this.totalPriceWithProfit / 3;
-        this.monthlyInstallment = Math.round(this.monthlyInstallment);
-      }
-      if (Value === '6-Months') {
-        this.monthlyInstallment = this.totalPriceWithProfit / 6;
-        this.monthlyInstallment = Math.round(this.monthlyInstallment);
-      }
-      if (Value === '9-Months') {
-        this.monthlyInstallment = this.totalPriceWithProfit / 9;
-        this.monthlyInstallment = Math.round(this.monthlyInstallment);
-      }
-      if (Value === '12-Months') {
-        this.monthlyInstallment = this.totalPriceWithProfit / 12;
-        this.monthlyInstallment = Math.round(this.monthlyInstallment);
-      }
-      if (this.totalPrice < 500 || this.totalPrice > 10000) {
-      }
+    if (Value === '3-Months') {
+      this.installmentPeriod_ENUM = 1;
+      this.monthlyInstallment = this.totalPriceWithProfit / 3;
+      this.monthlyInstallment = Math.round(this.monthlyInstallment);
     }
-
-  EditInfo() {
+    if (Value === '6-Months') {
+      this.installmentPeriod_ENUM = 2;
+      this.monthlyInstallment = this.totalPriceWithProfit / 6;
+      this.monthlyInstallment = Math.round(this.monthlyInstallment);
+    }
+    if (Value === '9-Months') {
+      this.installmentPeriod_ENUM = 3;
+      this.monthlyInstallment = this.totalPriceWithProfit / 9;
+      this.monthlyInstallment = Math.round(this.monthlyInstallment);
+    }
+    if (Value === '12-Months') {
+      this.installmentPeriod_ENUM = 4;
+      this.monthlyInstallment = this.totalPriceWithProfit / 12;
+      this.monthlyInstallment = Math.round(this.monthlyInstallment);
+    }
+    if (this.totalPrice < 500 || this.totalPrice > 10000) {
+    }
+  }
+  calculateProfit() {
+    return new Promise((resolve, reject) => {
+      if (this.link1) {
+        this.editedProducts.push(this.Product1);
+      }
+      if (this.link1 && this.link2) {
+        this.editedProducts.push(this.Product2);
+      }
+      if (this.link1 && this.link2 && this.link3) {
+        this.editedProducts.push(this.Product3);
+      }
+      if (!this.link2) {
+        this.price2 = 0;
+      }
+      if (!this.link3) {
+        this.price3 = 0;
+      }
+      this.totalPrice = this.price1 + this.price2 + this.price3;
+      console.log('totalPrice:', this.totalPrice);
+      if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
+        // tslint:disable-next-line: max-line-length
+        this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000, Please Enter correct price.', 'error');
+      }
+      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+        this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
+        // console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
+      } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+        this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
+        // console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
+      }
+      resolve();
+    });
+  }
+  editRequestInfo() {
     this.totalPrice = this.price1 + this.price2 + this.price3;
     this.enableSaveButton = true;
     this.editRequestForm.get('Link1').enable();
@@ -201,8 +249,30 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.editRequestForm.get('Price3').enable();
     this.editRequestForm.get('InstallmentPeriod').enable();
   }
-  SaveInfo() {
-
+  SaveEditRequestInfo() {
+    this.calculateProfit().then(e => {
+      this.spinner.show();
+      this.customerRequestService.EditCustomerRequest({
+        'Id': this.reqID,
+        'Name': this.productName,
+        'TotalFundAmount': this.totalPrice,
+        'PaybackPeriod': this.installmentPeriod_ENUM,
+        'MonthlyPaybackAmount': this.monthlyInstallment,
+        'TotalPaybackAmount': this.totalPriceWithProfit,
+        'Type': 'Draft',
+        'Products': this.editedProducts
+      }).subscribe((res) => {
+        console.log(' Edited result:', res);
+        this.spinner.hide();
+        this.showSuccessToast('OK!!', res.message, 'success');
+        this.enableSaveButton = false;
+        // this.modalService.open(content, { centered: true });
+      }, err => {
+        console.log(' ERROR:', err);
+        this.spinner.hide();
+        this.showErrorToast('Error!!', err.error.message, 'error');
+      });
+    });
   }
 
   isAllSelected() {

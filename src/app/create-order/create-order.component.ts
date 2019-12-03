@@ -164,7 +164,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       Price : this.price3,
       ProductUrl : this.Link3
     };
-    console.log(this.Products);
+    // console.log(this.Products);
     if (this.Link1) {
       this.totalProducts = 1;
       this.Products.push(Product1);
@@ -233,7 +233,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.disabledSubmitButtonSecond = false;
     }
   }
-  saveAsDraft(content4) {
+  saveAsDraft(content) {
     this.spinner.show();
     this.customerRequestService.AddCustomerRequest({
       'Name': this.requestName,
@@ -247,7 +247,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       console.log(' Added:', res);
       this.spinner.hide();
       this.showSuccessToast('OK!!', res.message, 'success');
-      this.modalService.open(content4, { centered: true });
+      this.modalService.open(content, { centered: true });
     }, err => {
       console.log(' ERROR:', err);
       this.spinner.hide();

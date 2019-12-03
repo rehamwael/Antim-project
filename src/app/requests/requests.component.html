@@ -52,7 +52,7 @@
                                         <i class="fa fa-calendar"></i>
                                         </div>
                                     </div>
-                                    </form>
+                           </form>
 
                                     <!-- <form class="col-lg-2">
                                       <div class="form-group">
@@ -154,10 +154,12 @@
                  </button>
                 </div>
             </div>
+          <div class="row" style="width: 100%;">
             <div class="col-lg-12">
                 <label for="Name" class="font-bold mt-2">Product Name: </label>
                 <input formControlName="ProductName" class="form-control form-control-lg" value="{{productName}}" [(ngModel)]="productName" placeholder="Product Name"  [attr.disabled]="true">
             </div>
+          </div>
           <div class="row" style="width: 100%;">
               <div class="col-lg-9">
                   <label for="Link1" class="font-bold mt-2">Link1</label>
@@ -254,7 +256,7 @@
             <div class="row" style="width: 100%;" *ngIf="editFields">
             <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" >
               <div class="form-group col-lg-4">
-                     <button class="btn btn-info btn-lg btn-block btn-black mt-2"  (click)="EditInfo()">
+                     <button class="btn btn-info btn-lg btn-block btn-black mt-2"  (click)="editRequestInfo()">
                           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                           </svg>
@@ -262,7 +264,7 @@
                       </button>
                   </div>
              <div class="form-group col-lg-4">
-                 <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="enableSaveButton" (click)="SaveInfo()">Save</button>
+                 <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="enableSaveButton" (click)="SaveEditRequestInfo()">Save</button>
              </div>
 
       </div>
