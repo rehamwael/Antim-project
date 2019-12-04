@@ -152,7 +152,7 @@
                       </svg>
                      <span class="px-3">Delete</span>
                  </button>
-                </div>
+              </div>
             </div>
           <div class="row" style="width: 100%;">
             <div class="col-lg-12">
@@ -169,7 +169,7 @@
               </div>
               <div class="col-lg-3">
                 <label for="price1" class="font-bold mt-2">Price</label>
-                <input formControlName="Price1"  class="form-control form-control-lg" value="{{price1}}" [(ngModel)]="price1"  placeholder="price" digitOnly [attr.disabled]="true"  (keyup)="inputPrice1($event)"
+                <input formControlName="Price1"  class="form-control form-control-lg" value="{{price1}}" [(ngModel)]="price1" type="number" placeholder="price" digitOnly [attr.disabled]="true"  (keyup)="inputPrice1($event)"
                 oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber1').style.visibility = 'hidden'; }
                   else { document.getElementById('phonenumber1').style.visibility = 'visible'; }" >
                   <div *ngIf="editRequestForm.controls['Price1'].touched && editRequestForm.controls['Price1'].hasError('required')" class="error-msg alert alert-danger text-left">Product price is required.</div>
@@ -183,7 +183,7 @@
             </div>
             <div class="col-lg-3">
               <label for="price1" class="font-bold mt-2">Price</label>
-              <input formControlName="Price2" class="form-control form-control-lg" value="{{price2}}" [(ngModel)]="price2"  placeholder="price" digitOnly [attr.disabled]="true" (keyup)="inputPrice2($event)"
+              <input formControlName="Price2" class="form-control form-control-lg" value="{{price2}}" [(ngModel)]="price2" type="number" placeholder="price" digitOnly [attr.disabled]="true" (keyup)="inputPrice2($event)"
               oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber2').style.visibility = 'hidden'; }
                     else { document.getElementById('phonenumber2').style.visibility = 'visible'; }" >
                     <span class="redColor" id="phonenumber2"> Price must be greater than 200 and less than 10000.</span>
@@ -196,7 +196,7 @@
           </div>
           <div class="col-lg-3">
             <label for="price1" class="font-bold mt-2">Price</label>
-            <input formControlName="Price3" class="form-control form-control-lg" value="{{price3}}" [(ngModel)]="price3"  placeholder="price" digitOnly [attr.disabled]="true" (keyup)="inputPrice3($event)"
+            <input formControlName="Price3" class="form-control form-control-lg" value="{{price3}}" [(ngModel)]="price3" type="number" placeholder="price" digitOnly [attr.disabled]="true" (keyup)="inputPrice3($event)"
             oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber3').style.visibility = 'hidden'; }
                   else { document.getElementById('phonenumber3').style.visibility = 'visible'; }" >
                   <span class="redColor" id="phonenumber3"> Price must be greater than 200 and less than 10000.</span>
@@ -209,11 +209,11 @@
             </div>
             <div class="col-lg-4">
                 <label for="Amount" class="font-bold mt-2">Total price</label>
-                <input formControlName="FundingAmount" class="form-control form-control-lg" value="{{totalPrice}}" [(ngModel)]="totalPrice" placeholder="Amount of funding"  [attr.disabled]="true" readonly>
+                <input formControlName="FundingAmount" class="form-control form-control-lg" value="{{totalPrice}}" type="number" [(ngModel)]="totalPrice" placeholder="Amount of funding"  [attr.disabled]="true" readonly>
             </div>
             <div class="col-lg-4">
               <label for="totalAmount" class="font-bold mt-2">Total Payable Amount</label>
-              <input formControlName="TotalAmount" class="form-control form-control-lg" value="{{editTotalPriceWithProfit}}" [(ngModel)]="editTotalPriceWithProfit" placeholder="Installment amount per month" [attr.disabled]="true" readonly>
+              <input formControlName="TotalAmount" class="form-control form-control-lg" value="{{editTotalPriceWithProfit}}" type="number" [(ngModel)]="editTotalPriceWithProfit" placeholder="Installment amount per month" [attr.disabled]="true" readonly>
           </div>
         </div>
 
@@ -224,7 +224,7 @@
         </div>
         <div class="col-lg-4" *ngIf="editFields">
           <label for="Installment" class="font-bold mt-2">Installment Peroid</label>
-              <select  formControlName="InstallmentPeriod"  matNativeControl [(ngModel)]="installmentPeriod" class="form-control form-control-lg mt-3" (change)="onSelectChange($event.target.value)" >
+              <select  formControlName="InstallmentPeriod"  matNativeControl [(ngModel)]="installmentPeriod" class="form-control form-control-lg " (change)="onSelectChange($event.target.value)" >
                   <!-- <option value="{{installmentPeriod}}" selected>{{installmentPeriod}} </option> -->
                   <option value="3-Months" >3 Months</option>
                   <option  value="6-Months" >6 Months</option>
@@ -235,7 +235,7 @@
       </div>
             <div class="col-lg-4">
                 <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
-                <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}" [(ngModel)]="monthlyInstallment" readonly placeholder="Installment amount per month" [attr.disabled]="true">
+                <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}" type="number"  [(ngModel)]="monthlyInstallment" readonly placeholder="Installment amount per month" [attr.disabled]="true">
             </div>
         </div>
         <div class="row" style="width: 100%;">

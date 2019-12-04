@@ -56,22 +56,12 @@ export class RequestsComponent implements OnInit, OnDestroy {
   requestType = 'All Requests';
   slectedProduct = false;
   productStatus: any;
+  index: any;
   options: IndividualConfig;
   allRequestData: any;
   allData: boolean;
   editedProducts: any = [];
-  Product1 = {
-    Price: this.price1,
-    ProductUrl: this.link1
-  };
-  Product2 = {
-    Price: this.price2,
-    ProductUrl: this.link2
-  };
-  Product3 = {
-    Price: this.price3,
-    ProductUrl: this.link3
-  };
+
   constructor(private modalService: NgbModal,
     private _formBuilder: FormBuilder,
     public router: Router,
@@ -231,6 +221,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     }
   }
   openProductDetails(row) {
+    this.index = allCustomerRequestData.findIndex(x => x.id === row.id);
     this.reqID = row.id;
     this.productName = row.name;
     this.totalPrice = row.totalFundAmount;
@@ -253,18 +244,22 @@ export class RequestsComponent implements OnInit, OnDestroy {
     if (row.paybackPeriod === 1) {
       this.showOptions = false;
       this.installmentPeriod = '3-Months';
+      this.installmentPeriod_ENUM = 1;
     }
     if (row.paybackPeriod === 2) {
       this.showOptions = false;
       this.installmentPeriod = '6-Months';
+      this.installmentPeriod_ENUM = 2;
     }
     if (row.paybackPeriod === 3) {
       this.showOptions = true;
       this.installmentPeriod = '9-Months';
+      this.installmentPeriod_ENUM = 3;
     }
     if (row.paybackPeriod === 4) {
       this.showOptions = true;
       this.installmentPeriod = '12-Months';
+      this.installmentPeriod_ENUM = 4;
     }
     this.customerRequestService.getRequestDataById(row.id)
       // tslint:disable-next-line: deprecation
@@ -292,6 +287,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.slectedProduct = true;
   }
   closeProductDetails() {
+    this.clearData();
     this.editRequestForm.get('InstallmentPeriod').disable();
     this.showOptions = false;
     this.editFields = false;
@@ -321,42 +317,82 @@ export class RequestsComponent implements OnInit, OnDestroy {
     });
   }
   inputPrice1(event) {
-    // tslint:disable-next-line: prefer-const
-    let price = event.target.value;
-    if (price >= 200 && price <= 10000) {
-      this.disableButton1 = true;
+    this.editRequestForm.get('InstallmentPeriod').enable();
+    const price = event.target.value;
+    this.price1 = price;
+    if (this.link2) {
+      this.totalPrice = +this.price1 + +this.price2;
+      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+        this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 25) / 100);
+        this.showOptions = false;
+      } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+        this.showOptions = true;
+        this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 15) / 100);
+      }
+    }
+    if (this.link2 && this.link3) {
+      this.totalPrice = +this.price1 + +this.price2 + +this.price3;
+      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+        this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 25) / 100);
+        this.showOptions = false;
+      } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+        this.showOptions = true;
+        this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 15) / 100);
+      }
     } else {
-      this.disableButton1 = false;
+      if (this.price1 >= 200 || this.price1 <= 10000) {
+        this.totalPrice = this.price1;
+        if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+          this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 25) / 100);
+          this.showOptions = false;
+        } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+          this.showOptions = true;
+          this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 15) / 100);
+        }
+      }
     }
   }
   inputPrice2(event) {
-    // tslint:disable-next-line: prefer-const
-    let price = event.target.value;
-    // if (price >= 200 && price <= 10000) {
-    //   this.disableButton2 = true;
-    // } else {
-    //   this.disableButton2 = false;
-    // }
-    // if (price === '') {
-    //   this.disableButton2 = true;
-    // }
+    this.editRequestForm.get('InstallmentPeriod').enable();
+    const price = event.target.value;
+    this.price2 = price;
+    if (this.link3) {
+      this.totalPrice = +this.price1 + +this.price2 + +this.price3;
+      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+        this.showOptions = false;
+        this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 25) / 100);
+      } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+        this.showOptions = true;
+        this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 15) / 100);
+      }
+    } else {
+      if (this.price2 >= 200 || this.price2 <= 10000) {
+        this.totalPrice = +price + +this.price1;
+        if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+          this.showOptions = false;
+          this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 25) / 100);
+        } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+          this.showOptions = true;
+          this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 15) / 100);
+        }
+      }
+    }
   }
   inputPrice3(event) {
-    // if (this.price2 === null ) {
-    //   this.disableButton3 = true;
-    // } else {
-    //   this.disableButton3 = false;
-    // }
-    // // tslint:disable-next-line: prefer-const
-    // let price = event.target.value;
-    // if (price >= 200 && price <= 10000) {
-    //   this.disableButton3 = true;
-    // } else {
-    //   this.disableButton3 = false;
-    // }
-    // if (price === '') {
-    //   this.disableButton3 = true;
-    // }
+    this.editRequestForm.get('InstallmentPeriod').enable();
+    const price = event.target.value;
+    this.price3 = price;
+    this.totalPrice = +this.price1 + +this.price2 + +this.price3;
+    if (price >= 200 && price <= 10000) {
+      this.totalPrice = +this.price1 + +this.price2 + +this.price3;
+      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+        this.showOptions = false;
+        this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 25) / 100);
+      } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+        this.showOptions = true;
+        this.editTotalPriceWithProfit = +this.totalPrice + +((this.totalPrice * 15) / 100);
+      }
+    }
   }
 
 
@@ -383,39 +419,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.monthlyInstallment = Math.round(this.monthlyInstallment);
     }
   }
-  calculateProfit() {
-    return new Promise((resolve, reject) => {
-      if (this.link1) {
-        this.editedProducts.push(this.Product1);
-      }
-      if (this.link1 && this.link2) {
-        this.editedProducts.push(this.Product2);
-      }
-      if (this.link1 && this.link2 && this.link3) {
-        this.editedProducts.push(this.Product3);
-      }
-      if (!this.link2) {
-        this.price2 = 0;
-      }
-      if (!this.link3) {
-        this.price3 = 0;
-      }
-      this.totalPrice = this.price1 + this.price2 + this.price3;
-      console.log('totalPrice:', this.totalPrice);
-      if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
-        // tslint:disable-next-line: max-line-length
-        this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000, Please Enter correct price.', 'error');
-      }
-      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
-        this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
-        // console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
-      } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
-        this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
-        // console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
-      }
-      resolve();
-    });
-  }
+
   editRequestInfo() {
     this.enableSaveButton = true;
     this.editRequestForm.get('ProductName').enable();
@@ -425,31 +429,58 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.editRequestForm.get('Price1').enable();
     this.editRequestForm.get('Price2').enable();
     this.editRequestForm.get('Price3').enable();
-    this.editRequestForm.get('InstallmentPeriod').enable();
   }
   SaveEditRequestInfo() {
-    this.calculateProfit().then(e => {
-      this.spinner.show();
-      this.customerRequestService.EditCustomerRequest({
-        'Id': this.reqID,
-        'Name': this.productName,
-        'TotalFundAmount': this.totalPrice,
-        'PaybackPeriod': this.installmentPeriod_ENUM,
-        'MonthlyPaybackAmount': this.monthlyInstallment,
-        'TotalPaybackAmount': this.totalPriceWithProfit,
-        'Type': 'Draft',
-        'Products': this.editedProducts
-      }).subscribe((res) => {
-        console.log(' Edited result:', res);
-        this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
-        this.enableSaveButton = false;
-        // this.modalService.open(content, { centered: true });
-      }, err => {
-        console.log(' ERROR:', err);
-        this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
-      });
+    const Product1 = {
+      Price: this.price1,
+      ProductUrl: this.link1
+    };
+    const Product2 = {
+      Price: this.price2,
+      ProductUrl: this.link2
+    };
+    const Product3 = {
+      Price: this.price3,
+      ProductUrl: this.link3
+    };
+    if (this.link1) {
+      this.editedProducts.push(Product1);
+    }
+    if (this.link1 && this.link2) {
+      this.editedProducts.push(Product2);
+    }
+    if (this.link1 && this.link2 && this.link3) {
+      this.editedProducts.push(Product3);
+    }
+    this.spinner.show();
+    this.customerRequestService.EditCustomerRequest({
+      'Id': this.reqID,
+      'Name': this.productName,
+      'TotalFundAmount': this.totalPrice,
+      'PaybackPeriod': this.installmentPeriod_ENUM,
+      'MonthlyPaybackAmount': this.monthlyInstallment,
+      'TotalPaybackAmount': this.editTotalPriceWithProfit,
+      'Products': this.editedProducts
+    }).subscribe((res) => {
+      console.log(' Edited result:', res);
+      this.spinner.hide();
+      this.showSuccessToast('OK!!', res.message, 'success');
+      this.enableSaveButton = false;
+      this.editRequestForm.get('InstallmentPeriod').disable();
+      this.editRequestForm.get('ProductName').disable();
+      this.editRequestForm.get('Link1').disable();
+      this.editRequestForm.get('Link2').disable();
+      this.editRequestForm.get('Link3').disable();
+      this.editRequestForm.get('Price1').disable();
+      this.editRequestForm.get('Price2').disable();
+      this.editRequestForm.get('Price3').disable();
+      allCustomerRequestData[this.index].name = this.productName;
+      allCustomerRequestData[this.index].value = this.editTotalPriceWithProfit + 'SAR';
+      this.dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
+    }, err => {
+      console.log(' ERROR:', err);
+      this.spinner.hide();
+      this.showErrorToast('Error!!', err.error.message, 'error');
     });
   }
   openVerticallyCentered(content3) {
@@ -458,5 +489,24 @@ export class RequestsComponent implements OnInit, OnDestroy {
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
 
+  }
+  clearData() {
+    this.editRequestForm.reset();
+    this.link1 = '';
+    this.link2 = '';
+    this.link3 = '';
+    this.price1 = null;
+    this.price2 = null;
+    this.price3 = null;
+    this.productName = '';
+    this.reqID = '';
+    this.totalPrice = null;
+    this.totalPriceWithProfit = null;
+    this.editTotalPriceWithProfit = null;
+    this.monthlyInstallment = null;
+    this.installmentPeriod = '';
+    this.installmentPeriod_ENUM = null;
+    this.requestDate = '';
+    this.productStatus = '';
   }
 }
