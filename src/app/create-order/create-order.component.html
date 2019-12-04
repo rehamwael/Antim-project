@@ -136,8 +136,8 @@
                                             <p class="font-size-13 mt-2">Confirm</p>
                                     </ng-template>
                                     <br/>
-
-                                    <p class="my-5 grey-text-color">
+                                    <!-- <p class="my-5 grey-text-color">
+                                        <input type="checkbox" id="box-1" (change)="changeCheck($event)">
                                             <span class="mr-1">
                                                 <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.0899 15 14 12.0899 14 8.5C14 4.91015 11.0899 2 7.5 2C3.91015 2 1 4.91015 1 8.5C1 12.0899 3.91015 15 7.5 15Z" stroke="#607AE6"/>
@@ -147,7 +147,14 @@
 
                                             I agree on purchasing the request #1032 showing in the request screen.
                                             <br/>and with the price showing in the request screen. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,<br/> but also the leap into electronic typesetting, remaining essentially unchanged.
-                                        </p>
+                                        </p> -->
+                                        <div class="col-lg-10 grey-text-color my-5">
+                                            <input type="checkbox" id="box-2" (change)="changeCheck($event)">
+                                            <!-- <label for="box-2">I agree on intime <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label> -->
+                                            <label style="font-size: 16px;"for="box-2"> I agree on purchasing the request #1032 showing in the request screen.
+                                                <br/>and with the price showing in the request screen.
+                                                </label>
+                                        </div>
 
                                   <div>
 
@@ -158,7 +165,7 @@
                                                 </div>
 
                                                 <div class="form-group col-lg-3">
-                                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext>Agree & Prceed
+                                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="disabledAgreement" mat-button matStepperNext>Agree & Prceed
                                                         </button>
                                                 </div>
                                         </div>
@@ -233,7 +240,7 @@
                                              Your request has been Successfully sent, and will be verified if you are qualified for funding and will be responded to within 30 minutes
 
                                       </p>
-                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/dashbored-customer' ]" (click)="modal.close('Close click')">Back to home</button></div>
+                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="modal.close('Close click')">See All Requests</button></div>
 
                                     </div>
                                   </ng-template>
@@ -244,7 +251,7 @@
                                              Your request has been Saved as Draft.
 
                                       </p>
-                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/dashbored-customer' ]" (click)="modal.close('Close click')">Back to home</button></div>
+                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="modal.close('Close click')">See All Requests</button></div>
 
                                     </div>
                                   </ng-template>

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState } from './../store/app.states';
 import { UserProfile } from './../store/actions/auth.actions';
+import { CustomerRequestService } from '../services/customer-request.service';
 
 @Component({
   selector: 'app-dashbored',
@@ -13,12 +14,18 @@ import { UserProfile } from './../store/actions/auth.actions';
 })
 export class DashboredComponent implements OnInit , OnDestroy {
   currentUser: any;
+  onGoing: any;
+  rejected: any;
+  closed: any;
+  awaiting: any;
+  draft: any;
   getState: Observable<any>;
   isAuthenticated: boolean;
 
   constructor(public router: Router,
     private userDataService: ProfileService,
     private store: Store<AppState>,
+    private customerRequestService: CustomerRequestService
     ) {
       this.getState = this.store.select(selectAuthenticationState);
      }
@@ -31,7 +38,7 @@ export class DashboredComponent implements OnInit , OnDestroy {
         this.store.dispatch(new UserProfile());
       }
     });
-
+    this.getCount();
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('dashbored-home');
@@ -47,6 +54,19 @@ export class DashboredComponent implements OnInit , OnDestroy {
     body.classList.remove('dashbored');
     body.classList.remove('dashbored-home');
 
+  }
+  getCount() {
+    this.customerRequestService.getRequestsCount()
+      .subscribe((res) => {
+        console.log('requestCount:', res.result);
+        this.onGoing = res.result.ongoing;
+        this.closed = res.result.closed;
+        this.draft = res.result.draft;
+        this.awaiting = res.result.awaiting;
+        this.rejected = res.result.rejected;
+      }, err => {
+        console.log(' ERROR:', err);
+      });
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');

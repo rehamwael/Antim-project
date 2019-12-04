@@ -32,7 +32,12 @@ export class CustomerRequestService {
       })
     );
   }
-
+  getRequestsCount(): Observable<any> {
+    return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequestsCount`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
   AddCustomerRequest(customerRequest: any): Observable<any> {
     return this.httpClient.post(`${this.Url}CustomerRequest/AddRequest`, customerRequest, this.httpOptions).pipe(

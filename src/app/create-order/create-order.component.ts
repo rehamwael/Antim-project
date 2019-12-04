@@ -30,6 +30,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   installmentPeriod_ENUM: number;
   totalProducts: any;
   requestType: any;
+  disabledAgreement = false;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -230,6 +231,13 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   }
   removeItems(i: number) {
     this.userPoductList.splice(i, 1);
+  }
+  changeCheck(event) {
+      if (event.target.checked) {
+        this.disabledAgreement = true;
+      } else {
+        this.disabledAgreement = false;
+      }
   }
 
 }
