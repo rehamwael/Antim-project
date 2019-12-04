@@ -5,7 +5,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Product} from './product';
+import { Product } from './product';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState } from './../store/app.states';
@@ -20,19 +20,9 @@ import { UserProfile } from './../store/actions/auth.actions';
 export class CreateOrderComponent implements OnInit, OnDestroy {
   getState: Observable<any>;
   currentUser: any;
-  disableButton1 = false;
-  disableButton2 = true;
-  disableButton3 = true;
-  Link1: any;
-  Link2: any;
-  Link3: any;
+  disableButton = false;
   requestName: any;
-  // product: Product = [];
-  Products: any = [];
-  price1: number;
-  price2: number;
-  price3: number;
-  totalPrice: number;
+  totalPrice = 0;
   monthlyPrice: number;
   totalPriceWithProfit: number;
   showOptions = false;
@@ -52,14 +42,15 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   addThirdItem = false;
   options: IndividualConfig;
 
+  userPoductList: any[] = [{
+    ProductUrl: '',
+    Price: null
+  }];
 
   @HostListener('input') oninput() {
     if (this.firstFormGroup.valid) {
       this.disabledSubmitButton = false;
     }
-    // if (this.secondFormGroup.valid) {
-    //   this.disabledSubmitButtonSecond = false;
-    // }
   }
 
   constructor(public router: Router,
@@ -69,11 +60,11 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
     private store: Store<AppState>,
-    ) {
-      this.getState = this.store.select(selectAuthenticationState);
-      this.options = this.toastr.toastrConfig;
-      this.options.positionClass = 'toast-top-right';
-      this.options.timeOut = 5000;
+  ) {
+    this.getState = this.store.select(selectAuthenticationState);
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-top-right';
+    this.options.timeOut = 5000;
   }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
@@ -81,12 +72,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   showErrorToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
-  closeSecond() {
-    this.addSecondItem = false;
-  }
-  closeThird() {
-    this.addThirdItem = false;
-  }
+
   ngOnInit(): void {
     this.getState.subscribe((state) => {
       const token = localStorage.getItem('token');
@@ -98,28 +84,9 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: max-line-length
     const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
     const regex = new RegExp(expression);
-    this.firstFormGroup = this._formBuilder.group({
-      link1:  ['', [
-        Validators.required,
-        // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
-        Validators.pattern(regex)
-    ]],
-    // link1: [null, Validators.compose([
-    //   Validators.required,
-    //   // tslint:disable-next-line: max-line-length
-    //   Validators.pattern('[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)')
-    // ])],
-      link2: ['', [ Validators.pattern(regex) ]],
-      link3: ['', [ Validators.pattern(regex) ]],
-      Name: [null, Validators.compose([
-        Validators.required
-      ])],
-      Price1: [null, Validators.compose([
-        Validators.required
-      ])],
-      Price2: [''],
-      Price3: [''],
 
+    this.firstFormGroup = this._formBuilder.group({
+      Name: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
@@ -128,11 +95,11 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
 
 
     this.lastFormGroup = this._formBuilder.group({
-      numberOfProduct: [{ value: null, disabled: true }],
-      TotalPrice: [{ value: null, disabled: true }],
-      InstallmentPeriod: [{ value: null, disabled: true }],
-      InstallmentPerMonth: [{ value: null, disabled: true }],
-      FinalProduct: [{ value: null, disabled: true }]
+      numberOfProduct: [{ disabled: true }],
+      TotalPrice: [{ disabled: true }],
+      InstallmentPeriod: [{ disabled: true }],
+      InstallmentPerMonth: [{ disabled: true }],
+      FinalProduct: [{ disabled: true }]
     });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -143,53 +110,29 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       }
       window.scrollTo(0, 0);
     });
-
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('dashbored-home');
-
+  }
+  backButton() {
+    this.totalPrice = 0;
+    this.totalPriceWithProfit = 0;
   }
   nextStep() {
-    const Product1 = {
-      Price : this.price1,
-      ProductUrl : this.Link1
-    };
-    const Product2 = {
-      Price : this.price2,
-      ProductUrl : this.Link2
-    };
-    const Product3 = {
-      Price : this.price3,
-      ProductUrl : this.Link3
-    };
-    // console.log(this.Products);
-    if (this.Link1) {
-      this.totalProducts = 1;
-      this.Products.push(Product1);
-    }
-    if (this.Link1 && this.Link2) {
-      this.totalProducts = 2;
-      this.Products.push(Product2);
-    }
-    if (this.Link1 && this.Link2 && this.Link3) {
-      this.totalProducts = 3;
-      this.Products.push(Product3);
-    }
-    if (!this.Link2) {
-      this.price2 = 0;
-    }
-    if (!this.Link3) {
-      this.price3 = 0;
-    }
-    this.totalPrice =  this.price1 + this.price2 + this.price3;
+    console.log(this.userPoductList);
+    this.userPoductList.map(product => {
+      console.log(product.Price);
+      console.log('totalPrice:', this.totalPrice);
+      this.totalPrice = 1 * this.totalPrice + 1 * product.Price;
+    });
     console.log('totalPrice:', this.totalPrice);
     if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
       // tslint:disable-next-line: max-line-length
       this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000,Go back and Enter correct price.', 'error');
     }
-      if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
+    if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
       this.showOptions = false;
       console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
@@ -242,9 +185,9 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       'MonthlyPaybackAmount': this.monthlyPrice,
       'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 'Draft',
-      'Products': this.Products
+      'Products': this.userPoductList
     }).subscribe((res) => {
-      console.log(' Added:', res);
+      console.log('saveAsDraft:', res);
       this.spinner.hide();
       this.showSuccessToast('OK!!', res.message, 'success');
       this.modalService.open(content, { centered: true });
@@ -255,47 +198,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
-  inputPrice1(event) {
-    // tslint:disable-next-line: prefer-const
-    let price = event.target.value;
-    if (price >= 200 && price <= 10000) {
-      this.disableButton1 = true;
-    } else {
-      this.disableButton1 = false;
-    }
-  }
-  inputPrice2(event) {
-    // tslint:disable-next-line: prefer-const
-    let price = event.target.value;
-    if (price >= 200 && price <= 10000) {
-      this.disableButton2 = true;
-    } else {
-      this.disableButton2 = false;
-    }
-    if (price === '') {
-      this.disableButton2 = true;
-    }
-  }
-  inputPrice3(event) {
-    if (this.price2 === null ) {
-      this.disableButton3 = true;
-    } else {
-      this.disableButton3 = false;
-    }
-    // tslint:disable-next-line: prefer-const
-    let price = event.target.value;
-    if (price >= 200 && price <= 10000) {
-      this.disableButton3 = true;
-    } else {
-      this.disableButton3 = false;
-    }
-    if (price === '') {
-      this.disableButton3 = true;
-    }
-  }
-  openVerticallyCentered(content3) {
+  saveRequest(content3) {
     this.spinner.show();
     this.customerRequestService.AddCustomerRequest({
       'Name': this.requestName,
@@ -304,7 +207,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       'MonthlyPaybackAmount': this.monthlyPrice,
       'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 'Awaiting',
-      'Products': this.Products
+      'Products': this.userPoductList
     }).subscribe((res) => {
       console.log(' Added:', res);
       this.spinner.hide();
@@ -318,15 +221,15 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
-
   }
   addMoreItems() {
-    if (this.price1 != null) {
-      this.addSecondItem = true;
-    }
-    if (this.price1 != null && this.price2 != null) {
-      this.addThirdItem = true;
-    }
+    this.userPoductList.push({
+      ProductUrl: '',
+      Price: null
+    });
+  }
+  removeItems(i: number) {
+    this.userPoductList.splice(i, 1);
   }
 
 }

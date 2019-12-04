@@ -89,16 +89,16 @@ export class RequestsComponent implements OnInit, OnDestroy {
           allCustomerRequestData.push(element);
           element.date = moment(element.createdAt).format('LL');
           element.value = element.totalPaybackAmount + ' SAR';
-          if (element.type === 4) {
+          if (element.type === 1) {
             element.status = 'Waiting for approval';
           }
           if (element.type === 2) {
             element.status = 'Closed';
           }
-          if (element.type === 3) {
+          if (element.type === 4) {
             element.status = 'Ongoing';
           }
-          if (element.type === 6) {
+          if (element.type === 3) {
             element.status = 'Rejected';
           }
           if (element.type === 5) {

@@ -1525,7 +1525,7 @@ div.mat-checkbox-inner-container{
     text-transform: uppercase;
 }
 td.mat-cell.Waiting ,td.mat-cell.Waiting {
-    color: #fb9e58 !important;
+    color: #58a4fb !important;
     text-transform: uppercase;
 }
 td.mat-cell.Ongoing  {
@@ -1533,14 +1533,14 @@ td.mat-cell.Ongoing  {
     text-transform: uppercase;
 }
 td.mat-cell.Draft {
-  color: #bd7eaa !important;
+  color: rgb(231, 153, 36) !important;
   text-transform: uppercase;
 }
 td.mat-cell.Closed {
-  color: blue !important;
+  color: #5c20d2 !important;
   text-transform: uppercase;
 }
-td.mat-cell.Reject {
+td.mat-cell.Rejected {
     color: #c5003e !important;
     text-transform: uppercase;
 }
@@ -1549,7 +1549,7 @@ td.mat-cell.Under {
     text-transform: uppercase;
 }
 td.mat-cell.Wating{
-    color: #fb9e58 !important;
+    color: #58a4fb !important;
     text-transform: uppercase;
 }
 .mat-checkbox-checkmark-path {
