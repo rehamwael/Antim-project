@@ -8,6 +8,7 @@ import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
+import {NgbDate, NgbCalendar, NgbDateStruct, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 
 export interface PeriodicElement {
   position: number;
@@ -27,6 +28,12 @@ let allCustomerRequestData: PeriodicElement[] = [];
 })
 
 export class RequestsComponent implements OnInit, OnDestroy {
+
+  fromDate: any;
+  toDate: any;
+
+  model1: NgbDateStruct;
+  model2: NgbDateStruct;
   productName: any;
   reqID: any;
   link1: any;
@@ -68,13 +75,13 @@ export class RequestsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private customerRequestService: CustomerRequestService,
-    private spinner: NgxSpinnerService
-  ) {
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
+    private spinner: NgxSpinnerService,
+    private calendar: NgbCalendar,
+    public formatter: NgbDateParserFormatter) {
+      this.options = this.toastr.toastrConfig;
+      this.options.positionClass = 'toast-top-right';
+      this.options.timeOut = 5000;
   }
-
 
   getAllCustomersRequests() {
     return new Promise((resolve, reject) => {
@@ -489,6 +496,24 @@ export class RequestsComponent implements OnInit, OnDestroy {
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
 
+  }
+  selectFromDate(evt: any) {
+    this.fromDate = new Date(evt.year, evt.month - 1, evt.day);
+    this.fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    console.log(this.fromDate);
+  }
+  selectToDate(evt: any) {
+    this.toDate = new Date(evt.year, evt.month - 1, evt.day);
+    this.toDate = moment(this.toDate).format('YYYY-MM-DD');
+    console.log(this.toDate);
+  }
+  filterRequests() {
+    this.customerRequestService.getFilteredRequestsByDate(this.fromDate, this.toDate).subscribe((res) => {
+      console.log(' filter result:', res);
+      // this.dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
+    }, err => {
+      console.log(' ERROR:', err);
+    });
   }
   clearData() {
     this.editRequestForm.reset();

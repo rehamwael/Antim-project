@@ -38,6 +38,14 @@ export class CustomerRequestService {
       })
     );
   }
+  getFilteredRequestsByDate(fromDate, toDate): Observable<any> {
+
+    return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequests?dateFrom=${fromDate}&dateTo=${toDate}`,
+    this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
   AddCustomerRequest(customerRequest: any): Observable<any> {
     return this.httpClient.post(`${this.Url}CustomerRequest/AddRequest`, customerRequest, this.httpOptions).pipe(

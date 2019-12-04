@@ -23,11 +23,11 @@
 
 
         <div class="page-wraper-right" *ngIf="!slectedProduct">
-                        <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2 align-items-center">
-                            <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
-                            <div class="col-lg-4 px-0 col-8">
+                        <div class="mat-card col-lg-12 mt-5 row welcome-card inner p-2 align-items-center">
+                            <img class="col-lg-2 " src="assets/images/bookWithMen 2.svg">
+                            <!-- <div class="col-lg-4 px-0 col-8">
                                 <p class="grey-text-color" [innerHTML]="requestType"></p>
-                            </div>
+                            </div> -->
                             <form class="col-lg-3">
                             <div class="form-group">
                                 <label for="Type" class="font-size-13">Select Request Type</label>
@@ -44,15 +44,29 @@
                                 <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
                             </form>
-                            <form class="col-lg-3">
+                            <form class="col-lg-2">
                                     <div class="form-group">
-                                        <label for="Filter" class="font-size-13">Filter Date</label>
+                                        <label for="Filter" class="font-size-13"> From Date</label>
                                         <div class="input-group">
-                                        <input (click)="dp.toggle()" class="form-control date-picker" placeholder="mm-dd-yyyy" name="dp" ngbDatepicker #dp="ngbDatepicker">
-                                        <i class="fa fa-calendar"></i>
+                                        <input (click)="dp.toggle()" (dateSelect) = "selectFromDate($event)"[(ngModel)]="model1" class="form-control date-picker" ngbDatepicker #dp="ngbDatepicker">
+
+                                   <i class="fa fa-calendar"></i>
                                         </div>
                                     </div>
                            </form>
+                           <form class="col-lg-2">
+                              <div class="form-group">
+                                  <label for="Filter" class="font-size-13"> To Date</label>
+                                  <div class="input-group">
+                                      <input (click)="d.toggle()" (dateSelect) = "selectToDate($event)"  [(ngModel)]="model2" class="form-control date-picker"  ngbDatepicker #d="ngbDatepicker">
+
+                                   <i class="fa fa-calendar"></i>
+                                  </div>
+                              </div>
+                          </form>
+                          <form class="col-lg-2">
+                             <button class="btn btn-info btn-block btn-purple mt-2" (click)="filterRequests()">Filter</button>
+                     </form>
 
                                     <!-- <form class="col-lg-2">
                                       <div class="form-group">
