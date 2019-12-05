@@ -22,6 +22,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CustomerRequestDetailsComponent } from './customer-request-details/customer-request-details.component';
 
 export const Approutes: Routes = [
   {
@@ -76,6 +77,12 @@ export const Approutes: Routes = [
         // path: 'requests-customer/:type',
         path: 'requests-customer',
         component: RequestsComponent,
+        canActivate: [AuthGuard],
+        data: { userRole: ['customer'] }
+      },
+      {
+        path: 'requests-customer/:id',
+        component: CustomerRequestDetailsComponent,
         canActivate: [AuthGuard],
         data: { userRole: ['customer'] }
       },
