@@ -118,7 +118,7 @@
                                         <label for="bankAccountNo" class="font-bold mt-2">Bank Account Number</label>
                                         <input matInput formControlName="BankAccountNo" class="form-control form-control-lg" value="{{bankAccountNo}}" [(ngModel)]="bankAccountNo" placeholder="Bank Account Name...">
                                         <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('required')" class="error-msg alert alert-danger text-left">Bank AccountNo is required</div>
-                                        <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank AccountNo length must be greater than 17 </div>
+                                        <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank AccountNo length must be greater than 9 </div>
                                         <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('maxlength')" class="error-msg alert alert-danger text-left">Bank AccountNo length must be less than 25 </div>
                                     </div>
 

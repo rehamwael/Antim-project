@@ -272,10 +272,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.spinner.show();
     console.log('REQUEST DEATAILS: ', row);
     this.productStatus = row.status;
-    if (this.productStatus === 'Draft' || this.productStatus === 'Waiting for approval') {
+    if (this.productStatus === 'Draft' || this.productStatus === 'Closed') {
       this.editFields = true;
-    }
-    if (this.productStatus === 'Ongoing' || this.productStatus === 'Rejected' || this.productStatus === 'Closed') {
+    } else {
       this.editFields = false;
     }
 
@@ -532,6 +531,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.fromDate = new Date(evt.year, evt.month - 1, evt.day);
     this.fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     console.log(this.fromDate);
+    this.toDate = '';
   }
   selectToDate(evt: any) {
     this.toDate = new Date(evt.year, evt.month - 1, evt.day);
@@ -541,13 +541,12 @@ export class RequestsComponent implements OnInit, OnDestroy {
   filterRequests() {
     if (this.selectedRequestType === 0) {
       this.spinner.show();
+      console.log(this.fromDate, this.toDate);
       this.customerRequestService.getFilteredRequestsByDate(this.fromDate, this.toDate).subscribe((res) => {
         if (res.message) {
           this.showErrorToast('Error!!', res.message, 'error');
           this.spinner.hide();
-          this.fromDate = '';
-          this.toDate = '';
-        } else  if (res.result) {
+        } else {
         this.allFilterRequests = [];
         this.allFilterRequests = res.result;
         console.log('allFilterRequests', this.allFilterRequests);
@@ -579,23 +578,20 @@ export class RequestsComponent implements OnInit, OnDestroy {
         });
         this.dataSourceAll = new MatTableDataSource<PeriodicElement>(filterRequestData);
         this.spinner.hide();
-        this.fromDate = '';
-        this.toDate = '';
       }
       }, err => {
         this.spinner.hide();
         console.log(' ERROR:', err);
       });
     } else {
+      console.log(this.selectedRequestType, this.fromDate, this.toDate);
       this.spinner.show();
       this.customerRequestService.getFilteredRequestsByTypeAndDate(this.selectedRequestType, this.fromDate, this.toDate)
       .subscribe((res) => {
         if (res.message) {
           this.showErrorToast('Error!!', res.message, 'error');
           this.spinner.hide();
-          this.fromDate = '';
-          this.toDate = '';
-        } else  if (res.result) {
+        } else {
           this.allFilterRequests = [];
           this.allFilterRequests = res.result;
           console.log('allFilterRequests', this.allFilterRequests);
@@ -627,8 +623,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
           });
           this.dataSourceAll = new MatTableDataSource<PeriodicElement>(filterRequestData);
           this.spinner.hide();
-          this.fromDate = '';
-          this.toDate = '';
         }
       }, err => {
         this.spinner.hide();

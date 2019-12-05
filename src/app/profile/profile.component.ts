@@ -118,7 +118,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       ])],
       'BankAccountNo': [{ value: this.bankAccountNo, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
-        Validators.minLength(18),
+        Validators.minLength(10),
         Validators.maxLength(24)
       ])],
       'AccountTitle': [{ value: this.accountTitle, disabled: this.disabledBankButton }, Validators.compose([

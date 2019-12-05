@@ -97,6 +97,17 @@
                                     <div class="col-lg-12 mb-3"><h3 class="headingh3">Bank Information</h3></div>
                                     <div class="col-lg-6">
                                         <label for="bankName" class="font-bold mt-2">Bank Name</label>
+                                        <!-- <select class="form-control form-control-lg custom-select" (change)="onChange($event.target.value)">
+                                            <option value="" selected>All Requests</option>
+                                            <option value="Ongoing">On going Requests</option>
+                                            <option value="Under Review">Under Review</option>
+                                            <option value="Rejected">Reject Requests</option>
+                                            <option value="Waiting for approval">Waiting for approval</option>
+                                            <option value="Closed">Closed Requests</option>
+                                            <option value="Draft">Draft Requests</option>
+                                            1- AlBilad Bank 2- AlRajhi Bank 3- AlFransi Bank 4- Samba Bank 5- Alriyadh Bank 6- Alawwal Bank 7- SAIB Bank 8- AlJazeera Bank 9- SAB Bank 10- AlAhli Bank 11- Muscat Bank 12- National Bank of Kuwait 13- NBB 14- ANB 15- Emirates NBD 16- Alinma Bank 17- GIB 18- Deutsche Bank
+
+                                    </select> -->
                                         <input matInput formControlName="BankName" class="form-control form-control-lg" value="{{bankName}}" [(ngModel)]="bankName" placeholder="Bank Name...">
                                         <div *ngIf="BankInfoForm.controls['BankName'].touched && BankInfoForm.controls['BankName'].hasError('required')" class="error-msg alert alert-danger text-left">Bank Name is required</div>
                                         <div *ngIf="BankInfoForm.controls['BankName'].touched && BankInfoForm.controls['BankName'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank Name must be at least 4 characters long.</div>
@@ -105,7 +116,7 @@
                                         <label for="bankAccountNo" class="font-bold mt-2">Bank Account Number</label>
                                         <input matInput formControlName="BankAccountNo" class="form-control form-control-lg" value="{{bankAccountNo}}" [(ngModel)]="bankAccountNo" placeholder="Bank Account Name...">
                                         <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('required')" class="error-msg alert alert-danger text-left">Bank AccountNo is required</div>
-                                        <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank AccountNo length must be greater than 17 </div>
+                                        <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank AccountNo length must be greater than 9 </div>
                                         <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('maxlength')" class="error-msg alert alert-danger text-left">Bank AccountNo length must be less than 25 </div>
                                     </div>
 

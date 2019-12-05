@@ -92,7 +92,8 @@ export const Approutes: Routes = [
         data: { userRole: ['funder'] }
       },
       {
-        path: 'requests-funder/:type',
+        // path: 'requests-funder/:type',
+        path: 'requests-funder',
         component: RequestLenderComponent,
         canActivate: [AuthGuard],
         data: { userRole: ['funder'] }
