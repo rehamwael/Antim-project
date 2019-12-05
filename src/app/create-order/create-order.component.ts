@@ -43,12 +43,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   lastFormGroup: FormGroup;
-  isEditable = false;
   disabledSubmitButton = true;
   disabledSubmitButtonSecond = false;
-  addMoreItem = false;
-  addSecondItem = false;
-  addThirdItem = false;
   options: IndividualConfig;
 
   userPoductList: any[] = [{
@@ -149,10 +145,12 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   nextStep() {
     if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
+      this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
       this.showOptions = false;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
+      this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
       this.showOptions = true;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     }

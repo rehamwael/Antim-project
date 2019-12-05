@@ -71,7 +71,7 @@
                                 <input  class="form-control form-control-lg"   type="number"  value="{{totalPrice}}" readonly>
                             </div>
                           </div>
-                               <button class="btn btn-block btn-outline-primary more-item-button mt-4" (click)="addMoreItems()" *ngIf="!addMoreItem">
+                               <button class="btn btn-block btn-outline-primary more-item-button mt-4" (click)="addMoreItems()" >
                                       <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                           <path fill-rule="evenodd" clip-rule="evenodd" d="M10 21.5217C15.5228 21.5217 20 16.8499 20 11.0869C20 5.32391 15.5228 0.6521 10 0.6521C4.47715 0.6521 0 5.32391 0 11.0869C0 16.8499 4.47715 21.5217 10 21.5217Z" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                           <path d="M10 6.91309V15.2609" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -172,7 +172,7 @@
                                                 </div>
 
                                                 <div class="form-group col-lg-3">
-                                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="disabledAgreement" mat-button matStepperNext>Agree & Prceed
+                                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disabledAgreement" mat-button matStepperNext>Agree & Prceed
                                                         </button>
                                                 </div>
                                         </div>

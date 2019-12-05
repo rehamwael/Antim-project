@@ -22,7 +22,7 @@
 
 
 
-        <div class="page-wraper-right" *ngIf="!slectedProduct">
+        <div class="page-wraper-right" >
                         <div class="mat-card col-lg-12 mt-5 row welcome-card inner p-2 align-items-center">
                             <img class="col-lg-2 " src="assets/images/bookWithMen 2.svg">
                             <!-- <div class="col-lg-4 px-0 col-8">
@@ -128,8 +128,6 @@
                                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                                             <tr [ngClass]="{ selected: selection.isSelected(row)}" mat-row *matRowDef="let row; columns: displayedColumns;"
                                                 (click)="openProductDetails(row)">
-                                            <!-- <tr [ngClass]="{ selected: selection.isSelected(row)}" mat-row *matRowDef="let row; columns: displayedColumns;"
-                                            (click)="gotoRequestDetails('requests-customer', id)"> -->
                                             </tr>
                                           </table>
 
@@ -139,180 +137,5 @@
 
 
         </div>
-
-        <!-- <div class="page-wraper-right full-width" *ngIf="slectedProduct">
-
-        <div class="justify-content-center col-lg-11 mat-card mt-4 p-0 mb-5">
-            <div class="mat-card row p-4 m-0">
-                <div class="header col-lg-9">
-                  <span class="icon-close" (click)="closeProductDetails()"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
-                  <p>Product Details</p>
-                </div>
-                <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-3" *ngIf="productStatus == 'Ongoing'" (click)="openVerticallyCentered(content3)">Request reschedule</button>
-
-              </div>
-
-
-            <form class="col-lg-9 row antim-form p-5 mt-2 mb-5 m-auto" [formGroup]="editRequestForm">
-          <div class="row" style="width: 100%;">
-            <div class="col-lg-8 "><h3 class="headingh3">product link(s)</h3>
-              </div>
-              <div class="col-lg-4" *ngIf="editFields">
-                  <button class="btn btn-danger btn-lg btn-block btn-red  cursor-pointer col-lg-12" (click)="openDeletePopup(content)">
-                    <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1 6H3H19" stroke="#C5003E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M5 6C5 4.89543 4.10457 4 3 4V6H5ZM5 20V6H3V20H5ZM5 20H3C3 21.1046 3.89543 22 5 22V20ZM15 20H5V22H15V20ZM15 20V22C16.1046 22 17 21.1046 17 20H15ZM15 6V20H17V6H15ZM17 4C15.8954 4 15 4.89543 15 6H17V4ZM19 6C19 4.89543 18.1046 4 17 4V6H19ZM19 20V6H17V20H19ZM15 24C17.2091 24 19 22.2091 19 20H17C17 21.1046 16.1046 22 15 22V24ZM5 24H15V22H5V24ZM1 20C1 22.2091 2.79086 24 5 24V22C3.89543 22 3 21.1046 3 20H1ZM1 6V20H3V6H1ZM3 4C1.89543 4 1 4.89543 1 6H3V4ZM8 4V2C6.89543 2 6 2.89543 6 4H8ZM8 6V4H6V6H8ZM6 8C7.10457 8 8 7.10457 8 6H6V8ZM4 6C4 7.10457 4.89543 8 6 8V6H4ZM4 4V6H6V4H4ZM8 0C5.79086 0 4 1.79086 4 4H6C6 2.89543 6.89543 2 8 2V0ZM12 0H8V2H12V0ZM16 4C16 1.79086 14.2091 0 12 0V2C13.1046 2 14 2.89543 14 4H16ZM16 6V4H14V6H16ZM14 8C15.1046 8 16 7.10457 16 6H14V8ZM12 6C12 7.10457 12.8954 8 14 8V6H12ZM12 4V6H14V4H12ZM12 4H14C14 2.89543 13.1046 2 12 2V4ZM8 4H12V2H8V4Z" fill="#C5003E"/>
-                      <path d="M8 11V17" stroke="#C5003E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M12 11V17" stroke="#C5003E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                     <span class="px-3">Delete</span>
-                 </button>
-              </div>
-            </div>
-          <div class="row" style="width: 100%;">
-            <div class="col-lg-12">
-                <label for="Name" class="font-bold mt-2">Product Name: </label>
-                <input formControlName="ProductName" class="form-control form-control-lg" value="{{productName}}" [(ngModel)]="productName" placeholder="Product Name"  [attr.disabled]="true">
-                <div *ngIf="editRequestForm.controls['ProductName'].touched && editRequestForm.controls['ProductName'].hasError('required')" class="error-msg alert alert-danger text-left">Product Name is required.</div>
-            </div>
-          </div>
-          <div class="row" style="width: 100%;">
-              <div class="col-lg-9">
-                  <label for="Link1" class="font-bold mt-2">Link1</label>
-                  <input formControlName="Link1" class="form-control form-control-lg" value="{{link1}}" [(ngModel)]="link1" placeholder="Link1"  [attr.disabled]="true">
-                  <div *ngIf="editRequestForm.controls['Link1'].touched && editRequestForm.controls['Link1'].hasError('required')" class="error-msg alert alert-danger text-left">Product Link is required.</div>
-              </div>
-              <div class="col-lg-3">
-                <label for="price1" class="font-bold mt-2">Price</label>
-                <input formControlName="Price1"  class="form-control form-control-lg" value="{{price1}}" [(ngModel)]="price1" type="number" placeholder="price" digitOnly [attr.disabled]="true"  (keyup)="inputPrice1($event)"
-                oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber1').style.visibility = 'hidden'; }
-                  else { document.getElementById('phonenumber1').style.visibility = 'visible'; }" >
-                  <div *ngIf="editRequestForm.controls['Price1'].touched && editRequestForm.controls['Price1'].hasError('required')" class="error-msg alert alert-danger text-left">Product price is required.</div>
-                  <span class="redColor" id="phonenumber1"> Price must be greater than 200 and less than 10000.</span>
-              </div>
-          </div>
-          <div class="row" style="width: 100%;" *ngIf="showSecondLinkPriceRow">
-            <div class="col-lg-9">
-                <label for="Link1" class="font-bold mt-2">Link2</label>
-                <input formControlName="Link2" class="form-control form-control-lg" value="{{link2}}" [(ngModel)]="link2" placeholder="Link2"  [attr.disabled]="true">
-            </div>
-            <div class="col-lg-3">
-              <label for="price1" class="font-bold mt-2">Price</label>
-              <input formControlName="Price2" class="form-control form-control-lg" value="{{price2}}" [(ngModel)]="price2" type="number" placeholder="price" digitOnly [attr.disabled]="true" (keyup)="inputPrice2($event)"
-              oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber2').style.visibility = 'hidden'; }
-                    else { document.getElementById('phonenumber2').style.visibility = 'visible'; }" >
-                    <span class="redColor" id="phonenumber2"> Price must be greater than 200 and less than 10000.</span>
-            </div>
-        </div>
-        <div class="row" style="width: 100%;" *ngIf="showThirdLinkPriceRow">
-          <div class="col-lg-9">
-              <label for="Link1" class="font-bold mt-2">Link3</label>
-              <input formControlName="Link3" class="form-control form-control-lg" value="{{link3}}" [(ngModel)]="link3" placeholder="Link3"  [attr.disabled]="true">
-          </div>
-          <div class="col-lg-3">
-            <label for="price1" class="font-bold mt-2">Price</label>
-            <input formControlName="Price3" class="form-control form-control-lg" value="{{price3}}" [(ngModel)]="price3" type="number" placeholder="price" digitOnly [attr.disabled]="true" (keyup)="inputPrice3($event)"
-            oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber3').style.visibility = 'hidden'; }
-                  else { document.getElementById('phonenumber3').style.visibility = 'visible'; }" >
-                  <span class="redColor" id="phonenumber3"> Price must be greater than 200 and less than 10000.</span>
-          </div>
-      </div>
-      <div class="row" style="width: 100%;">
-              <div class="col-lg-4">
-                <label for="RequestDate" class="font-bold mt-2">Request Date</label>
-                <input formControlName="RequestDate" class="form-control form-control-lg" value="{{requestDate}}" [(ngModel)]="requestDate" placeholder="Request Date" readonly [attr.disabled]="true">
-            </div>
-            <div class="col-lg-4">
-                <label for="Amount" class="font-bold mt-2">Total price</label>
-                <input formControlName="FundingAmount" class="form-control form-control-lg" value="{{totalPrice}}" type="number" [(ngModel)]="totalPrice" placeholder="Amount of funding"  [attr.disabled]="true" readonly>
-            </div>
-            <div class="col-lg-4">
-              <label for="totalAmount" class="font-bold mt-2">Total Payable Amount</label>
-              <input formControlName="TotalAmount" class="form-control form-control-lg" value="{{editTotalPriceWithProfit}}" type="number" [(ngModel)]="editTotalPriceWithProfit" placeholder="Installment amount per month" [attr.disabled]="true" readonly>
-          </div>
-        </div>
-
-         <div class="row" style="width: 100%;">
-         <div class="col-lg-4" *ngIf="!editFields">
-            <label for="Installment" class="font-bold mt-2">Installment Period</label>
-            <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{installmentPeriod}}" [(ngModel)]="installmentPeriod" placeholder="Installment Period" [attr.disabled]="true">
-        </div>
-        <div class="col-lg-4" *ngIf="editFields">
-          <label for="Installment" class="font-bold mt-2">Installment Peroid</label>
-              <select  formControlName="InstallmentPeriod"  matNativeControl [(ngModel)]="installmentPeriod" class="form-control form-control-lg " (change)="onSelectChange($event.target.value)" >
-                  <option value="3-Months" >3 Months</option>
-                  <option  value="6-Months" >6 Months</option>
-                  <option *ngIf="showOptions" value="9-Months">9 Months</option>
-                  <option *ngIf="showOptions" value="12-Months">12 Months</option>
-          </select>
-
-      </div>
-            <div class="col-lg-4">
-                <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
-                <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}" type="number"  [(ngModel)]="monthlyInstallment" readonly placeholder="Installment amount per month" [attr.disabled]="true">
-            </div>
-        </div>
-        <div class="row" style="width: 100%;">
-            <div class="col-lg-6">
-              <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
-              <input formControlName="RequestStatus" class="form-control form-control-lg {{productStatus}}" value="{{productStatus}}" readonly [(ngModel)]="productStatus"[attr.disabled]="true">
-            </div>
-
-
-            <div class="col-lg-6"></div>
-            </div>
-
-            <div class="col-lg-12" *ngIf="productStatus == 'Ongoing'">
-              <label for="installmentPiad" class="font-bold mt-2">Number of installment paid</label>
-              <div class="installment-period">
-                <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
-                <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
-                <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
-                <button
-                type="button"
-                class="btn btn-secondary btn-bor-red"
-                placement="bottom"
-                ngbTooltip="Next Due Date 22-dec-2018" tooltipClass="my-custom-class">
-                delyed
-              </button>
-              <button type="button" class="btn btn-secondary"></button>
-
-             </div>
-            </div>
-            <div class="row" style="width: 100%;" *ngIf="editFields">
-            <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" >
-              <div class="form-group col-lg-4">
-                     <button class="btn btn-info btn-lg btn-block btn-black mt-2"  (click)="editRequestInfo()">
-                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                          <span class="px-3">Edit</span>
-                      </button>
-                  </div>
-             <div class="form-group col-lg-4">
-                 <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="enableSaveButton && disableButton1" (click)="SaveEditRequestInfo()">Save</button>
-             </div>
-
-      </div>
-      </div>
-      <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
-      color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-      <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
-      </ngx-spinner>
-            </form>
-            <br/>
-            <br/>
-    </div>
-            <ng-template #content3 let-modal>
-              <div class="modal-body py-5">
-                <p class="my-4">
-                  Dear Customer Your order has been successfully sent and <br/>will be reviewed and answered as soon as possible
-                </p>
-                <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" (click)="modal.close('Close click')">CLOSE</button></div>
-
-              </div>
-            </ng-template>
-        </div> -->
-
         </div>
 
