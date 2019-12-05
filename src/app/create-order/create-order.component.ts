@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState } from './../store/app.states';
 import { UserProfile } from './../store/actions/auth.actions';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+
 
 @Component({
   selector: 'app-create-order',
@@ -17,7 +19,10 @@ import { UserProfile } from './../store/actions/auth.actions';
   styleUrls: ['./create-order.component.css']
 })
 
+
 export class CreateOrderComponent implements OnInit, OnDestroy {
+  @ViewChild('stepper', {static: false}) myStepper: MatStepper;
+
   getState: Observable<any>;
   currentUser: any;
   disableButton = false;
@@ -31,6 +36,9 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   totalProducts: any;
   requestType: any;
   disabledAgreement = false;
+  disableFirstStep = false;
+  // isLinear = true;
+  showTotalPrice = false;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -121,26 +129,32 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.totalPrice = 0;
     this.totalPriceWithProfit = 0;
   }
-  nextStep() {
-    console.log(this.userPoductList);
+  calculateTotalPrice() {
+    this.totalPrice = 0;
     this.userPoductList.map(product => {
-      console.log(product.Price);
-      console.log('totalPrice:', this.totalPrice);
       this.totalPrice = 1 * this.totalPrice + 1 * product.Price;
     });
     console.log('totalPrice:', this.totalPrice);
-    if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
+     if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
+      this.disableFirstStep = false;
+      this.showTotalPrice = false;
+      this.totalPrice = 0;
       // tslint:disable-next-line: max-line-length
       this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000,Go back and Enter correct price.', 'error');
+    } else {
+      this.showTotalPrice = true;
+      this.disableFirstStep = true;
     }
+  }
+  nextStep() {
     if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
       this.showOptions = false;
-      console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
+      console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
       this.showOptions = true;
-      console.log('totalPriceWithProfit:', this.totalPriceWithProfit);
+      console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     }
   }
 

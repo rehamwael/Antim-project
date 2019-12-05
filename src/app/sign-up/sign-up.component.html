@@ -6,7 +6,7 @@
               <p class="grey-text-color mt-3 mb-4">Very Easy and straight forward steps to register.
               <br/> Just follow the lead</p>
           </div>
-          <!-- <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm" (submit)="onSubmit()"  #myform="ngForm"> -->
+          <!-- <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm" (keydown)="keyDownFunction($event)"> -->
           <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm">
               <div class="first-step row" *ngIf="!showSelected  && !lastStep">
               <div class="col-lg-2">
@@ -82,7 +82,7 @@
                               <label for="password">Password<span class="red-color"> *</span></label>
                               <input formControlName="password" class="form-control  form-control-lg" placeholder="************" type="password" [(ngModel)]="signupPassword">
                               <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('required')" class="error-msg alert alert-danger text-left">Password is required</div>
-                              <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('pattern')" class="error-msg alert alert-danger text-left">Password must contain UpperCases, LowerCases, Numbers, SpecialCharacters and at least 9 characters long.</div>
+                              <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('pattern')" class="error-msg alert alert-danger text-left">Password must contain Upper Cases Letter, Lower Cases Letter, Numbers, Special Characters (!, @, _, #, $ ..etc.) and at least 9 characters long.</div>
 
                           </div>
                           <div class="form-group text-left col-lg-12">

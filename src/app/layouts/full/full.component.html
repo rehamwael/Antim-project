@@ -50,7 +50,7 @@
                   </li>
                   <li class="nav-item " *ngIf="islogin">
                     <!-- <a class="nav-link purple-btn" [routerLink]="[ '/dashbored-'+ userRole ]" (click)=closeMenu()>Dashboard</a> -->
-                    <a class="nav-link purple-btn btn-style"  (click)=closeMenu()>Dashboard</a>
+                    <a class="nav-link purple-btn btn-style" [routerLink]="['/', dashboredUrl]" (click)=closeMenu()>Dashboard</a>
                   </li>
 
               </ul>

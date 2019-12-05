@@ -187,12 +187,12 @@ showErrorToast(title, message, type) {
     }
   }
   Nextstep() {
-    this.showSelected = !this.showSelected;
+    this.showSelected = true;
   }
   PrevStep() {
     this.userType = '';
     this.clear();
-    this.showSelected = !this.showSelected;
+    this.showSelected = false;
 
   }
   thirdStep() {
@@ -221,6 +221,30 @@ showErrorToast(title, message, type) {
               this.showErrorToast('Error!!', err.error.message, 'error');
             }
         });
+    }
+  }
+  keyDownFunction(event) {
+    if (event.keyCode === 13) {
+      alert('Please click to SignUp Button to Submit Form.');
+      this.showSelected = true;
+      // this.authservice.register({
+      //   'Email': this.signupEmail,
+      //   'FirstName': this.signupFirstName,
+      //   'LastName': this.signupLastName,
+      //   'NationalIdNumber': this.signupIdNum,
+      //   'UserName': this.signupUserName,
+      //   'Password': this.signupPassword,
+      //   'ConfirmPassword': this.signupCPassword,
+      //   'PhoneNumber': this.signupPhone.toString(),
+      //   'DialingCode': this.signupCountrycode.toString(),
+      //   'Role': this.userType
+      //   }).subscribe(  async (res) => {
+      //       this.sheckMobileStep = true;
+      //   }, err => {
+      //       if (err.error.message) {
+      //         this.showErrorToast('Error!!', err.error.message, 'error');
+      //       }
+      //   });
     }
   }
 

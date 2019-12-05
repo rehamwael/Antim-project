@@ -17,7 +17,7 @@ export class FullComponent implements OnInit {
   userRole: any;
   islogin = false;
   getState: Observable<any>;
-
+  dashboredUrl: any;
 // tslint:disable-next-line: indent
 	public config: PerfectScrollbarConfigInterface = {};
 
@@ -43,6 +43,7 @@ export class FullComponent implements OnInit {
   ngOnInit() {
     const role = localStorage.getItem('role');
     this.userRole = role;
+    this.dashboredUrl = 'dashbored-' + role;
     this.getState.subscribe((state) => {
       const token = localStorage.getItem('token');
       if (token) {
@@ -96,9 +97,6 @@ export class FullComponent implements OnInit {
       this.router.navigateByUrl('/signup');
     };
     closeMenu() {
-      if (this.islogin) {
-        this.router.navigateByUrl('/dashbored-' + this.userRole);
-      }
       const isMobile = /iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|Android/i.test(navigator.userAgent);
       if (isMobile) {
         this.navbarOpen = !this.navbarOpen;
