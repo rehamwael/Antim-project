@@ -140,7 +140,7 @@
 
         </div>
 
-        <div class="page-wraper-right full-width" *ngIf="slectedProduct">
+        <!-- <div class="page-wraper-right full-width" *ngIf="slectedProduct">
 
         <div class="justify-content-center col-lg-11 mat-card mt-4 p-0 mb-5">
             <div class="mat-card row p-4 m-0">
@@ -240,7 +240,6 @@
         <div class="col-lg-4" *ngIf="editFields">
           <label for="Installment" class="font-bold mt-2">Installment Peroid</label>
               <select  formControlName="InstallmentPeriod"  matNativeControl [(ngModel)]="installmentPeriod" class="form-control form-control-lg " (change)="onSelectChange($event.target.value)" >
-                  <!-- <option value="{{installmentPeriod}}" selected>{{installmentPeriod}} </option> -->
                   <option value="3-Months" >3 Months</option>
                   <option  value="6-Months" >6 Months</option>
                   <option *ngIf="showOptions" value="9-Months">9 Months</option>
@@ -313,19 +312,7 @@
 
               </div>
             </ng-template>
-        </div>
+        </div> -->
 
         </div>
-        <ng-template #content let-modal>
-            <div class="modal-body py-5">
-              <p class="my-4" style="text-align: center; font-size: 20px;">
-                    <b>Do you really Want To Delete this Request?</b>
-              </p>
-              <div class="row" style="width: 100%;">
-              <div class="col-lg-3"></div>
-              <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">No</button></div>
-              <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteRequest()">Yes</button></div>
 
-              </div>
-            </div>
-          </ng-template>
