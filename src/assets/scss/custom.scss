@@ -1529,27 +1529,31 @@ td.mat-cell.Waiting ,td.mat-cell.Waiting {
     text-transform: uppercase;
 }
 td.mat-cell.Ongoing  {
-    color: #52cb5f !important;
+    color: #43bd4f !important;
     text-transform: uppercase;
 }
 td.mat-cell.Draft {
-  color: rgb(231, 153, 36) !important;
+  color: #5c20d2 !important;
   text-transform: uppercase;
 }
 td.mat-cell.Closed {
-  color: #5c20d2 !important;
+  color: grey !important;
+  text-transform: uppercase;
+}
+td.mat-cell.Accepted {
+  color: #58a4fb !important;
   text-transform: uppercase;
 }
 td.mat-cell.Rejected {
     color: #c5003e !important;
     text-transform: uppercase;
 }
-td.mat-cell.Under {
-    color: #f6cf00 !important;
+td.mat-cell.UnderReview {
+    color: #cc742c !important;
     text-transform: uppercase;
 }
 td.mat-cell.Wating{
-    color: #58a4fb !important;
+    color: #fb9e58 !important;
     text-transform: uppercase;
 }
 .mat-checkbox-checkmark-path {

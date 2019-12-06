@@ -90,6 +90,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
           if (element.type === 6) {
             element.status = 'Accepted';
           }
+          if (element.type === 7) {
+            element.status = 'UnderReview';
+          }
           element.position = i;
           i++;
         });
@@ -181,6 +184,12 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.fromDate = '';
       this.toDate = '';
     }
+    if (deviceValue === 'UnderReview') {
+      this.requestType = 'UnderReview';
+      this.selectedRequestType = 7;
+      this.fromDate = '';
+      this.toDate = '';
+    }
   }
   openProductDetails(row) {
     this.reqID = row.id;
@@ -240,6 +249,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
           if (element.type === 6) {
             element.status = 'Accepted';
           }
+          if (element.type === 7) {
+            element.status = 'UnderReview';
+          }
           element.position = i;
           i++;
         });
@@ -284,6 +296,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
             }
             if (element.type === 6) {
               element.status = 'Accepted';
+            }
+            if (element.type === 7) {
+              element.status = 'UnderReview';
             }
             element.position = i;
             i++;

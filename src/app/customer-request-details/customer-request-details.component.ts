@@ -14,7 +14,7 @@ import * as moment from 'moment';
 })
 export class CustomerRequestDetailsComponent implements OnInit {
 
-  productName: any;
+  requestName: any;
   requestID: any;
   requestType_ENUM: any;
   requestType: any;
@@ -75,6 +75,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       console.log('REQUEST DETAILS: ', res.result);
       this.requestDate = moment(res.result.createdAt).format('LL');
       this.monthlyInstallment = res.result.monthlyPaybackAmount;
+      this.requestName = res.result.name;
       this.totalPrice = res.result.totalFundAmount;
       this.totalPriceWithProfit = res.result.totalPaybackAmount;
       this.installmentPeriod_ENUM = res.result.paybackPeriod;
@@ -204,6 +205,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
     }
   }
   nextStep() {
+    this.monthlyInstallment = 0;
     this.totalProducts = Object.keys(this.productList).length;
     if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
@@ -218,7 +220,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
     }
   }
   onChange(Value) {
-    this.monthlyInstallment = 0;
     if (Value === '3-Months') {
       this.installmentPeriod = '3-Months';
       this.installmentPeriod_ENUM = 1;
@@ -253,13 +254,13 @@ export class CustomerRequestDetailsComponent implements OnInit {
   }
   saveAsDraft(content) {
     this.spinner.show();
-    this.customerRequestService.AddCustomerRequest({
-      'Name': this.productName,
+    this.customerRequestService.EditCustomerRequest({
+      'Id': this.requestID,
+      'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       'MonthlyPaybackAmount': this.monthlyInstallment,
       'TotalPaybackAmount': this.totalPriceWithProfit,
-      'Type': 'Draft',
       'Products': this.productList
     }).subscribe((res) => {
       console.log('saveAsDraft:', res);
@@ -275,13 +276,14 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
   saveRequest(content3) {
     this.spinner.show();
-    this.customerRequestService.AddCustomerRequest({
-      'Name': this.productName,
+    this.customerRequestService.EditCustomerRequest({
+      'Id': this.requestID,
+      'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       'MonthlyPaybackAmount': this.monthlyInstallment,
       'TotalPaybackAmount': this.totalPriceWithProfit,
-      'Type': 'Awaiting',
+      'Type': 'UnderReview',
       'Products': this.productList
     }).subscribe((res) => {
       console.log(' Added:', res);
@@ -297,8 +299,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
   addMoreItems() {
     this.productList.push({
-      ProductUrl: '',
-      Price: null
+      productUrl: '',
+      amount: null
     });
   }
   removeItems(i: number) {

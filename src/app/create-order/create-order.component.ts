@@ -219,7 +219,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       'PaybackPeriod': this.installmentPeriod_ENUM,
       'MonthlyPaybackAmount': this.monthlyPrice,
       'TotalPaybackAmount': this.totalPriceWithProfit,
-      'Type': 'Awaiting',
+      'Type': 'UnderReview',
       'Products': this.userPoductList
     }).subscribe((res) => {
       console.log(' Added:', res);
