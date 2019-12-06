@@ -144,51 +144,37 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.requestType = 'All Requests';
       this.selectedRequestType = 0;
       this.allData = true;
-      this.fromDate = '';
-      this.toDate = '';
+      // this.fromDate = '';
+      // this.toDate = '';
     }
     if (deviceValue === 'Waiting for approval') {
       this.requestType = 'Waiting for approval';
       this.selectedRequestType = 1;
-      this.fromDate = '';
-      this.toDate = '';
     }
 
     if (deviceValue === 'Ongoing') {
       this.requestType = 'Ongoing';
       this.selectedRequestType = 4;
-      this.fromDate = '';
-      this.toDate = '';
     }
     if (deviceValue === 'Rejected') {
       this.requestType = 'Rejected';
       this.selectedRequestType = 3;
-      this.fromDate = '';
-      this.toDate = '';
     }
     if (deviceValue === 'Closed') {
       this.requestType = 'Closed';
       this.selectedRequestType = 2;
-      this.fromDate = '';
-      this.toDate = '';
     }
     if (deviceValue === 'Draft') {
       this.requestType = 'Draft';
       this.selectedRequestType = 5;
-      this.fromDate = '';
-      this.toDate = '';
     }
     if (deviceValue === 'Accepted') {
       this.requestType = 'Accepted';
       this.selectedRequestType = 6;
-      this.fromDate = '';
-      this.toDate = '';
     }
     if (deviceValue === 'UnderReview') {
       this.requestType = 'UnderReview';
       this.selectedRequestType = 7;
-      this.fromDate = '';
-      this.toDate = '';
     }
   }
   openProductDetails(row) {
