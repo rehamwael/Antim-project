@@ -248,8 +248,8 @@
                                 <div class="row mt-4">
                                 <div class="col-lg-6">
                                     <label for="Installment" class="font-bold mt-2">Select Installment Peroid</label>
-                                    <select formControlName="firstCtrl" matNativeControl required class="form-control form-control-lg mt-3" (change)="onChange($event.target.value)">
-                                      <option value="6-Months-ex" selected>Ex: 6 Months</option>
+                                    <select formControlName="firstCtrl" matNativeControl required class="form-control custom-select form-control-lg mt-3" (change)="onChange($event.target.value)">
+                                      <option value="" selected>Please Select Installment Period</option>
                                       <option value="3-Months" >3 Months</option>
                                       <option  value="6-Months">6 Months</option>
                                       <option *ngIf="showOptions" value="9-Months">9 Months</option>

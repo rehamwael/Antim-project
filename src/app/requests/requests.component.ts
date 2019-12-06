@@ -7,6 +7,10 @@ import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState, customerState } from './../store/app.states';
+import { GetAllCustomerRequests } from './../store/actions/customer.actions';
 
 export interface PeriodicElement {
   position: number;
@@ -45,7 +49,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   options: IndividualConfig;
   allRequestData: any;
   allFilterRequests: any;
-  allData: boolean;
+  getState: Observable<any>;
 
   constructor(private modalService: NgbModal,
     public router: Router,
@@ -53,60 +57,60 @@ export class RequestsComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
-    ) {
+    private store: Store<AppState>,
+  ) {
+    this.getState = this.store.select(customerState);
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
   }
-
-  getAllCustomersRequests() {
+  getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
-      allCustomerRequestData.length = 0;
-      this.spinner.show();
-      this.customerRequestService.customerAllRequests().subscribe(res => {
-        this.allData = true;
-        this.spinner.hide();
-        this.allRequestData = res.result;
-        let i = 1;
-        this.allRequestData.forEach(element => {
-          allCustomerRequestData.push(element);
-          element.date = moment(element.createdAt).format('LL');
-          element.value = element.totalPaybackAmount + ' SAR';
-          if (element.type === 1) {
-            element.status = 'Waiting for approval';
-          }
-          if (element.type === 2) {
-            element.status = 'Closed';
-          }
-          if (element.type === 3) {
-            element.status = 'Rejected';
-          }
-          if (element.type === 4) {
-            element.status = 'Ongoing';
-          }
-          if (element.type === 5) {
-            element.status = 'Draft';
-          }
-          if (element.type === 6) {
-            element.status = 'Accepted';
-          }
-          if (element.type === 7) {
-            element.status = 'UnderReview';
-          }
-          element.position = i;
-          i++;
-        });
-        console.log('customerAllRequests:', allCustomerRequestData);
-        resolve(res);
-      }, err => {
-        reject(err);
-        this.spinner.hide();
-        console.log('ERROR:', err);
+      this.getState.subscribe((state) => {
+        if (!state) {
+          this.store.dispatch(new GetAllCustomerRequests());
+        } else {
+          this.allRequestData = state.customerRequestsData;
+          resolve(state.customerRequestsData);
+        }
       });
     });
   }
+
   ngOnInit(): void {
-    this.getAllCustomersRequests().then(e => {
+    this.getCustomerRequestFromStore().then(e => {
+      this.allRequestData = e;
+      allCustomerRequestData.length = 0;
+      let i = 1;
+      this.allRequestData.forEach(element => {
+        allCustomerRequestData.push(element);
+        element.date = moment(element.createdAt).format('LL');
+        element.value = element.totalPaybackAmount + ' SAR';
+        if (element.type === 1) {
+          element.status = 'Waiting for approval';
+        }
+        if (element.type === 2) {
+          element.status = 'Closed';
+        }
+        if (element.type === 3) {
+          element.status = 'Rejected';
+        }
+        if (element.type === 4) {
+          element.status = 'Ongoing';
+        }
+        if (element.type === 5) {
+          element.status = 'Draft';
+        }
+        if (element.type === 6) {
+          element.status = 'Accepted';
+        }
+        if (element.type === 7) {
+          element.status = 'UnderReview';
+        }
+        element.position = i;
+        i++;
+      });
+      console.log('customerAllRequests:', allCustomerRequestData);
       const body = document.getElementsByTagName('body')[0];
       body.classList.add('dashbored');
       body.classList.add('requests');
@@ -143,7 +147,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
     if (deviceValue === '') {
       this.requestType = 'All Requests';
       this.selectedRequestType = 0;
-      this.allData = true;
       // this.fromDate = '';
       // this.toDate = '';
     }
@@ -192,67 +195,18 @@ export class RequestsComponent implements OnInit, OnDestroy {
   selectFromDate(evt: any) {
     this.fromDate = new Date(evt.year, evt.month - 1, evt.day);
     this.fromDate = moment(this.fromDate).format('YYYY-MM-DD');
-    console.log(this.fromDate);
+    // console.log(this.fromDate);
     this.toDate = '';
   }
   selectToDate(evt: any) {
     this.toDate = new Date(evt.year, evt.month - 1, evt.day);
     this.toDate = moment(this.toDate).format('YYYY-MM-DD');
-    console.log(this.toDate);
+    // console.log(this.toDate);
   }
   filterRequests() {
     if (this.selectedRequestType === 0) {
       this.spinner.show();
-      console.log(this.fromDate, this.toDate);
       this.customerRequestService.getFilteredRequestsByDate(this.fromDate, this.toDate).subscribe((res) => {
-        if (res.message) {
-          this.showErrorToast('Error!!', res.message, 'error');
-          this.spinner.hide();
-        } else {
-        this.allFilterRequests = [];
-        this.allFilterRequests = res.result;
-        console.log('allFilterRequests', this.allFilterRequests);
-        let i = 1;
-        this.allFilterRequests.forEach(element => {
-          filterRequestData.push(element);
-          element.date = moment(element.createdAt).format('LL');
-          element.value = element.totalPaybackAmount + ' SAR';
-          if (element.type === 1) {
-            element.status = 'Waiting for approval';
-          }
-          if (element.type === 2) {
-            element.status = 'Closed';
-          }
-          if (element.type === 3) {
-            element.status = 'Rejected';
-          }
-          if (element.type === 4) {
-            element.status = 'Ongoing';
-          }
-          if (element.type === 5) {
-            element.status = 'Draft';
-          }
-          if (element.type === 6) {
-            element.status = 'Accepted';
-          }
-          if (element.type === 7) {
-            element.status = 'UnderReview';
-          }
-          element.position = i;
-          i++;
-        });
-        this.dataSourceAll = new MatTableDataSource<PeriodicElement>(filterRequestData);
-        this.spinner.hide();
-      }
-      }, err => {
-        this.spinner.hide();
-        console.log(' ERROR:', err);
-      });
-    } else {
-      console.log(this.selectedRequestType, this.fromDate, this.toDate);
-      this.spinner.show();
-      this.customerRequestService.getFilteredRequestsByTypeAndDate(this.selectedRequestType, this.fromDate, this.toDate)
-      .subscribe((res) => {
         if (res.message) {
           this.showErrorToast('Error!!', res.message, 'error');
           this.spinner.hide();
@@ -296,6 +250,53 @@ export class RequestsComponent implements OnInit, OnDestroy {
         this.spinner.hide();
         console.log(' ERROR:', err);
       });
+    } else {
+      this.spinner.show();
+      this.customerRequestService.getFilteredRequestsByTypeAndDate(this.selectedRequestType, this.fromDate, this.toDate)
+        .subscribe((res) => {
+          if (res.message) {
+            this.showErrorToast('Error!!', res.message, 'error');
+            this.spinner.hide();
+          } else {
+            this.allFilterRequests = [];
+            this.allFilterRequests = res.result;
+            console.log('allFilterRequests', this.allFilterRequests);
+            let i = 1;
+            this.allFilterRequests.forEach(element => {
+              filterRequestData.push(element);
+              element.date = moment(element.createdAt).format('LL');
+              element.value = element.totalPaybackAmount + ' SAR';
+              if (element.type === 1) {
+                element.status = 'Waiting for approval';
+              }
+              if (element.type === 2) {
+                element.status = 'Closed';
+              }
+              if (element.type === 3) {
+                element.status = 'Rejected';
+              }
+              if (element.type === 4) {
+                element.status = 'Ongoing';
+              }
+              if (element.type === 5) {
+                element.status = 'Draft';
+              }
+              if (element.type === 6) {
+                element.status = 'Accepted';
+              }
+              if (element.type === 7) {
+                element.status = 'UnderReview';
+              }
+              element.position = i;
+              i++;
+            });
+            this.dataSourceAll = new MatTableDataSource<PeriodicElement>(filterRequestData);
+            this.spinner.hide();
+          }
+        }, err => {
+          this.spinner.hide();
+          console.log(' ERROR:', err);
+        });
 
     }
   }

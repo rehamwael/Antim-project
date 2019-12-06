@@ -15,7 +15,6 @@ export class ProfileService {
   // EDIT USER PERSONAL INFORMATION
   editUser(user: any): Observable<any> {
     const token = localStorage.getItem('token');
-
     const httpOptions = {
       headers: new HttpHeaders({
           authorization: `Bearer ${token}`

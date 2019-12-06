@@ -6,6 +6,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { Store } from '@ngrx/store';
+import { AppState, customerState } from './../store/app.states';
+import { EditCustomerRequest, DeleteCustomerRequests } from './../store/actions/customer.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-customer-request-details',
@@ -42,6 +46,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   disabledSubmitButton = true;
   showRequestDetiails = true;
   totalProducts: any;
+  getState: Observable<any>;
 
   options: IndividualConfig;
   productList: any[] = [{
@@ -57,7 +62,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
     private toastr: ToastrService,
     private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
+    private store: Store<AppState>
   ) {
+    this.getState = this.store.select(customerState);
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
@@ -93,7 +100,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       }
       this.requestType_ENUM = res.result.type;
       if (this.requestType_ENUM === 1) {
-        this.requestType = 'AWaiting for Fund';
+        this.requestType = 'Awaiting for Fund';
       }
       if (this.requestType_ENUM === 2) {
         this.requestType = 'Closed';
@@ -112,6 +119,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
       }
       if (this.requestType_ENUM === 6) {
         this.requestType = 'Accepted';
+      }
+      if (this.requestType_ENUM === 7) {
+        this.requestType = 'Under Review';
       }
       this.spinner.hide();
 
@@ -158,17 +168,10 @@ export class CustomerRequestDetailsComponent implements OnInit {
   }
 
   deleteRequest() {
-    this.spinner.show();
-    this.customerRequestService.deleteCustomerRequest(this.requestID).subscribe(res => {
-      this.spinner.hide();
-      this.showSuccessToast('OK!!', res.message, 'success');
-      this.modalService.dismissAll();
-      this.router.navigate(['/requests-customer']);
-    }, err => {
-      this.spinner.hide();
-      this.modalService.dismissAll();
-      this.showErrorToast('Error!!', err.message, 'error');
-    });
+    const actionPayload = {
+      id: this.requestID
+    };
+    this.store.dispatch(new DeleteCustomerRequests(actionPayload));
   }
 
 
@@ -253,48 +256,75 @@ export class CustomerRequestDetailsComponent implements OnInit {
     }
   }
   saveAsDraft(content) {
-    this.spinner.show();
-    this.customerRequestService.EditCustomerRequest({
+    const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       'MonthlyPaybackAmount': this.monthlyInstallment,
       'TotalPaybackAmount': this.totalPriceWithProfit,
+      'Type': 'Draft',
       'Products': this.productList
-    }).subscribe((res) => {
-      console.log('saveAsDraft:', res);
-      this.spinner.hide();
-      this.showSuccessToast('OK!!', res.message, 'success');
-      this.modalService.open(content, { centered: true });
-    }, err => {
-      console.log(' ERROR:', err);
-      this.spinner.hide();
-      this.showErrorToast('Error!!', err.error.message, 'error');
-    });
+    };
+    this.store.dispatch(new EditCustomerRequest(actionPayload));
+    // this.spinner.show();
+    // this.customerRequestService.EditCustomerRequest({
+    //   'Id': this.requestID,
+    //   'Name': this.requestName,
+    //   'TotalFundAmount': this.totalPrice,
+    //   'PaybackPeriod': this.installmentPeriod_ENUM,
+    //   'MonthlyPaybackAmount': this.monthlyInstallment,
+    //   'TotalPaybackAmount': this.totalPriceWithProfit,
+    //   'Products': this.productList
+    // }).subscribe((res) => {
+    //   console.log('saveAsDraft:', res);
+    //   this.spinner.hide();
+    //   this.showSuccessToast('OK!!', res.message, 'success');
+    //   this.modalService.open(content, { centered: true });
+    // }, err => {
+    //   console.log(' ERROR:', err);
+    //   this.spinner.hide();
+    //   this.showErrorToast('Error!!', err.error.message, 'error');
+    // });
+    this.modalService.open(content, { centered: true });
+
   }
 
   saveRequest(content3) {
-    this.spinner.show();
-    this.customerRequestService.EditCustomerRequest({
+    const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       'MonthlyPaybackAmount': this.monthlyInstallment,
       'TotalPaybackAmount': this.totalPriceWithProfit,
-      'Type': 'UnderReview',
+      'Type': 7,
       'Products': this.productList
-    }).subscribe((res) => {
-      console.log(' Added:', res);
-      this.spinner.hide();
-      this.showSuccessToast('OK!!', res.message, 'success');
-      this.modalService.open(content3, { centered: true });
-    }, err => {
-      console.log(' ERROR:', err);
-      this.spinner.hide();
-      this.showErrorToast('Error!!', err.error.message, 'error');
-    });
+    };
+    this.store.dispatch(new EditCustomerRequest(actionPayload));
+    this.modalService.open(content3, { centered: true });
+
+
+    // this.spinner.show();
+    // this.customerRequestService.EditCustomerRequest({
+    //   'Id': this.requestID,
+    //   'Name': this.requestName,
+    //   'TotalFundAmount': this.totalPrice,
+    //   'PaybackPeriod': this.installmentPeriod_ENUM,
+    //   'MonthlyPaybackAmount': this.monthlyInstallment,
+    //   'TotalPaybackAmount': this.totalPriceWithProfit,
+    //   'Type': 'UnderReview',
+    //   'Products': this.productList
+    // }).subscribe((res) => {
+    //   console.log(' Added:', res);
+    //   this.spinner.hide();
+    //   this.showSuccessToast('OK!!', res.message, 'success');
+    //   this.modalService.open(content3, { centered: true });
+    // }, err => {
+    //   console.log(' ERROR:', err);
+    //   this.spinner.hide();
+    //   this.showErrorToast('Error!!', err.error.message, 'error');
+    // });
   }
 
   addMoreItems() {

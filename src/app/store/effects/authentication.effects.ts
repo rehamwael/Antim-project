@@ -16,6 +16,11 @@ import {
   Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile
 } from '../actions/auth.actions';
 import { AppState } from '../app.states';
+import { CustomerRequestService } from 'src/app/services/customer-request.service';
+import {
+  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, DeleteRequestSuccess
+} from '../actions/customer.actions';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Injectable()
@@ -23,13 +28,14 @@ export class AuthenticationEffects {
   options: IndividualConfig;
   userRole: string;
 
-  constructor(
+  constructor(private modalService: NgbModal,
     private actions: Actions,
     private authenticationService: AuthService,
     private router: Router,
     private toastr: ToastrService,
     private userDataService: ProfileService,
     private store: Store<AppState>,
+    private customerService: CustomerRequestService,
     private spinner: NgxSpinnerService) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
@@ -37,7 +43,7 @@ export class AuthenticationEffects {
     this.options.progressBar = true;
   }
 
-@Effect()
+  @Effect()
   Login: Observable<any> = this.actions
     .pipe(
       ofType(AuthenticationActionTypes.LOGIN),
@@ -45,19 +51,19 @@ export class AuthenticationEffects {
       switchMap(payload => {
         this.spinner.show();
         return this.authenticationService.login(payload)
-        .pipe(
-          map((user) => {
-            this.spinner.hide();
-            console.log('in ngrx effects :', user);
-            const decoded = jwt_decode(user.access_token);
-          this.userRole = decoded.role;
-          return new LoginSuccess({token: user.access_token, role: decoded.role});
-          }),
-          catchError((error) => {
-            this.spinner.hide();
-            return of(new LoginFailure({ error: error.error }));
-          }));
-    }));
+          .pipe(
+            map((user) => {
+              this.spinner.hide();
+              console.log('in ngrx effects :', user);
+              const decoded = jwt_decode(user.access_token);
+              this.userRole = decoded.role;
+              return new LoginSuccess({ token: user.access_token, role: decoded.role });
+            }),
+            catchError((error) => {
+              this.spinner.hide();
+              return of(new LoginFailure({ error: error.error }));
+            }));
+      }));
 
 
   @Effect({ dispatch: false })
@@ -78,8 +84,8 @@ export class AuthenticationEffects {
         this.showToast('Error!!', res.payload.error.error_description, 'error');
       } else {
         this.showToast('Error!!',
-        'The email address and password that you\'ve entered doesn\'t match any account. Please try again.',
-        'error'
+          'The email address and password that you\'ve entered doesn\'t match any account. Please try again.',
+          'error'
         );
       }
     })
@@ -96,17 +102,96 @@ export class AuthenticationEffects {
   );
   @Effect({ dispatch: false })
   UserProfile: Observable<any> = this.actions
-  .pipe(
-    ofType(AuthenticationActionTypes.USER_PROFILE),
+    .pipe(
+      ofType(AuthenticationActionTypes.USER_PROFILE),
+      tap(() => {
+        this.spinner.show();
+        return this.userDataService.getUserData().subscribe(res => {
+          this.store.dispatch(new SaveUserProfile(res.result));
+          this.spinner.hide();
+        });
+      }));
+
+  @Effect({ dispatch: false })
+  GetAllCustomerRequests: Observable<any> = this.actions.pipe(
+    ofType(CustomerActionTypes.GET_ALL_REQUESTS),
     tap(() => {
       this.spinner.show();
-      return this.userDataService.getUserData().subscribe(res => {
-        this.store.dispatch(new SaveUserProfile(res.result));
+      return this.customerService.customerAllRequests().subscribe(res => {
+        this.store.dispatch(new SaveAllCustomerRequests(res.result));
         this.spinner.hide();
       });
     }));
 
+    // @Effect({ dispatch: false })
+    // AddCustomerRequests: Observable<any> = this.actions.pipe(
+    //   ofType(CustomerActionTypes.ADD_REQUEST),
+    //   tap(() => {
+    //     this.spinner.show();
+    //     return this.customerService.customerAllRequests().subscribe(res => {
+    //       this.store.dispatch(new SaveAllCustomerRequests(res.result));
+    //       this.spinner.hide();
+    //     });
+    //   }));
+
+    @Effect({ dispatch: false })
+    EditCustomerRequests: Observable<any> = this.actions.pipe(
+      // ofType(CustomerActionTypes.EDIT_REQUEST),
+      // tap(() => {
+      //   this.spinner.show();
+      //   return this.customerService.EditCustomerRequest().subscribe(res => {
+      //     this.store.dispatch(new SaveAllCustomerRequests(res.result));
+      //     this.spinner.hide();
+      //   });
+      // }));
+      ofType(CustomerActionTypes.EDIT_REQUEST),
+      map((action: EditCustomerRequest) => action.payload),
+      switchMap(payload => {
+        this.spinner.show();
+        return this.customerService.EditCustomerRequest(payload).pipe(
+          map((res) => {
+          console.log(' Edited:', res);
+          this.spinner.hide();
+          this.showSuccessToast('OK!!', res.message, 'success');
+          // this.modalService.open(content3, { centered: true });
+        }),
+        catchError( error => {
+          console.log(' ERROR:', error);
+          this.spinner.hide();
+          return of(this.showErrorToast('Error!!', error.error.message, 'error'));
+        }));
+      }));
+
+      @Effect({ dispatch: false })
+      DeleteCustomerRequest: Observable<any> = this.actions.pipe(
+        ofType(CustomerActionTypes.DELETE_REQUEST),
+        map((action: DeleteCustomerRequests) => action.payload),
+        switchMap(payload => {
+          this.spinner.show();
+          return this.customerService.deleteCustomerRequest(payload.id).pipe(
+            map((res) => {
+            console.log(' Deleted:', res);
+            this.spinner.hide();
+            this.modalService.dismissAll();
+            this.router.navigate(['/requests-customer']);
+            this.showSuccessToast('OK!!', res.message, 'success');
+            this.store.dispatch(new DeleteRequestSuccess(payload));
+          }),
+          catchError( error => {
+            console.log(' ERROR:', error);
+            this.spinner.hide();
+            return of(this.showErrorToast('Error!!', error.error.message, 'error'));
+          }));
+        }));
+
+
   showToast(title: string, message: string, type: string) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+  showSuccessToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+  showErrorToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit , OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ProfileService } from '../services/userProfile.service';
 import { Store } from '@ngrx/store';
@@ -12,7 +12,8 @@ import { CustomerRequestService } from '../services/customer-request.service';
   templateUrl: './dashbored.component.html',
   styleUrls: ['./dashbored.component.css']
 })
-export class DashboredComponent implements OnInit , OnDestroy {
+
+export class DashboredComponent implements OnInit, OnDestroy {
   currentUser: any;
   onGoing: any;
   rejected: any;
@@ -26,28 +27,35 @@ export class DashboredComponent implements OnInit , OnDestroy {
     private userDataService: ProfileService,
     private store: Store<AppState>,
     private customerRequestService: CustomerRequestService
-    ) {
-      this.getState = this.store.select(selectAuthenticationState);
-     }
-
-  ngOnInit(): void {
-    this.getState.subscribe((state) => {
-      const token = localStorage.getItem('token');
-      this.currentUser = state.userProfile;
-      if (!this.currentUser && token) {
-        this.store.dispatch(new UserProfile());
-      }
+  ) {
+    this.getState = this.store.select(selectAuthenticationState);
+  }
+  getUserFromStore() {
+    return new Promise((resolve, reject) => {
+      this.getState.subscribe((state) => {
+        const token = localStorage.getItem('token');
+        this.currentUser = state.userProfile;
+        if (!this.currentUser && token) {
+          this.store.dispatch(new UserProfile());
+        } else {
+          resolve();
+        }
+      });
     });
-    this.getCount();
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.add('dashbored');
-    body.classList.add('dashbored-home');
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
+  }
+  ngOnInit(): void {
+    this.getUserFromStore().then(e => {
+      this.getCount();
+      const body = document.getElementsByTagName('body')[0];
+      body.classList.add('dashbored');
+      body.classList.add('dashbored-home');
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
           return;
-      }
-      window.scrollTo(0, 0);
-  });
+        }
+        window.scrollTo(0, 0);
+      });
+    });
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
