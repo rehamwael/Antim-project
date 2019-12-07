@@ -227,24 +227,6 @@ showErrorToast(title, message, type) {
     if (event.keyCode === 13) {
       alert('Please click to SignUp Button to Submit Form.');
       this.showSelected = true;
-      // this.authservice.register({
-      //   'Email': this.signupEmail,
-      //   'FirstName': this.signupFirstName,
-      //   'LastName': this.signupLastName,
-      //   'NationalIdNumber': this.signupIdNum,
-      //   'UserName': this.signupUserName,
-      //   'Password': this.signupPassword,
-      //   'ConfirmPassword': this.signupCPassword,
-      //   'PhoneNumber': this.signupPhone.toString(),
-      //   'DialingCode': this.signupCountrycode.toString(),
-      //   'Role': this.userType
-      //   }).subscribe(  async (res) => {
-      //       this.sheckMobileStep = true;
-      //   }, err => {
-      //       if (err.error.message) {
-      //         this.showErrorToast('Error!!', err.error.message, 'error');
-      //       }
-      //   });
     }
   }
 
@@ -313,7 +295,7 @@ showErrorToast(title, message, type) {
 
   signUp() {
     this.router.navigateByUrl('/login');
-    this.showSuccessToast('OK!!', 'Your Account Created Successfully!!Please Login to get access.', 'success');
+    this.showSuccessToast('OK!!', 'Your Account Created Successfully!!Please Confirm your Email and then Login to get access.', 'success');
   }
 
    keytab(event, next) {

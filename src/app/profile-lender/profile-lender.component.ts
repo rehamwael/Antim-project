@@ -34,6 +34,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
 
   bankName: any;
   bankAccountNo: any;
+  Iban: any;
   bankAddress: any;
   accountTitle: any;
   fundingLimit: any;
@@ -136,6 +137,12 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(6)
       ])],
+      'IBAN': [{ value: this.accountTitle, disabled: this.disabledBankButton }, Validators.compose([
+        Validators.required,
+        Validators.minLength(26),
+        Validators.maxLength(26)
+      ])],
+
       'BankAddress': [{ value: this.bankAddress, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
         Validators.minLength(10)
@@ -243,7 +250,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.BankInfoForm.get('BankName').disable();
     this.BankInfoForm.get('BankAccountNo').disable();
     this.BankInfoForm.get('AccountTitle').disable();
-    this.BankInfoForm.get('BankAddress').disable();
+    this.BankInfoForm.get('IBAN').disable();
     this.BankInfoForm.get('FundingLimit').disable();
     // this.BankInfoForm.get('investmentPerYear').disable();
     this.router.events.subscribe((evt) => {
@@ -299,7 +306,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.BankInfoForm.get('BankName').enable();
     this.BankInfoForm.get('BankAccountNo').enable();
     this.BankInfoForm.get('AccountTitle').enable();
-    this.BankInfoForm.get('BankAddress').enable();
+    this.BankInfoForm.get('IBAN').enable();
     this.BankInfoForm.get('FundingLimit').enable();
 
     // this.BankInfoForm.get('investmentPerYear').enable();
@@ -321,7 +328,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.BankInfoForm.get('BankName').disable();
         this.BankInfoForm.get('BankAccountNo').disable();
         this.BankInfoForm.get('AccountTitle').disable();
-        this.BankInfoForm.get('BankAddress').disable();
+        this.BankInfoForm.get('IBAN').disable();
         this.BankInfoForm.get('FundingLimit').disable();
         this.disableBankButton = false;
       }, err => {
@@ -344,7 +351,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.BankInfoForm.get('BankName').disable();
         this.BankInfoForm.get('BankAccountNo').disable();
         this.BankInfoForm.get('AccountTitle').disable();
-        this.BankInfoForm.get('BankAddress').disable();
+        this.BankInfoForm.get('IBAN').disable();
         this.BankInfoForm.get('FundingLimit').disable();
         this.disableBankButton = false;
       }, err => {
