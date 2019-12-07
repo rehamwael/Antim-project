@@ -45,6 +45,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
   disabledSubmitButtonSecond = false;
   disabledSubmitButton = true;
   showRequestDetiails = true;
+  hideTotalButton = false;
+
   totalProducts: any;
   getState: Observable<any>;
 
@@ -196,16 +198,21 @@ export class CustomerRequestDetailsComponent implements OnInit {
       this.totalPrice = 1 * this.totalPrice + 1 * product.amount;
     });
     console.log('totalPrice:', this.totalPrice);
-    if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
+    if (this.totalPrice < 500 || this.totalPrice > 10000) {
+      this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000,Go back and Enter correct price.', 'error');
       this.disableFirstStep = false;
       this.showTotalPrice = false;
       this.totalPrice = 0;
-      // tslint:disable-next-line: max-line-length
-      this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000,Go back and Enter correct price.', 'error');
     } else {
       this.showTotalPrice = true;
       this.disableFirstStep = true;
     }
+  }
+  inputNumber() {
+    this.totalPrice = 0;
+    this.hideTotalButton = true;
+    this.disableFirstStep = false;
+    this.showTotalPrice = false;
   }
   nextStep() {
     this.monthlyInstallment = 0;

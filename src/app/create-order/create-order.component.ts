@@ -37,6 +37,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   requestType: any;
   disabledAgreement = false;
   disableFirstStep = false;
+  hideTotalButton = false;
   // isLinear = true;
   showTotalPrice = false;
 
@@ -131,7 +132,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.totalPrice = 1 * this.totalPrice + 1 * product.Price;
     });
     console.log('totalPrice:', this.totalPrice);
-     if (this.totalPrice <= 500 || this.totalPrice >= 10000) {
+    if (this.totalPrice < 500 || this.totalPrice > 10000) {
       this.disableFirstStep = false;
       this.showTotalPrice = false;
       this.totalPrice = 0;
@@ -234,6 +235,12 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
+  }
+  inputNumber() {
+    this.totalPrice = 0;
+    this.hideTotalButton = true;
+    this.disableFirstStep = false;
+    this.showTotalPrice = false;
   }
   addMoreItems() {
     this.userPoductList.push({
