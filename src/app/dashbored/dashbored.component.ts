@@ -20,6 +20,8 @@ export class DashboredComponent implements OnInit, OnDestroy {
   closed: any;
   awaiting: any;
   draft: any;
+  underReview: any;
+  accepted: any;
   getState: Observable<any>;
   isAuthenticated: boolean;
 
@@ -72,6 +74,7 @@ export class DashboredComponent implements OnInit, OnDestroy {
         this.draft = res.result.draft;
         this.awaiting = res.result.awaiting;
         this.rejected = res.result.rejected;
+        this.underReview = res.result.underReview;
       }, err => {
         console.log(' ERROR:', err);
       });

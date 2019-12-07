@@ -1,7 +1,5 @@
 import { CustomerActionTypes, CustomerRequests } from '../actions/customer.actions';
 
-
-
 export interface State {
   customerRequestsData: any[];
 }
@@ -27,11 +25,8 @@ export function reducer(state = initialState, action: CustomerRequests): State {
     }
 
     case CustomerActionTypes.EDIT_REQUEST: {
-      // tslint:disable-next-line: prefer-const
       let data = action.payload;
-      // tslint:disable-next-line: prefer-const
       let EditcustomerRequestsData = state.customerRequestsData.map(item => {
-        // tslint:disable-next-line: triple-equals
         if (item.id == data.Id) {
           item.name = data.Name;
           item.totalPaybackAmount = data.TotalPaybackAmount;
@@ -39,22 +34,16 @@ export function reducer(state = initialState, action: CustomerRequests): State {
         }
         return item;
       });
-      console.log(EditcustomerRequestsData);
       return {
         ...state,
         customerRequestsData: EditcustomerRequestsData
       };
     }
-
-    // tslint:disable-next-line: no-switch-case-fall-through
     case CustomerActionTypes.DELETE_SUCCESS: {
-      // console.log(action.payload);
-      // tslint:disable-next-line: prefer-const
-      let deleteRequest = state.customerRequestsData.filter(
-        // tslint:disable-next-line: triple-equals
+      let deletedRequest = state.customerRequestsData.filter(
         item => item.id != action.payload.id);
       return {
-        customerRequestsData: deleteRequest
+        customerRequestsData: deletedRequest
       };
     }
   }

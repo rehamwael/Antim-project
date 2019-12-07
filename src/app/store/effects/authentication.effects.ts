@@ -18,7 +18,7 @@ import {
 import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
 import {
-  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, DeleteRequestSuccess
+  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, DeleteRequestSuccess, AddCustomerRequest
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -124,26 +124,27 @@ export class AuthenticationEffects {
     }));
 
     // @Effect({ dispatch: false })
-    // AddCustomerRequests: Observable<any> = this.actions.pipe(
+    // AddCustomersRequest: Observable<any> = this.actions.pipe(
     //   ofType(CustomerActionTypes.ADD_REQUEST),
-    //   tap(() => {
+    //   map((action: AddCustomerRequest) => action.payload),
+    //   switchMap(payload => {
     //     this.spinner.show();
-    //     return this.customerService.customerAllRequests().subscribe(res => {
-    //       this.store.dispatch(new SaveAllCustomerRequests(res.result));
+    //     return this.customerService.AddCustomerRequest(payload).pipe(
+    //       map((res) => {
+    //       console.log(' Added:', res);
     //       this.spinner.hide();
-    //     });
+    //       this.showSuccessToast('OK!!', res.message, 'success');
+    //       // this.modalService.open(content3, { centered: true });
+    //     }),
+    //     catchError( error => {
+    //       console.log(' ERROR:', error);
+    //       this.spinner.hide();
+    //       return of(this.showErrorToast('Error!!', error.error.message, 'error'));
+    //     }));
     //   }));
 
     @Effect({ dispatch: false })
     EditCustomerRequests: Observable<any> = this.actions.pipe(
-      // ofType(CustomerActionTypes.EDIT_REQUEST),
-      // tap(() => {
-      //   this.spinner.show();
-      //   return this.customerService.EditCustomerRequest().subscribe(res => {
-      //     this.store.dispatch(new SaveAllCustomerRequests(res.result));
-      //     this.spinner.hide();
-      //   });
-      // }));
       ofType(CustomerActionTypes.EDIT_REQUEST),
       map((action: EditCustomerRequest) => action.payload),
       switchMap(payload => {
@@ -179,6 +180,7 @@ export class AuthenticationEffects {
           }),
           catchError( error => {
             console.log(' ERROR:', error);
+            this.modalService.dismissAll();
             this.spinner.hide();
             return of(this.showErrorToast('Error!!', error.error.message, 'error'));
           }));

@@ -255,7 +255,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
       this.disabledSubmitButtonSecond = false;
     }
   }
-  saveAsDraft(content) {
+
+
+   saveAsDraft(content) {
     const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
@@ -263,34 +265,14 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'PaybackPeriod': this.installmentPeriod_ENUM,
       'MonthlyPaybackAmount': this.monthlyInstallment,
       'TotalPaybackAmount': this.totalPriceWithProfit,
-      'Type': 'Draft',
+      'Type': 5,
       'Products': this.productList
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
-    // this.spinner.show();
-    // this.customerRequestService.EditCustomerRequest({
-    //   'Id': this.requestID,
-    //   'Name': this.requestName,
-    //   'TotalFundAmount': this.totalPrice,
-    //   'PaybackPeriod': this.installmentPeriod_ENUM,
-    //   'MonthlyPaybackAmount': this.monthlyInstallment,
-    //   'TotalPaybackAmount': this.totalPriceWithProfit,
-    //   'Products': this.productList
-    // }).subscribe((res) => {
-    //   console.log('saveAsDraft:', res);
-    //   this.spinner.hide();
-    //   this.showSuccessToast('OK!!', res.message, 'success');
-    //   this.modalService.open(content, { centered: true });
-    // }, err => {
-    //   console.log(' ERROR:', err);
-    //   this.spinner.hide();
-    //   this.showErrorToast('Error!!', err.error.message, 'error');
-    // });
     this.modalService.open(content, { centered: true });
-
   }
 
-  saveRequest(content3) {
+   saveRequest(content3) {
     const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
@@ -303,28 +285,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
     this.modalService.open(content3, { centered: true });
-
-
-    // this.spinner.show();
-    // this.customerRequestService.EditCustomerRequest({
-    //   'Id': this.requestID,
-    //   'Name': this.requestName,
-    //   'TotalFundAmount': this.totalPrice,
-    //   'PaybackPeriod': this.installmentPeriod_ENUM,
-    //   'MonthlyPaybackAmount': this.monthlyInstallment,
-    //   'TotalPaybackAmount': this.totalPriceWithProfit,
-    //   'Type': 'UnderReview',
-    //   'Products': this.productList
-    // }).subscribe((res) => {
-    //   console.log(' Added:', res);
-    //   this.spinner.hide();
-    //   this.showSuccessToast('OK!!', res.message, 'success');
-    //   this.modalService.open(content3, { centered: true });
-    // }, err => {
-    //   console.log(' ERROR:', err);
-    //   this.spinner.hide();
-    //   this.showErrorToast('Error!!', err.error.message, 'error');
-    // });
   }
 
   addMoreItems() {
