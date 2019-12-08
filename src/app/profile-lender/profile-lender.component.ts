@@ -146,8 +146,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       ])],
       'IBAN': [{ value: this.accountTitle, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
-        Validators.minLength(26),
-        Validators.maxLength(26)
+        Validators.minLength(25),
+        Validators.maxLength(26),
+        Validators.pattern('^[SA]+[A-Za-z0-9]{25,25}$')
       ])],
 
       'BankAddress': [{ value: this.bankAddress, disabled: this.disabledBankButton }, Validators.compose([

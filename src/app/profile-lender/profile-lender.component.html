@@ -110,7 +110,7 @@
                                     </div> -->
                                     <div class="col-lg-6">
                                         <label for="bankName" class="font-bold mt-2">Bank Name</label>
-                                        <select formControlName="BankName" class="form-control form-control-lg custom-select" value="{{bankName}}" [(ngModel)]="bankName" (change)="onSelectChange($event.target.value)">
+                                        <select formControlName="BankName" class="form-control custom-select form-control-lg mt-2" value="{{bankName}}" [(ngModel)]="bankName" (change)="onSelectChange($event.target.value)">
                                             <option value="AlBilad Bank" selected>AlBilad Bank</option>
                                             <option value="AlRajhi Bank" >AlRajhi Bank</option>
                                             <option value="AlFransi Bank" >AlFransi Bank</option>
@@ -162,9 +162,9 @@
                                     </div> -->
                                     <div class="col-lg-6">
                                         <label for="IBAN" class="font-bold mt-2">IBAN Number</label>
-                                        <input matInput formControlName="IBAN" class="form-control form-control-lg" value=""[(ngModel)]="Iban"  placeholder="SA 0000XXXXXXXXX">
+                                        <input matInput formControlName="IBAN" class="form-control form-control-lg" value=""[(ngModel)]="Iban" maxlength="26"  placeholder="SA 0000XXXXXXXXX">
                                         <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('required')" class="error-msg alert alert-danger text-left">IBAN Number is required</div>
-                                        <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('minlength')" class="error-msg alert alert-danger text-left">IBAN Number must be at least 26 characters long.</div>
+                                        <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('pattern')" class="error-msg alert alert-danger text-left">IBAN Number must start with "SA" + 24 digits.</div>
                                     </div>
                                     <div class="col-lg-6">
                                       <label for="fundingLimit" class="font-bold mt-2">Maximun Funding Limit  (500 SAR - 10,000 SAR)</label>
