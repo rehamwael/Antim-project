@@ -7,6 +7,7 @@ export interface State {
   user: User | null;
   errorMessage: string | null;
   userProfile: any;
+  customerRequestCount: any;
 }
 
 export const initialState: State = {
@@ -16,7 +17,8 @@ export const initialState: State = {
           role: localStorage.getItem('role')
         },
   errorMessage: null,
-  userProfile: null
+  userProfile: null,
+  customerRequestCount: null
 };
 
 export function reducer(state = initialState, action: AuthenticationActions): State {
@@ -58,7 +60,12 @@ export function reducer(state = initialState, action: AuthenticationActions): St
             userProfile: editedUser
           };
     }
-
+    case AuthenticationActionTypes.GET_REQUESTS_COUNT_SUCCESS: {
+      return {
+        ...state,
+        customerRequestCount: action.payload
+      };
+    }
     default: {
       return state;
     }

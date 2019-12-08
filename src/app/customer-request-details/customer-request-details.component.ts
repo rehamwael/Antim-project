@@ -166,7 +166,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
   }
 
   openDeletePopup(content) {
-    this.modalService.open(content, { centered: true });
+    // this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { centered: false });
   }
 
   deleteRequest() {
@@ -182,7 +183,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
     this.showRequestDetiails = false;
   }
   openVerticallyCentered(content3) {
-    this.modalService.open(content3, { centered: true });
+    this.modalService.open(content3, { centered: false });
+    // this.modalService.open(content3, { centered: true });
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
@@ -276,7 +278,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'Products': this.productList
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { centered: false });
   }
 
    saveRequest(content3) {
@@ -291,7 +293,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'Products': this.productList
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
-    this.modalService.open(content3, { centered: true });
+    this.modalService.open(content3, { centered: false });
   }
 
   addMoreItems() {

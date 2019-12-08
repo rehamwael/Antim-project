@@ -58,7 +58,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
-import { AuthenticationEffects } from './store/effects/authentication.effects';
+import { AuthenticationEffects } from './store/effects/app.effects';
 import { reducers } from './store/app.states';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NumberOnlyDirective } from './number-only.directive';

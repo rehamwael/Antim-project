@@ -4,7 +4,7 @@ import { ProfileService } from '../services/userProfile.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState } from './../store/app.states';
-import { UserProfile } from './../store/actions/auth.actions';
+import { UserProfile, GetCustomerRequestCount } from './../store/actions/auth.actions';
 import { CustomerRequestService } from '../services/customer-request.service';
 
 @Component({
@@ -15,6 +15,7 @@ import { CustomerRequestService } from '../services/customer-request.service';
 
 export class DashboredComponent implements OnInit, OnDestroy {
   currentUser: any;
+  customerRequests: any;
   onGoing: any;
   rejected: any;
   closed: any;
@@ -47,7 +48,6 @@ export class DashboredComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.getUserFromStore().then(e => {
-      this.getCount();
       const body = document.getElementsByTagName('body')[0];
       body.classList.add('dashbored');
       body.classList.add('dashbored-home');
@@ -57,6 +57,7 @@ export class DashboredComponent implements OnInit, OnDestroy {
         }
         window.scrollTo(0, 0);
       });
+      this.getCount();
     });
   }
   ngOnDestroy(): void {
@@ -66,18 +67,14 @@ export class DashboredComponent implements OnInit, OnDestroy {
 
   }
   getCount() {
-    this.customerRequestService.getRequestsCount()
-      .subscribe((res) => {
-        console.log('requestCount:', res.result);
-        this.onGoing = res.result.ongoing;
-        this.closed = res.result.closed;
-        this.draft = res.result.draft;
-        this.awaiting = res.result.awaiting;
-        this.rejected = res.result.rejected;
-        this.underReview = res.result.underReview;
-      }, err => {
-        console.log(' ERROR:', err);
-      });
+    // this.spinner.show();
+    this.getState.subscribe((state) => {
+      this.customerRequests = state.customerRequestCount;
+      if (!this.customerRequests) {
+        this.store.dispatch(new GetCustomerRequestCount());
+      }
+    });
+
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
