@@ -119,7 +119,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.BankInfoForm = fb.group({
       'BankName': [{ value: this.bankName, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
-        Validators.minLength(4)
+        // Validators.minLength(4)
       ])],
       'BankAccountNo': [{ value: this.bankAccountNo, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
@@ -406,6 +406,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } else {
       this.showAddress = false;
     }
+  }
+  onSelectChange(value) {
+    this.bankName = value;
   }
 
 }

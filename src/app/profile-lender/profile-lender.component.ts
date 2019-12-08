@@ -126,7 +126,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.BankInfoForm = fb.group({
       'BankName': [{ value: this.bankName, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
-        Validators.minLength(4)
+        // Validators.minLength(4)
       ])],
       'BankAccountNo': [{ value: this.bankAccountNo, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
@@ -467,6 +467,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     } else {
       this.numberEntered = false;
     }
+  }
+  onSelectChange(value) {
+    this.bankName = value;
   }
 
   // tslint:disable-next-line: member-ordering
