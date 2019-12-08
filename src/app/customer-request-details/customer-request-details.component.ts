@@ -46,6 +46,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   disabledSubmitButton = true;
   showRequestDetiails = true;
   hideTotalButton = false;
+  showCancelButton = false;
 
   totalProducts: any;
   getState: Observable<any>;
@@ -103,6 +104,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       this.requestType_ENUM = res.result.type;
       if (this.requestType_ENUM === 1) {
         this.requestType = 'Awaiting for Fund';
+        this.showCancelButton = true;
       }
       if (this.requestType_ENUM === 2) {
         this.requestType = 'Closed';
@@ -121,9 +123,11 @@ export class CustomerRequestDetailsComponent implements OnInit {
       }
       if (this.requestType_ENUM === 6) {
         this.requestType = 'Accepted';
+        this.showCancelButton = true;
       }
       if (this.requestType_ENUM === 7) {
         this.requestType = 'Under Review';
+        this.showCancelButton = true;
       }
       this.spinner.hide();
 
@@ -167,6 +171,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
   openDeletePopup(content) {
     // this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { centered: false });
+  }
+  OpenCancelRequestPopup(content) {
     this.modalService.open(content, { centered: false });
   }
 

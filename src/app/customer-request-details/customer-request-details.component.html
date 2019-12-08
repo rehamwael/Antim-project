@@ -35,9 +35,14 @@
                   <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-3" *ngIf="requestType == 'Ongoing'" (click)="openVerticallyCentered(content1)">Request reschedule</button>
 
                 </div>
-                <form class="col-lg-9 row antim-form p-5 mt-2 mb-5 m-auto" [formGroup]="editRequestForm">
+                <form class="col-lg-10 row antim-form p-5 mt-2 mb-5 m-auto" [formGroup]="editRequestForm">
                     <div class="row" style="width: 100%;">
-                      <div class="col-lg-8 "><h3 class="headingh3">Request Details</h3>
+                      <div class="col-lg-6 padding"><h3 class="headingh3">Request Details</h3>
+                        </div>
+                        <div class="col-lg-2 ">
+                          </div>
+                        <div class="form-group col-lg-4" *ngIf="showCancelButton">
+                            <button class="btn btn-info btn-lg btn-block btn-Red mt-2"  (click)="OpenCancelRequestPopup(contentCancel)">Cancel Request</button>
                         </div>
                         <div class="col-lg-4" *ngIf="deleteButton">
                             <button class="btn btn-danger btn-lg btn-block btn-red  cursor-pointer col-lg-12" (click)="openDeletePopup(contentDel)">
@@ -123,9 +128,9 @@
 
                        </div>
                       </div>
-                      <div class="row" style="width: 100%;" *ngIf="showEditButton">
+                      <div class="row" style="width: 100%;" >
                       <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" >
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-4" *ngIf="showEditButton">
                                <button class="btn btn-info btn-lg btn-block btn-black mt-2"  (click)="editRequestInfo()">
                                     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -133,7 +138,6 @@
                                     <span class="px-3">Edit</span>
                                 </button>
                             </div>
-
 
                     </div>
                 </div>
@@ -169,11 +173,11 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                <div class="modal-body py-5">
-                  <p class="my-4 mx-4" style="text-align: center; font-size: 16px;">
-                        Do you really Want To Delete this Request Name {{requestName}}?
+                <div class="modal-body py-4">
+                  <p class="my-3 mx-3" style="text-align: center; font-size: 15px;">
+                        Do you really Want To Delete this Request Name : {{requestName}}?
                   </p>
-                  <div class="row" style="width: 100%;">
+                  <div class="row py-1" style="width: 100%;">
                   <div class="col-lg-3"></div>
                   <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">No</button></div>
                   <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteRequest()">Yes</button></div>
@@ -181,6 +185,25 @@
                   </div>
                 </div>
               </ng-template>
+              <ng-template #contentCancel let-modal>
+                  <div class="modal-header">
+                      <h4 class="modal-title">Cancel Request</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body py-4">
+                        <p class="my-3 mx-3" style="text-align: center; font-size: 15px;">
+                          Do you really Want To Cancel this Request Name : {{requestName}}?
+                    </p>
+                    <div class="row py-2" style="width: 100%;">
+                        <div class="col-lg-3"></div>
+                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">No</button></div>
+                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="modal.close('Close click')">Yes</button></div>
+
+                    </div>
+                  </div>
+                </ng-template>
         </div>
 
 
