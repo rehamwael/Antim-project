@@ -5,6 +5,10 @@ import { latLng, tileLayer } from 'leaflet';
 import { ProfileService } from '../services/userProfile.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
+import { AppState, selectAuthenticationState } from './../store/app.states';
+import { EditUserProfile } from './../store/actions/auth.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -56,15 +60,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   showUser = false;
   userBank: any;
   userAdress: any;
+  getState: Observable<any>;
 
-  constructor(
+  constructor(private store: Store<AppState>,
     private fb: FormBuilder,
     public router: Router,
     private profileService: ProfileService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) {
-
+    this.getState = this.store.select(selectAuthenticationState);
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
@@ -224,27 +229,39 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   }
   SaveInfo() {
-    this.spinner.show();
-    this.profileService.editUser({
+    const actionPayload = {
       'FirstName': this.name,
       'NationalIdNumber': this.NID,
       'PhoneNumber': this.phone.toString(),
       'Email': this.email
-    }).subscribe((res) => {
-      console.log('User Info edited:', res);
-      this.spinner.hide();
-      this.showSuccessToast('OK!!', res.message, 'success');
+    };
+    this.store.dispatch(new EditUserProfile(actionPayload));
       this.EditForm.get('Name').disable();
       this.EditForm.get('MobileNo').disable();
       this.EditForm.get('Email').disable();
       this.EditForm.get('NID').disable();
       this.disableprofileButton = false;
-    }, err => {
-      this.spinner.hide();
-      this.showErrorToast('Error!!', err.message, 'error');
-    });
 
-    // this.EditForm.get('Address').disable();
+    // this.spinner.show();
+    // this.profileService.editUser({
+    //   'FirstName': this.name,
+    //   'NationalIdNumber': this.NID,
+    //   'PhoneNumber': this.phone.toString(),
+    //   'Email': this.email
+    // }).subscribe((res) => {
+    //   console.log('User Info edited:', res);
+    //   this.spinner.hide();
+    //   this.showSuccessToast('OK!!', res.message, 'success');
+    //   this.EditForm.get('Name').disable();
+    //   this.EditForm.get('MobileNo').disable();
+    //   this.EditForm.get('Email').disable();
+    //   this.EditForm.get('NID').disable();
+    //   this.disableprofileButton = false;
+    // }, err => {
+    //   this.spinner.hide();
+    //   this.showErrorToast('Error!!', err.message, 'error');
+    // });
+
   }
   EditBankInfo() {
     this.disableBankButton = true;

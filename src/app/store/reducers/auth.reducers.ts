@@ -49,6 +49,16 @@ export function reducer(state = initialState, action: AuthenticationActions): St
         userProfile: action.payload
       };
     }
+    case AuthenticationActionTypes.EDIT_USER_PROFILE: {
+      let data = action.payload;
+      state.userProfile.firstName = data.FirstName;
+      let editedUser = state.userProfile;
+      return {
+            ...state,
+            userProfile: editedUser
+          };
+    }
+
     default: {
       return state;
     }

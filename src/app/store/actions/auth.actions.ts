@@ -6,7 +6,8 @@ export enum AuthenticationActionTypes {
   LOGIN_FAILURE = '[Authentication] Login Failure',
   LOGOUT = '[Authentication] Logout',
   USER_PROFILE = 'userProfile',
-  SAVE_USER_PROFILE = 'saveUserProfile'
+  SAVE_USER_PROFILE = 'saveUserProfile',
+  EDIT_USER_PROFILE = 'editUserProfile'
 }
 export class UserProfile implements Action {
   readonly type = AuthenticationActionTypes.USER_PROFILE;
@@ -14,6 +15,10 @@ export class UserProfile implements Action {
 }
 export class SaveUserProfile implements Action {
   readonly type = AuthenticationActionTypes.SAVE_USER_PROFILE;
+  constructor(public payload: any) {}
+}
+export class EditUserProfile implements Action {
+  readonly type = AuthenticationActionTypes.EDIT_USER_PROFILE;
   constructor(public payload: any) {}
 }
 
@@ -42,4 +47,5 @@ export type AuthenticationActions =
   | LoginFailure
   | Logout
   | UserProfile
-  | SaveUserProfile;
+  | SaveUserProfile
+  | EditUserProfile;

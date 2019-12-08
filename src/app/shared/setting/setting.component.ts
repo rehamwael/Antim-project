@@ -1,4 +1,4 @@
-import { Component, OnInit ,OnDestroy } from '@angular/core';
+import { Component, OnInit , OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
 @Component({
@@ -6,9 +6,9 @@ import { Router, NavigationEnd } from '@angular/router';
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.css']
 })
-export class SettingComponent implements OnInit ,OnDestroy{
+export class SettingComponent implements OnInit , OnDestroy {
 
-  constructor(public router: Router,private modalService: NgbModal) {}
+  constructor(public router: Router, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
@@ -17,20 +17,20 @@ export class SettingComponent implements OnInit ,OnDestroy{
       if (!(evt instanceof NavigationEnd)) {
           return;
       }
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
   });
 
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
 
   }
   openVerticallyCentered(content3) {
-    this.modalService.open(content3, { centered: true });
+    this.modalService.open(content3, { centered: false });
   }
-  toggleNavbar(){
-    window.document.querySelector(".left-sidebar").classList.toggle("showmobile")
+  toggleNavbar() {
+    window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
 
   }
 

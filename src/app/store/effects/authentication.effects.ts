@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { AuthService } from './../../auth/auth.service';
 import {
   AuthenticationActionTypes,
-  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile
+  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile
 } from '../actions/auth.actions';
 import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
@@ -111,6 +111,26 @@ export class AuthenticationEffects {
           this.spinner.hide();
         });
       }));
+
+      @Effect({ dispatch: false })
+      EditUser: Observable<any> = this.actions.pipe(
+        ofType(AuthenticationActionTypes.EDIT_USER_PROFILE),
+        map((action: EditUserProfile) => action.payload),
+        switchMap(payload => {
+          this.spinner.show();
+          // console.log('huhuh',payload);
+          return this.userDataService.editUser(payload).pipe(
+            map((res) => {
+              console.log('User Info edited:', res);
+              this.spinner.hide();
+              this.showSuccessToast('OK!!', res.message, 'success');
+          }),
+          catchError( error => {
+            console.log(' ERROR:', error);
+            this.spinner.hide();
+            return of(this.showErrorToast('Error!!', error.message, 'error'));
+          }));
+        }));
 
   @Effect({ dispatch: false })
   GetAllCustomerRequests: Observable<any> = this.actions.pipe(

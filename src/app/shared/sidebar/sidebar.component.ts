@@ -59,7 +59,7 @@ export class SidebarComponent implements OnInit {
       this.isAuthenticated = state.isAuthenticated;
       this.user = state.user;
       this.currentUser = state.userProfile;
-      // console.log( 'USER:' ,  this.currentUser);
+      console.log( 'USER:' ,  this.currentUser);
       if (!this.currentUser && token) {
         this.store.dispatch(new UserProfile());
       }
