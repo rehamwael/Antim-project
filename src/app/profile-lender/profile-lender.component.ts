@@ -137,8 +137,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       ])],
       'BankAccountNo': [{ value: this.bankAccountNo, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(24)
+        Validators.minLength(10)
       ])],
       'AccountTitle': [{ value: this.accountTitle, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
@@ -146,8 +145,6 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       ])],
       'IBAN': [{ value: this.accountTitle, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
-        Validators.minLength(25),
-        Validators.maxLength(26),
         Validators.pattern('^[SA]+[A-Za-z0-9]{25,25}$')
       ])],
 
