@@ -201,7 +201,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
 
   editRequestInfo() {
-    this.disableFirstStep = true
+    this.disableFirstStep = true;
     this.editDraftRequest = true;
     this.showRequestDetiails = false;
   }
