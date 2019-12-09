@@ -11,7 +11,8 @@ export class ProfileService {
   Url = environment.baseAPIURL;
 
   constructor(private httpClient: HttpClient) { }
-
+  // DELETE /api/User/DeleteUser
+  // PATCH /api/User/DeactivateUser
   // EDIT USER PERSONAL INFORMATION
   editUser(user: any): Observable<any> {
     const token = localStorage.getItem('token');

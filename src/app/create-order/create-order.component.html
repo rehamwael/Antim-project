@@ -187,27 +187,27 @@
                                     <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                             <mat-form-field>
                                                 <label for="numberOfProduct" class="font-bold mt-2">Number of product</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} product">
+                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} product" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                 <label for="total" class="font-bold mt-2"> Total price of products:</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="{{totalPrice}}">
+                                                <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="{{totalPrice}}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                 <label for="InstallmentPeriod" class="font-bold mt-2">Installment Period</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}">
+                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                     <label for="InstallmentPerMonth" class="font-bold mt-2">Installment amount per month</label>
-                                                    <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="{{monthlyPrice}}">
+                                                    <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="{{monthlyPrice}}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                     <label for="FinalProduct" class="font-bold mt-2">Total Payable Product Price</label>
-                                                    <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}">
+                                                    <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}" readonly>
                                             </mat-form-field>
                                             <p class="my-5 grey-text-color">
                                                 <span class="mr-1">

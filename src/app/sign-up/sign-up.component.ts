@@ -1,4 +1,4 @@
-import { Component, OnInit , OnDestroy, HostListener, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit , OnDestroy, ViewChild, ElementRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
@@ -17,11 +17,13 @@ export class SignUpComponent implements OnInit , OnDestroy {
   @ViewChild('three', {static: false}) threeElement: ElementRef;
   @ViewChild('four', {static: false}) fourElement: ElementRef;
 
+  chooseRole = true;
+  firstStep = false;
+  secondStep = false;
+  lastStep = false;
+
   public selectedItem: any;
   disabledNextButton = true;
-  showSelected: boolean;
-  sheckMobileStep: boolean;
-  lastStep: boolean;
   disabledSubmitButton = true;
   SigUpForm: FormGroup;
   userType = '';
@@ -86,11 +88,11 @@ export class SignUpComponent implements OnInit , OnDestroy {
     }
   }
 
-  @HostListener('input') oninput() {
-    if (this.SigUpForm.valid) {
-      this.disabledSubmitButton = false;
-      }
-  }
+  // @HostListener('input') oninput() {
+  //   if (this.SigUpForm.valid) {
+  //     this.disabledSubmitButton = false;
+  //     }
+  // }
 
   constructor(
     private store: Store<AppState>,
@@ -107,16 +109,14 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.option.positionClass = 'toast-top-right';
     this.option.timeOut = 5000;
 
-    this.showSelected = false;
-    this.sheckMobileStep = false;
-    this.lastStep = false;
-
     this.SigUpForm = fb.group({
       'FirstName': [null, Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]*$')
       ])],
       'LastName': [null, Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]*$')
       ])],
       'username': [null, Validators.compose([
         Validators.required,
@@ -130,11 +130,6 @@ export class SignUpComponent implements OnInit , OnDestroy {
         Validators.required,
         Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$')
       ])],
-      // 'password': [null, Validators.compose([
-      //   Validators.required,
-      //   // Validators.pattern('(?=^.{9,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')
-      //   Validators.pattern('^.*(?=.{9,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$')
-      // ])],
       'password': [
         '',
         [
@@ -187,13 +182,14 @@ showErrorToast(title, message, type) {
     }
   }
   Nextstep() {
-    this.showSelected = true;
+    this.firstStep = true;
+    this.chooseRole = false;
   }
   PrevStep() {
+    this.chooseRole = true;
+    this.firstStep = false;
     this.userType = '';
     this.clear();
-    this.showSelected = false;
-
   }
   thirdStep() {
     if (this.signupCPassword !== this.signupPassword) {
@@ -213,7 +209,9 @@ showErrorToast(title, message, type) {
         'Role': this.userType
         }).subscribe(  async (res) => {
             this.spinner.hide();
-            this.sheckMobileStep = !this.sheckMobileStep;
+            this.secondStep = true;
+            this.firstStep = false;
+            this.chooseRole = false;
             console.log('next OTP step: ', res);
         }, err => {
           this.spinner.hide();
@@ -223,12 +221,14 @@ showErrorToast(title, message, type) {
         });
     }
   }
-  keyDownFunction(event) {
-    if (event.keyCode === 13) {
-      alert('Please click to SignUp Button to Submit Form.');
-      this.showSelected = true;
-    }
-  }
+  // keyDownFunction(event) {
+  //   this.chooseRole = false;
+  //   console.log(event.key);
+  //   if (event.key == 'Enter') {
+  //     // alert('Please click to SignUp Button to Submit Form.');
+  //     this.chooseRole = false;
+  //   }
+  // }
 
   goToLastStep() {
     this.spinner.show();
@@ -251,7 +251,8 @@ showErrorToast(title, message, type) {
       }).subscribe( (res) => {
         this.spinner.hide();
         console.log('signUp : ', res);
-        this.lastStep = !this.lastStep;
+        this.secondStep = false;
+        this.lastStep = true;
         this.showSuccessToast('OK!!', 'A verification link has been sent to your email account.', 'success');
       }, async err => {
         this.spinner.hide();
@@ -261,14 +262,16 @@ showErrorToast(title, message, type) {
   closeBack() {
     this.clear();
     this.userType = '';
-    this.showSelected = false;
-    this.sheckMobileStep = false;
+    this.chooseRole = true;
+    this.firstStep = false;
+    this.secondStep = false;
   }
   closeBackLast() {
     this.clear();
     this.userType = '';
-    this.showSelected = false;
-    this.sheckMobileStep = false;
+    this.chooseRole = true;
+    this.firstStep = false;
+    this.secondStep = false;
     this.lastStep = false;
   }
   resendOTP() {

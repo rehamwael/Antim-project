@@ -105,7 +105,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
           element.status = 'Accepted';
         }
         if (element.type === 7) {
-          element.status = 'UnderReview';
+          element.status = 'Under Review';
         }
         element.position = i;
         i++;
@@ -175,8 +175,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.requestType = 'Accepted';
       this.selectedRequestType = 6;
     }
-    if (deviceValue === 'UnderReview') {
-      this.requestType = 'UnderReview';
+    if (deviceValue === 'Under Review') {
+      this.requestType = 'Under Review';
       this.selectedRequestType = 7;
     }
   }
