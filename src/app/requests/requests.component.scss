@@ -1,0 +1,17 @@
+
+
+.btn-responsive {
+  padding: 10px;
+  width: 75px;
+}
+
+@media (max-width: 992px){
+  .btn-responsive {
+    width: 100px;
+  }
+}
+.error {
+  color: rgb(236, 54, 54);
+  font-weight: bold;
+  text-align: center;
+}

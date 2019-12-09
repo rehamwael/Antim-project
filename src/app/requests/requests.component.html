@@ -24,14 +24,16 @@
 
         <div class="page-wraper-right" >
                         <div class="mat-card col-lg-12 mt-5 row welcome-card inner p-2 align-items-center">
-                            <img class="col-lg-2 " src="assets/images/bookWithMen 2.svg">
+                            <img class="col-lg-1 " src="assets/images/bookWithMen 2.svg">
                             <!-- <div class="col-lg-4 px-0 col-8">
                                 <p class="grey-text-color" [innerHTML]="requestType"></p>
                             </div> -->
+                            <div class="col-lg-1"></div>
+
                             <div class="form-group col-lg-3">
                                 <label for="Type" class="font-size-13">Select Request Type</label>
-                                <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
-                                        <option value="" selected>All Requests</option>
+                                <select class="form-control form-control-lg mb-2 custom-select" (change)="onChange($event.target.value)" [value]="requestType" [(ngModel)]="requestType">
+                                        <option value="All Requests">All Requests</option>
                                         <option value="Under Review">Under Review</option>
                                         <option value="Accepted">Approved Requests</option>
                                         <option value="Rejected">Rejected Requests</option>
@@ -41,9 +43,6 @@
                                         <option value="Draft">Draft Requests</option>
                                 </select>
                                 <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-                            </div>
-                            <div class="col-lg-1">
-
                             </div>
                             <form class="col-lg-2">
                                     <div class="form-group">
@@ -65,9 +64,13 @@
                                   </div>
                               </div>
                           </form>
-                          <form class="col-lg-2">
-                             <button class="btn btn-info  btn-purple mt-2" (click)="filterRequests()">search</button>
-                     </form>
+                          <!-- <div class="col-lg-1"> </div> -->
+                          <div class="col-lg-1">
+                             <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableSearch" (click)="filterRequests()">search</button>
+                          </div>
+                          <div class="col-lg-1">
+                              <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableReset" (click)="resetPage()">Reset</button>
+                           </div>
 
                                     <!-- <form class="col-lg-2">
                                       <div class="form-group">
@@ -130,6 +133,13 @@
                                                 (click)="openProductDetails(row)">
                                             </tr>
                                           </table>
+                                          <div *ngIf="!dataSourceAll.filteredData.length">
+                                              <h2 class="error">No Data Found</h2>
+                                            </div>
+                                          <!-- <mat-paginator [pageSize]="10" ></mat-paginator> --><div style="margin-top: 25px;">
+                                              <mat-paginator #paginator [pageSizeOptions]="[10]" ></mat-paginator>
+
+                                          </div>
 
 
                            </div>

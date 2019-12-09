@@ -39,7 +39,7 @@ import { CreateOrderComponent } from './create-order/create-order.component';
 import { MatStepperModule, MatInputModule, MatButtonModule, MatAutocompleteModule } from '@angular/material';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestsComponent } from './requests/requests.component';
-import { MatTableModule } from '@angular/material'  ;
+import {MatTableModule} from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material';
 import { NotificationComponent } from './notification/notification.component';
 import { DashboredLenderComponent } from './dashbored-lender/dashbored-lender.component';
@@ -51,6 +51,7 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { LenderInfoComponent } from './lender-info/lender-info.component';
 import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
 import { MatTabsModule } from '@angular/material';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SettingComponent } from './shared/setting/setting.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -128,7 +129,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     StickyNavModule,
     EffectsModule.forRoot([AuthenticationEffects]),
     StoreModule.forRoot(reducers, {}),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatPaginatorModule
   ],
   providers: [
     {
