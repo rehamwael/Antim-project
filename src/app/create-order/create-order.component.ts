@@ -8,9 +8,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Product } from './product';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState, selectAuthenticationState } from './../store/app.states';
+import { AppState, selectAuthenticationState, customerState } from './../store/app.states';
 import { UserProfile } from './../store/actions/auth.actions';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+import { AddCustomerRequest, IsUpdatedFalse } from '../store/actions/customer.actions';
 
 
 @Component({
@@ -21,11 +22,13 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 
 
 export class CreateOrderComponent implements OnInit, OnDestroy {
-  @ViewChild('stepper', {static: false}) myStepper: MatStepper;
+  @ViewChild('stepper', { static: false }) myStepper: MatStepper;
 
-  getState: Observable<any>;
+  getUserState: Observable<any>;
+  getCustomerState: Observable<any>;
   currentUser: any;
   disableButton = false;
+  checkIsUpdated = false;
   requestName: any;
   totalPrice = 0;
   monthlyPrice: number;
@@ -47,10 +50,10 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   disabledSubmitButton = true;
   disabledSubmitButtonSecond = false;
   options: IndividualConfig;
-
+  content: any;
   userPoductList: any[] = [{
-    ProductUrl: '',
-    Price: null
+    productUrl: '',
+    amount: null
   }];
 
   @HostListener('input') oninput() {
@@ -67,7 +70,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private store: Store<AppState>,
   ) {
-    this.getState = this.store.select(selectAuthenticationState);
+    this.getCustomerState = this.store.select(customerState);
+    this.getUserState = this.store.select(selectAuthenticationState);
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
@@ -80,14 +84,21 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getState.subscribe((state) => {
+    this.getUserState.subscribe((state) => {
       const token = localStorage.getItem('token');
       this.currentUser = state.userProfile;
       if (!this.currentUser && token) {
         this.store.dispatch(new UserProfile());
       }
     });
-    // tslint:disable-next-line: max-line-length
+    this.getCustomerState.subscribe((state) => {
+      console.log('check store', state);
+      this.checkIsUpdated = state.isUpdated;
+      if (this.checkIsUpdated == true) {
+        this.modalService.open(this.content, { centered: false });
+      }
+    });
+
     const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
     const regex = new RegExp(expression);
 
@@ -129,14 +140,13 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   calculateTotalPrice() {
     this.totalPrice = 0;
     this.userPoductList.map(product => {
-      this.totalPrice = 1 * this.totalPrice + 1 * product.Price;
+      this.totalPrice = 1 * this.totalPrice + 1 * product.amount;
     });
     console.log('totalPrice:', this.totalPrice);
     if (this.totalPrice < 500 || this.totalPrice > 10000) {
       this.disableFirstStep = false;
       this.showTotalPrice = false;
       this.totalPrice = 0;
-      // tslint:disable-next-line: max-line-length
       this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000,Go back and Enter correct price.', 'error');
     } else {
       this.showTotalPrice = true;
@@ -144,6 +154,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     }
   }
   nextStep() {
+    this.totalProducts = Object.keys(this.userPoductList).length;
     if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
       this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
@@ -191,47 +202,37 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     }
   }
   saveAsDraft(content) {
-    this.spinner.show();
-    this.customerRequestService.AddCustomerRequest({
+    this.content = content;
+    const actionPayload = {
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       'MonthlyPaybackAmount': this.monthlyPrice,
       'TotalPaybackAmount': this.totalPriceWithProfit,
-      'Type': 'Draft',
+      'Type': 5,
       'Products': this.userPoductList
-    }).subscribe((res) => {
-      console.log('saveAsDraft:', res);
-      this.spinner.hide();
-      this.showSuccessToast('OK!!', res.message, 'success');
-      this.modalService.open(content, { centered: true });
-    }, err => {
-      console.log(' ERROR:', err);
-      this.spinner.hide();
-      this.showErrorToast('Error!!', err.error.message, 'error');
-    });
+    };
+    this.store.dispatch(new AddCustomerRequest(actionPayload));
+  }
+  closeModal() {
+    this.checkIsUpdated = false;
+    this.modalService.dismissAll();
+    this.store.dispatch(new IsUpdatedFalse());
+    this.content = '';
   }
 
   saveRequest(content3) {
-    this.spinner.show();
-    this.customerRequestService.AddCustomerRequest({
+    this.content = content3;
+    const actionPayload = {
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       'MonthlyPaybackAmount': this.monthlyPrice,
       'TotalPaybackAmount': this.totalPriceWithProfit,
-      'Type': 'UnderReview',
+      'Type': 7,
       'Products': this.userPoductList
-    }).subscribe((res) => {
-      console.log(' Added:', res);
-      this.spinner.hide();
-      this.showSuccessToast('OK!!', res.message, 'success');
-      this.modalService.open(content3, { centered: true });
-    }, err => {
-      console.log(' ERROR:', err);
-      this.spinner.hide();
-      this.showErrorToast('Error!!', err.error.message, 'error');
-    });
+    };
+    this.store.dispatch(new AddCustomerRequest(actionPayload));
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
@@ -244,19 +245,19 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   }
   addMoreItems() {
     this.userPoductList.push({
-      ProductUrl: '',
-      Price: null
+      productUrl: '',
+      amount: null
     });
   }
   removeItems(i: number) {
     this.userPoductList.splice(i, 1);
   }
   changeCheck(event) {
-      if (event.target.checked) {
-        this.disabledAgreement = true;
-      } else {
-        this.disabledAgreement = false;
-      }
+    if (event.target.checked) {
+      this.disabledAgreement = true;
+    } else {
+      this.disabledAgreement = false;
+    }
   }
 
 }

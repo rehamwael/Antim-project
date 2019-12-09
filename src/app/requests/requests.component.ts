@@ -67,7 +67,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
       this.getState.subscribe((state) => {
-        if (!state) {
+        if (state.isApiCall == false || state.customerRequestsData.length == 0) {
           this.store.dispatch(new GetAllCustomerRequests());
         } else {
           this.allRequestData = state.customerRequestsData;

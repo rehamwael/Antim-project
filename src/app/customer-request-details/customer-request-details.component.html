@@ -414,7 +414,7 @@
                           <ng-template #content3 let-modal>
                               <div class="modal-header">
                                   <h4 class="modal-title">Request Sent!</h4>
-                                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
@@ -424,14 +424,14 @@
                                          Your request has been Successfully sent, and will be verified if you are qualified for funding and will be responded to within 30 minutes.
 
                                   </p>
-                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="modal.close('Close click')">See All Requests</button></div>
+                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">See All Requests</button></div>
 
                                 </div>
                               </ng-template>
                               <ng-template #content let-modal>
                                   <div class="modal-header">
                                       <h4 class="modal-title">Request Updated</h4>
-                                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
@@ -441,7 +441,7 @@
                                       Your request has been Updated as Draft.
 
                                   </p>
-                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="modal.close('Close click')">See All Requests</button></div>
+                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">See All Requests</button></div>
 
                                 </div>
                               </ng-template>

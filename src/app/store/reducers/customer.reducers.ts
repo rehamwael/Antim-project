@@ -2,10 +2,14 @@ import { CustomerActionTypes, CustomerRequests } from '../actions/customer.actio
 
 export interface State {
   customerRequestsData: any[];
+  isUpdated: Boolean;
+  isApiCall: Boolean;
 }
 
 export const initialState: State = {
-  customerRequestsData: null,
+  customerRequestsData: [],
+  isUpdated: false,
+  isApiCall: false
 };
 
 export function reducer(state = initialState, action: CustomerRequests): State {
@@ -16,11 +20,38 @@ export function reducer(state = initialState, action: CustomerRequests): State {
         customerRequestsData: action.payload
       };
     }
-    case CustomerActionTypes.ADD_REQUEST: {
-      // console.log(action.payload);
+    case CustomerActionTypes.IS_UPDATED_TRUE: {
       return {
         ...state,
-        customerRequestsData: [...state.customerRequestsData, action.payload],
+        isUpdated: true
+      };
+    }
+    case CustomerActionTypes.IS_UPDATED_FALSE: {
+      return {
+        ...state,
+        isUpdated: false
+      };
+    }
+    case CustomerActionTypes.IS_API_CALL_TRUE: {
+      return {
+        ...state,
+        isApiCall: true
+      };
+    }
+    case CustomerActionTypes.IS_API_CALL_FALSE: {
+      return {
+        ...state,
+        isApiCall: false
+      };
+    }
+
+    case CustomerActionTypes.ADD_REQUEST_SUCCESS: {
+      console.log(action.payload);
+      let data = action.payload;
+      let AddcustomerRequestsData = [data, ...state.customerRequestsData ];
+      return {
+        ...state,
+        customerRequestsData: AddcustomerRequestsData,
       };
     }
 
@@ -36,15 +67,20 @@ export function reducer(state = initialState, action: CustomerRequests): State {
       });
       return {
         ...state,
-        customerRequestsData: EditcustomerRequestsData
+        customerRequestsData: EditcustomerRequestsData,
       };
     }
     case CustomerActionTypes.DELETE_SUCCESS: {
       let deletedRequest = state.customerRequestsData.filter(
         item => item.id != action.payload.id);
       return {
-        customerRequestsData: deletedRequest
+        ...state,
+        customerRequestsData: deletedRequest,
       };
     }
+    default: {
+      return state;
+    }
+
   }
 }

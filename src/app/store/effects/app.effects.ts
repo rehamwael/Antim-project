@@ -19,7 +19,7 @@ import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
 import {
   CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests,
-  DeleteRequestSuccess, AddCustomerRequest,
+  DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -152,29 +152,31 @@ export class AuthenticationEffects {
       this.spinner.show();
       return this.customerService.customerAllRequests().subscribe(res => {
         this.store.dispatch(new SaveAllCustomerRequests(res.result));
+        this.store.dispatch(new IsApiCallTrue());
         this.spinner.hide();
       });
     }));
 
-    // @Effect({ dispatch: false })
-    // AddCustomersRequest: Observable<any> = this.actions.pipe(
-    //   ofType(CustomerActionTypes.ADD_REQUEST),
-    //   map((action: AddCustomerRequest) => action.payload),
-    //   switchMap(payload => {
-    //     this.spinner.show();
-    //     return this.customerService.AddCustomerRequest(payload).pipe(
-    //       map((res) => {
-    //       console.log(' Added:', res);
-    //       this.spinner.hide();
-    //       this.showSuccessToast('OK!!', res.message, 'success');
-    //       // this.modalService.open(content3, { centered: true });
-    //     }),
-    //     catchError( error => {
-    //       console.log(' ERROR:', error);
-    //       this.spinner.hide();
-    //       return of(this.showErrorToast('Error!!', error.error.message, 'error'));
-    //     }));
-    //   }));
+    @Effect({ dispatch: false })
+    AddCustomersRequest: Observable<any> = this.actions.pipe(
+      ofType(CustomerActionTypes.ADD_REQUEST),
+      map((action: AddCustomerRequest) => action.payload),
+      switchMap(payload => {
+        this.spinner.show();
+        return this.customerService.AddCustomerRequest(payload).pipe(
+          map((res) => {
+          console.log(' Added:', res);
+          this.store.dispatch(new AddCustomerRequestSuccess(res.result));
+          this.spinner.hide();
+          this.store.dispatch(new IsUpdatedTrue());
+          this.showSuccessToast('OK!!', res.message, 'success');
+        }),
+        catchError( error => {
+          console.log(' ERROR:', error);
+          this.spinner.hide();
+          return of(this.showErrorToast('Error!!', error.error.message, 'error'));
+        }));
+      }));
 
     @Effect({ dispatch: false })
     EditCustomerRequests: Observable<any> = this.actions.pipe(
@@ -185,9 +187,9 @@ export class AuthenticationEffects {
         return this.customerService.EditCustomerRequest(payload).pipe(
           map((res) => {
           console.log(' Edited:', res);
+          this.store.dispatch(new IsUpdatedTrue());
           this.spinner.hide();
           this.showSuccessToast('OK!!', res.message, 'success');
-          // this.modalService.open(content3, { centered: true });
         }),
         catchError( error => {
           console.log(' ERROR:', error);

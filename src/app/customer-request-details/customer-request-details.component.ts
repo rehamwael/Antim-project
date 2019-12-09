@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { AppState, customerState } from './../store/app.states';
-import { EditCustomerRequest, DeleteCustomerRequests } from './../store/actions/customer.actions';
+import { EditCustomerRequest, DeleteCustomerRequests, IsUpdatedFalse } from './../store/actions/customer.actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -50,6 +50,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
   totalProducts: any;
   getState: Observable<any>;
+  content: any;
+  checkIsUpdated = false;
 
   options: IndividualConfig;
   productList: any[] = [{
@@ -75,6 +77,13 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getState.subscribe((state) => {
+      console.log('check store', state);
+      this.checkIsUpdated = state.isUpdated;
+      if (this.checkIsUpdated == true) {
+        this.modalService.open(this.content, { centered: false });
+      }
+    });
     this.showRequestDetiails = true;
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');
@@ -168,6 +177,12 @@ export class CustomerRequestDetailsComponent implements OnInit {
   showErrorToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
+  closeModal() {
+    this.checkIsUpdated = false;
+    this.modalService.dismissAll();
+    this.store.dispatch(new IsUpdatedFalse());
+    this.content = '';
+  }
 
   openDeletePopup(content) {
     // this.modalService.open(content, { centered: true });
@@ -186,6 +201,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
 
   editRequestInfo() {
+    this.disableFirstStep = true
     this.editDraftRequest = true;
     this.showRequestDetiails = false;
   }
@@ -274,6 +290,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
 
    saveAsDraft(content) {
+     this.content = content;
     const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
@@ -285,10 +302,10 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'Products': this.productList
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
-    this.modalService.open(content, { centered: false });
   }
 
    saveRequest(content3) {
+     this.content = content3;
     const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
@@ -300,7 +317,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'Products': this.productList
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
-    this.modalService.open(content3, { centered: false });
   }
 
   addMoreItems() {
