@@ -64,6 +64,7 @@ import { reducers } from './store/app.states';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NumberOnlyDirective } from './number-only.directive';
 import { CustomerRequestDetailsComponent } from './customer-request-details/customer-request-details.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -101,7 +102,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PageNotFoundComponent,
     ResetPasswordComponent,
     NumberOnlyDirective,
-    CustomerRequestDetailsComponent
+    CustomerRequestDetailsComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     CommonModule,

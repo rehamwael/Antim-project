@@ -39,6 +39,13 @@ export class ProfileService {
     );
   }
 
+  confirmEmail(userId, code): Observable<any> {
+    return this.httpClient.get(`${this.Url}Account/ConfirmEmail?userId=${userId}&code=${code}`).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
   // DELETE User
   deleteUser(id: any): Observable<any> {
     return this.httpClient.delete(`${this.Url}User/DeleteUser?id=${id}`, this.httpOptions).pipe(

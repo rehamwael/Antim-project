@@ -1,4 +1,4 @@
-import { Component, OnInit , OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,7 @@ import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { ProfileService } from './../../services/userProfile.service';
 import { Logout, UserProfile } from './../../store/actions/auth.actions';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
 
 
 @Component({
@@ -14,18 +15,24 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.css']
 })
-export class SettingComponent implements OnInit , OnDestroy {
+export class SettingComponent implements OnInit, OnDestroy {
   getState: Observable<any>;
   currentUser: any;
   userId: any;
+  options: IndividualConfig;
 
   constructor(public router: Router,
     private modalService: NgbModal,
     private store: Store<AppState>,
     private spinner: NgxSpinnerService,
     private userProfileService: ProfileService,
+    private toastr: ToastrService,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-top-right';
+    this.options.timeOut = 5000;
+
   }
 
   ngOnInit(): void {
@@ -37,11 +44,17 @@ export class SettingComponent implements OnInit , OnDestroy {
     body.classList.add('dashbored');
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
-          return;
+        return;
       }
       window.scrollTo(0, 0);
-  });
-  console.log(this.currentUser);
+    });
+    console.log(this.currentUser);
+  }
+  showSuccessToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+  showErrorToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
@@ -55,12 +68,12 @@ export class SettingComponent implements OnInit , OnDestroy {
     this.userProfileService.deleteUser(this.userId).subscribe(res => {
       console.log(res);
       this.spinner.hide();
-      // this.showSuccessToast('OK!!', res.message, 'success');
+      this.showSuccessToast('OK!!', res.message, 'success');
       this.modalService.dismissAll();
     }, err => {
       this.spinner.hide();
       this.modalService.dismissAll();
-      // this.showErrorToast('Error!!', err.message, 'error');
+      this.showErrorToast('Error!!', err.error.message, 'error');
     });
   }
   deActivateAccount() {
@@ -70,12 +83,12 @@ export class SettingComponent implements OnInit , OnDestroy {
     this.userProfileService.deActivateUser(this.userId).subscribe(res => {
       console.log(res);
       this.spinner.hide();
-      // this.showSuccessToast('OK!!', res.message, 'success');
+      this.showSuccessToast('OK!!', res.message, 'success');
       this.modalService.dismissAll();
     }, err => {
       this.spinner.hide();
       this.modalService.dismissAll();
-      // this.showErrorToast('Error!!', err.message, 'error');
+      this.showErrorToast('Error!!', err.error.message, 'error');
     });
   }
   openVerticallyCentered(content3) {
