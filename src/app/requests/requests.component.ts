@@ -38,6 +38,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   toDate = null;
   disableReset = false;
   disableSearch = false;
+  showMessage = false;
 
   selectedRequestType = 0;
   model1: NgbDateStruct;
@@ -66,6 +67,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
+    this.showMessage = false;
   }
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
@@ -84,6 +86,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.dataSourceAll.paginator = this.paginator;
   }
   ngOnInit(): void {
+    const type = localStorage.getItem('requestType');
+    const selectedtype = localStorage.getItem('selectedRequestType');
     this.requestType = 'All Requests';
     this.getCustomerRequestFromStore().then(e => {
       this.allRequestData = e;
@@ -117,8 +121,21 @@ export class RequestsComponent implements OnInit, OnDestroy {
         element.position = i;
         i++;
       });
+      if (this.dataSourceAll.filteredData.length == 0) {
+        this.showMessage = true;
+      } else {
+        this.showMessage = false;
+      }
       console.log('customerAllRequests:', allCustomerRequestData);
-      this.dataSourceAll.filter = '';
+      if (type == selectedtype) {
+        this.requestType = type;
+        this.dataSourceAll.filter = type;
+      } else if (type && !selectedtype) {
+        this.requestType = 'All Requests';
+        this.dataSourceAll.filter = '';
+      } else {
+        this.dataSourceAll.filter = '';
+      }
       const body = document.getElementsByTagName('body')[0];
       body.classList.add('dashbored');
       body.classList.add('requests');
@@ -129,11 +146,14 @@ export class RequestsComponent implements OnInit, OnDestroy {
         window.scrollTo(0, 0);
       });
     });
+
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('requests');
+    localStorage.removeItem('requestType');
+    // localStorage.removeItem('selectedRequestType');
   }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
@@ -181,10 +201,15 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.requestType = 'Under Review';
       this.selectedRequestType = 7;
     }
+    console.log(this.dataSourceAll.filteredData.length);
+    if (this.dataSourceAll.filteredData.length > 0) {
+      this.showMessage = false;
+    } else {
+      this.showMessage = true;
+    }
+    localStorage.setItem('selectedRequestType', this.requestType);
   }
-  applyFilter(filterValue: string) {
-    this.dataSourceAll.filter = filterValue.trim().toLowerCase();
-  }
+
   openProductDetails(row) {
     this.reqID = row.id;
     this.router.navigate(['requests-customer', this.reqID]);
@@ -251,6 +276,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
             element.position = i;
             i++;
           });
+          if (this.dataSourceAll.filteredData.length == 0) {
+            this.showMessage = true;
+          } else {
+            this.showMessage = false;
+          }
           this.dataSourceAll.data = filterRequestData;
           // this.dataSourceAll = new MatTableDataSource<PeriodicElement>(filterRequestData);
           this.spinner.hide();
@@ -302,6 +332,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
               element.position = i;
               i++;
             });
+            if (this.dataSourceAll.filteredData.length == 0) {
+              this.showMessage = true;
+            } else {
+              this.showMessage = false;
+            }
             this.dataSourceAll.data = filterRequestData;
             // this.dataSourceAll = new MatTableDataSource<PeriodicElement>(filterRequestData);
             this.spinner.hide();

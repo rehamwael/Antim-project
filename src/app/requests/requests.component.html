@@ -133,7 +133,7 @@
                                                 (click)="openProductDetails(row)">
                                             </tr>
                                           </table>
-                                          <div *ngIf="!dataSourceAll.filteredData.length">
+                                          <div *ngIf="showMessage">
                                               <h2 class="error">No Data Found</h2>
                                             </div>
                                           <!-- <mat-paginator [pageSize]="10" ></mat-paginator> --><div style="margin-top: 25px;">

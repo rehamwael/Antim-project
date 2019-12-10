@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
@@ -111,38 +111,36 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.installmentPeriod = '12-Months';
       }
       this.requestType_ENUM = res.result.type;
-      if (this.requestType_ENUM === 1) {
+      if (this.requestType_ENUM == 1) {
         this.requestType = 'Awaiting for Fund';
         this.showCancelButton = true;
       }
-      if (this.requestType_ENUM === 2) {
+      if (this.requestType_ENUM == 2) {
         this.requestType = 'Closed';
         this.deleteButton = true;
       }
-      if (this.requestType_ENUM === 3) {
+      if (this.requestType_ENUM == 3) {
         this.requestType = 'Rejected';
       }
-      if (this.requestType_ENUM === 4) {
+      if (this.requestType_ENUM == 4) {
         this.requestType = 'Ongoing';
       }
-      if (this.requestType_ENUM === 5) {
+      if (this.requestType_ENUM == 5) {
         this.requestType = 'Draft';
         this.deleteButton = true;
         this.showEditButton = true;
       }
-      if (this.requestType_ENUM === 6) {
+      if (this.requestType_ENUM == 6) {
         this.requestType = 'Accepted';
         this.showCancelButton = true;
       }
-      if (this.requestType_ENUM === 7) {
+      if (this.requestType_ENUM == 7) {
         this.requestType = 'Under Review';
         this.showCancelButton = true;
       }
       this.spinner.hide();
-
+      localStorage.setItem('requestType', this.requestType);
     });
-
-
     this.editRequestForm = this._formBuilder.group({
       ProductName: [''],
       RequestDate: [''],
@@ -169,8 +167,10 @@ export class CustomerRequestDetailsComponent implements OnInit {
       FinalProduct: [{ disabled: true }]
     });
 
-
   }
+  // ngOnDestroy() {
+  // console.log('heheh');
+  // }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
@@ -289,8 +289,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
   }
 
 
-   saveAsDraft(content) {
-     this.content = content;
+  saveAsDraft(content) {
+    this.content = content;
     const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
@@ -304,8 +304,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
     this.store.dispatch(new EditCustomerRequest(actionPayload));
   }
 
-   saveRequest(content3) {
-     this.content = content3;
+  saveRequest(content3) {
+    this.content = content3;
     const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
