@@ -335,4 +335,10 @@ export class CustomerRequestDetailsComponent implements OnInit {
       this.disabledAgreement = false;
     }
   }
+  cancelRequest() {
+    const actionPayload = {
+      id: this.requestID
+    };
+    this.store.dispatch(new DeleteCustomerRequests(actionPayload));
+  }
 }
