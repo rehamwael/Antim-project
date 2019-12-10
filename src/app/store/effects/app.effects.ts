@@ -19,7 +19,7 @@ import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
 import {
   CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests,
-  DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess
+  DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess, GetAllRequestsFailure, RemoveRequestsFromStore
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -55,7 +55,7 @@ export class AuthenticationEffects {
           .pipe(
             map((user) => {
               this.spinner.hide();
-              console.log('in ngrx effects :', user);
+              // console.log('in ngrx effects :', user);
               const decoded = jwt_decode(user.access_token);
               this.userRole = decoded.role;
               return new LoginSuccess({ token: user.access_token, role: decoded.role });
@@ -73,6 +73,7 @@ export class AuthenticationEffects {
     tap((user) => {
       localStorage.setItem('token', user.payload.token);
       localStorage.setItem('role', user.payload.role);
+      this.store.dispatch(new UserProfile());
       this.router.navigateByUrl('/dashbored-' + this.userRole);
     })
   );
@@ -98,6 +99,7 @@ export class AuthenticationEffects {
     tap((user) => {
       localStorage.removeItem('token');
       localStorage.removeItem('role');
+      this.store.dispatch(new RemoveRequestsFromStore());
       this.router.navigateByUrl('/login');
     })
   );
@@ -151,8 +153,13 @@ export class AuthenticationEffects {
     tap(() => {
       this.spinner.show();
       return this.customerService.customerAllRequests().subscribe(res => {
-        this.store.dispatch(new SaveAllCustomerRequests(res.result));
-        this.store.dispatch(new IsApiCallTrue());
+        if (res.result) {
+          this.store.dispatch(new SaveAllCustomerRequests(res.result));
+          this.store.dispatch(new IsApiCallTrue());
+        } else {
+          this.store.dispatch(new GetAllRequestsFailure());
+          // this.showErrorToast('', res.message, 'error');
+        }
         this.spinner.hide();
       });
     }));

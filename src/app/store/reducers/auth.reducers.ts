@@ -54,6 +54,9 @@ export function reducer(state = initialState, action: AuthenticationActions): St
     case AuthenticationActionTypes.EDIT_USER_PROFILE: {
       let data = action.payload;
       state.userProfile.firstName = data.FirstName;
+      // state.userProfile.email = data.Email;
+      // state.userProfile.phoneNumber = data.PhoneNumber;
+      // state.userProfile.nationalIdNumber = data.NationalIdNumber;
       let editedUser = state.userProfile;
       return {
             ...state,

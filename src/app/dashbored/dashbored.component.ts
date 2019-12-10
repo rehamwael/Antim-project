@@ -35,10 +35,10 @@ export class DashboredComponent implements OnInit, OnDestroy {
     this.getState.subscribe((state) => {
       const token = localStorage.getItem('token');
       this.currentUser = state.userProfile;
-      // console.log( 'USER:' ,  this.currentUser);
       if (!this.currentUser && token) {
         this.store.dispatch(new UserProfile());
       }
+      console.log( 'USER:' ,  this.currentUser);
     });
   }
 

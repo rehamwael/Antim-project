@@ -17,7 +17,7 @@ export interface PeriodicElement {
   position: number;
   name: string;
   date: string;
-  value: string;
+  price: string;
   status: string;
   id?: string;
 }
@@ -39,12 +39,13 @@ export class RequestsComponent implements OnInit, OnDestroy {
   disableReset = false;
   disableSearch = false;
   showMessage = false;
+  isDatainArray = false;
 
   selectedRequestType = 0;
   model1: NgbDateStruct;
   model2: NgbDateStruct;
   reqID: any;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['name', 'date', 'price', 'type'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType = 'All Requests';
@@ -68,14 +69,23 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
     this.showMessage = false;
+    this.requestType = 'All Requests';
   }
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
       this.getState.subscribe((state) => {
+        if (state.requestsArrayIsEmpty == true) {
+          this.isDatainArray = false;
+          resolve();
+        }
         if (state.isApiCall == false || state.customerRequestsData.length == 0) {
           this.store.dispatch(new GetAllCustomerRequests());
         } else {
+          if (state.requestsArrayIsEmpty == false) {
+            this.isDatainArray = true;
+          }
           this.allRequestData = state.customerRequestsData;
+          this.showMessage = false;
           resolve(state.customerRequestsData);
         }
       });
@@ -90,15 +100,15 @@ export class RequestsComponent implements OnInit, OnDestroy {
     const selectedtype = localStorage.getItem('selectedRequestType');
     this.requestType = 'All Requests';
     this.getCustomerRequestFromStore().then(e => {
-      this.allRequestData = e;
       allCustomerRequestData.length = 0;
       let i = 1;
+      if (this.isDatainArray == true && this.allRequestData.length > 0) {
       this.allRequestData.forEach(element => {
         allCustomerRequestData.push(element);
         element.date = moment(element.createdAt).format('LL');
-        element.value = element.totalPaybackAmount + ' SAR';
+        element.price = element.totalPaybackAmount + ' SAR';
         if (element.type === 1) {
-          element.status = 'Waiting for approval';
+          element.status = 'Awaiting for Fund';
         }
         if (element.type === 2) {
           element.status = 'Closed';
@@ -127,6 +137,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
         this.showMessage = false;
       }
       console.log('customerAllRequests:', allCustomerRequestData);
+    } else {
+      this.showMessage = true;
+    }
       if (type == selectedtype) {
         this.requestType = type;
         this.dataSourceAll.filter = type;
@@ -172,8 +185,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
       // this.fromDate = '';
       // this.toDate = '';
     }
-    if (deviceValue === 'Waiting for approval') {
-      this.requestType = 'Waiting for approval';
+    if (deviceValue === 'Awaiting for Fund') {
+      this.requestType = 'Awaiting for Fund';
       this.selectedRequestType = 1;
     }
 
@@ -224,14 +237,12 @@ export class RequestsComponent implements OnInit, OnDestroy {
   selectFromDate(evt: any) {
     this.fromDate = new Date(evt.year, evt.month - 1, evt.day);
     this.fromDate = moment(this.fromDate).format('YYYY-MM-DD');
-    // console.log(this.fromDate);
     this.toDate = '';
     this.disableSearch = true;
   }
   selectToDate(evt: any) {
     this.toDate = new Date(evt.year, evt.month - 1, evt.day);
     this.toDate = moment(this.toDate).format('YYYY-MM-DD');
-    // console.log(this.toDate);
     this.disableSearch = true;
   }
   filterRequests() {
@@ -239,7 +250,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.spinner.show();
       this.customerRequestService.getFilteredRequestsByDate(this.fromDate, this.toDate).subscribe((res) => {
         if (res.message) {
-          this.showErrorToast('Error!!', res.message, 'error');
+          this.showErrorToast('', res.message, 'error');
           this.spinner.hide();
         } else {
           this.allFilterRequests = [];
@@ -250,9 +261,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
           this.allFilterRequests.forEach(element => {
             filterRequestData.push(element);
             element.date = moment(element.createdAt).format('LL');
-            element.value = element.totalPaybackAmount + ' SAR';
+            element.price = element.totalPaybackAmount + ' SAR';
             if (element.type === 1) {
-              element.status = 'Waiting for approval';
+              element.status = 'Awaiting for Fund';
             }
             if (element.type === 2) {
               element.status = 'Closed';
@@ -295,7 +306,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.customerRequestService.getFilteredRequestsByTypeAndDate(this.selectedRequestType, this.fromDate, this.toDate)
         .subscribe((res) => {
           if (res.message) {
-            this.showErrorToast('Error!!', res.message, 'error');
+            this.showErrorToast('', res.message, 'error');
             this.spinner.hide();
           } else {
             this.allFilterRequests = [];
@@ -306,9 +317,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
             this.allFilterRequests.forEach(element => {
               filterRequestData.push(element);
               element.date = moment(element.createdAt).format('LL');
-              element.value = element.totalPaybackAmount + ' SAR';
+              element.price = element.totalPaybackAmount + ' SAR';
               if (element.type === 1) {
-                element.status = 'Waiting for approval';
+                element.status = 'Awaiting for Fund';
               }
               if (element.type === 2) {
                 element.status = 'Closed';

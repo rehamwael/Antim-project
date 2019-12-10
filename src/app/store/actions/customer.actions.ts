@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 export enum CustomerActionTypes {
   GET_ALL_REQUESTS = 'GetAllCustomerRequests',
   SAVE_GET_ALL_REQUESTS = 'SaveAllCustomerRequests',
+  GET_ALL_REQUESTS_FAILURE = 'GetAllRequestsFailure',
   ADD_REQUEST = 'AddRequest',
   ADD_REQUEST_SUCCESS = 'AddRequestSuccess',
   EDIT_REQUEST = 'EditRequest',
@@ -11,7 +12,8 @@ export enum CustomerActionTypes {
   IS_UPDATED_FALSE = 'IsUpdatedFalse',
   IS_UPDATED_TRUE = 'IsUpdatedTrue',
   IS_API_CALL_TRUE = 'IsApiCallTrue',
-  IS_API_CALL_FALSE = 'IsApiCallFalse'
+  IS_API_CALL_FALSE = 'IsApiCallFalse',
+  REMOVE_REQUESTS_FROM_STORE = 'RemoveRequestsFromStore'
 }
 
 export class IsApiCallTrue implements Action {
@@ -38,6 +40,10 @@ export class SaveAllCustomerRequests implements Action {
   readonly type = CustomerActionTypes.SAVE_GET_ALL_REQUESTS;
   constructor(public payload: any) { }
 }
+export class GetAllRequestsFailure implements Action {
+  readonly type = CustomerActionTypes.GET_ALL_REQUESTS_FAILURE;
+  constructor() {}
+}
 export class AddCustomerRequest implements Action {
   readonly type = CustomerActionTypes.ADD_REQUEST;
   constructor(public payload: any) { }
@@ -59,11 +65,15 @@ export class DeleteRequestSuccess implements Action {
   readonly type = CustomerActionTypes.DELETE_SUCCESS;
   constructor(public payload: any) { }
 }
+export class RemoveRequestsFromStore implements Action {
+  readonly type = CustomerActionTypes.REMOVE_REQUESTS_FROM_STORE;
+}
 
 
 export type CustomerRequests =
   | GetAllCustomerRequests
   | SaveAllCustomerRequests
+  | GetAllRequestsFailure
   | AddCustomerRequest
   | AddCustomerRequestSuccess
   | EditCustomerRequest
@@ -72,4 +82,5 @@ export type CustomerRequests =
   | IsUpdatedFalse
   | IsApiCallFalse
   | IsApiCallTrue
-  | IsUpdatedTrue;
+  | IsUpdatedTrue
+  | RemoveRequestsFromStore;

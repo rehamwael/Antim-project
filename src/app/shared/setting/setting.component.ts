@@ -38,7 +38,6 @@ export class SettingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getState.subscribe((state) => {
       this.currentUser = state.userProfile;
-      // console.log(this.currentUser);
     });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -48,7 +47,6 @@ export class SettingComponent implements OnInit, OnDestroy {
       }
       window.scrollTo(0, 0);
     });
-    console.log(this.currentUser);
   }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);

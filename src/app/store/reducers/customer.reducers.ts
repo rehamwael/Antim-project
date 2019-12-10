@@ -4,12 +4,14 @@ export interface State {
   customerRequestsData: any[];
   isUpdated: Boolean;
   isApiCall: Boolean;
+  requestsArrayIsEmpty: Boolean;
 }
 
 export const initialState: State = {
   customerRequestsData: [],
   isUpdated: false,
-  isApiCall: false
+  isApiCall: false,
+  requestsArrayIsEmpty: null
 };
 
 export function reducer(state = initialState, action: CustomerRequests): State {
@@ -17,7 +19,16 @@ export function reducer(state = initialState, action: CustomerRequests): State {
     case CustomerActionTypes.SAVE_GET_ALL_REQUESTS: {
       return {
         ...state,
-        customerRequestsData: action.payload
+        customerRequestsData: action.payload,
+        requestsArrayIsEmpty: false
+      };
+    }
+    case CustomerActionTypes.GET_ALL_REQUESTS_FAILURE: {
+      return {
+        ...state,
+        requestsArrayIsEmpty: true,
+        customerRequestsData: [],
+        isApiCall: true
       };
     }
     case CustomerActionTypes.IS_UPDATED_TRUE: {
@@ -43,6 +54,9 @@ export function reducer(state = initialState, action: CustomerRequests): State {
         ...state,
         isApiCall: false
       };
+    }
+    case CustomerActionTypes.GET_ALL_REQUESTS_FAILURE: {
+      return initialState;
     }
 
     case CustomerActionTypes.ADD_REQUEST_SUCCESS: {
