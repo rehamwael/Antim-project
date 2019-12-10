@@ -32,32 +32,26 @@ export class DashboredComponent implements OnInit, OnDestroy {
     private customerRequestService: CustomerRequestService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
-  }
-  getUserFromStore() {
-    return new Promise((resolve, reject) => {
-      this.getState.subscribe((state) => {
-        const token = localStorage.getItem('token');
-        this.currentUser = state.userProfile;
-        if (!this.currentUser && token) {
-          this.store.dispatch(new UserProfile());
-        } else {
-          resolve();
-        }
-      });
+    this.getState.subscribe((state) => {
+      const token = localStorage.getItem('token');
+      this.currentUser = state.userProfile;
+      // console.log( 'USER:' ,  this.currentUser);
+      if (!this.currentUser && token) {
+        this.store.dispatch(new UserProfile());
+      }
     });
   }
+
   ngOnInit(): void {
-    this.getUserFromStore().then(e => {
-      const body = document.getElementsByTagName('body')[0];
-      body.classList.add('dashbored');
-      body.classList.add('dashbored-home');
-      this.router.events.subscribe((evt) => {
-        if (!(evt instanceof NavigationEnd)) {
-          return;
-        }
-        window.scrollTo(0, 0);
-      });
-      this.getCount();
+    this.getCount();
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('dashbored');
+    body.classList.add('dashbored-home');
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
     });
   }
   ngOnDestroy(): void {

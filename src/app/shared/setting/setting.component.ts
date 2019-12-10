@@ -38,7 +38,7 @@ export class SettingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getState.subscribe((state) => {
       this.currentUser = state.userProfile;
-      console.log(this.currentUser);
+      // console.log(this.currentUser);
     });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');

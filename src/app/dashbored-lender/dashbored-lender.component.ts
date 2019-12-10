@@ -20,16 +20,16 @@ export class DashboredLenderComponent implements OnInit , OnDestroy {
     private store: Store<AppState>,
     ) {
       this.getState = this.store.select(selectAuthenticationState);
-     }
+      this.getState.subscribe((state) => {
+        const token = localStorage.getItem('token');
+        this.currentUser = state.userProfile;
+        // console.log( 'USER:' ,  this.currentUser);
+        if (!this.currentUser && token) {
+          this.store.dispatch(new UserProfile());
+        }
+      });
+    }
   ngOnInit(): void {
-    this.getState.subscribe((state) => {
-      const token = localStorage.getItem('token');
-      this.currentUser = state.userProfile;
-      if (!this.currentUser && token) {
-        this.store.dispatch(new UserProfile());
-      }
-    });
-
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('dashbored-home');
