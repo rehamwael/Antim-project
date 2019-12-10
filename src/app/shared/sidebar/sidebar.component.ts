@@ -76,6 +76,7 @@ export class SidebarComponent implements OnInit {
   }
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     this.store.dispatch(new Logout);
     console.log('logout.');
   }

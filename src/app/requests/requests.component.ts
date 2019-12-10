@@ -201,7 +201,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.requestType = 'Under Review';
       this.selectedRequestType = 7;
     }
-    console.log(this.dataSourceAll.filteredData.length);
     if (this.dataSourceAll.filteredData.length > 0) {
       this.showMessage = false;
     } else {
