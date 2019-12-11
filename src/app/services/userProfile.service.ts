@@ -23,7 +23,6 @@ export class ProfileService {
     };
   }
 
-
   // GET USER PERSONAL INFORMATION
   getUserData(): Observable<any> {
     const Token = localStorage.getItem('token');
@@ -59,6 +58,7 @@ export class ProfileService {
   // DELETE User
   deleteUser(id: any): Observable<any> {
     this.getTokenAndHeaders();
+    console.log('authorization', this.httpOptions);
     return this.httpClient.delete(`${this.Url}User/DeleteUser?id=${id}`, this.httpOptions).pipe(
       tap((res: any) => {
       })
@@ -68,7 +68,8 @@ export class ProfileService {
   // Deactivate User
   deActivateUser(id: any): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.patch(`${this.Url}User/DeactivateUser?id=${id}`, this.httpOptions).pipe(
+
+    return this.httpClient.patch(`${this.Url}User/DeactivateUser?id=${id}`, null, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );

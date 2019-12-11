@@ -36,7 +36,7 @@ import { ContactComponent } from './contact/contact.component';
 import { WhoWeAreComponent } from './who-we-are/who-we-are.component';
 import { DashboredComponent } from './dashbored/dashbored.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
-import { MatStepperModule, MatInputModule, MatButtonModule, MatAutocompleteModule } from '@angular/material';
+import { MatStepperModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSortModule } from '@angular/material';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestsComponent } from './requests/requests.component';
 import {MatTableModule} from '@angular/material/table';
@@ -132,7 +132,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EffectsModule.forRoot([AuthenticationEffects]),
     StoreModule.forRoot(reducers, {}),
     NgxSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     {

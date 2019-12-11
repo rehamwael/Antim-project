@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import { NgbModal, NgbDateStruct, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
@@ -33,6 +34,7 @@ let filterRequestData: PeriodicElement[] = [];
 
 export class RequestsComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   fromDate = null;
   toDate = null;
@@ -127,6 +129,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dataSourceAll.paginator = this.paginator;
+    this.dataSourceAll.sort = this.sort;
     const type = localStorage.getItem('requestType');
     const selectedtype = localStorage.getItem('selectedRequestType');
     this.getCustomerRequestFromStore().then(e => {
