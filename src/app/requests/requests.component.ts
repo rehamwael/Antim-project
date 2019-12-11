@@ -55,40 +55,40 @@ export class RequestsComponent implements OnInit, OnDestroy {
   allRequestData: any;
   allFilterRequests: any;
   getState: Observable<any>;
-  // requestTypes: any[] = [
-  //   {
-  //     id: 0,
-  //     type: 'All'
-  //   },
-  //   {
-  //     id: 1,
-  //     type: 'Awaiting for Fund'
-  //   },
-  //   {
-  //     id: 2,
-  //     type: 'Closed'
-  //   },
-  //   {
-  //     id: 3,
-  //     type: 'Rejected'
-  //   },
-  //   {
-  //     id: 4,
-  //     type: 'Ongoing'
-  //   },
-  //   {
-  //     id: 5,
-  //     type: 'Draft'
-  //   },
-  //   {
-  //     id: 6,
-  //     type: 'Accepted'
-  //   },
-  //   {
-  //     id: 7,
-  //     type: 'Under Review'
-  //   },
-  // ];
+  requestTypes: any[] = [
+    {
+      id: 0,
+      type: 'All Requests'
+    },
+    {
+      id: 1,
+      type: 'Awaiting for Fund Requests'
+    },
+    {
+      id: 2,
+      type: 'Closed Requests'
+    },
+    {
+      id: 3,
+      type: 'Rejected Requests'
+    },
+    {
+      id: 4,
+      type: 'Ongoing Requests'
+    },
+    {
+      id: 5,
+      type: 'Draft Requests'
+    },
+    {
+      id: 6,
+      type: 'Accepted Requests'
+    },
+    {
+      id: 7,
+      type: 'Under Review Requests'
+    },
+  ];
   constructor(private modalService: NgbModal,
     public router: Router,
     private route: ActivatedRoute,
@@ -124,45 +124,19 @@ export class RequestsComponent implements OnInit, OnDestroy {
       });
     });
   }
-  // tslint:disable-next-line: use-life-cycle-interface
-  ngAfterViewInit() {
-    this.dataSourceAll.paginator = this.paginator;
-  }
+
   ngOnInit(): void {
+    this.dataSourceAll.paginator = this.paginator;
     const type = localStorage.getItem('requestType');
     const selectedtype = localStorage.getItem('selectedRequestType');
-    this.requestType = 'All Requests';
     this.getCustomerRequestFromStore().then(e => {
       allCustomerRequestData.length = 0;
-      let i = 1;
       if (this.isDatainArray == true && this.allRequestData.length > 0) {
       this.allRequestData.forEach(element => {
         allCustomerRequestData.push(element);
         element.date = moment(element.createdAt).format('LL');
         element.price = element.totalPaybackAmount + ' SAR';
-        if (element.type === 1) {
-          element.status = 'Awaiting for Fund';
-        }
-        if (element.type === 2) {
-          element.status = 'Closed';
-        }
-        if (element.type === 3) {
-          element.status = 'Rejected';
-        }
-        if (element.type === 4) {
-          element.status = 'Ongoing';
-        }
-        if (element.type === 5) {
-          element.status = 'Draft';
-        }
-        if (element.type === 6) {
-          element.status = 'Accepted';
-        }
-        if (element.type === 7) {
-          element.status = 'Under Review';
-        }
-        element.position = i;
-        i++;
+        element.status = this.requestTypes[element.type].type;
       });
       if (this.dataSourceAll.filteredData.length == 0) {
         this.showMessage = true;
@@ -210,50 +184,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
   onChange(deviceValue) {
     this.dataSourceAll.filter = deviceValue;
     this.requestType = deviceValue;
-      // if (deviceValue == 'All') {
-    //   this.dataSourceAll.filter = '';
-    //   this.selectedRequestType = 0;
-    //   this.requestType = 'All Requests';
-    // }
-    // for ( let i = 0; i < this.requestTypes.length; i++) {
-    //   if (deviceValue == this.requestTypes[i]) {
-    //     this.requestType = deviceValue;
-    //     this.selectedRequestType = i;
-    //   }
-    // }
-    if (deviceValue === 'All Requests') {
+    if (deviceValue == 'All Requests') {
       this.dataSourceAll.filter = '';
       this.requestType = 'All Requests';
-      this.selectedRequestType = 0;
-    }
-    if (deviceValue === 'Awaiting for Fund') {
-      this.requestType = 'Awaiting for Fund';
-      this.selectedRequestType = 1;
-    }
-
-    if (deviceValue === 'Ongoing') {
-      this.requestType = 'Ongoing';
-      this.selectedRequestType = 4;
-    }
-    if (deviceValue === 'Rejected') {
-      this.requestType = 'Rejected';
-      this.selectedRequestType = 3;
-    }
-    if (deviceValue === 'Closed') {
-      this.requestType = 'Closed';
-      this.selectedRequestType = 2;
-    }
-    if (deviceValue === 'Draft') {
-      this.requestType = 'Draft';
-      this.selectedRequestType = 5;
-    }
-    if (deviceValue === 'Accepted') {
-      this.requestType = 'Accepted';
-      this.selectedRequestType = 6;
-    }
-    if (deviceValue === 'Under Review') {
-      this.requestType = 'Under Review';
-      this.selectedRequestType = 7;
     }
     if (this.dataSourceAll.filteredData.length > 0) {
       this.showMessage = false;
@@ -298,34 +231,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
           this.allFilterRequests = res.result;
           filterRequestData.length = 0;
           console.log('allFilterRequests', this.allFilterRequests);
-          let i = 1;
           this.allFilterRequests.forEach(element => {
             filterRequestData.push(element);
             element.date = moment(element.createdAt).format('LL');
             element.price = element.totalPaybackAmount + ' SAR';
-            if (element.type === 1) {
-              element.status = 'Awaiting for Fund';
-            }
-            if (element.type === 2) {
-              element.status = 'Closed';
-            }
-            if (element.type === 3) {
-              element.status = 'Rejected';
-            }
-            if (element.type === 4) {
-              element.status = 'Ongoing';
-            }
-            if (element.type === 5) {
-              element.status = 'Draft';
-            }
-            if (element.type === 6) {
-              element.status = 'Accepted';
-            }
-            if (element.type === 7) {
-              element.status = 'UnderReview';
-            }
-            element.position = i;
-            i++;
+            element.status = this.requestTypes[element.type].type;
           });
           if (this.dataSourceAll.filteredData.length == 0) {
             this.showMessage = true;
@@ -333,7 +243,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
             this.showMessage = false;
           }
           this.dataSourceAll.data = filterRequestData;
-          // this.dataSourceAll = new MatTableDataSource<PeriodicElement>(filterRequestData);
           this.spinner.hide();
           this.disableReset = true;
           this.disableSearch = false;
@@ -354,34 +263,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
             this.allFilterRequests = res.result;
             filterRequestData.length = 0;
             console.log('allFilterRequests', this.allFilterRequests);
-            let i = 1;
             this.allFilterRequests.forEach(element => {
               filterRequestData.push(element);
               element.date = moment(element.createdAt).format('LL');
               element.price = element.totalPaybackAmount + ' SAR';
-              if (element.type === 1) {
-                element.status = 'Awaiting for Fund';
-              }
-              if (element.type === 2) {
-                element.status = 'Closed';
-              }
-              if (element.type === 3) {
-                element.status = 'Rejected';
-              }
-              if (element.type === 4) {
-                element.status = 'Ongoing';
-              }
-              if (element.type === 5) {
-                element.status = 'Draft';
-              }
-              if (element.type === 6) {
-                element.status = 'Accepted';
-              }
-              if (element.type === 7) {
-                element.status = 'UnderReview';
-              }
-              element.position = i;
-              i++;
+              element.status = this.requestTypes[element.type].type;
             });
             if (this.dataSourceAll.filteredData.length == 0) {
               this.showMessage = true;
@@ -389,7 +275,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
               this.showMessage = false;
             }
             this.dataSourceAll.data = filterRequestData;
-            // this.dataSourceAll = new MatTableDataSource<PeriodicElement>(filterRequestData);
             this.spinner.hide();
             this.disableReset = true;
             this.disableSearch = false;
@@ -402,10 +287,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
     }
   }
   resetPage() {
+    this.dataSourceAll.filter = '';
     this.dataSourceAll.data = allCustomerRequestData;
+    this.requestType = 'All Requests';
     this.fromDate = '';
     this.toDate = '';
-    this.dataSourceAll.filter = '';
     this.disableSearch = false;
     this.disableReset = false;
   }

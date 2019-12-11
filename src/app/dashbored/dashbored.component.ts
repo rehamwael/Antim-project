@@ -63,9 +63,10 @@ export class DashboredComponent implements OnInit, OnDestroy {
     this.customerRequests = null;
   }
   getCount() {
+    const role = localStorage.getItem('role');
     this.getState.subscribe((state) => {
       this.customerRequests = state.customerRequestCount;
-      if (state.customerRequestCount == null && state.isAuthenticated == true && state.userProfile.roles[0] == 'customer') {
+      if (state.customerRequestCount == null && state.isAuthenticated == true && role == 'customer') {
         this.store.dispatch(new GetCustomerRequestCount());
       }
     });
