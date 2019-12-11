@@ -57,7 +57,7 @@ export class SettingComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
-
+    this.currentUser = null;
   }
   deleteAccount() {
     this.userId = this.currentUser.id;
@@ -97,7 +97,9 @@ export class SettingComponent implements OnInit, OnDestroy {
 
   }
   logOut() {
-    this.store.dispatch(new Logout);
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    this.store.dispatch(new Logout());
   }
 
 }

@@ -33,9 +33,10 @@ export class DashboredComponent implements OnInit, OnDestroy {
   ) {
     this.getState = this.store.select(selectAuthenticationState);
     this.getState.subscribe((state) => {
+      console.log('state', state);
       const token = localStorage.getItem('token');
       this.currentUser = state.userProfile;
-      if (!this.currentUser && token) {
+      if (state.userProfile == null && token && state.isAuthenticated == true) {
         this.store.dispatch(new UserProfile());
       }
       console.log( 'USER:' ,  this.currentUser);
@@ -43,7 +44,6 @@ export class DashboredComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getCount();
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('dashbored-home');
@@ -53,18 +53,19 @@ export class DashboredComponent implements OnInit, OnDestroy {
       }
       window.scrollTo(0, 0);
     });
+    this.getCount();
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('dashbored-home');
-
+    this.currentUser = null;
+    this.customerRequests = null;
   }
   getCount() {
-    // this.spinner.show();
     this.getState.subscribe((state) => {
       this.customerRequests = state.customerRequestCount;
-      if (!this.customerRequests) {
+      if (state.customerRequestCount == null && state.isAuthenticated == true && state.userProfile.roles[0] == 'customer') {
         this.store.dispatch(new GetCustomerRequestCount());
       }
     });

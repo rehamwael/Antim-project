@@ -55,7 +55,40 @@ export class RequestsComponent implements OnInit, OnDestroy {
   allRequestData: any;
   allFilterRequests: any;
   getState: Observable<any>;
-
+  // requestTypes: any[] = [
+  //   {
+  //     id: 0,
+  //     type: 'All'
+  //   },
+  //   {
+  //     id: 1,
+  //     type: 'Awaiting for Fund'
+  //   },
+  //   {
+  //     id: 2,
+  //     type: 'Closed'
+  //   },
+  //   {
+  //     id: 3,
+  //     type: 'Rejected'
+  //   },
+  //   {
+  //     id: 4,
+  //     type: 'Ongoing'
+  //   },
+  //   {
+  //     id: 5,
+  //     type: 'Draft'
+  //   },
+  //   {
+  //     id: 6,
+  //     type: 'Accepted'
+  //   },
+  //   {
+  //     id: 7,
+  //     type: 'Under Review'
+  //   },
+  // ];
   constructor(private modalService: NgbModal,
     public router: Router,
     private route: ActivatedRoute,
@@ -177,13 +210,21 @@ export class RequestsComponent implements OnInit, OnDestroy {
   onChange(deviceValue) {
     this.dataSourceAll.filter = deviceValue;
     this.requestType = deviceValue;
+      // if (deviceValue == 'All') {
+    //   this.dataSourceAll.filter = '';
+    //   this.selectedRequestType = 0;
+    //   this.requestType = 'All Requests';
+    // }
+    // for ( let i = 0; i < this.requestTypes.length; i++) {
+    //   if (deviceValue == this.requestTypes[i]) {
+    //     this.requestType = deviceValue;
+    //     this.selectedRequestType = i;
+    //   }
+    // }
     if (deviceValue === 'All Requests') {
       this.dataSourceAll.filter = '';
       this.requestType = 'All Requests';
       this.selectedRequestType = 0;
-      // this.ngOnInit();
-      // this.fromDate = '';
-      // this.toDate = '';
     }
     if (deviceValue === 'Awaiting for Fund') {
       this.requestType = 'Awaiting for Fund';

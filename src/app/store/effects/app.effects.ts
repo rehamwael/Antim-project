@@ -58,6 +58,8 @@ export class AuthenticationEffects {
               // console.log('in ngrx effects :', user);
               const decoded = jwt_decode(user.access_token);
               this.userRole = decoded.role;
+              localStorage.setItem('token', user.access_token);
+              localStorage.setItem('role', this.userRole);
               return new LoginSuccess({ token: user.access_token, role: decoded.role });
             }),
             catchError((error) => {
@@ -71,8 +73,8 @@ export class AuthenticationEffects {
   LoginSuccess: Observable<any> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN_SUCCESS),
     tap((user) => {
-      localStorage.setItem('token', user.payload.token);
-      localStorage.setItem('role', user.payload.role);
+      // localStorage.setItem('token', user.payload.token);
+      // localStorage.setItem('role', user.payload.role);
       this.store.dispatch(new UserProfile());
       this.router.navigateByUrl('/dashbored-' + this.userRole);
     })
@@ -99,10 +101,11 @@ export class AuthenticationEffects {
     tap((user) => {
       localStorage.removeItem('token');
       localStorage.removeItem('role');
-      this.store.dispatch(new RemoveRequestsFromStore());
+      // this.store.dispatch(new RemoveRequestsFromStore());
       this.router.navigateByUrl('/login');
     })
   );
+
   @Effect({ dispatch: false })
   UserProfile: Observable<any> = this.actions
     .pipe(
@@ -114,6 +117,7 @@ export class AuthenticationEffects {
           this.spinner.hide();
         });
       }));
+
       @Effect({ dispatch: false })
       GetCustomerRequestCount: Observable<any> = this.actions
         .pipe(
