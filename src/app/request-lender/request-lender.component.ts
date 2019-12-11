@@ -2,9 +2,11 @@ import { Component, OnInit , OnDestroy, ElementRef , ViewChild } from '@angular/
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatPaginator } from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 export interface PeriodicElement {
-  position: number;
+  position?: number;
   name: string;
   date: string;
   value: string;
@@ -12,18 +14,19 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 2, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
-  {position: 3, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
-  {position: 4, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
-  {position: 5, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
-  {position: 6, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 7, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
-  {position: 8, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 9, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 10, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 11, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
-  {position: 12, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Reject'},
+   {name: 'Sony Laptop. ', date: '22 December 2018', value: '1900 SAR', status: 'Ongoing request'},
+  {name: 'Aony Laptop. ', date: '23 December 2018', value: '1700 SAR', status: 'Closed'},
+  {name: 'Hony Laptop. ', date: '24 December 2018', value: '1100 SAR', status: 'Wating Fund'},
+  {name: 'Tony Laptop. ', date: '25 December 2018', value: '1600 SAR', status: 'Wating Fund'},
+  {name: 'Sony Laptop. ', date: '27 December 2018', value: '1200 SAR', status: 'Closed'},
+  {name: 'Sony Laptop. ', date: '27 December 2018', value: '1700 SAR', status: 'Ongoing request'},
+  {name: 'Eony Laptop. ', date: '28 December 2018', value: '1500 SAR', status: 'Wating Fund'},
+  {name: 'Sony Laptop. ', date: '29 December 2018', value: '1700 SAR', status: 'Ongoing request'},
+  {name: 'Yony Laptop. ', date: '21 December 2018', value: '1600 SAR', status: 'Ongoing request'},
+  {name: 'Qony Laptop. ', date: '23 December 2018', value: '1700 SAR', status: 'Rejected'},
+  {name: 'Bony Laptop. ', date: '22 December 2018', value: '1800 SAR', status: 'Rejected'},
+  {name: 'Dony Laptop. ', date: '26 December 2018', value: '1100 SAR', status: 'Rejected'},
+  {name: 'Dony Laptop. ', date: '26 December 2018', value: '1100 SAR', status: 'Closed'},
 
 ];
 
@@ -35,8 +38,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class RequestLenderComponent implements OnInit , OnDestroy {
   @ViewChild('clickMe', {static: false}) clickMe: ElementRef<HTMLElement>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
+
+  displayedColumns: string[] = [ 'position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType = 'All Requests';
@@ -48,6 +54,9 @@ export class RequestLenderComponent implements OnInit , OnDestroy {
   constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
