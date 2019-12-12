@@ -91,9 +91,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
       type: 'Under Review Requests'
     },
   ];
-  constructor(private modalService: NgbModal,
+  constructor(
+    private modalService: NgbModal,
     public router: Router,
-    private route: ActivatedRoute,
     private toastr: ToastrService,
     private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
@@ -137,7 +137,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
       if (this.isDatainArray == true && this.allRequestData.length > 0) {
       this.allRequestData.forEach(element => {
         allCustomerRequestData.push(element);
-        element.date = moment(element.createdAt).format('LL');
+        // element.date = moment(element.createdAt).format('LL');
+        element.date = moment(element.updatedAt).format('LL');
         element.price = element.totalPaybackAmount + ' SAR';
         element.status = this.requestTypes[element.type].type;
       });

@@ -22,18 +22,18 @@ export class FunderRequestService {
       })
     };
   }
-  // FunderAllRequests(): Observable<any> {
-  //   this.getTokenAndHeaders();
-  //   return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequests`, this.httpOptions).pipe(
-  //     tap((res: any) => {
-  //     })
-  //   );
-  // }
-  // getRequestDataById(id: any): Observable<any> {
-  //   this.getTokenAndHeaders();
-  //   return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequestById?id=${id}`, this.httpOptions).pipe(
-  //     tap((res: any) => {
-  //     })
-  //   );
-  // }
+  funderAllRequests(): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}FunderRequest/GetAllFunderRequests`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+  fundingLimitMatchingRequests(): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}FunderRequest/GetFundingLimitMatchingRequests` , this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 }
