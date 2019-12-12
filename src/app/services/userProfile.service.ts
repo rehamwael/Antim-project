@@ -54,6 +54,15 @@ export class ProfileService {
       })
     );
   }
+  ConfirmNewEmail(email, userId, code): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}User/ConfirmNewEmail?email=${email}&userId=${userId}&code=${code}`,
+    null, this.httpOptions)
+    .pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
   // DELETE User
   deleteUser(id: any): Observable<any> {

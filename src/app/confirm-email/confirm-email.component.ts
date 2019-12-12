@@ -9,19 +9,21 @@ import { ToastrService, IndividualConfig } from 'ngx-toastr';
   styleUrls: ['./confirm-email.component.css']
 })
 export class ConfirmEmailComponent implements OnInit {
-  token: any;
+  code: any;
   userID: any;
+  newEmail = '';
   options: IndividualConfig;
 
   constructor(
-    private userService: ProfileService,
+    private userEmailService: ProfileService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
     ) {
       this.activatedRoute.queryParamMap.subscribe(queryParams => {
-        this.token = queryParams.get('code');
+        this.code = queryParams.get('code');
         this.userID = queryParams.get('userId');
+        this.newEmail = queryParams.get('email');
       });
       this.options = this.toastr.toastrConfig;
       this.options.positionClass = 'toast-top-right';
@@ -34,16 +36,30 @@ showErrorToast(title, message, type) {
   this.toastr.show(message, title, this.options, 'toast-' + type);
 }
   ngOnInit() {
-    this.userService.confirmEmail(
-      this.userID,
-      this.token
-    ).subscribe(async (res) => {
-      console.log('result: ', res);
-      this.showSuccessToast('OK!!', res.message, 'success');
-    }, err => {
-      console.log('error: ', err);
-      this.showErrorToast('Error!!', err.error.message, 'error');
-    });
+    console.log(this.newEmail);
+    if (this.newEmail) {
+      this.userEmailService.ConfirmNewEmail(
+        this.newEmail,
+        this.userID,
+        this.code
+      ).subscribe(async (res) => {
+        console.log('resultt: ', res);
+        this.showSuccessToast('OK!!', res.message, 'success');
+      }, err => {
+        console.log('error: ', err);
+        this.showErrorToast('Error!!', err.error.message, 'error');
+      });
+    } else {
+        this.userEmailService.confirmEmail(
+          this.userID,
+          this.code
+        ).subscribe(async (res) => {
+          console.log('result: ', res);
+          this.showSuccessToast('OK!!', res.message, 'success');
+        }, err => {
+          console.log('error: ', err);
+          this.showErrorToast('Error!!', err.error.message, 'error');
+        });
+       }
   }
-
 }
