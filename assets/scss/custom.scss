@@ -1532,6 +1532,10 @@ td.mat-cell.Ongoing  {
     color: #38d147 !important;
     text-transform: uppercase;
 }
+td.mat-cell.AWAITING  {
+  color: #d64532 !important;
+  text-transform: uppercase;
+}
 td.mat-cell.Draft {
   color: #5c20d2 !important;
   text-transform: uppercase;
