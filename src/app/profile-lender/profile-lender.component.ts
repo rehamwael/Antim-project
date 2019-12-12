@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { AppState, selectAuthenticationState } from './../store/app.states';
 import { EditUserProfile } from './../store/actions/auth.actions';
 import { Observable } from 'rxjs';
+import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 
 
 @Component({
@@ -22,12 +23,20 @@ import { Observable } from 'rxjs';
   styleUrls: ['./profile-lender.component.css']
 })
 export class ProfileLenderComponent implements OnInit, OnDestroy {
+  @ViewChild('two', { static: false }) twoElement: ElementRef;
+  @ViewChild('three', { static: false }) threeElement: ElementRef;
+  @ViewChild('four', { static: false }) fourElement: ElementRef;
+
+  userId: any;
+  userName: any;
+
   currentUser: any;
   userAddress: any;
   userBankInfo: any;
   name: any;
   email: any;
   phone: any;
+  countryCode: any;
   NID: any;
   address: any;
   city: any;
@@ -68,6 +77,15 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   disableBankButton = false;
   disableAddressButton = false;
 
+  emailButton = false;
+  phoneButton = false;
+  showOTPstep = false;
+  OTP: any;
+  first: number;
+  second: number;
+  third: number;
+  Fourth: number;
+
   public barChartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -102,7 +120,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     public router: Router,
     private profileService: ProfileService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private editUserService: UserEmailPasswordService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
     this.showUser = true;
@@ -126,6 +145,14 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(10)
       ])],
+      'CountryCode': [{ value: this.countryCode, disabled: this.disabledButton }, Validators.compose([
+        Validators.required
+      ])],
+      'One': [''],
+      'Two': [''],
+      'Three': [''],
+      'Four': ['']
+
       // 'Address': [{ value: null, disabled: this.disabledButton }],
     });
 
@@ -203,6 +230,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.phone = res.result.phoneNumber;
         this.email = res.result.email;
         this.name = res.result.firstName;
+        this.countryCode = res.result.dialingCode;
+        this.userId = res.result.id;
+        this.userName = res.result.userName;
         this.userAdress = res.result.userAddresses;
         this.userBank = res.result.userBanks;
         resolve(res.result);
@@ -276,13 +306,110 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   }
   EditInfo() {
     this.disableprofileButton = true;
+    this.emailButton = true;
+    this.phoneButton = true;
     this.EditForm.get('Name').enable();
     this.EditForm.get('MobileNo').enable();
     this.EditForm.get('Email').enable();
     this.EditForm.get('NID').enable();
-    // this.EditForm.get('Address').enable();
+    this.EditForm.get('CountryCode').enable();
+  }
+  editEmail() {
+    if (this.email == '') {
+      this.showErrorToast('Error!!', 'Please Enter Email.', 'error');
+    } else {
+      this.spinner.show();
+      this.editUserService.editUserEmail({
+        'Id': this.userId,
+        'NewEmail': this.email,
+        'UserName': this.userName
+      }).subscribe(res => {
+        console.log(res);
+        this.spinner.hide();
+        this.showSuccessToast('OK!!', res.message, 'success');
+        this.emailButton = false;
+        this.EditForm.get('Email').disable();
+      }, err => {
+        this.spinner.hide();
+        console.log(' ERROR:', err);
+        this.showErrorToast('Error!!', err.error.message, 'error');
+      });
+    }
+  }
 
-
+  editMobileNo() {
+    if (this.phone == '' || this.countryCode == null) {
+      this.showErrorToast('Error!!', 'Please Enter Proper Mobile Number.', 'error');
+    } else {
+      this.spinner.show();
+      this.profileService.editUserPhoneNumber({
+        'Id': this.userId,
+        'PhoneNumber': this.phone,
+        'DialingCode': this.countryCode
+      }).subscribe(res => {
+        this.spinner.hide();
+        console.log(res);
+        this.showSuccessToast('OK!!', res.message, 'success');
+        this.phoneButton = false;
+        this.showOTPstep = true;
+      }, err => {
+        this.spinner.hide();
+        console.log(' ERROR:', err);
+        this.showErrorToast('Error!!', err.error.message, 'error');
+      });
+    }
+  }
+  keytab(event, next) {
+    if (next === 1) {
+      setTimeout(() => {
+        this.twoElement.nativeElement.focus();
+      }, 0);
+    } else if (next === 2) {
+      setTimeout(() => {
+        this.threeElement.nativeElement.focus();
+      }, 0);
+    } else if (next === 3) {
+      setTimeout(() => {
+        this.fourElement.nativeElement.focus();
+      }, 0);
+    }
+  }
+  verifyOTP() {
+    this.OTP = '' + this.first + this.second + this.third + this.Fourth;
+    this.spinner.show();
+    this.profileService.confirmNewPhoneNumber({
+      'Id': this.userId,
+      'VerificationCode': this.OTP,
+      'PhoneNumber': this.phone,
+      'DialingCode': this.countryCode
+    }).subscribe(res => {
+      this.spinner.hide();
+      console.log(res);
+      this.showSuccessToast('OK!!', res.message, 'success');
+      this.showOTPstep = false;
+      this.EditForm.get('MobileNo').disable();
+      this.EditForm.get('CountryCode').disable();
+    }, err => {
+      this.spinner.hide();
+      console.log(' ERROR:', err);
+      this.showErrorToast('Error!!', err.error.message, 'error');
+    });
+  }
+  ResendOTP() {
+    this.spinner.show();
+    this.profileService.resendOtpForPhoneNumber({
+      'Id': this.userId,
+      'PhoneNumber': this.phone,
+      'DialingCode': this.countryCode
+    }).subscribe(res => {
+      this.spinner.hide();
+      console.log(res);
+      this.showSuccessToast('OK!!', res.message, 'success');
+    }, err => {
+      this.spinner.hide();
+      console.log(' ERROR:', err);
+      this.showErrorToast('Error!!', err.error.message, 'error');
+    });
   }
   SaveInfo() {
     const actionPayload = {
@@ -297,26 +424,6 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.EditForm.get('Email').disable();
       this.EditForm.get('NID').disable();
       this.disableprofileButton = false;
-
-    // this.spinner.show();
-    // this.profileService.editUser({
-    //   'FirstName': this.name,
-    //   'NationalIdNumber': this.NID,
-    //   'PhoneNumber': this.phone.toString(),
-    //   'Email': this.email
-    // }).subscribe((res) => {
-    //   console.log('User Info edited:', res);
-    //   this.spinner.hide();
-    //   this.showSuccessToast('OK!!', res.message, 'success');
-    //   this.EditForm.get('Name').disable();
-    //   this.EditForm.get('MobileNo').disable();
-    //   this.EditForm.get('Email').disable();
-    //   this.EditForm.get('NID').disable();
-    //   this.disableprofileButton = false;
-    // }, err => {
-    //   this.spinner.hide();
-    //   this.showErrorToast('Error!!', err.message, 'error');
-    // });
 
   }
   EditBankInfo() {

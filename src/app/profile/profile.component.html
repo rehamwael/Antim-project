@@ -45,7 +45,8 @@
 
 
                         <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
-                            <div class="justify-content-center col-lg-9">
+                            <div class="col-lg-1"></div>
+                            <div class="justify-content-center col-lg-10">
                             <form class="row antim-form" [formGroup]="EditForm" *ngIf="!showAddress && !showBank && showUser">
                             <div class="col-lg-12 mb-3"><h3 class="headingh3">Personal Information</h3></div>
                             <div class="col-lg-6">
@@ -78,30 +79,35 @@
                                </ngx-spinner>
                         </div>
 
+                                <div class=" col-lg-8">
+                                    <label for="Email" class="font-bold mt-2">Email :</label>
+                                    <input matInput formControlName="Email" type="email" class="form-control form-control-lg" value= "{{email}}" [(ngModel)]="email" placeholder="email">
+                                    <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('required')" class="error-msg alert alert-danger text-left">Email is required</div>
+                                    <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter proper Email.</div>
 
-                            <div class="col-lg-6">
-                                <label for="Email" class="font-bold mt-2">Email :</label>
-                                <input matInput formControlName="Email" type="email" class="form-control form-control-lg" value= "{{email}}" [(ngModel)]="email" placeholder="email">
-                                <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('required')" class="error-msg alert alert-danger text-left">Email is required</div>
-                                <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter proper Email.</div>
+                                </div>
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-3 p-0 mt-5">
+                                    <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!emailButton"  (click)="editEmail()">Change Email</button>
+                                </div>
 
-                            </div>
+                                <div class="col-lg-2">
+                                    <label for="countrycode" class="font-bold mt-2">Country Code :</label>
+                                    <input matInput formControlName="CountryCode" type="number" class="form-control form-control-lg" value= "{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" >
+                                    <div *ngIf="EditForm.controls['CountryCode'].touched && EditForm.controls['CountryCode'].hasError('required')" class="error-msg alert alert-danger text-left"> Country Code is required</div>
+                                </div>
                             <div class="col-lg-6">
-                                <label for="mobile" class="font-bold mt-2">Mobile No :</label>
+                                <label for="mobile" class="font-bold mt-2">Mobile No:</label>
                                 <input matInput formControlName="MobileNo" type="text" class="form-control form-control-lg" value= "{{phone}}" [(ngModel)]="phone" placeholder="Mobile No." (keyup)="inputNumber($event)" digitOnly
                                 oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                                 else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
                                  <div *ngIf="EditForm.controls['MobileNo'].touched && EditForm.controls['MobileNo'].hasError('required')" class="error-msg alert alert-danger text-left">Mobile Number is required</div>
                                  <span class="redColor" id="phonenumber"> Phone number must be at least 9 characters long.</span>
                             </div>
-                            <div class="form-group col-lg-2"></div>
-                            <div class="form-group col-lg-4">
-                                <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!emailButton"  (click)="editEmail()">Change Email</button>
-                            </div>
-                            <div class="form-group col-lg-2"></div>
-                            <div class="form-group col-lg-4">
-                                <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!phoneButton"  (click)="editMobileNo()">Change Mobile No</button>
-                            </div>
+                            <div class="col-lg-1"></div>
+                                    <div class=" col-lg-3 p-0 mt-5">
+                                        <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!phoneButton"  (click)="editMobileNo()">Change Mobile</button>
+                                    </div>
                             <!-- <div class="col-lg-12">
                                     <label for="Address" class="font-bold mt-2">Address</label>
                                     <input matInput formControlName="Address" class="form-control form-control-lg" value="Saudi Arabia" placeholder="Address">
@@ -116,7 +122,44 @@
                                     </div>
                                     </div>
                                 </div> -->
-
+                                <div *ngIf="!showAddress && !showBank && showUser && showOTPstep">
+                                     <!-- <a class="close-icon" (click)="closeBack()"><img src="assets/images/close.svg"></a>
+                                     <img src="assets/images/mobile.svg" alt="antim" class="mb-2 mt-5"> -->
+                                     <p style="font-size: 16px; font-weight: bold; color: #5c20d2" class="mt-5 mb-5 d-flex justify-content-center">Well !!
+                                             just to be sure, Please enter your verification code to verify your <br/>
+                                             mobile number.</p>
+                                     <div class="row mt-3 justify-content-center align-items-center phone-number-code">
+                                         <div class="form-group text-left col-lg-2 col-3 text-center">
+                                             <input formControlName="One"  class="form-control form-control-lg" #one placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="first" (keyup)="keytab($event, 1)">
+                                         </div>
+                                         <div class="form-group text-left col-lg-2 col-3 text-center">
+                                             <input formControlName="Two"  class="form-control form-control-lg" #two placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="second" (keyup)="keytab($event, 2)">
+                                         </div>
+                                         <div class="form-group text-left col-lg-2 col-3 text-center">
+                                             <input formControlName="Three" class="form-control form-control-lg" #three placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="third" (keyup)="keytab($event, 3)">
+                                         </div>
+                                         <div class="form-group text-left col-lg-2 col-3 text-center">
+                                             <input formControlName="Four" class="form-control form-control-lg" #four placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="Fourth" (keyup)="keytab($event, 4)">
+                                         </div>
+                                         <!-- <p class="mt-3 col-lg-12">The code will expire : 4:36</p> -->
+                                          <div class="col-lg-11 mt-3 row justify-content-center align-items-center">
+                                          <div class="form-group col-lg-6">
+                                             <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="ResendOTP()" >Resend</button>
+                                             <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+                                           color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
+                                           <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+                                           </ngx-spinner>
+                                         </div>
+                                         <div class="form-group col-lg-4">
+                                             <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="verifyOTP()"  [disabled]="(!first && first!=0) || (!second && second!=0) ||(!third && third!=0) ||(!Fourth && Fourth!=0)">Verify</button>
+                                             <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+                                           color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
+                                           <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+                                           </ngx-spinner>
+                                         </div>
+                                     </div>
+                                     </div>
+                            </div>
                             </form>
 
 

@@ -47,6 +47,33 @@ export class ProfileService {
       })
     );
   }
+  // {{host}}User/EditUserPhoneNumber post
+  // {{host}}User/ResendOtpForPhoneNumber post
+  // {{host}}User/ConfirmNewPhoneNumber
+
+  editUserPhoneNumber(editedMobileNo: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.post(`${this.Url}User/EditUserPhoneNumber`, editedMobileNo, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
+  confirmNewPhoneNumber(OTPAndMobileNo: any) {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}User/ConfirmNewPhoneNumber`, OTPAndMobileNo, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
+  resendOtpForPhoneNumber(resendOTPDetails: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.post(`${this.Url}User/ResendOtpForPhoneNumber`, resendOTPDetails, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
   confirmEmail(userId, code): Observable<any> {
     return this.httpClient.get(`${this.Url}Account/ConfirmEmail?userId=${userId}&code=${code}`).pipe(
