@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class UserEmailPasswordService {
-  Url = environment.baseAPIURL;
+  Url = environment.BaseURL;
   token: any;
   httpOptions: any;
 

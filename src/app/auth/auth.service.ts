@@ -9,7 +9,7 @@ import { environment } from './../../environments/environment';
 })
 export class AuthService {
   isLoggedIn = false;
-  Url = environment.baseAPIURL;
+  Url = environment.BaseURL;
   authState  =  new BehaviorSubject(null);
   User: Observable<any>;
   redirectUrl: string;

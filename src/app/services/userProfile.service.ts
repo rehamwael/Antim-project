@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ProfileService {
-  Url = environment.baseAPIURL;
+  Url = environment.BaseURL;
   token: any;
   httpOptions: any;
 
