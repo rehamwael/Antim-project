@@ -5,18 +5,19 @@ import { AuthenticationActionTypes, AuthenticationActions } from '../actions/aut
 export interface State {
   isAuthenticated: boolean;
   user: User | null;
-  errorMessage: string | null;
   userProfile: any;
+  customerRequestCount: any;
 }
 
 export const initialState: State = {
-  isAuthenticated: localStorage.getItem('token') !== null,
-  user: {
-          token: localStorage.getItem('token'),
-          role: localStorage.getItem('role')
-        },
-  errorMessage: null,
-  userProfile: null
+  isAuthenticated: false,
+  // user: {
+  //         token: localStorage.getItem('token'),
+  //         role: localStorage.getItem('role')
+  //       },
+  user: null,
+  userProfile: null,
+  customerRequestCount: null
 };
 
 export function reducer(state = initialState, action: AuthenticationActions): State {
@@ -29,36 +30,42 @@ export function reducer(state = initialState, action: AuthenticationActions): St
         user: {
           token: action.payload.token,
           role: action.payload.role
-        },
-        errorMessage: null
+        }
       };
     }
     case AuthenticationActionTypes.LOGIN_FAILURE: {
-      return {
-        ...state,
-        errorMessage: 'Wrong credentials.'
-      };
-    }
-    case AuthenticationActionTypes.LOGOUT: {
       return initialState;
     }
     case AuthenticationActionTypes.SAVE_USER_PROFILE: {
       // console.log(action.payload);
       return  {
         ...state,
-        userProfile: action.payload
+        userProfile: action.payload,
+        isAuthenticated: true
       };
     }
     case AuthenticationActionTypes.EDIT_USER_PROFILE: {
       let data = action.payload;
       state.userProfile.firstName = data.FirstName;
+      // state.userProfile.email = data.Email;
+      // state.userProfile.phoneNumber = data.PhoneNumber;
+      // state.userProfile.nationalIdNumber = data.NationalIdNumber;
       let editedUser = state.userProfile;
       return {
             ...state,
             userProfile: editedUser
           };
     }
-
+    case AuthenticationActionTypes.GET_REQUESTS_COUNT_SUCCESS: {
+      return {
+        ...state,
+        customerRequestCount: action.payload
+      };
+    }
+    case AuthenticationActionTypes.LOGOUT: {
+      console.log(initialState);
+      return initialState;
+    }
     default: {
       return state;
     }

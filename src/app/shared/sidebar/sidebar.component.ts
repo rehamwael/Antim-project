@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import { ROUTES } from './menu-items';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,7 +17,7 @@ declare var $: any;
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   user: User;
   getState: Observable<any>;
   isAuthenticated: boolean;
@@ -59,7 +59,7 @@ export class SidebarComponent implements OnInit {
       this.isAuthenticated = state.isAuthenticated;
       this.user = state.user;
       this.currentUser = state.userProfile;
-      console.log( 'USER:' ,  this.currentUser);
+      // console.log( 'USER:' ,  this.currentUser);
       if (!this.currentUser && token) {
         this.store.dispatch(new UserProfile());
       }
@@ -74,10 +74,13 @@ export class SidebarComponent implements OnInit {
     this.notificationUrl = 'notification-' + this.userType;
 
   }
+  ngOnDestroy(): void {
+    this.currentUser = null;
+  }
   logout() {
     localStorage.removeItem('token');
-    this.store.dispatch(new Logout);
-    console.log('logout.');
+    localStorage.removeItem('role');
+    this.store.dispatch(new Logout());
   }
 }
 

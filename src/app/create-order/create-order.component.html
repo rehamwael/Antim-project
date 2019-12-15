@@ -54,11 +54,11 @@
                               <a class="close-icon" (click)="removeItems(i)"><img src="assets/images/close.svg"></a>
                               <div class="form-group text-left col-lg-9"   >
                                   <label  class="font-bold mt-2">Product Link</label>
-                                  <input  class="form-control form-control-lg" placeholder="Enter product link here …" type="text" [(ngModel)]="product.ProductUrl"  [ngModelOptions]="{standalone: true}" >
+                                  <input  class="form-control form-control-lg" placeholder="Enter product link here …" type="text" [(ngModel)]="product.productUrl"  [ngModelOptions]="{standalone: true}" >
                               </div>
                               <div class="form-group text-left col-lg-3"   >
                                   <label  class="font-bold mt-2">Product Price</label>
-                                  <input  class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="product.Price" [ngModelOptions]="{standalone: true}" (keyup)="inputNumber()">
+                                  <input  class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="product.amount" [ngModelOptions]="{standalone: true}" (keyup)="inputNumber()">
                                   <!-- oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                                   else { document.getElementById('phonenumber').style.visibility = 'visible'; }" > -->
                                   <!-- <span class="redColor" id="phonenumber{{i}}"> Price must be greater than 200 and less than 10000.</span> -->
@@ -187,27 +187,27 @@
                                     <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                             <mat-form-field>
                                                 <label for="numberOfProduct" class="font-bold mt-2">Number of product</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} product">
+                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} product" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                 <label for="total" class="font-bold mt-2"> Total price of products:</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="{{totalPrice}}">
+                                                <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="{{totalPrice}}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                 <label for="InstallmentPeriod" class="font-bold mt-2">Installment Period</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}">
+                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                     <label for="InstallmentPerMonth" class="font-bold mt-2">Installment amount per month</label>
-                                                    <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="{{monthlyPrice}}">
+                                                    <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="{{monthlyPrice}}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                     <label for="FinalProduct" class="font-bold mt-2">Total Payable Product Price</label>
-                                                    <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}">
+                                                    <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}" readonly>
                                             </mat-form-field>
                                             <p class="my-5 grey-text-color">
                                                 <span class="mr-1">
@@ -241,24 +241,36 @@
                             </mat-step>
                               </mat-horizontal-stepper>
                               <ng-template #content3 let-modal>
+                                  <div class="modal-header">
+                                      <h4 class="modal-title">Request Sent</h4>
+                                      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
                                     <div class="modal-body">
                                       <p>
                                             Thank you {{currentUser?.firstName}},<br/>
                                              Your request has been Successfully sent, and will be verified if you are qualified for funding and will be responded to within 30 minutes
 
                                       </p>
-                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="modal.close('Close click')">See All Requests</button></div>
+                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">See All Requests</button></div>
 
                                     </div>
                                   </ng-template>
                                   <ng-template #content let-modal>
+                                      <div class="modal-header">
+                                          <h4 class="modal-title">Request Saved</h4>
+                                          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
                                     <div class="modal-body">
                                       <p>
                                             Thank you {{currentUser?.firstName}},<br/>
                                              Your request has been Saved as Draft.
 
                                       </p>
-                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="modal.close('Close click')">See All Requests</button></div>
+                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">See All Requests</button></div>
 
                                     </div>
                                   </ng-template>

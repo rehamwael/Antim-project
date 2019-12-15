@@ -7,19 +7,9 @@ export enum AuthenticationActionTypes {
   LOGOUT = '[Authentication] Logout',
   USER_PROFILE = 'userProfile',
   SAVE_USER_PROFILE = 'saveUserProfile',
-  EDIT_USER_PROFILE = 'editUserProfile'
-}
-export class UserProfile implements Action {
-  readonly type = AuthenticationActionTypes.USER_PROFILE;
-  constructor() {}
-}
-export class SaveUserProfile implements Action {
-  readonly type = AuthenticationActionTypes.SAVE_USER_PROFILE;
-  constructor(public payload: any) {}
-}
-export class EditUserProfile implements Action {
-  readonly type = AuthenticationActionTypes.EDIT_USER_PROFILE;
-  constructor(public payload: any) {}
+  EDIT_USER_PROFILE = 'editUserProfile',
+  GET_REQUESTS_COUNT = 'GetRequestsCount',
+  GET_REQUESTS_COUNT_SUCCESS = 'GetRequestsCountSuccess'
 }
 
 export class Login implements Action {
@@ -40,6 +30,27 @@ export class LoginFailure implements Action {
 export class Logout implements Action {
   readonly type = AuthenticationActionTypes.LOGOUT;
 }
+export class GetCustomerRequestCount implements Action {
+  readonly type = AuthenticationActionTypes.GET_REQUESTS_COUNT;
+  constructor() {}
+}
+export class GetRequestsCountSuccess implements Action {
+  readonly type = AuthenticationActionTypes.GET_REQUESTS_COUNT_SUCCESS;
+  constructor(public payload: any) {}
+}
+export class UserProfile implements Action {
+  readonly type = AuthenticationActionTypes.USER_PROFILE;
+  constructor() {}
+}
+export class SaveUserProfile implements Action {
+  readonly type = AuthenticationActionTypes.SAVE_USER_PROFILE;
+  constructor(public payload: any) {}
+}
+export class EditUserProfile implements Action {
+  readonly type = AuthenticationActionTypes.EDIT_USER_PROFILE;
+  constructor(public payload: any) {}
+}
+
 
 export type AuthenticationActions =
   | Login
@@ -48,4 +59,6 @@ export type AuthenticationActions =
   | Logout
   | UserProfile
   | SaveUserProfile
-  | EditUserProfile;
+  | EditUserProfile
+  | GetCustomerRequestCount
+  | GetRequestsCountSuccess;

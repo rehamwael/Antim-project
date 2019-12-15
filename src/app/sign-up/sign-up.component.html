@@ -1,14 +1,14 @@
 <div class="container-fluid mt-5">
   <div class="row justify-content-center align-items-center mt-3">
       <div class="col col-sm-12 col-md-6 col-lg-5 col-xl-3 background-box px-5 py-1 pb-4 text-center mt-0">
-          <div *ngIf="!showSelected">
+          <div *ngIf="!firstStep  && !secondStep  && !lastStep && chooseRole">
               <h2 class="mt-5">Sign Up</h2>
               <p class="grey-text-color mt-3 mb-4">Very Easy and straight forward steps to register.
               <br/> Just follow the lead</p>
           </div>
           <!-- <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm" (keydown)="keyDownFunction($event)"> -->
           <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm">
-              <div class="first-step row" *ngIf="!showSelected  && !lastStep">
+              <div class="first-step row" *ngIf="!firstStep  && !secondStep  && !lastStep && chooseRole">
               <div class="col-lg-2">
                   <h5 class="vertical-text mt-4">what about you ?</h5>
               </div>
@@ -41,20 +41,21 @@
               </div>
               </div>
 
-              <div *ngIf="showSelected && !sheckMobileStep" class="px-4">
+              <div *ngIf="firstStep  && !secondStep  && !lastStep && !chooseRole" class="px-4">
                       <img src="assets/images/borrower.svg" alt="antim" class="mb-2">
                       <p class="grey-text-color mt-2 mb-4">Alright {{userType}}, Fill the below form please!</p>
                       <div class="row mt-3">
                           <div class="form-group text-left col-lg-6">
                               <label for="name">First Name<span class="red-color"> *</span></label>
                               <input formControlName="FirstName" class="form-control form-control-lg" placeholder="Type First Name here..." type="text" [(ngModel)]="signupFirstName">
-                              <div *ngIf="SigUpForm.controls['FirstName'].touched && !SigUpForm.controls['FirstName'].valid" class="error-msg alert alert-danger text-left">First Name required</div>
-                              <!-- <div *ngIf="myform.submitted && !SigUpForm.controls['FirstName'].valid" class="error-msg alert alert-danger text-left">First Name required</div> -->
+                              <div *ngIf="SigUpForm.controls['FirstName'].touched && SigUpForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">First Name required</div>
+                              <div *ngIf="SigUpForm.controls['FirstName'].touched && SigUpForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">First Name must contains only characters.</div>
                           </div>
                           <div class="form-group text-left col-lg-6">
                             <label for="name">Last Name<span class="red-color"> *</span></label>
                             <input formControlName="LastName" class="form-control form-control-lg" placeholder="Type Last Name here..." type="text" [(ngModel)]="signupLastName">
-                            <div *ngIf="SigUpForm.controls['LastName'].touched && !SigUpForm.controls['LastName'].valid" class="error-msg alert alert-danger text-left">Last Name required</div>
+                            <div *ngIf="SigUpForm.controls['LastName'].touched && SigUpForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">Last Name required</div>
+                            <div *ngIf="SigUpForm.controls['LastName'].touched && SigUpForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">Last Name must contains only characters.</div>
                         </div>
 
                           <div class="form-group text-left col-lg-6">
@@ -66,7 +67,7 @@
                           </div>
                           <div class="form-group text-left col-lg-6">
                               <label for="NID">National ID No/Iqama<span class="red-color"> *</span></label>
-                              <input formControlName="NID" class="form-control form-control-lg" placeholder="Ex : 0000" type="text" [(ngModel)]="signupIdNum">
+                              <input formControlName="NID" class="form-control form-control-lg" placeholder="Ex : 0000" type="text" [(ngModel)]="signupIdNum" digitOnly>
                               <div *ngIf="SigUpForm.controls['NID'].touched && SigUpForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">National ID is required</div>
                               <div *ngIf="SigUpForm.controls['NID'].touched && SigUpForm.controls['NID'].hasError('minlength')" class="error-msg alert alert-danger text-left">National ID number must be at least 10 characters long.</div>
 
@@ -109,12 +110,12 @@
                            <div class="col-lg-8 col-11 text-center">
                               <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
                               <!-- <label for="box-1">I agree on my <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label> -->
-                              <label for="box-1">I agree on my <span class="text-underline" ><a href="http://localhost:4200/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
+                              <label for="box-1">I agree on my <span class="text-underline" ><a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
                            </div>
                            <div class="col-lg-8 col-11 mt-4 text-center">
                               <input type="checkbox" id="box-2"  (change)="changeCheck2($event)">
                               <!-- <label for="box-2">I agree on intime <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label> -->
-                              <label for="box-2">I agree on intime <span class="text-underline" ><a href="http://localhost:4200/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
+                              <label for="box-2">I agree on intime <span class="text-underline" ><a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
                            </div>
                            <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
                            <div class="form-group col-lg-6">
@@ -138,7 +139,7 @@
              </div>
 
 
-             <div *ngIf="showSelected && sheckMobileStep && !lastStep">
+             <div *ngIf="!firstStep  && secondStep  && !lastStep && !chooseRole">
                  <a class="close-icon" (click)="closeBack()"><img src="assets/images/close.svg"></a>
                   <img src="assets/images/mobile.svg" alt="antim" class="mb-2 mt-5">
                   <p class="mt-2 mb-4 text-left">Well!<br/>
@@ -178,7 +179,7 @@
          </div>
 
 
-         <div *ngIf="lastStep">
+         <div *ngIf="!firstStep  && !secondStep  && lastStep && !chooseRole">
               <a class="close-icon" (click)="closeBackLast()"><img src="assets/images/close.svg"></a>
                <img src="assets/images/borrower-lg.svg" alt="antim" class="mb-2 mt-5">
                <p class="grey-text-color mt-4 mb-4">The last thing, Please approve the below</p>
@@ -187,12 +188,12 @@
                       <div class="col-lg-7 col-11 text-center mt-3">
                               <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
                               <!-- <label for="box-1">I agree on my <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label> -->
-                              <label for="box-1">I agree on my <a href="http://localhost:4200/terms-conditions" target="blank">Terms & Condtions</a></label>
+                              <label for="box-1">I agree on my <a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank">Terms & Condtions</a></label>
                        </div>
                        <div class="col-lg-7 col-11 mt-4 text-center mb-5">
                               <input type="checkbox" id="box-2" (change)="changeCheck2($event)">
                               <!-- <label for="box-2">I agree on intime <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label> -->
-                              <label for="box-2">I agree on intime <a href="http://localhost:4200/terms-conditions" target="blank">Terms & Condtions</a></label>
+                              <label for="box-2">I agree on intime <a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank">Terms & Condtions</a></label>
                        </div>
                     <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
                     <div class="form-group col-lg-9 ">

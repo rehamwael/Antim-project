@@ -1534,13 +1534,17 @@ div.mat-checkbox-inner-container{
     color: #fb9e58 !important;
     text-transform: uppercase;
 }
-td.mat-cell.Waiting ,td.mat-cell.Waiting {
-    color: #58a4fb !important;
+td.mat-cell.Awaiting ,td.mat-cell.Awaiting {
+    color: #b1ec7a !important;
     text-transform: uppercase;
 }
 td.mat-cell.Ongoing  {
-    color: #43bd4f !important;
+    color: #38d147 !important;
     text-transform: uppercase;
+}
+td.mat-cell.AWAITING  {
+  color: #d64532 !important;
+  text-transform: uppercase;
 }
 td.mat-cell.Draft {
   color: #5c20d2 !important;
@@ -1551,14 +1555,14 @@ td.mat-cell.Closed {
   text-transform: uppercase;
 }
 td.mat-cell.Accepted {
-  color: #58a4fb !important;
+  color: #2184f7 !important;
   text-transform: uppercase;
 }
 td.mat-cell.Rejected {
     color: #c5003e !important;
     text-transform: uppercase;
 }
-td.mat-cell.UnderReview {
+td.mat-cell.Under {
     color: #cc742c !important;
     text-transform: uppercase;
 }

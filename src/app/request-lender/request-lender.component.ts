@@ -1,56 +1,83 @@
-import { Component, OnInit , OnDestroy, ElementRef , ViewChild } from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material/table';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { FunderRequestService } from './../services/funder-requests.service';
+import { Router } from '@angular/router';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.states';
+import * as moment from 'moment';
 
 export interface PeriodicElement {
-  position: number;
+  position?: number;
   name: string;
   date: string;
-  value: string;
+  price: string;
   status: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 2, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
-  {position: 3, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
-  {position: 4, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
-  {position: 5, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Closed'},
-  {position: 6, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 7, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Wating Fund'},
-  {position: 8, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-  {position: 9, name: 'Sony Laptop. simply dummy text of the', date: '22 December 2018', value: '1700 SAR', status: 'Ongoing request'},
-
-];
+let AllAwaitingRequests: PeriodicElement[] = [];
+let AllFunderRequests: PeriodicElement[] = [];
 
 @Component({
   selector: 'app-request-lender',
   templateUrl: './request-lender.component.html',
-  styleUrls: ['./request-lender.component.css']
+  styleUrls: ['./request-lender.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
-export class RequestLenderComponent implements OnInit , OnDestroy {
-  @ViewChild('clickMe', {static: false}) clickMe: ElementRef<HTMLElement>;
+export class RequestLenderComponent implements OnInit, OnDestroy {
+  @ViewChild('clickMe', { static: false }) clickMe: ElementRef<HTMLElement>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+
+  displayedColumns: string[] = ['name', 'date', 'price', 'status'];
+  dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
   selection = new SelectionModel<PeriodicElement>(true, []);
-  requestType = 'All Requests';
+  requestType = 'My All Requests';
   slectedProduct = false;
   productStatus: any;
   content4: any;
+  funderRequestsData: any;
+  awaitingRequestsData: any;
+  showMessage = false;
+  options: IndividualConfig;
 
-
-  constructor(private modalService: NgbModal) {}
-
+  constructor(
+    private modalService: NgbModal,
+    public router: Router,
+    private toastr: ToastrService,
+    private funderRequestService: FunderRequestService,
+    private spinner: NgxSpinnerService,
+    private store: Store<AppState>
+  ) {
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-top-right';
+    this.options.timeOut = 5000;
+  }
+  showSuccessToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+  showErrorToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
   ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.funderRequestService.funderAllRequests().subscribe(res => {
+      console.log(res);
+    });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
-    if (this.productStatus === 'Wating Fund') {
-      this.modalService.open(this.content4, { centered: true });
-    }
+    // if (this.productStatus === 'Wating Fund') {
+    //   this.modalService.open(this.content4, { centered: true });
+    // }
 
   }
   ngOnDestroy(): void {
@@ -64,31 +91,48 @@ export class RequestLenderComponent implements OnInit , OnDestroy {
 
   }
 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }
   onChange(deviceValue) {
     this.dataSource.filter = deviceValue;
     this.requestType = deviceValue;
     if (deviceValue === '') {
-      this.requestType = 'All Requests';
+      this.requestType = 'My All Requests';
+
+    }
+    if (deviceValue === 'Awaiting Fund') {
+      this.spinner.show();
+      this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
+        if (res.message) {
+          this.showErrorToast('Error!!', res.message, 'error');
+          this.spinner.hide();
+
+        } else {
+          console.log('AllawaitingRequests:', res.result);
+
+          this.awaitingRequestsData = res.result;
+          AllAwaitingRequests.length = 0;
+          // if (this.isDatainArray == true && this.allRequestData.length > 0) {
+          this.awaitingRequestsData.forEach(element => {
+            AllAwaitingRequests.push(element);
+            // element.date = moment(element.createdAt).format('LL');
+            element.date = moment(element.updatedAt).format('LL');
+            element.price = element.totalPaybackAmount + ' SAR';
+            element.status = 'AWAITING FOR FUND';
+          });
+          // this.dataSource.data = AllAwaitingRequests;
+          this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
+          console.log('AllawaitingRequests:', AllAwaitingRequests);
+          this.spinner.hide();
+          if (this.dataSource.filteredData.length == 0) {
+            this.showMessage = true;
+          } else {
+            this.showMessage = false;
+          }
+        }
+      }, err => {
+        console.log(err);
+        this.spinner.hide();
+      });
     }
 
   }

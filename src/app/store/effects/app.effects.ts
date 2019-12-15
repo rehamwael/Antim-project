@@ -10,15 +10,16 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ProfileService } from '../../services/userProfile.service';
 import { Store } from '@ngrx/store';
 
-import { AuthService } from './../../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import {
   AuthenticationActionTypes,
-  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile
+  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile, GetRequestsCountSuccess
 } from '../actions/auth.actions';
 import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
 import {
-  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, DeleteRequestSuccess, AddCustomerRequest
+  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests,
+  DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess, GetAllRequestsFailure, RemoveRequestsFromStore
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -54,9 +55,11 @@ export class AuthenticationEffects {
           .pipe(
             map((user) => {
               this.spinner.hide();
-              console.log('in ngrx effects :', user);
+              // console.log('in ngrx effects :', user);
               const decoded = jwt_decode(user.access_token);
               this.userRole = decoded.role;
+              localStorage.setItem('token', user.access_token);
+              localStorage.setItem('role', this.userRole);
               return new LoginSuccess({ token: user.access_token, role: decoded.role });
             }),
             catchError((error) => {
@@ -70,8 +73,9 @@ export class AuthenticationEffects {
   LoginSuccess: Observable<any> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN_SUCCESS),
     tap((user) => {
-      localStorage.setItem('token', user.payload.token);
-      localStorage.setItem('role', user.payload.role);
+      // localStorage.setItem('token', user.payload.token);
+      // localStorage.setItem('role', user.payload.role);
+      this.store.dispatch(new UserProfile());
       this.router.navigateByUrl('/dashbored-' + this.userRole);
     })
   );
@@ -97,9 +101,11 @@ export class AuthenticationEffects {
     tap((user) => {
       localStorage.removeItem('token');
       localStorage.removeItem('role');
+      // this.store.dispatch(new RemoveRequestsFromStore());
       this.router.navigateByUrl('/login');
     })
   );
+
   @Effect({ dispatch: false })
   UserProfile: Observable<any> = this.actions
     .pipe(
@@ -111,6 +117,19 @@ export class AuthenticationEffects {
           this.spinner.hide();
         });
       }));
+
+      @Effect({ dispatch: false })
+      GetCustomerRequestCount: Observable<any> = this.actions
+        .pipe(
+          ofType(AuthenticationActionTypes.GET_REQUESTS_COUNT),
+          tap(() => {
+            this.spinner.show();
+            return this.customerService.getRequestsCount().subscribe(res => {
+              console.log('requestCount:', res.result);
+              this.store.dispatch(new GetRequestsCountSuccess(res.result));
+              this.spinner.hide();
+            });
+          }));
 
       @Effect({ dispatch: false })
       EditUser: Observable<any> = this.actions.pipe(
@@ -138,30 +157,37 @@ export class AuthenticationEffects {
     tap(() => {
       this.spinner.show();
       return this.customerService.customerAllRequests().subscribe(res => {
-        this.store.dispatch(new SaveAllCustomerRequests(res.result));
+        if (res.result) {
+          this.store.dispatch(new SaveAllCustomerRequests(res.result));
+          this.store.dispatch(new IsApiCallTrue());
+        } else {
+          this.store.dispatch(new GetAllRequestsFailure());
+          // this.showErrorToast('', res.message, 'error');
+        }
         this.spinner.hide();
       });
     }));
 
-    // @Effect({ dispatch: false })
-    // AddCustomersRequest: Observable<any> = this.actions.pipe(
-    //   ofType(CustomerActionTypes.ADD_REQUEST),
-    //   map((action: AddCustomerRequest) => action.payload),
-    //   switchMap(payload => {
-    //     this.spinner.show();
-    //     return this.customerService.AddCustomerRequest(payload).pipe(
-    //       map((res) => {
-    //       console.log(' Added:', res);
-    //       this.spinner.hide();
-    //       this.showSuccessToast('OK!!', res.message, 'success');
-    //       // this.modalService.open(content3, { centered: true });
-    //     }),
-    //     catchError( error => {
-    //       console.log(' ERROR:', error);
-    //       this.spinner.hide();
-    //       return of(this.showErrorToast('Error!!', error.error.message, 'error'));
-    //     }));
-    //   }));
+    @Effect({ dispatch: false })
+    AddCustomersRequest: Observable<any> = this.actions.pipe(
+      ofType(CustomerActionTypes.ADD_REQUEST),
+      map((action: AddCustomerRequest) => action.payload),
+      switchMap(payload => {
+        this.spinner.show();
+        return this.customerService.AddCustomerRequest(payload).pipe(
+          map((res) => {
+          console.log(' Added:', res);
+          this.store.dispatch(new AddCustomerRequestSuccess(res.result));
+          this.spinner.hide();
+          this.store.dispatch(new IsUpdatedTrue());
+          this.showSuccessToast('OK!!', res.message, 'success');
+        }),
+        catchError( error => {
+          console.log(' ERROR:', error);
+          this.spinner.hide();
+          return of(this.showErrorToast('Error!!', error.error.message, 'error'));
+        }));
+      }));
 
     @Effect({ dispatch: false })
     EditCustomerRequests: Observable<any> = this.actions.pipe(
@@ -172,9 +198,9 @@ export class AuthenticationEffects {
         return this.customerService.EditCustomerRequest(payload).pipe(
           map((res) => {
           console.log(' Edited:', res);
+          this.store.dispatch(new IsUpdatedTrue());
           this.spinner.hide();
           this.showSuccessToast('OK!!', res.message, 'success');
-          // this.modalService.open(content3, { centered: true });
         }),
         catchError( error => {
           console.log(' ERROR:', error);

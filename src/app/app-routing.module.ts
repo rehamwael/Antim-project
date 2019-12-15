@@ -23,6 +23,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthGuard } from './auth/auth.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CustomerRequestDetailsComponent } from './customer-request-details/customer-request-details.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 
 export const Approutes: Routes = [
   {
@@ -136,13 +137,21 @@ export const Approutes: Routes = [
       {
         path: 'reset-password',
         component: ResetPasswordComponent
-      }
-
+      },
+      // {
+      //   path: 'confirm-email',
+      //   component: ConfirmEmailComponent
+      // }
     ]
   },
   // {
   //   path: '**',
   //   redirectTo: '/home'
   // }
+  {
+    path: 'confirm-email',
+    component: ConfirmEmailComponent
+  },
   { path: '**', component: PageNotFoundComponent }
+
 ];

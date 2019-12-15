@@ -8,129 +8,163 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ProfileService {
-  Url = environment.baseAPIURL;
+  Url = environment.BaseURL;
+  token: any;
+  httpOptions: any;
 
   constructor(private httpClient: HttpClient) { }
 
-  // EDIT USER PERSONAL INFORMATION
-  editUser(user: any): Observable<any> {
-    const token = localStorage.getItem('token');
-    const httpOptions = {
+  getTokenAndHeaders() {
+    this.token = localStorage.getItem('token');
+    this.httpOptions = {
       headers: new HttpHeaders({
-          authorization: `Bearer ${token}`
+        authorization: `Bearer ${this.token}`
       })
     };
-    return this.httpClient.patch(`${this.Url}User/EditUser`, user, httpOptions).pipe(
-      tap((res: any ) => {
-        // console.log('In EditUser service:', res);
-        })
+  }
+
+  // GET USER PERSONAL INFORMATION
+  getUserData(): Observable<any> {
+    const Token = localStorage.getItem('token');
+    // console.log('TOKEN', Token);
+    const HttpOptions = {
+      headers: new HttpHeaders({
+        authorization: `Bearer ${Token}`
+      })
+    };
+    return this.httpClient.get(`${this.Url}User/GetLoggedInUser`, HttpOptions).pipe(
+      tap((res: any) => {
+      })
     );
   }
 
-    // GET USER PERSONAL INFORMATION
-  getUserData(): Observable<any> {
-    const token = localStorage.getItem('token');
+  // EDIT USER PERSONAL INFORMATION
+  editUser(user: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}User/EditUser`, user, this.httpOptions).pipe(
+      tap((res: any) => {
+        // console.log('In EditUser service:', res);
+      })
+    );
+  }
+  // {{host}}User/EditUserPhoneNumber post
+  // {{host}}User/ResendOtpForPhoneNumber post
+  // {{host}}User/ConfirmNewPhoneNumber
 
-      const httpOptions = {
-        headers: new HttpHeaders({
-            authorization: `Bearer ${token}`
-        })
-      };
-      return this.httpClient.get(`${this.Url}User/GetLoggedInUser`, httpOptions).pipe(
-        tap((res: any ) => {
-          })
-      );
-    }
+  editUserPhoneNumber(editedMobileNo: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.post(`${this.Url}User/EditUserPhoneNumber`, editedMobileNo, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
-    // GET USER Address INFORMATION
-    getUserAddress(): Observable<any> {
-      const token = localStorage.getItem('token');
-        const httpOptions = {
-          headers: new HttpHeaders({
-              authorization: `Bearer ${token}`
-          })
-        };
-        return this.httpClient.get(`${this.Url}UserAddresses/GetLoggedInUserAddress`, httpOptions).pipe(
-          tap((res: any ) => {
-            })
-        );
-      }
+  confirmNewPhoneNumber(OTPAndMobileNo: any) {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}User/ConfirmNewPhoneNumber`, OTPAndMobileNo, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
-      // Add USER Address INFORMATION
-    addUserAddress(user: any): Observable<any> {
-      const token = localStorage.getItem('token');
+  resendOtpForPhoneNumber(resendOTPDetails: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.post(`${this.Url}User/ResendOtpForPhoneNumber`, resendOTPDetails, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
-      const httpOptions = {
-        headers: new HttpHeaders({
-            authorization: `Bearer ${token}`
-        })
-      };
-      return this.httpClient.post(`${this.Url}UserAddresses/AddUserAddress`, user, httpOptions).pipe(
-        tap((res: any ) => {
-          // console.log('In AddUserAddress service:', res);
-          })
-      );
-    }
+  confirmEmail(userId, code): Observable<any> {
+    return this.httpClient.get(`${this.Url}Account/ConfirmEmail?userId=${userId}&code=${code}`).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+  ConfirmNewEmail(email, userId, code): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}User/ConfirmNewEmail?email=${email}&userId=${userId}&code=${code}`,
+    null, this.httpOptions)
+    .pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
-    // EDIT USER Address INFORMATION
-    editUserAddress(user: any): Observable<any> {
-      const token = localStorage.getItem('token');
+  // DELETE User
+  deleteUser(id: any): Observable<any> {
+    this.getTokenAndHeaders();
+    console.log('authorization', this.httpOptions);
+    return this.httpClient.delete(`${this.Url}User/DeleteUser?id=${id}`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
-      const httpOptions = {
-        headers: new HttpHeaders({
-            authorization: `Bearer ${token}`
-        })
-      };
-      return this.httpClient.patch(`${this.Url}UserAddresses/EditUserAddress`, user, httpOptions).pipe(
-        tap((res: any ) => {
-          // console.log('In EditUserAddress service:', res);
-          })
-      );
-    }
+  // Deactivate User
+  deActivateUser(id: any): Observable<any> {
+    this.getTokenAndHeaders();
 
-    // GET USER BANK  INFORMATION
-    getUserBankInfo(): Observable<any> {
-      const token = localStorage.getItem('token');
-        const httpOptions = {
-          headers: new HttpHeaders({
-              authorization: `Bearer ${token}`
-          })
-        };
-        return this.httpClient.get(`${this.Url}UserBanks/GetLoggedInUserBank`, httpOptions).pipe(
-          tap((res: any ) => {
-            })
-        );
-      }
+    return this.httpClient.patch(`${this.Url}User/DeactivateUser?id=${id}`, null, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+  // GET USER Address INFORMATION
+  getUserAddress(): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}UserAddresses/GetLoggedInUserAddress`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
-      // Add USER BANK INFORMATION
-    addUserBankInfo(user: any): Observable<any> {
-      const token = localStorage.getItem('token');
+  // Add USER Address INFORMATION
+  addUserAddress(user: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.post(`${this.Url}UserAddresses/AddUserAddress`, user, this.httpOptions).pipe(
+      tap((res: any) => {
+        // console.log('In AddUserAddress service:', res);
+      })
+    );
+  }
 
-      const httpOptions = {
-        headers: new HttpHeaders({
-            authorization: `Bearer ${token}`
-        })
-      };
-      return this.httpClient.post(`${this.Url}UserBanks/AddUserBank`, user, httpOptions).pipe(
-        tap((res: any ) => {
-          // console.log('In AddUserBank service:', res);
-          })
-      );
-    }
+  // EDIT USER Address INFORMATION
+  editUserAddress(user: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}UserAddresses/EditUserAddress`, user, this.httpOptions).pipe(
+      tap((res: any) => {
+        // console.log('In EditUserAddress service:', res);
+      })
+    );
+  }
 
-    // EDIT USER BANK INFORMATION
-    editUserBankInfo(user: any): Observable<any> {
-      const token = localStorage.getItem('token');
+  // GET USER BANK  INFORMATION
+  getUserBankInfo(): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}UserBanks/GetLoggedInUserBank`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
-      const httpOptions = {
-        headers: new HttpHeaders({
-            authorization: `Bearer ${token}`
-        })
-      };
-      return this.httpClient.patch(`${this.Url}UserBanks/EditUserBank`, user, httpOptions).pipe(
-        tap((res: any ) => {
-          // console.log('In EditUserBank service:', res);
-          })
-      );
-    }
+  // Add USER BANK INFORMATION
+  addUserBankInfo(user: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.post(`${this.Url}UserBanks/AddUserBank`, user, this.httpOptions).pipe(
+      tap((res: any) => {
+        // console.log('In AddUserBank service:', res);
+      })
+    );
+  }
+
+  // EDIT USER BANK INFORMATION
+  editUserBankInfo(user: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}UserBanks/EditUserBank`, user, this.httpOptions).pipe(
+      tap((res: any) => {
+        // console.log('In EditUserBank service:', res);
+      })
+    );
+  }
 }

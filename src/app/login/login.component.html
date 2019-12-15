@@ -5,8 +5,8 @@
                 <p class="grey-text-color mt-4 mb-2">Hello sir, nice to see you again!<br/>Please insert your login info below to proceed </p>
                 <form class="form-log-in mt-5 form-antim"  [formGroup]="LoginForm">
                     <div class="form-group text-left">
-                        <label for="name">Username<span class="red-color"> *</span></label>
-                        <input formControlName="username" name="username" class="form-control form-control-lg" placeholder="Username type here..." type="text" required minlength="5"  [(ngModel)]="loginUsername">
+                        <label for="name">Email or Username	<span class="red-color"> *</span></label>
+                        <input formControlName="username" name="username" class="form-control form-control-lg" placeholder="Type Email or Username here..." type="text" required minlength="5"  [(ngModel)]="loginUsername">
                         <div *ngIf="LoginForm.controls['username'].touched && LoginForm.controls['username'].hasError('required')" class="error-msg alert alert-danger text-left">User name required</div>
                         <div *ngIf="LoginForm.controls['username'].touched && LoginForm.controls['username'].hasError('minlength')" class="error-msg alert alert-danger text-left">Username length must be at least 4 characters long. </div>
                     </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit , OnDestroy , HostListener} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserPasswordService } from './../services/user-password.service';
+import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -20,7 +20,7 @@ export class ForgetPasswordComponent implements OnInit  , OnDestroy {
       }
   }
   constructor(private fb: FormBuilder,
-    private FPservice: UserPasswordService,
+    private FPservice: UserEmailPasswordService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService) {
       this.options = this.toastr.toastrConfig;

@@ -1,6 +1,6 @@
 import { Component, OnInit , OnDestroy , HostListener} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserPasswordService } from './../services/user-password.service';
+import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 }
 
   constructor(private fb: FormBuilder,
-    private RPservice: UserPasswordService,
+    private RPservice: UserEmailPasswordService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,

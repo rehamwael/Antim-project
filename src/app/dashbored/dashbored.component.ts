@@ -4,7 +4,7 @@ import { ProfileService } from '../services/userProfile.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState } from './../store/app.states';
-import { UserProfile } from './../store/actions/auth.actions';
+import { UserProfile, GetCustomerRequestCount } from './../store/actions/auth.actions';
 import { CustomerRequestService } from '../services/customer-request.service';
 
 @Component({
@@ -15,6 +15,7 @@ import { CustomerRequestService } from '../services/customer-request.service';
 
 export class DashboredComponent implements OnInit, OnDestroy {
   currentUser: any;
+  customerRequests: any;
   onGoing: any;
   rejected: any;
   closed: any;
@@ -31,53 +32,45 @@ export class DashboredComponent implements OnInit, OnDestroy {
     private customerRequestService: CustomerRequestService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
-  }
-  getUserFromStore() {
-    return new Promise((resolve, reject) => {
-      this.getState.subscribe((state) => {
-        const token = localStorage.getItem('token');
-        this.currentUser = state.userProfile;
-        if (!this.currentUser && token) {
-          this.store.dispatch(new UserProfile());
-        } else {
-          resolve();
-        }
-      });
+    this.getState.subscribe((state) => {
+      console.log('state', state);
+      const token = localStorage.getItem('token');
+      this.currentUser = state.userProfile;
+      if (state.userProfile == null && token && state.isAuthenticated == true) {
+        this.store.dispatch(new UserProfile());
+      }
+      console.log( 'USER:' ,  this.currentUser);
     });
   }
+
   ngOnInit(): void {
-    this.getUserFromStore().then(e => {
-      this.getCount();
-      const body = document.getElementsByTagName('body')[0];
-      body.classList.add('dashbored');
-      body.classList.add('dashbored-home');
-      this.router.events.subscribe((evt) => {
-        if (!(evt instanceof NavigationEnd)) {
-          return;
-        }
-        window.scrollTo(0, 0);
-      });
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('dashbored');
+    body.classList.add('dashbored-home');
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
     });
+    this.getCount();
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('dashbored-home');
-
+    this.currentUser = null;
+    this.customerRequests = null;
   }
   getCount() {
-    this.customerRequestService.getRequestsCount()
-      .subscribe((res) => {
-        console.log('requestCount:', res.result);
-        this.onGoing = res.result.ongoing;
-        this.closed = res.result.closed;
-        this.draft = res.result.draft;
-        this.awaiting = res.result.awaiting;
-        this.rejected = res.result.rejected;
-        this.underReview = res.result.underReview;
-      }, err => {
-        console.log(' ERROR:', err);
-      });
+    const role = localStorage.getItem('role');
+    this.getState.subscribe((state) => {
+      this.customerRequests = state.customerRequestCount;
+      if (state.customerRequestCount == null && state.isAuthenticated == true && role == 'customer') {
+        this.store.dispatch(new GetCustomerRequestCount());
+      }
+    });
+
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');

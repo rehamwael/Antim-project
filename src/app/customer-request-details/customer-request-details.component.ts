@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { AppState, customerState } from './../store/app.states';
-import { EditCustomerRequest, DeleteCustomerRequests } from './../store/actions/customer.actions';
+import { EditCustomerRequest, DeleteCustomerRequests, IsUpdatedFalse } from './../store/actions/customer.actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -46,9 +46,12 @@ export class CustomerRequestDetailsComponent implements OnInit {
   disabledSubmitButton = true;
   showRequestDetiails = true;
   hideTotalButton = false;
+  showCancelButton = false;
 
   totalProducts: any;
   getState: Observable<any>;
+  content: any;
+  checkIsUpdated = false;
 
   options: IndividualConfig;
   productList: any[] = [{
@@ -74,6 +77,13 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getState.subscribe((state) => {
+      console.log('check store', state);
+      this.checkIsUpdated = state.isUpdated;
+      if (this.checkIsUpdated == true) {
+        this.modalService.open(this.content, { centered: false });
+      }
+    });
     this.showRequestDetiails = true;
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');
@@ -101,35 +111,36 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.installmentPeriod = '12-Months';
       }
       this.requestType_ENUM = res.result.type;
-      if (this.requestType_ENUM === 1) {
+      if (this.requestType_ENUM == 1) {
         this.requestType = 'Awaiting for Fund';
+        this.showCancelButton = true;
       }
-      if (this.requestType_ENUM === 2) {
+      if (this.requestType_ENUM == 2) {
         this.requestType = 'Closed';
         this.deleteButton = true;
       }
-      if (this.requestType_ENUM === 3) {
+      if (this.requestType_ENUM == 3) {
         this.requestType = 'Rejected';
       }
-      if (this.requestType_ENUM === 4) {
+      if (this.requestType_ENUM == 4) {
         this.requestType = 'Ongoing';
       }
-      if (this.requestType_ENUM === 5) {
+      if (this.requestType_ENUM == 5) {
         this.requestType = 'Draft';
         this.deleteButton = true;
         this.showEditButton = true;
       }
-      if (this.requestType_ENUM === 6) {
+      if (this.requestType_ENUM == 6) {
         this.requestType = 'Accepted';
+        this.showCancelButton = true;
       }
-      if (this.requestType_ENUM === 7) {
+      if (this.requestType_ENUM == 7) {
         this.requestType = 'Under Review';
+        this.showCancelButton = true;
       }
       this.spinner.hide();
-
+      localStorage.setItem('requestType', this.requestType);
     });
-
-
     this.editRequestForm = this._formBuilder.group({
       ProductName: [''],
       RequestDate: [''],
@@ -156,17 +167,29 @@ export class CustomerRequestDetailsComponent implements OnInit {
       FinalProduct: [{ disabled: true }]
     });
 
-
   }
+  // ngOnDestroy() {
+  // console.log('heheh');
+  // }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
   showErrorToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
+  closeModal() {
+    this.checkIsUpdated = false;
+    this.modalService.dismissAll();
+    this.store.dispatch(new IsUpdatedFalse());
+    this.content = '';
+  }
 
   openDeletePopup(content) {
-    this.modalService.open(content, { centered: true });
+    // this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { centered: false });
+  }
+  OpenCancelRequestPopup(content) {
+    this.modalService.open(content, { centered: false });
   }
 
   deleteRequest() {
@@ -178,11 +201,13 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
 
   editRequestInfo() {
+    this.disableFirstStep = true;
     this.editDraftRequest = true;
     this.showRequestDetiails = false;
   }
   openVerticallyCentered(content3) {
-    this.modalService.open(content3, { centered: true });
+    this.modalService.open(content3, { centered: false });
+    // this.modalService.open(content3, { centered: true });
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
@@ -264,7 +289,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
   }
 
 
-   saveAsDraft(content) {
+  saveAsDraft(content) {
+    this.content = content;
     const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
@@ -276,10 +302,10 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'Products': this.productList
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
-    this.modalService.open(content, { centered: true });
   }
 
-   saveRequest(content3) {
+  saveRequest(content3) {
+    this.content = content3;
     const actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
@@ -291,7 +317,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'Products': this.productList
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
-    this.modalService.open(content3, { centered: true });
   }
 
   addMoreItems() {
@@ -309,5 +334,11 @@ export class CustomerRequestDetailsComponent implements OnInit {
     } else {
       this.disabledAgreement = false;
     }
+  }
+  cancelRequest() {
+    const actionPayload = {
+      id: this.requestID
+    };
+    this.store.dispatch(new DeleteCustomerRequests(actionPayload));
   }
 }
