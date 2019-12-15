@@ -1,0 +1,69 @@
+[lang="arabic"]{
+    .row ,nav#navbar{
+        flex-direction: row-reverse !important;
+    }
+    body{
+        font-family: 'Cairo', sans-serif !important;
+    }
+    ul.navbar-nav.mr-auto.mt-2 {
+        margin-top: 0.25rem !important;
+    }
+    body , .navbar-expand-lg .navbar-collapse{
+        direction: rtl !important;
+    }
+    .contact .bg-image ul.navbar-nav.ml-auto li a.nav-link ,.contact header #langSelctor{
+         color: #000 !important;
+    }
+    .bg-dark-right{
+        left: 0;
+        right: auto;
+    }
+    header.bg-image ul.navbar-nav.ml-auto li a.nav-link.purple-btn{
+        padding: 8px 0 11px;
+    }
+    #langSelctor{
+        margin: 5px 0 10px;
+    }
+    .main-header-font ,.font-purple ,.light-paragraph{
+        letter-spacing: 0;
+    }
+    .light-paragraph {
+        line-height: 26px;
+    }
+    .header-inner p{
+        letter-spacing: 0;
+        line-height: 28px;
+        opacity: 0.8;
+        font-size: 15px;
+    }
+    .navbar-light .navbar-brand img {
+        width: 100px;
+        height: auto;
+        padding: 0;
+    }
+    .header-inner h1{
+        letter-spacing: 0;
+    }
+    .d-flex{
+        text-align: right;
+        direction: rtl;
+    }
+    img.antim-img-header {
+        height: 88%;
+        top: -20px;
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+    .form-antim label{
+        text-align: right;
+    }
+    input, button, select, optgroup, textarea{
+        direction: rtl;
+    }
+    .text-left {
+        text-align: right !important;
+    }
+}
+.contact .bg-image ul.navbar-nav.ml-auto li a.nav-link ,.contact header #langSelctor , .log-in header #langSelctor{
+    color: #000 !important;
+}

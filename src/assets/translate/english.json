@@ -1,0 +1,32 @@
+{
+    "HOME" : {
+       "home": "home",
+       "who" : "who we are",
+       "Lender" : "Lender",
+       "Borrower" : "Borrower",
+       "contact" : "contact us",
+       "LogIn" : "Log In",
+       "SignUp" : "Sign Up",
+       "SELECT" : "Select,",
+       "SEND" : "Send and Get…",
+       "PAY" : "Pay by installment",
+       "GetStarted" : "Get Started",
+       "OurPrivilege" : "Our Privilege"
+    },
+    "WHOWEARE" : {
+        "whoDescription": "We're working on elevating the Kingdom of Saudi Arabia's digital footprint in the Financial technology services sector, in pursuit of the national vision.",
+        "OurVision" : "Our Vision",
+        "OurVisionDesc" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        "OurMission" : "Our Mission",
+        "OurMissionDesc" :  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        "OurPromises" : "Our Promises",
+        "OurPromisesDesc" :  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        "TheTeam" : "The Team",
+        "TheTeamDesc" :  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        "IsmaelAlAkhras" : "Ismael Al-Akhras",
+        "BashayerAlSaqir" :"Bashayer AlSaqir",
+        "ReachUs" : "Reach to Us"
+
+
+    }
+}

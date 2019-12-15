@@ -212,6 +212,16 @@ button.btn.btn-link:after {
  .cursor-pointer{
      cursor: pointer;
  }
+#langSelctor {
+    background: none;
+    border: 0;
+    color: #fff;
+    margin: 10px 0;
+    text-transform: capitalize;
+}
+.sticky-fixed-header #langSelctor{
+    color: #000;
+}
 .profile{
     .user-info{
         .cursor-pointer{

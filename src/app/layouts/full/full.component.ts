@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { Store } from '@ngrx/store';
@@ -18,13 +19,21 @@ export class FullComponent implements OnInit {
   islogin = false;
   getState: Observable<any>;
   dashboredUrl: any;
+  userLang: any;
 // tslint:disable-next-line: indent
 	public config: PerfectScrollbarConfigInterface = {};
 
-  constructor(public router: Router,  private store: Store<AppState>,
-    ) {
+  constructor(public router: Router,  private store: Store<AppState>, public translate: TranslateService) {
       this.getState = this.store.select(selectAuthenticationState);
-     }
+      translate.addLangs([ 'english' , 'arabic']);
+      translate.setDefaultLang('english');
+      const browserLang = translate.getBrowserLang();
+      translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
+      this.translate.onLangChange.subscribe((event) => {
+        this.userLang=event.lang;
+        console.log(this.userLang); 
+      });
+  }
 
   public innerWidth: any;
   public defaultSidebar: any;
