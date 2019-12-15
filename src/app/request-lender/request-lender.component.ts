@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FunderRequestService } from './../services/funder-requests.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.states';
@@ -46,6 +46,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   funderRequestsData: any;
   awaitingRequestsData: any;
   showMessage = false;
+  options: IndividualConfig;
 
   constructor(
     private modalService: NgbModal,
@@ -54,13 +55,22 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     private funderRequestService: FunderRequestService,
     private spinner: NgxSpinnerService,
     private store: Store<AppState>
-  ) { }
-
+  ) {
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-top-right';
+    this.options.timeOut = 5000;
+  }
+  showSuccessToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+  showErrorToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.funderRequestService.funderAllRequests().subscribe(res => {
-      console.log(res.result);
+      console.log(res);
     });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -92,40 +102,36 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     if (deviceValue === 'Awaiting Fund') {
       this.spinner.show();
       this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
-        console.log('AllawaitingRequests:', res.result);
+        if (res.message) {
+          this.showErrorToast('Error!!', res.message, 'error');
+          this.spinner.hide();
 
-        this.awaitingRequestsData = res.result;
-        AllAwaitingRequests.length = 0;
-        // if (this.isDatainArray == true && this.allRequestData.length > 0) {
-        this.awaitingRequestsData.forEach(element => {
-          AllAwaitingRequests.push(element);
-          // element.date = moment(element.createdAt).format('LL');
-          element.date = moment(element.updatedAt).format('LL');
-          element.price = element.totalPaybackAmount + ' SAR';
-          element.status = 'AWAITING FOR FUND';
-        });
-        // this.dataSource.data = AllAwaitingRequests;
-        this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
-        this.dataSource.paginator = this.paginator;
-        console.log('AllawaitingRequests:', AllAwaitingRequests);
-        this.spinner.hide();
-        if (this.dataSource.filteredData.length == 0) {
-          this.showMessage = true;
         } else {
-          this.showMessage = false;
+          console.log('AllawaitingRequests:', res.result);
+
+          this.awaitingRequestsData = res.result;
+          AllAwaitingRequests.length = 0;
+          // if (this.isDatainArray == true && this.allRequestData.length > 0) {
+          this.awaitingRequestsData.forEach(element => {
+            AllAwaitingRequests.push(element);
+            // element.date = moment(element.createdAt).format('LL');
+            element.date = moment(element.updatedAt).format('LL');
+            element.price = element.totalPaybackAmount + ' SAR';
+            element.status = 'AWAITING FOR FUND';
+          });
+          // this.dataSource.data = AllAwaitingRequests;
+          this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
+          console.log('AllawaitingRequests:', AllAwaitingRequests);
+          this.spinner.hide();
+          if (this.dataSource.filteredData.length == 0) {
+            this.showMessage = true;
+          } else {
+            this.showMessage = false;
+          }
         }
-        // } else {
-        //   this.showMessage = true;
-        // }
-        // if (type == selectedtype) {
-        //   this.requestType = type;
-        //   this.dataSourceAll.filter = type;
-        // } else if (type && !selectedtype) {
-        //   this.requestType = 'All Requests';
-        //   this.dataSourceAll.filter = '';
-        // } else {
-        //   this.dataSourceAll.filter = '';
-        // }
+      }, err => {
+        console.log(err);
+        this.spinner.hide();
       });
     }
 
