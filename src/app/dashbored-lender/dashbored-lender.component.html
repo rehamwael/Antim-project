@@ -25,7 +25,7 @@
     <div class="page-wraper-right">
                     <div class="mat-card col-lg-11 mt-5 row welcome-card p-2 align-items-center">
                         <img class="col-lg-2" src="assets/images/bookWithMen.svg">
-                        <div class="col-lg-7 px-0">
+                        <div class="col-lg-7 px-0" *ngIf="currentUser">
                             <p class="grey-text-color">Oh! Welcome Home {{currentUser?.firstName}}! We've prepared some useful information below ;)</p>
                         </div>
                         <!-- <form class="col-lg-3">
@@ -42,7 +42,9 @@
 
 
                     <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
-                        <div class="col-lg-2 blue-bg cursor-pointer" [routerLink]="[ '/requests-lender' , 'Ongoing']">                            <div class="dashbored-info-content">
+                        <!-- <div class="col-lg-2 blue-bg cursor-pointer" [routerLink]="[ '/requests-lender' , 'Ongoing']">                            <div class="dashbored-info-content"> -->
+                        <div class="col-lg-2 blue-bg">
+                          <div class="dashbored-info-content">
                                 <p>Ongoing requests</p>
                                 <div>03</div>
                             </div>
@@ -75,7 +77,7 @@
 
                     <div class="col-lg-11 mt-3 row justify-content-center align-items-center py-4 mt-5 align-fixed-mobile">
                             <div class="form-group col-lg-2 col-6">
-                                   <button class="btn btn-info btn-lg btn-block btn-black mt-2 btn-lowecase" [routerLink]="[ '/requests-funder' , '']">All Request</button>
+                                   <button class="btn btn-info btn-lg btn-block btn-black mt-2 btn-lowecase" [routerLink]="[ '/requests-funder']">All Request</button>
                            </div>
                            <div class="form-group col-lg-3 col-6">
                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2 btn-lowecase">Make New Request</button>

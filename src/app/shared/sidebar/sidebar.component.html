@@ -8,7 +8,7 @@
           <img src="assets/images/user.svg" class="col-lg-3 p-0">
           <!-- <img src="assets/images/IMG_4216.JPG" alt="Avatar" class="avatar"> -->
             <div class="col-lg-8 ml-1">
-            <p class="white-text mt-1">
+            <p class="white-text mt-1" *ngIf="currentUser">
                 Hi<br/>
                 {{currentUser?.firstName}}<br/>
                 <!-- <span>{{userType}}</span> -->

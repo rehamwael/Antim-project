@@ -25,8 +25,8 @@
 <div class="page-wraper-right">
                 <div class="mat-card col-lg-11 mt-5 row welcome-card p-2 align-items-center">
                     <img class="col-lg-2" src="assets/images/bookWithMen.svg">
-                    <div class="col-lg-7 px-0">
-                        <p class="grey-text-color">Oh! Welcome Home {{currentUser?.firstName}}! We've prepared some useful information below ;)</p>
+                    <div class="col-lg-7 px-0" *ngIf="currentUser">
+                      <p class="grey-text-color">Oh! Welcome Home {{currentUser?.firstName}}! We've prepared some useful information below ;)</p>
                     </div>
                     <!-- <form class="col-lg-3">
                     <div class="form-group">
