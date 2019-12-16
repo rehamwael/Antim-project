@@ -40,37 +40,37 @@
                     </div>
 
 
-
+                    <!-- <div class="col-lg-11 row justify-content-around mt-5 dashbored-info" *ngIf="funderDashboardData"> -->
                     <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
                         <!-- <div class="col-lg-2 blue-bg cursor-pointer" [routerLink]="[ '/requests-lender' , 'Ongoing']">                            <div class="dashbored-info-content"> -->
                         <div class="col-lg-2 blue-bg">
                           <div class="dashbored-info-content">
                                 <p>Ongoing requests</p>
-                                <div>03</div>
+                                <div>{{funderDashboardData?.noOfOngoingRequests}}</div>
                             </div>
                         </div>
                     <div class="col-lg-2 purple-bg">
                         <div class="dashbored-info-content">
                             <p>Funded Users</p>
-                            <div>03</div>
-                        </div>
+                            <div>{{funderDashboardData?.noOfFundedCustomers}}</div>
+                          </div>
                         </div>
                         <div class="col-lg-2 black-bg">
                             <div class="dashbored-info-content">
                                 <p>Total Amount of Fund</p>
-                                <div>03</div>
+                                <div>{{funderDashboardData?.totalAmountOfFund}}</div>
                             </div>
                         </div>
                         <div class="col-lg-2 blue-bg-2">
                             <div class="dashbored-info-content">
                                 <p>Total reserved Installments </p>
-                                <div>3600 SAR </div>
+                                <div>{{funderDashboardData?.totalReservedInstallments}}</div>
                             </div>
                         </div>
                         <div class="col-lg-2 purple-bg-2">
                             <div class="dashbored-info-content">
                                 <p>Total profits (SAR)</p>
-                                <div>03</div>
+                                <div>{{funderDashboardData?.totalFunderProfit}}</div>
                             </div>
                         </div>
                     </div>

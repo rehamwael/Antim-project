@@ -53,4 +53,12 @@ export class FunderRequestService {
     );
   }
 
+  getFunderDashboardData(): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}FunderRequest/GetFunderDashboard`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
 }
