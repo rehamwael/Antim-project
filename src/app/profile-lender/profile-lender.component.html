@@ -233,7 +233,7 @@
                                     </div> -->
                                     <div class="col-lg-6">
                                         <label for="IBAN" class="font-bold mt-2">IBAN Number</label>
-                                        <input matInput formControlName="IBAN" class="form-control form-control-lg" value="{{Iban}}"[(ngModel)]="Iban" maxlength="26"  placeholder="SA 0000XXXXXXXXX">
+                                        <input matInput formControlName="IBAN" class="form-control form-control-lg" value="{{IBAN}}"[(ngModel)]="IBAN" maxlength="26"  placeholder="SA 0000XXXXXXXXX">
                                         <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('required')" class="error-msg alert alert-danger text-left">IBAN Number is required</div>
                                         <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('pattern')" class="error-msg alert alert-danger text-left">IBAN Number must start with "SA" + 24 digits.</div>
                                     </div>

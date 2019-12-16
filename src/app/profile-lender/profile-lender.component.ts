@@ -49,7 +49,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
 
   bankName: any;
   bankAccountNo: any;
-  Iban: any;
+  IBAN: any;
   bankAddress: any;
   accountTitle: any;
   fundingLimit: any;
@@ -271,10 +271,11 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.profileService.getUserBankInfo().subscribe(res => {
         this.userBankInfo = res.result;
         this.bankName = res.result.bankName;
-        this.bankAddress = res.result.address;
-        this.accountTitle = res.result.accountTitle;
+        // this.bankAddress = res.result.address;
+        // this.accountTitle = res.result.accountTitle;
         this.bankAccountNo = res.result.accountNumber;
         this.fundingLimit = res.result.fundingLimit;
+        this.IBAN = res.result.ibaNnumber;
         this.bankID = res.result.id;
         console.log('userBankInfo:', this.userBankInfo);
       }, err => {
@@ -435,7 +436,6 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.disableBankButton = true;
     this.BankInfoForm.get('BankName').enable();
     this.BankInfoForm.get('BankAccountNo').enable();
-    this.BankInfoForm.get('AccountTitle').enable();
     this.BankInfoForm.get('IBAN').enable();
     this.BankInfoForm.get('FundingLimit').enable();
 
@@ -450,7 +450,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         // 'Address': this.bankAddress,
         // 'AccountTitle': this.accountTitle,
         'AccountNumber': this.bankAccountNo,
-        'IBANnumber': this.Iban,
+        'IBANnumber': this.IBAN,
         'FundingLimit': this.fundingLimit
       }).subscribe((res) => {
         console.log('Bank Info edited:', res);
@@ -474,7 +474,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         // 'Address': this.bankAddress,
         // 'AccountTitle': this.accountTitle,
         'AccountNumber': this.bankAccountNo,
-        'IBANnumber': this.Iban,
+        'IBANnumber': this.IBAN,
         'FundingLimit': this.fundingLimit
       }).subscribe((res) => {
         console.log('BANK  Added:', res);
