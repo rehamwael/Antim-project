@@ -41,7 +41,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   // dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType = 'My All Requests';
-  slectedProduct = false;
+  selectedProduct = false;
   productStatus: any;
   content4: any;
   funderRequestsData: any;
@@ -50,10 +50,22 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   options: IndividualConfig;
   reqID: any;
   funderRequestData: any;
+
   requestName: any;
   requestDate: any;
   requestAmount: any;
   funderRequestType: any;
+  productList: any[] = [{
+    productUrl: '',
+    amount: null
+  }];
+  requestType_ENUM: any;
+  RequestType: any;
+  totalPrice: number;
+  totalPriceWithProfit: number;
+  monthlyInstallment: number;
+  installmentPeriod: any;
+  installmentPeriod_ENUM: any;
 
   constructor(
     private modalService: NgbModal,
@@ -79,6 +91,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.funderRequestService.funderAllRequests().subscribe(res => {
+      console.log(res);
       if (res.message) {
         this.showMessage = true;
         this.showErrorToast('', res.message, 'error');
@@ -180,11 +193,50 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     }
   }
   openProductDetails(row) {
+    console.log(row);
     this.reqID = row.id;
-    this.router.navigate(['requests-funder', this.reqID]);
+     if (row.type == 1) {
+      this.router.navigate(['requests-funder', this.reqID]);
+    } else {
+      this.spinner.show();
+      this.funderRequestService.getRequestDataById(row.id).subscribe(res => {
+        console.log('REQUEST DETAILS: ', res.result);
+        // this.productList = res.result.customerRequestProducts.slice();
+        this.requestDate = moment(res.result.startingDate).format('LL');
+        this.monthlyInstallment = res.result.monthlyPaybackAmount;
+        this.requestName = res.result.requesterName;
+        this.totalPrice = res.result.fundedAmount;
+        // this.totalPriceWithProfit = res.result.totalPaybackAmount;
+        this.installmentPeriod_ENUM = res.result.paybackPeriod;
+        if (this.installmentPeriod_ENUM === 1) {
+          this.installmentPeriod = '3-Months';
+        }
+        if (this.installmentPeriod_ENUM === 2) {
+          this.installmentPeriod = '6-Months';
+        }
+        if (this.installmentPeriod_ENUM === 3) {
+          this.installmentPeriod = '9-Months';
+        }
+        if (this.installmentPeriod_ENUM === 4) {
+          this.installmentPeriod = '12-Months';
+        }
+        this.requestType_ENUM = res.result.requestStatus;
+        if (this.requestType_ENUM == 2) {
+          this.RequestType = 'Ongoing Request';
+        }
+        if (this.requestType_ENUM == 3) {
+          this.RequestType = 'Closed Request';
+        }
+        this.spinner.hide();
+        localStorage.setItem('requestType', this.requestType);
+      }, err => {
+        console.log(err);
+      });
+      this.selectedProduct = true;
+    }
   }
   closeProductDetails() {
-    this.slectedProduct = false;
+    this.selectedProduct = false;
   }
   openVerticallyCentered(content3) {
     this.modalService.open(content3, { centered: true });
