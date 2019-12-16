@@ -39,6 +39,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   phone: any;
   countryCode: any;
   NID: any;
+  userBalance: any;
 
   address: any;
   city: any;
@@ -70,7 +71,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   EditForm: FormGroup;
   BankInfoForm: FormGroup;
   AddressForm: FormGroup;
+  UserBalance: FormGroup;
   disabledBankButton = true;
+  disableBalanceButton = false;
   showProfit = false; // hidden by default
   showAddress = false;
   showBank = false;
@@ -216,6 +219,11 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       ])],
     });
 
+    this.UserBalance = fb.group({
+      'MyBalance':  [{ value: this.UserBalance, disabled: this.disabledButton }, Validators.compose([
+        Validators.required
+      ])],
+    });
 
   }
   showSuccessToast(title, message, type) {
@@ -603,6 +611,28 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   onSelectChange(value) {
     this.bankName = value;
   }
+  EditBalanceInfo() {
+    this.disableBalanceButton = true;
+    this.UserBalance.get('MyBalance').enable();
+  }
+  SaveBalanceInfo() {
+      this.spinner.show();
+      this.profileService.addUserBalance({
+        'UserId': this.userId,
+        'UserBalance': this.userBalance
+      }).subscribe((res) => {
+        console.log('balance info', res);
+        this.spinner.hide();
+        this.showSuccessToast('OK!!', res.message, 'success');
+        this.disableBalanceButton = false;
+        this.UserBalance.get('MyBalance').disable();
+      }, err => {
+        this.spinner.hide();
+        this.showErrorToast('Error!!', err.error.message, 'error');
+      });
+
+  }
+
 
   // tslint:disable-next-line: member-ordering
   public barChartColors: Color[] = [

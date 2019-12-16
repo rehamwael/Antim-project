@@ -128,6 +128,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.requestType = 'All Requests';
     this.dataSourceAll.paginator = this.paginator;
     this.dataSourceAll.sort = this.sort;
     const type = localStorage.getItem('requestType');

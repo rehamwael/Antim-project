@@ -65,6 +65,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { NumberOnlyDirective } from './number-only.directive';
 import { CustomerRequestDetailsComponent } from './customer-request-details/customer-request-details.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { FunderRequestsDetailsComponent } from './funder-requests-details/funder-requests-details.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -103,7 +104,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ResetPasswordComponent,
     NumberOnlyDirective,
     CustomerRequestDetailsComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    FunderRequestsDetailsComponent
   ],
   imports: [
     CommonModule,

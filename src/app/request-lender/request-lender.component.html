@@ -32,11 +32,11 @@
                 <form class="col-lg-4">
                 <div class="form-group">
                     <label for="Type" class="font-size-13">Select Request Type</label>
-                    <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
-                            <option value="" selected>My All Requests</option>
+                    <select class="form-control form-control-lg mb-2§ custom-select"  (change)="onChange($event.target.value)">
+                    <!-- <select class="form-control form-control-lg mb-2§ custom-select" [(ngModel)]="requestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)"> -->
+                            <option value="" selected>All Requests</option>
                             <option value="Ongoing">Ongoing Requests</option>
                             <option value="Closed">Closed Requests</option>
-                            <option value="Reject">Rejected Requests</option>
                             <option value="Awaiting Fund">All Awaiting Fund Requests</option>
 
                     </select>
@@ -136,101 +136,5 @@
 
 
         </div>
+    </div>
 
-
-        <div class="page-wraper-right full-width" *ngIf="slectedProduct">
-
-        <div class="justify-content-center col-lg-11 mat-card mt-4 p-0 mb-5">
-            <div class="mat-card row p-4 m-0">
-                <div class="header col-lg-9">
-                  <span class="icon-close" (click)="closeProductDetails()"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
-                  <p>Product Details</p>
-                </div>
-
-              </div>
-
-            <form class="col-lg-9 row antim-form p-5 mt-2 mb-5 m-auto">
-            <div class="col-lg-12"><h3 class="headingh3">product link(s)</h3></div>
-            <div class="col-lg-12">
-                <label for="Link1" class="font-bold mt-2">Link1</label>
-                <input class="form-control form-control-lg" value="https://ar-sa.namshi.com/buy-kocostar-aloe-slice-mask-332427.html" placeholder="Link1"  [attr.disabled]="true">
-            </div>
-            <div class="col-lg-12">
-                <label for="Link2" class="font-bold mt-2">Link2</label>
-                <input class="form-control form-control-lg" value="https://ar-sa.namshi.com/buy-kocostar-aloe-slice-mask-332427.html" placeholder="Link2"  [attr.disabled]="true">
-            </div>
-            <div class="col-lg-12">
-                <label for="Link3" class="font-bold mt-2">Link3</label>
-                <input class="form-control form-control-lg" value="https://ar-sa.namshi.com/buy-kocostar-aloe-slice-mask-332427.html" placeholder="Link3"  [attr.disabled]="true">
-            </div>
-            <div class="col-lg-3">
-                <label for="RequestDate" class="font-bold mt-2">Request Date</label>
-                <input class="form-control form-control-lg" value="22 Desember 2018" placeholder="Request Date"  [attr.disabled]="true">
-            </div>
-            <div class="col-lg-3">
-                <label for="Amount" class="font-bold mt-2">Amount of funding</label>
-                <input class="form-control form-control-lg" value="2200 SAR" placeholder="Amount of funding"  [attr.disabled]="true">
-            </div>
-
-            <div class="col-lg-3">
-                <label for="Installment" class="font-bold mt-2">Installment Period</label>
-                <input class="form-control form-control-lg" value="6 Months" placeholder="Installment Period" [attr.disabled]="true">
-            </div>
-            <div class="col-lg-3">
-                <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
-                <input class="form-control form-control-lg" value="830 SAR" placeholder="Installment amount per month" [attr.disabled]="true">
-            </div>
-            <div class="col-lg-3">
-              <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
-              <input class="form-control form-control-lg {{productStatus}}" value="{{productStatus}}" [attr.disabled]="true">
-            </div>
-            <div class="col-lg-9"></div>
-            <div class="col-lg-12" *ngIf="productStatus == 'Ongoing request'">
-              <label for="installmentPiad" class="font-bold mt-2">Number of installment paid</label>
-              <div class="installment-period">
-                <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
-                <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
-                <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
-                <button
-                type="button"
-                class="btn btn-secondary btn-bor-red"
-                placement="bottom"
-                ngbTooltip="Next Due Date 22-dec-2018" tooltipClass="my-custom-class">
-                delyed
-              </button>
-              <button type="button" class="btn btn-secondary"></button>
-
-             </div>
-            </div>
-            </form>
-            <br/>
-            <br/>
-            <br/>
-            </div>
-            <ng-template #content3 let-modal>
-              <div class="modal-body py-5">
-                <p class="my-4">
-                  Dear Customer Your order has been successfully sent and <br/>will be reviewed and answered as soon as possible
-
-
-                </p>
-                <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" (click)="modal.close('Close click')">CLOSE</button></div>
-
-              </div>
-            </ng-template>
-
-            <ng-template #content4 let-modal>
-                    <div class="modal-body">
-                      <p>
-                            Thanks Dear, Your request has been successfully submitted. Pending the approval of the fund requester until the proceedings are carried out. Once you send the approval to the fund requester you will not be able to cancel.
-                      </p>
-                      <div class="d-flex justify-content-end pb-3 mt-4">
-                            <button class="btn btn-info btn-lg btn-block btn-black mt-2 col-lg-4 mr-3" (click)="modal.close('Close click')">Close</button>
-                          <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" (click)="openVerticallyCentered(content4)">Confirm</button>
-                       </div>
-
-                    </div>
-                  </ng-template>
-        </div>
-
-        </div>

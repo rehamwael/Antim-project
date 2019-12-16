@@ -37,7 +37,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
 
 
   displayedColumns: string[] = ['name', 'date', 'price', 'status'];
-  dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
+  dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+  // dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
   selection = new SelectionModel<PeriodicElement>(true, []);
   requestType = 'My All Requests';
   slectedProduct = false;
@@ -47,6 +48,12 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   awaitingRequestsData: any;
   showMessage = false;
   options: IndividualConfig;
+  reqID: any;
+  funderRequestData: any;
+  requestName: any;
+  requestDate: any;
+  requestAmount: any;
+  funderRequestType: any;
 
   constructor(
     private modalService: NgbModal,
@@ -59,6 +66,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
+    this.requestType = 'All Requests';
   }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
@@ -67,17 +75,38 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
   ngOnInit(): void {
+    this.requestType = 'All Requests';
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.funderRequestService.funderAllRequests().subscribe(res => {
-      console.log(res);
+      if (res.message) {
+        this.showMessage = true;
+        this.showErrorToast('', res.message, 'error');
+      } else {
+        this.showMessage = false;
+        this.funderRequestData = res.result;
+        AllFunderRequests.length = 0;
+        this.funderRequestData.forEach(element => {
+          AllFunderRequests.push(element);
+          element.name = element.requestName;
+          element.date = moment(element.startingDate).format('LL');
+          element.price = element.fundedAmount + ' SAR';
+          element.status = 'Ongoing Request';
+        });
+        this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+        if (this.dataSource.filteredData.length == 0) {
+          this.showMessage = true;
+        } else {
+          this.showMessage = false;
+        }
+        console.log('FunderAllRequests:', AllFunderRequests);
+      }
+    }, err => {
+      console.log(err);
     });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
-    // if (this.productStatus === 'Wating Fund') {
-    //   this.modalService.open(this.content4, { centered: true });
-    // }
 
   }
   ngOnDestroy(): void {
@@ -95,9 +124,20 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   onChange(deviceValue) {
     this.dataSource.filter = deviceValue;
     this.requestType = deviceValue;
-    if (deviceValue === '') {
-      this.requestType = 'My All Requests';
-
+    if (deviceValue == '') {
+      this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+      this.dataSource.filter = '';
+      this.requestType = 'All Requests';
+    }
+    if (deviceValue == 'Ongoing') {
+      this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+      this.dataSource.filter = deviceValue;
+      this.requestType = deviceValue;
+    }
+    if (deviceValue == 'Closed') {
+      this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+      this.dataSource.filter = deviceValue;
+      this.requestType = deviceValue;
     }
     if (deviceValue === 'Awaiting Fund') {
       this.spinner.show();
@@ -114,7 +154,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           // if (this.isDatainArray == true && this.allRequestData.length > 0) {
           this.awaitingRequestsData.forEach(element => {
             AllAwaitingRequests.push(element);
-            // element.date = moment(element.createdAt).format('LL');
             element.date = moment(element.updatedAt).format('LL');
             element.price = element.totalPaybackAmount + ' SAR';
             element.status = 'AWAITING FOR FUND';
@@ -134,12 +173,15 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       });
     }
-
+    if (this.dataSource.filteredData.length == 0) {
+      this.showMessage = true;
+    } else {
+      this.showMessage = false;
+    }
   }
   openProductDetails(row) {
-    console.log(row);
-    this.productStatus = row.status;
-    this.slectedProduct = true;
+    this.reqID = row.id;
+    this.router.navigate(['requests-funder', this.reqID]);
   }
   closeProductDetails() {
     this.slectedProduct = false;

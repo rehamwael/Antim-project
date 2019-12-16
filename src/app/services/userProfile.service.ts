@@ -47,9 +47,14 @@ export class ProfileService {
       })
     );
   }
-  // {{host}}User/EditUserPhoneNumber post
-  // {{host}}User/ResendOtpForPhoneNumber post
-  // {{host}}User/ConfirmNewPhoneNumber
+
+  addUserBalance(balance: any) {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}User/AddOrUpdateUserBalance`, balance, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
   editUserPhoneNumber(editedMobileNo: any): Observable<any> {
     this.getTokenAndHeaders();
