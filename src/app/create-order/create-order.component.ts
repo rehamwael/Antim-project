@@ -207,8 +207,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
-      'MonthlyPaybackAmount': this.monthlyPrice,
-      'TotalPaybackAmount': this.totalPriceWithProfit,
+      // 'MonthlyPaybackAmount': this.monthlyPrice,
+      // 'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 5,
       'Products': this.userPoductList
     };
@@ -227,8 +227,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
-      'MonthlyPaybackAmount': this.monthlyPrice,
-      'TotalPaybackAmount': this.totalPriceWithProfit,
+      // 'MonthlyPaybackAmount': this.monthlyPrice,
+      // 'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 7,
       'Products': this.userPoductList
     };

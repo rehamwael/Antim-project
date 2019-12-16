@@ -36,13 +36,15 @@ export class FunderRequestService {
       })
     );
   }
+
   getRequestDataById(id: any): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.get(`${this.Url}CustomerRequest/GetFunderRequestById?id=${id}`, this.httpOptions).pipe(
+    return this.httpClient.get(`${this.Url}FunderRequest/GetFunderRequestById?id=${id}`, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
   }
+
   addFunderRequest(Request: any): Observable<any> {
     this.getTokenAndHeaders();
     return this.httpClient.post(`${this.Url}FunderRequest/AddFunderRequest`, Request, this.httpOptions).pipe(

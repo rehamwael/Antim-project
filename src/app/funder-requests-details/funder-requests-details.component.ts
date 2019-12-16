@@ -84,6 +84,9 @@ export class FunderRequestsDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');
     });
+    this.spinner.show();
+    // this.funderRequestService.getRequestDataById(this.requestID).subscribe(res => {
+
 
     this.editRequestForm = this._formBuilder.group({
       ProductName: [''],
