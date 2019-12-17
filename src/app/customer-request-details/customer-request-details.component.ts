@@ -112,34 +112,34 @@ export class CustomerRequestDetailsComponent implements OnInit {
       }
       this.requestType_ENUM = res.result.type;
       if (this.requestType_ENUM == 1) {
-        this.requestType = 'Awaiting for Fund';
+        this.requestType = 'Awaiting for Fund Requests';
         this.showCancelButton = true;
       }
       if (this.requestType_ENUM == 2) {
-        this.requestType = 'Closed';
+        this.requestType = 'Closed  Requests';
         this.deleteButton = true;
       }
       if (this.requestType_ENUM == 3) {
-        this.requestType = 'Rejected';
+        this.requestType = 'Rejected Requests';
       }
       if (this.requestType_ENUM == 4) {
-        this.requestType = 'Ongoing';
+        this.requestType = 'Ongoing Requests';
       }
       if (this.requestType_ENUM == 5) {
-        this.requestType = 'Draft';
+        this.requestType = 'Draft Requests';
         this.deleteButton = true;
         this.showEditButton = true;
       }
       if (this.requestType_ENUM == 6) {
-        this.requestType = 'Accepted';
+        this.requestType = 'Accepted Requests';
         this.showCancelButton = true;
       }
       if (this.requestType_ENUM == 7) {
-        this.requestType = 'Under Review';
+        this.requestType = 'Under Review Requests';
         this.showCancelButton = true;
       }
       this.spinner.hide();
-      localStorage.setItem('requestType', this.requestType);
+      localStorage.setItem('customerRequestType', this.requestType);
     });
     this.editRequestForm = this._formBuilder.group({
       ProductName: [''],
