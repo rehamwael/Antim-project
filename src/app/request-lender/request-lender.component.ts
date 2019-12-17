@@ -92,9 +92,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
     let AwaitingRequestType = localStorage.getItem('FunderRequestType');
     let selectedFunderRequestType = localStorage.getItem('selectedFunderRequestType');
-    if (AwaitingRequestType == selectedFunderRequestType) {
+    if (AwaitingRequestType == selectedFunderRequestType && AwaitingRequestType != null && selectedFunderRequestType != null) {
       this.selectedRequestType = AwaitingRequestType;
-      this.dataSource.data = AllAwaitingRequests;
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
     } else {
       this.funderRequestService.getFunderAllRequests().subscribe(res => {
@@ -142,6 +141,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
 
   onChange(deviceValue) {
     this.selectedRequestType = deviceValue;
+    localStorage.setItem('selectedFunderRequestType', this.selectedRequestType);
     if (deviceValue == 'All Requests') {
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
       this.dataSource.filter = '';
@@ -156,7 +156,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.dataSource.filter = deviceValue;
     }
     if (deviceValue == 'Awaiting Fund') {
-      localStorage.setItem('selectedFunderRequestType', deviceValue);
       this.spinner.show();
       this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
         if (res.message) {
