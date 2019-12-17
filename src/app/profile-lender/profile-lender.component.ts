@@ -219,11 +219,11 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       ])],
     });
 
-    this.UserBalance = fb.group({
-      'MyBalance':  [{ value: this.UserBalance, disabled: this.disabledButton }, Validators.compose([
-        Validators.required
-      ])],
-    });
+    // this.UserBalance = fb.group({
+    //   'MyBalance':  [{ value: this.UserBalance, disabled: this.disabledButton }, Validators.compose([
+    //     Validators.required
+    //   ])],
+    // });
 
   }
   showSuccessToast(title, message, type) {
@@ -608,7 +608,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.numberEntered = false;
     }
   }
-  onSelectChange(value) {
+  SelectBank(value) {
     this.bankName = value;
   }
   // EditBalanceInfo() {

@@ -38,9 +38,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['name', 'date', 'price', 'status'];
   dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
-  // dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
   selection = new SelectionModel<PeriodicElement>(true, []);
-  selectedRequestType = 'All Requests';
+  selectedRequestType = 'My Requests';
   selectedProduct = false;
   productStatus: any;
   content4: any;
@@ -87,7 +86,11 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
   ngOnInit(): void {
-    this.selectedRequestType = 'All Requests';
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('dashbored');
+    body.classList.add('requests');
+
+    this.selectedRequestType = 'My Requests';
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     let AwaitingRequestType = localStorage.getItem('FunderRequestType');
@@ -127,9 +130,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         console.log(err);
       });
     }
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.add('dashbored');
-    body.classList.add('requests');
 
   }
   ngOnDestroy(): void {
@@ -137,7 +137,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     body.classList.remove('dashbored');
     body.classList.remove('requests');
     localStorage.removeItem('FunderRequestType');
-
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
@@ -146,10 +145,10 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   onChange(deviceValue) {
     this.selectedRequestType = deviceValue;
     localStorage.setItem('selectedFunderRequestType', this.selectedRequestType);
-    if (deviceValue == 'All Requests') {
+    if (deviceValue == 'My Requests') {
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
       this.dataSource.filter = '';
-      this.selectedRequestType = 'All Requests';
+      this.selectedRequestType = 'My Requests';
     }
     if (deviceValue == 'Ongoing') {
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
@@ -163,6 +162,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.spinner.show();
       this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
         if (res.message) {
+          this.showMessage = true;
           this.showErrorToast('Error!!', res.message, 'error');
           this.spinner.hide();
         } else {
@@ -178,7 +178,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           console.log('AllawaitingRequests:', AllAwaitingRequests);
           this.spinner.hide();
           if (this.dataSource.filteredData.length == 0) {
-            this.showMessage = true;
           } else {
             this.showMessage = false;
           }
@@ -187,11 +186,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         console.log(err);
         this.spinner.hide();
       });
-    }
-    if (this.dataSource.filteredData.length == 0) {
-      this.showMessage = true;
-    } else {
-      this.showMessage = false;
     }
   }
   openProductDetails(row) {
@@ -240,7 +234,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     }
   }
   closeProductDetails() {
-    if (this.selectedRequestType != 'All Requests') {
+    if (this.selectedRequestType != 'My Requests') {
       this.selectedRequestType = this.RequestType;
     }
     this.selectedProduct = false;

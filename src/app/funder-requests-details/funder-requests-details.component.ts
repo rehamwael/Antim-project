@@ -138,6 +138,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
     this.showSuccessToast('OK!!', res.message, 'success');
   }, err => {
     console.log(err);
+    this.showErrorToast('ERROR!!', err.error.message, 'error');
     });
 
   }
