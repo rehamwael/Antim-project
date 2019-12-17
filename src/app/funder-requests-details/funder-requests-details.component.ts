@@ -125,7 +125,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
         this.requestType = 'Awaiting for Fund';
       }
       this.spinner.hide();
-      localStorage.setItem('FunderRequestType', 'Awaiting Fund');
+      // localStorage.setItem('FunderRequestType', 'Awaiting Fund');
     });
 
   }

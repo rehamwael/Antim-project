@@ -9,8 +9,10 @@ import { Router } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Store } from '@ngrx/store';
-import { AppState } from '../store/app.states';
+import { AppState, funderState } from '../store/app.states';
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { SaveRequestType } from './../store/actions/funder.actions';
 
 export interface PeriodicElement {
   position?: number;
@@ -66,6 +68,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   installmentPeriod: any;
   installmentPeriod_ENUM: any;
   noOfCheckBoxes: number;
+  getState: Observable<any>;
+  requestTypeInStore: any;
 
   constructor(
     private modalService: NgbModal,
@@ -75,6 +79,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private store: Store<AppState>
   ) {
+    this.getState = this.store.select(funderState);
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
@@ -86,6 +91,10 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
   ngOnInit(): void {
+    this.getState.subscribe((state) => {
+     this.requestTypeInStore = state.requestType;
+     console.log(this.requestTypeInStore);
+    });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
@@ -93,10 +102,9 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.selectedRequestType = 'My Requests';
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    let AwaitingRequestType = localStorage.getItem('FunderRequestType');
     let selectedFunderRequestType = localStorage.getItem('selectedFunderRequestType');
-    if (AwaitingRequestType == selectedFunderRequestType && AwaitingRequestType != null && selectedFunderRequestType != null) {
-      this.selectedRequestType = AwaitingRequestType;
+    if (this.requestTypeInStore == selectedFunderRequestType && selectedFunderRequestType != null) {
+      this.selectedRequestType = this.requestTypeInStore;
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
     } else {
       this.spinner.show();
@@ -136,7 +144,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('requests');
-    localStorage.removeItem('FunderRequestType');
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
@@ -191,6 +198,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   openProductDetails(row) {
     this.reqID = row.id;
     if (row.type == 1) {
+      // this.store.dispatch(new SaveRequestType({type: 'Awaiting Fund'}));
+      this.store.dispatch(new SaveRequestType('Awaiting Fund'));
       this.router.navigate(['requests-funder', this.reqID]);
     } else {
       this.spinner.show();
