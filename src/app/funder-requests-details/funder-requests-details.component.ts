@@ -38,8 +38,6 @@ export class FunderRequestsDetailsComponent implements OnInit {
   secondFormGroup: FormGroup;
   lastFormGroup: FormGroup;
 
-  showEditButton = false;
-  deleteButton = false;
   editDraftRequest = false;
   disabledAgreement = false;
   disableFirstStep = false;
@@ -51,7 +49,6 @@ export class FunderRequestsDetailsComponent implements OnInit {
   disabledSubmitButton = true;
   showRequestDetiails = true;
   hideTotalButton = false;
-  showCancelButton = false;
   showFundButton = false;
 
   totalProducts: any;
@@ -126,33 +123,9 @@ export class FunderRequestsDetailsComponent implements OnInit {
       this.requestType_ENUM = res.result.type;
       if (this.requestType_ENUM == 1) {
         this.requestType = 'Awaiting for Fund';
-        this.showCancelButton = true;
-      }
-      if (this.requestType_ENUM == 2) {
-        this.requestType = 'Closed';
-        this.deleteButton = true;
-      }
-      if (this.requestType_ENUM == 3) {
-        this.requestType = 'Rejected';
-      }
-      if (this.requestType_ENUM == 4) {
-        this.requestType = 'Ongoing';
-      }
-      if (this.requestType_ENUM == 5) {
-        this.requestType = 'Draft';
-        this.deleteButton = true;
-        this.showEditButton = true;
-      }
-      if (this.requestType_ENUM == 6) {
-        this.requestType = 'Accepted';
-        this.showCancelButton = true;
-      }
-      if (this.requestType_ENUM == 7) {
-        this.requestType = 'Under Review';
-        this.showCancelButton = true;
       }
       this.spinner.hide();
-      localStorage.setItem('requestType', this.requestType);
+      localStorage.setItem('FunderRequestType', 'Awaiting Fund');
     });
 
   }

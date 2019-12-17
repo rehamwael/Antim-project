@@ -146,7 +146,7 @@
                                     </div>
                            </div>
 
-                           <form class="row antim-form mt-3" [formGroup]="UserBalance" >
+                           <form class="row antim-form mt-3 mb-3" [formGroup]="UserBalance" >
                               <div class="col-lg-12 mb-2"><h3 class="headingh3">My Antime Balance</h3></div>
                             <div class="col-lg-8">
                               <label for="balance" class="font-bold mt-2">My Balance</label>
@@ -154,7 +154,7 @@
                               <div *ngIf="UserBalance.controls['MyBalance'].touched && UserBalance.controls['MyBalance'].hasError('required')" class="error-msg alert alert-danger text-left">Balance is required</div>
                             </div>
                           </form>
-                          <div class="col-lg-12 mt-2 row justify-content-end py-4 mt-4" >
+                          <!-- <div class="col-lg-12 mt-2 row justify-content-end py-4 mt-4" >
                               <div class="form-group col-lg-3">
                                      <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBalanceInfo()">
                                           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -166,7 +166,7 @@
                                   <div class="form-group col-lg-3">
                                     <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableBalanceButton" (click)="SaveBalanceInfo()">Save</button>
                                 </div>
-                      </div>
+                      </div> -->
                                 <!-- <div class="col-lg-12">
                                         <label for="Address" class="font-bold mt-2">Address</label>
                                         <input matInput formControlName="Address" class="form-control form-control-lg" value="Saudi Arabia" placeholder="Address">

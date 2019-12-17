@@ -22,13 +22,14 @@ export class FunderRequestService {
       })
     };
   }
-  funderAllRequests(): Observable<any> {
+  getFunderAllRequests(): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.get(`${this.Url}FunderRequest/GetAllFunderRequests`, this.httpOptions).pipe(
+    return this.httpClient.get(`${this.Url}FunderRequest/GetFunderAllRequests`, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
   }
+
   fundingLimitMatchingRequests(): Observable<any> {
     this.getTokenAndHeaders();
     return this.httpClient.get(`${this.Url}FunderRequest/GetFundingLimitMatchingRequests` , this.httpOptions).pipe(

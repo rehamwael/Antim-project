@@ -27,14 +27,14 @@
             <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2 align-items-center">
                 <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
                 <!-- <div class="col-lg-3 px-0 col-8">
-                    <p class="grey-text-color" [innerHTML]="requestType"></p>
+                    <p class="grey-text-color" [innerHTML]="selectedRequestType"></p>
                 </div> -->
                 <form class="col-lg-4">
                 <div class="form-group">
                     <label for="Type" class="font-size-13">Select Request Type</label>
-                    <select class="form-control form-control-lg mb-2§ custom-select"  (change)="onChange($event.target.value)">
-                    <!-- <select class="form-control form-control-lg mb-2§ custom-select" [(ngModel)]="requestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)"> -->
-                            <option value="" selected>All Requests</option>
+                    <!-- <select class="form-control form-control-lg mb-2 custom-select"  (change)="onChange($event.target.value)"> -->
+                    <select class="form-control form-control-lg mb-2 custom-select" [(ngModel)]="selectedRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
+                            <option value="All Requests" >All Requests</option>
                             <option value="Ongoing">Ongoing Requests</option>
                             <option value="Closed">Closed Requests</option>
                             <option value="Awaiting Fund">All Awaiting Fund Requests</option>
@@ -128,10 +128,10 @@
                 <div class="row" style="width: 100%;">
                     <div class="col-lg-12">
                         <label for="Name" class="font-bold mt-2">Request Name: </label>
-                        <input  class="form-control form-control-lg" value="{{requestName}}" readonly   [attr.disabled]="true">
+                        <input  class="form-control form-control-lg" value="{{requestName}}" readonly  placeholder="Request Name"  [attr.disabled]="true">
                     </div>
                   </div>
-                  <!-- <div class="row" style="width: 100%;" *ngFor="let product of productList; let i = index;" >
+                  <div class="row" style="width: 100%;" *ngFor="let product of productList; let i = index;" >
                       <div class="form-group text-left col-lg-9"   >
                           <label  class="font-bold mt-2">Product Link</label>
                           <input  class="form-control form-control-lg"  type="text" readonly value="{{product.productUrl}}">
@@ -140,7 +140,7 @@
                           <label  class="font-bold mt-2">Product Price:</label>
                           <input  class="form-control form-control-lg"   type="number" readonly value="{{product.amount}}">
                         </div>
-                    </div> -->
+                    </div>
                     <div class="row" style="width: 100%;">
                         <div class="col-lg-6">
                           <label for="RequestDate" class="font-bold mt-2">Request Date</label>
@@ -148,12 +148,10 @@
                       </div>
                       <div class="col-lg-6">
                           <label for="Amount" class="font-bold mt-2">Total price</label>
-                          <input  class="form-control form-control-lg" value="{{totalPrice}}" type="number" placeholder="Amount of funding"  [attr.disabled]="true" readonly>
+                          <input  class="form-control form-control-lg" value="{{totalPrice}}" type="number" placeholder="Total price"  [attr.disabled]="true" readonly>
                       </div>
-                      <!-- <div class="col-lg-4">
-                        <label for="totalAmount" class="font-bold mt-2">Total Payable Amount</label>
-                        <input  class="form-control form-control-lg" value="{{totalPriceWithProfit}}" type="number" placeholder="Installment amount per month" [attr.disabled]="true" readonly>
-                    </div> -->
+
+
                   </div>
                   <div class="row" style="width: 100%;">
                       <div class="col-lg-6" >
@@ -163,25 +161,26 @@
 
                          <div class="col-lg-6">
                              <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
-                             <input  class="form-control form-control-lg" value="{{monthlyInstallment}}"   readonly  [attr.disabled]="true">
+                             <input  class="form-control form-control-lg" value="{{monthlyInstallment}}" placeholder="Monthly Installment"  readonly  [attr.disabled]="true">
                          </div>
                      </div>
                      <div class="row" style="width: 100%;">
                         <div class="col-lg-6">
                           <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
-                          <input  class="form-control form-control-lg " value="{{RequestType}}" readonly [attr.disabled]="true">
+                          <input  class="form-control form-control-lg " value="{{RequestType}}" readonly placeholder="Request Status" [attr.disabled]="true">
                         </div>
 
 
                         <div class="col-lg-6"></div>
                         </div>
 
-                 <!-- <div class="col-lg-12" *ngIf="RequestType == 'Ongoing request'">
+              <div class="row" style="width: 100%;">
+                 <div class="col-lg-12" *ngIf="RequestType == 'Ongoing Request'">
                   <label for="installmentPiad" class="font-bold mt-2">Number of installment paid</label>
-                  <div class="installment-period">
-                    <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
-                    <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
-                    <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox>
+                  <div class="installment-period" >
+              <!-- <div *ngFor="let checkbox of noOfCheckBoxes; let i = index;">
+                      <mat-checkbox ></mat-checkbox>
+                    </div> -->
                     <button
                     type="button"
                     class="btn btn-secondary btn-bor-red"
@@ -189,10 +188,13 @@
                     ngbTooltip="Next Due Date 22-dec-2018" tooltipClass="my-custom-class">
                     delyed
                   </button>
-                  <button type="button" class="btn btn-secondary"></button>
-
+                    <mat-checkbox ></mat-checkbox>
+                    <mat-checkbox ></mat-checkbox>
+                    <mat-checkbox ></mat-checkbox>
+                    <!-- <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox> -->
                  </div>
-                </div> -->
+                </div>
+              </div>
                 </form>
                 <br/>
                 <br/>
