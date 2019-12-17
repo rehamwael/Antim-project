@@ -96,9 +96,11 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.selectedRequestType = AwaitingRequestType;
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
     } else {
+      this.spinner.show();
       this.funderRequestService.getFunderAllRequests().subscribe(res => {
         if (res.message) {
           this.showMessage = true;
+          this.spinner.hide();
           this.showErrorToast('', res.message, 'error');
         } else {
           this.showMessage = false;
@@ -112,6 +114,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
             element.status = 'Ongoing Request';
           });
           this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+          this.spinner.hide();
           if (this.dataSource.filteredData.length == 0) {
             this.showMessage = true;
           } else {
@@ -120,6 +123,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           console.log('FunderAllRequests:', AllFunderRequests);
         }
       }, err => {
+        this.spinner.hide();
         console.log(err);
       });
     }
