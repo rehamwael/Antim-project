@@ -128,12 +128,16 @@ export class AuthenticationEffects {
           tap(() => {
             this.spinner.show();
             return this.customerService.getRequestsCount().subscribe(res => {
+              if (res.message) {
+                this.spinner.hide();
+                this.showErrorToast('Error!!', res.message, 'error');
+              } else {
               console.log('requestCount:', res.result);
               this.store.dispatch(new GetRequestsCountSuccess(res.result));
               this.spinner.hide();
+              }
             }, err => {
               this.spinner.hide();
-              console.log('Error:', err.error);
             });
           }));
 

@@ -24,6 +24,9 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+  }
+
+  ngOnInit(): void {
     this.getState.subscribe((state) => {
       console.log('state', state);
       const token = localStorage.getItem('token');
@@ -33,14 +36,8 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
       }
       // console.log( 'USER:' ,  this.currentUser);
     });
-  }
 
-  ngOnInit(): void {
 
-    this.funderService.getFunderDashboardData().subscribe(res => {
-      this.funderDashboardData = res.result;
-      console.log(this.funderDashboardData);
-    });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('dashbored-home');
@@ -49,6 +46,10 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
         return;
       }
       window.scrollTo(0, 0);
+    });
+    this.funderService.getFunderDashboardData().subscribe(res => {
+      this.funderDashboardData = res.result;
+      console.log(this.funderDashboardData);
     });
 
   }

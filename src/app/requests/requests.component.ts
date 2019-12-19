@@ -50,7 +50,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'price', 'type'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
   selection = new SelectionModel<PeriodicElement>(true, []);
-  requestType: any;
+  CustomerRequestType: any;
   productStatus: any;
   index: any;
   options: IndividualConfig;
@@ -93,7 +93,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
     this.showMessage = false;
-    this.requestType = 'All Requests';
   }
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
@@ -117,7 +116,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.requestType = 'All Requests';
+    this.CustomerRequestType = 'All Requests';
     this.dataSourceAll.paginator = this.paginator;
     this.dataSourceAll.sort = this.sort;
     const customerRequestType = localStorage.getItem('customerRequestType');
@@ -138,10 +137,10 @@ export class RequestsComponent implements OnInit, OnDestroy {
       this.showMessage = true;
     }
       if (customerRequestType == selectedtype) {
-        this.requestType = customerRequestType;
+        this.CustomerRequestType = customerRequestType;
         this.dataSourceAll.filter = customerRequestType;
       } else if (customerRequestType && !selectedtype) {
-        this.requestType = 'All Requests';
+        this.CustomerRequestType = 'All Requests';
         this.dataSourceAll.filter = '';
       } else {
         this.dataSourceAll.filter = '';
@@ -172,11 +171,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
   onChange(deviceValue) {
     this.dataSourceAll.filter = deviceValue;
-    this.requestType = deviceValue;
+    this.CustomerRequestType = deviceValue;
     localStorage.setItem('selectedCustomerRequestType', deviceValue);
     if (deviceValue == 'All Requests') {
       this.dataSourceAll.filter = '';
-      this.requestType = 'All Requests';
+      this.CustomerRequestType = 'All Requests';
     }
     if (this.dataSourceAll.filteredData.length > 0) {
       this.showMessage = false;
@@ -278,7 +277,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   resetPage() {
     this.dataSourceAll.filter = '';
     this.dataSourceAll.data = allCustomerRequestData;
-    this.requestType = 'All Requests';
+    this.CustomerRequestType = 'All Requests';
     this.fromDate = '';
     this.toDate = '';
     this.disableSearch = false;
