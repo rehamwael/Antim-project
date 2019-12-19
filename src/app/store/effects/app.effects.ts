@@ -131,6 +131,9 @@ export class AuthenticationEffects {
               console.log('requestCount:', res.result);
               this.store.dispatch(new GetRequestsCountSuccess(res.result));
               this.spinner.hide();
+            }, err => {
+              this.spinner.hide();
+              console.log('Error:', err.error);
             });
           }));
 
@@ -168,6 +171,9 @@ export class AuthenticationEffects {
           // this.showErrorToast('', res.message, 'error');
         }
         this.spinner.hide();
+      }, err => {
+        this.spinner.hide();
+        console.log('Error:', err.error);
       });
     }));
 

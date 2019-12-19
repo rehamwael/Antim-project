@@ -66,6 +66,7 @@ import { NumberOnlyDirective } from './number-only.directive';
 import { CustomerRequestDetailsComponent } from './customer-request-details/customer-request-details.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { FunderRequestsDetailsComponent } from './funder-requests-details/funder-requests-details.component';
+import { CountdownModule } from 'ngx-countdown';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -135,7 +136,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     StoreModule.forRoot(reducers, {}),
     NgxSpinnerModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    CountdownModule
   ],
   providers: [
     {

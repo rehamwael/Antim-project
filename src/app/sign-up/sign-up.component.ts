@@ -95,7 +95,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   // }
 
   constructor(
-    private store: Store<AppState>,
+    // private store: Store<AppState>,
     private fb: FormBuilder,
     private authservice: AuthService,
     private toastr: ToastrService,
@@ -105,7 +105,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
 
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
+    this.options.timeOut = 8000;
 
     this.SigUpForm = fb.group({
       'FirstName': [null, Validators.compose([

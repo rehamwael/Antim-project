@@ -38,6 +38,7 @@
     "moment": "^2.24.0",
     "ng2-charts": "^2.3.0",
     "ng2-sticky-nav": "^6.0.0",
+    "ngx-countdown": "^8.0.3",
     "ngx-perfect-scrollbar": "6.1.0",
     "ngx-spinner": "^8.0.3",
     "ngx-toastr": "^11.2.1",
