@@ -218,9 +218,20 @@ button.btn.btn-link:after {
     color: #fff;
     margin: 10px 0;
     text-transform: capitalize;
+    padding: 0 10px;
 }
+select#langSelctor::-ms-expand {
+    display: none;
+}
+select#langSelctor{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
 .sticky-fixed-header #langSelctor{
     color: #000;
+}
+.sticky-fixed-header header svg , .contact header svg{
+    fill: #000;
 }
 .profile{
     .user-info{
