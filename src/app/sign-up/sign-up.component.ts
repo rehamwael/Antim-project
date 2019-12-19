@@ -253,7 +253,7 @@ showErrorToast(title, message, type) {
         console.log('signUp : ', res);
         this.secondStep = false;
         this.lastStep = true;
-        this.showSuccessToast('OK!!', 'A verification link has been sent to your email account.', 'success');
+        this.showSuccessToast('OK!!', 'A verification link has been sent to your email account. Please verify your email to get the most benefits from ANTIM', 'success');
       }, async err => {
         this.spinner.hide();
         console.log('Errrrrror : ', err);

@@ -115,6 +115,9 @@ export class AuthenticationEffects {
         return this.userDataService.getUserData().subscribe(res => {
           this.store.dispatch(new SaveUserProfile(res.result));
           this.spinner.hide();
+        }, err => {
+          this.spinner.hide();
+          console.log(err);
         });
       }));
 
