@@ -131,18 +131,20 @@ export class FunderRequestsDetailsComponent implements OnInit {
   }
 
   makeFund() {
+    this.spinner.show();
     this.funderRequestService.addFunderRequest({
       'CustomerRequestId': this.requestID
     }).subscribe(res => {
-    console.log(res);
-    this.showSuccessToast('OK!!', res.message, 'success');
-  }, err => {
-    console.log(err);
-    this.showErrorToast('ERROR!!', err.error.message, 'error');
+      this.spinner.hide();
+      console.log(res);
+      this.showSuccessToast('OK!!', res.message, 'success');
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+      this.showErrorToast('ERROR!!', err.error.message, 'error');
     });
-
   }
-    showSuccessToast(title, message, type) {
+  showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
   showErrorToast(title, message, type) {

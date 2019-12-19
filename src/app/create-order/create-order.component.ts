@@ -229,7 +229,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       'PaybackPeriod': this.installmentPeriod_ENUM,
       // 'MonthlyPaybackAmount': this.monthlyPrice,
       // 'TotalPaybackAmount': this.totalPriceWithProfit,
-      'Type': 7,
+      'Type': 6,
       'Products': this.userPoductList
     };
     this.store.dispatch(new AddCustomerRequest(actionPayload));

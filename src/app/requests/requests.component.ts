@@ -50,7 +50,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'price', 'type'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
   selection = new SelectionModel<PeriodicElement>(true, []);
-  requestType = 'All Requests';
+  requestType: any;
   productStatus: any;
   index: any;
   options: IndividualConfig;
@@ -59,37 +59,26 @@ export class RequestsComponent implements OnInit, OnDestroy {
   getState: Observable<any>;
   requestTypes: any[] = [
     {
-      id: 0,
       type: 'All Requests'
     },
     {
-      id: 1,
       type: 'Awaiting for Fund Requests'
     },
     {
-      id: 2,
       type: 'Closed Requests'
     },
     {
-      id: 3,
       type: 'Rejected Requests'
     },
     {
-      id: 4,
       type: 'Ongoing Requests'
     },
     {
-      id: 5,
       type: 'Draft Requests'
     },
     {
-      id: 6,
-      type: 'Accepted Requests'
-    },
-    {
-      id: 7,
       type: 'Under Review Requests'
-    },
+    }
   ];
   constructor(
     private modalService: NgbModal,
@@ -104,6 +93,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
     this.showMessage = false;
+    this.requestType = 'All Requests';
   }
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {

@@ -102,12 +102,10 @@ export class SignUpComponent implements OnInit , OnDestroy {
     private spinner: NgxSpinnerService,
     private router: Router
     ) {
+
     this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-bottom-right';
+    this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
-    this.option = this.toastr.toastrConfig;
-    this.option.positionClass = 'toast-top-right';
-    this.option.timeOut = 5000;
 
     this.SigUpForm = fb.group({
       'FirstName': [null, Validators.compose([
@@ -155,7 +153,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
 
   }
   showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.option, 'toast-' + type);
+    this.toastr.show(message, title, this.options, 'toast-' + type);
 }
 showErrorToast(title, message, type) {
   this.toastr.show(message, title, this.options, 'toast-' + type);
@@ -184,6 +182,7 @@ showErrorToast(title, message, type) {
   Nextstep() {
     this.firstStep = true;
     this.chooseRole = false;
+    console.log(this.userType);
   }
   PrevStep() {
     this.chooseRole = true;
@@ -207,11 +206,12 @@ showErrorToast(title, message, type) {
         'PhoneNumber': this.signupPhone.toString(),
         'DialingCode': this.signupCountrycode.toString(),
         'Role': this.userType
-        }).subscribe(  async (res) => {
+        }).subscribe(res => {
             this.spinner.hide();
             this.secondStep = true;
             this.firstStep = false;
             this.chooseRole = false;
+            this.showSuccessToast('OK!!', res.message, 'success');
             console.log('next OTP step: ', res);
         }, err => {
           this.spinner.hide();
@@ -265,6 +265,7 @@ showErrorToast(title, message, type) {
     this.chooseRole = true;
     this.firstStep = false;
     this.secondStep = false;
+    console.log(this.userType);
   }
   closeBackLast() {
     this.clear();
@@ -289,6 +290,7 @@ showErrorToast(title, message, type) {
       'Role': this.userType
       }).subscribe( (res) => {
         console.log('code resend:', res);
+        this.showSuccessToast('OK!!', 'Verification Code ReSent.', 'success');
         this.spinner.hide();
       }, err => {
         this.spinner.hide();
@@ -298,7 +300,7 @@ showErrorToast(title, message, type) {
 
   signUp() {
     this.router.navigateByUrl('/login');
-    this.showSuccessToast('OK!!', 'Your Account Created Successfully!!Please Confirm your Email and then Login to get access.', 'success');
+    this.showSuccessToast('OK!!', 'Your Account Created Successfully!!', 'success');
   }
 
    keytab(event, next) {

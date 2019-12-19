@@ -81,7 +81,7 @@ export class ProfileService {
   }
 
   confirmEmail(userId, code): Observable<any> {
-    return this.httpClient.get(`${this.Url}Account/ConfirmEmail?userId=${userId}&code=${code}`).pipe(
+    return this.httpClient.patch(`${this.Url}Account/ConfirmEmail?userId=${userId}&code=${code}`, null).pipe(
       tap((res: any) => {
       })
     );

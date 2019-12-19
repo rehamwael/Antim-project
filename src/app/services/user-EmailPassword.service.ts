@@ -23,7 +23,7 @@ export class UserEmailPasswordService {
   }
   // RESET PASSWORD
   resetPassword(user: any): Observable<any> {
-    return this.httpClient.post(`${this.Url}Account/ResetPassword`, user).pipe(
+    return this.httpClient.patch(`${this.Url}Account/ResetPassword`, user).pipe(
       tap((res: any ) => {
         })
     );

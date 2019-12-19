@@ -131,10 +131,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.showEditButton = true;
       }
       if (this.requestType_ENUM == 6) {
-        this.requestType = 'Accepted Requests';
-        this.showCancelButton = true;
-      }
-      if (this.requestType_ENUM == 7) {
         this.requestType = 'Under Review Requests';
         this.showCancelButton = true;
       }
@@ -313,7 +309,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'PaybackPeriod': this.installmentPeriod_ENUM,
       // 'MonthlyPaybackAmount': this.monthlyInstallment,
       // 'TotalPaybackAmount': this.totalPriceWithProfit,
-      'Type': 7,
+      'Type': 6,
       'Products': this.productList
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
