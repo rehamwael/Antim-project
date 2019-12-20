@@ -147,7 +147,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.disableFirstStep = false;
       this.showTotalPrice = false;
       this.totalPrice = 0;
-      this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000,Go back and Enter correct price.', 'error');
+      this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000.', 'error');
     } else {
       this.showTotalPrice = true;
       this.disableFirstStep = true;

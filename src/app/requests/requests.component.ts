@@ -50,7 +50,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'price', 'type'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
   selection = new SelectionModel<PeriodicElement>(true, []);
-  CustomerRequestType: any;
+  CustomerRequestType = 'All Requests';
   productStatus: any;
   index: any;
   options: IndividualConfig;
@@ -116,7 +116,15 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.CustomerRequestType = 'All Requests';
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('dashbored');
+    body.classList.add('requests');
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0);
+  });
     this.dataSourceAll.paginator = this.paginator;
     this.dataSourceAll.sort = this.sort;
     const customerRequestType = localStorage.getItem('customerRequestType');
@@ -145,15 +153,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
       } else {
         this.dataSourceAll.filter = '';
       }
-      const body = document.getElementsByTagName('body')[0];
-      body.classList.add('dashbored');
-      body.classList.add('requests');
-      this.router.events.subscribe((evt) => {
-        if (!(evt instanceof NavigationEnd)) {
-          return;
-        }
-        window.scrollTo(0, 0);
-      });
     });
 
   }

@@ -40,7 +40,7 @@ export class AuthenticationEffects {
     private spinner: NgxSpinnerService) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 6000;
+    this.options.timeOut = 7000;
     this.options.progressBar = true;
   }
 
