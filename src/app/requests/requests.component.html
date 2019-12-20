@@ -31,11 +31,11 @@
                             <!-- <div class="col-lg-1"></div> -->
 
                             <form class="col-lg-3">
-                            <div class="form-group">
-                                <label for="Type" class="font-size-13">Select Request Type</label>
-                                <select class="form-control form-control-lg mb-2 " [(ngModel)]="CustomerRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
+                              <div class="form-group">
+                                  <label for="Type" class="font-size-13">Select Request Type</label>
+                                  <select class="form-control form-control-lg mb-2§ custom-select" [value]="CustomerRequestType"  (change)="onChange($event.target.value)">
                                     <!-- <option *ngFor="let options of requestTypes" >{{options.type}}</option> -->
-                                    <option selected value="All Requests" >All Requests</option>
+                                    <option value="All Requests" selected>All Requests</option>
                                     <option value="Awaiting for Fund Requests">Awaiting for Fund Requests</option>
                                     <option value="Closed Requests">Closed Requests</option>
                                     <option value="Rejected Requests">Rejected Requests</option>
@@ -44,15 +44,15 @@
                                     <option value="Under Review Requests">Under Review Requests</option>
                                  </select>
                                 <!-- <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg> -->
-                            </div>
-                          </form>
+                             </div>
+                           </form>
                             <form class="col-lg-2">
                                     <div class="form-group">
                                         <label for="Filter" class="font-size-13"> From Date</label>
                                         <div class="input-group">
                                         <input (click)="dp.toggle()" (dateSelect) = "selectFromDate($event)" [value]="fromDate" class="form-control date-picker" ngbDatepicker #dp="ngbDatepicker">
 
-                                        <i style="color: rgb(37, 34, 34) !important;" class="fa fa-calendar"></i>
+                                        <i style="color: rgb(99, 94, 94) !important;" class="fa fa-calendar"></i>
                                       </div>
                                     </div>
                            </form>
@@ -62,7 +62,7 @@
                                   <div class="input-group">
                                       <input (click)="d.toggle()" (dateSelect) = "selectToDate($event)" [value]="toDate" class="form-control date-picker"  ngbDatepicker #d="ngbDatepicker">
 
-                                   <i style="color: rgb(37, 34, 34) !important;" class="fa fa-calendar"></i>
+                                   <i style="color: rgb(99, 94, 94) !important;" class="fa fa-calendar"></i>
                                   </div>
                               </div>
                           </form>

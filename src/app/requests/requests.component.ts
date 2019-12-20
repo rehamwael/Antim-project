@@ -116,20 +116,19 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const customerRequestType = localStorage.getItem('customerRequestType');
+    const selectedtype = localStorage.getItem('selectedCustomerRequestType');
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0);
-    });
-    this.CustomerRequestType = 'All Requests';
+    // this.router.events.subscribe((evt) => {
+    //   if (!(evt instanceof NavigationEnd)) {
+    //     return;
+    //   }
+    //   window.scrollTo(0, 0);
+    // });
     this.dataSourceAll.paginator = this.paginator;
     this.dataSourceAll.sort = this.sort;
-    const customerRequestType = localStorage.getItem('customerRequestType');
-    const selectedtype = localStorage.getItem('selectedCustomerRequestType');
     this.getCustomerRequestFromStore().then(e => {
       allCustomerRequestData.length = 0;
       if (this.isDatainArray == true && this.allRequestData.length > 0) {
