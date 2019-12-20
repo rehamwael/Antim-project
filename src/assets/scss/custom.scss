@@ -450,6 +450,7 @@ svg.arrow {
     option{
         color: #c5c5c5;
     }
+    -webkit-appearance: menulist;
 }
 input#Lender,input#Borrower {
     float: right;

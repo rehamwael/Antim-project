@@ -105,7 +105,34 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     let selectedFunderRequestType = localStorage.getItem('selectedFunderRequestType');
     if (this.requestTypeInStore == selectedFunderRequestType && selectedFunderRequestType != null) {
       this.selectedRequestType = this.requestTypeInStore;
-      this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
+      this.spinner.show();
+      this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
+        if (res.message) {
+          this.dataSource = new MatTableDataSource<PeriodicElement>(null);
+          this.showMessage = true;
+          this.showErrorToast('Error!!', res.message, 'error');
+          this.spinner.hide();
+        } else {
+          this.awaitingRequestsData = res.result;
+          AllAwaitingRequests.length = 0;
+          this.awaitingRequestsData.forEach(element => {
+            AllAwaitingRequests.push(element);
+            element.date = moment(element.updatedAt).format('LL');
+            element.price = element.totalPaybackAmount + ' SAR';
+            element.status = 'AWAITING FOR FUND';
+          });
+          this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
+          console.log('AllawaitingRequests:', AllAwaitingRequests);
+          this.spinner.hide();
+          if (this.dataSource.filteredData.length == 0) {
+          } else {
+            this.showMessage = false;
+          }
+        }
+      }, err => {
+        console.log(err);
+        this.spinner.hide();
+      });
     } else {
       this.spinner.show();
       this.funderRequestService.getFunderAllRequests().subscribe(res => {
@@ -169,6 +196,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.spinner.show();
       this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
         if (res.message) {
+          this.dataSource = new MatTableDataSource<PeriodicElement>(null);
           this.showMessage = true;
           this.showErrorToast('Error!!', res.message, 'error');
           this.spinner.hide();
@@ -193,6 +221,11 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         console.log(err);
         this.spinner.hide();
       });
+    }
+    if (this.dataSource.filteredData.length == 0) {
+      this.showMessage = true;
+    } else {
+      this.showMessage = false;
     }
   }
   openProductDetails(row) {
@@ -229,10 +262,10 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           // this.noOfCheckBoxes = 12;
         }
         this.RequestType_ENUM = res.result.requestStatus;
-        if (this.RequestType_ENUM == 2) {
+        if (this.RequestType_ENUM == 1) {
           this.RequestType = 'Ongoing';
         }
-        if (this.RequestType_ENUM == 3) {
+        if (this.RequestType_ENUM == 2) {
           this.RequestType = 'Closed';
         }
         this.spinner.hide();

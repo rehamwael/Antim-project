@@ -84,6 +84,7 @@ export class AuthenticationEffects {
   LoginFailure: Observable<any> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN_FAILURE),
     tap((res) => {
+      console.log(res);
       if (res.payload.error.error_description) {
         this.showToast('Error!!', res.payload.error.error_description, 'error');
       } else {

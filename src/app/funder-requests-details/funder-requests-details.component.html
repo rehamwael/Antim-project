@@ -41,7 +41,7 @@
                         <div class="col-lg-2 ">
                           </div>
                           <div class="form-group col-lg-4" *ngIf="showFundButton">
-                            <button class="btn btn-info btn-lg btn-block btn-green mt-2"  (click)="makeFund()">Make Fund</button>
+                            <button class="btn btn-info btn-lg btn-block btn-green mt-2"  (click)="OpenPopUp(content)">Make Fund</button>
                         </div>
                         </div>
                     <div class="row" style="width: 100%;">
@@ -109,23 +109,26 @@
             <br/>
             <br/>
             </div>
-            <ng-template #content1 let-modal>
+            <ng-template #content let-modal>
+
                 <div class="modal-header">
-                    <h4 class="modal-title">Request Sent!</h4>
+                    <h4 class="modal-title">Make Fund</h4>
                     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-              <div class="modal-body py-5">
-                <p class="my-4">
-                  Dear Customer Your order has been successfully sent and <br/>will be reviewed and answered as soon as possible
+                  <div class="modal-body py-3">
+                    <p class="my-3 mx-3">
+                          Do you  want to Make Fund for this Request Name : {{requestName}}?
+                    </p>
+                    <div class="row py-2" style="width: 100%;">
+                        <div class="col-lg-3"></div>
+                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">CLOSE</button></div>
+                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="makeFund()">CONFIRM</button></div>
 
-
-                </p>
-                <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" (click)="modal.close('Close click')">CLOSE</button></div>
-
-              </div>
-            </ng-template>
+                  </div>
+                  </div>
+                </ng-template>
 
 
         </div>
