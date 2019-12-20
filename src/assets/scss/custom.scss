@@ -193,7 +193,7 @@ div.card-header button:hover {
     text-decoration: none;
 }
 button.btn.btn-link.collapsed:after {
-    content: "+";
+    // content: "+";
     font-size: 26px;
     position: absolute;
     right: 26px;
@@ -201,7 +201,7 @@ button.btn.btn-link.collapsed:after {
     font-weight: 300;
 }
 button.btn.btn-link:after {
-    content: "-";
+    // content: "-";
     font-size: 26px;
     position: absolute;
     right: 26px;

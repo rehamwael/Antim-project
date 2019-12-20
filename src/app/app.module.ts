@@ -67,6 +67,9 @@ import { CustomerRequestDetailsComponent } from './customer-request-details/cust
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { FunderRequestsDetailsComponent } from './funder-requests-details/funder-requests-details.component';
 import { CountdownModule } from 'ngx-countdown';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatIconModule} from '@angular/material/icon';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -137,7 +140,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgxSpinnerModule,
     MatPaginatorModule,
     MatSortModule,
-    CountdownModule
+    CountdownModule,
+    MatTooltipModule,
+    MatIconModule,
+
   ],
   providers: [
     {

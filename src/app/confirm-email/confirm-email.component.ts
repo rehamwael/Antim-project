@@ -13,6 +13,9 @@ export class ConfirmEmailComponent implements OnInit {
   userID: any;
   newEmail = '';
   options: IndividualConfig;
+  showMessage = false;
+  internalError = false;
+  showConfirmMessage = false;
 
   constructor(
     private userEmailService: ProfileService,
@@ -43,22 +46,40 @@ showErrorToast(title, message, type) {
         this.userID,
         this.code
       ).subscribe(async (res) => {
+        this.showConfirmMessage = true;
         console.log('resultt: ', res);
         this.showSuccessToast('OK!!', res.message, 'success');
+        this.showMessage = false;
       }, err => {
+        this.showConfirmMessage = false;
+        if (err.status == 500) {
+          this.internalError = true;
+          this.showMessage = false;
+        } else {
+          this.showMessage = true;
+        }
         console.log('error: ', err);
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        // this.showErrorToast('Error!!', err.error.message, 'error');
       });
     } else {
         this.userEmailService.confirmEmail(
           this.userID,
           this.code
         ).subscribe(async (res) => {
+          this.showConfirmMessage = true;
           console.log('result: ', res);
           this.showSuccessToast('OK!!', res.message, 'success');
+          this.showMessage = false;
         }, err => {
+          this.showConfirmMessage = false;
+          if (err.status == 500) {
+            this.internalError = true;
+            this.showMessage = false;
+          }  else {
+            this.showMessage = true;
+          }
           console.log('error: ', err);
-          this.showErrorToast('Error!!', err.error.message, 'error');
+          // this.showErrorToast('Error!!', err.error.message, 'error');
         });
        }
   }
