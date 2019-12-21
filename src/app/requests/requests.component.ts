@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -29,7 +29,8 @@ let filterRequestData: PeriodicElement[] = [];
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.scss']
+  styleUrls: ['./requests.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class RequestsComponent implements OnInit, OnDestroy {
@@ -121,15 +122,14 @@ export class RequestsComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
-    // this.router.events.subscribe((evt) => {
-    //   if (!(evt instanceof NavigationEnd)) {
-    //     return;
-    //   }
-    //   window.scrollTo(0, 0);
-    // });
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
+    });
     this.dataSourceAll.paginator = this.paginator;
     this.dataSourceAll.sort = this.sort;
-    this.CustomerRequestType = 'All Requests';
     this.getCustomerRequestFromStore().then(e => {
       allCustomerRequestData.length = 0;
       if (this.isDatainArray == true && this.allRequestData.length > 0) {
@@ -140,9 +140,12 @@ export class RequestsComponent implements OnInit, OnDestroy {
           element.price = element.totalPaybackAmount + ' SAR';
           element.status = this.requestTypes[element.type].type;
         });
-        this.showMessage = false;
+        this.CustomerRequestType = 'All Requests';
+        this.dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
         console.log('customerAllRequests:', allCustomerRequestData);
+        this.showMessage = false;
       } else {
+        this.dataSourceAll = new MatTableDataSource<PeriodicElement>(null);
         this.showMessage = true;
       }
       if (customerRequestType == selectedtype) {

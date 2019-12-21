@@ -69,6 +69,8 @@ import { FunderRequestsDetailsComponent } from './funder-requests-details/funder
 import { CountdownModule } from 'ngx-countdown';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
+// import {MatSelectModule} from '@angular/material';
+import {MatSelectModule} from '@angular/material/select';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -143,7 +145,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CountdownModule,
     MatTooltipModule,
     MatIconModule,
-
+    MatSelectModule
   ],
   providers: [
     {

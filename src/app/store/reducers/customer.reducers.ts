@@ -92,6 +92,11 @@ export function reducer(state = initialState, action: CustomerRequests): State {
         customerRequestsData: deletedRequest,
       };
     }
+    case CustomerActionTypes.REMOVE_REQUESTS_FROM_STORE: {
+      console.log(initialState);
+      return initialState;
+    }
+
     default: {
       return state;
     }
