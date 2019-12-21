@@ -129,6 +129,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     // });
     this.dataSourceAll.paginator = this.paginator;
     this.dataSourceAll.sort = this.sort;
+    this.CustomerRequestType = 'All Requests';
     this.getCustomerRequestFromStore().then(e => {
       allCustomerRequestData.length = 0;
       if (this.isDatainArray == true && this.allRequestData.length > 0) {
