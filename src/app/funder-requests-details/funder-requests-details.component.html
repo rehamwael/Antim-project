@@ -1,0 +1,135 @@
+
+
+      <div>
+          <div class="row">
+              <nav id="navbar-app" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav" ngStickyNav stickyClass="sticky-fixed-header">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+                          <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <a class="navbar-brand" [routerLink]="[ '/' ]">
+                          <img src="assets/images/logo-white.svg" alt="antim">
+
+                  </a>
+          </nav>
+              <aside class="left-sidebar col-lg-4">
+                  <!-- Sidebar scroll-->
+                  <div class="scroll-sidebar">
+                      <app-sidebar></app-sidebar>
+                  </div>
+                  <!-- End Sidebar scroll-->
+              </aside>
+              <div class="page-wraper-right row">
+                <app-setting></app-setting>
+            </div>
+
+
+
+          <div class="page-wraper-right full-width" >
+
+              <div class="justify-content-center col-lg-11 mat-card mt-4 p-0 mb-5">
+                  <div class="mat-card row p-4 m-0">
+                      <div class="header col-lg-9">
+                        <span class="icon-close" [routerLink]="['/requests-funder']"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
+                        <p>Request Details</p>
+                      </div>
+                    </div>
+
+                <form class="col-lg-10 row antim-form p-5 mt-2 mb-5 m-auto" [formGroup]="editRequestForm">
+                    <div class="row" style="width: 100%;">
+                      <div class="col-lg-6 padding mt-4"><h3 class="headingh3">Request Details</h3>
+                        </div>
+                        <div class="col-lg-2 ">
+                          </div>
+                          <div class="form-group col-lg-4" *ngIf="showFundButton">
+                            <button class="btn btn-info btn-lg btn-block btn-green mt-2"  (click)="makeFund()">Make Fund</button>
+                        </div>
+                        </div>
+                    <div class="row" style="width: 100%;">
+                      <div class="col-lg-12">
+                          <label for="Name" class="font-bold mt-2">Request Name: </label>
+                          <input formControlName="ProductName" class="form-control form-control-lg" value="{{requestName}}"  placeholder="Product Name"  [attr.disabled]="true">
+                      </div>
+                    </div>
+
+
+                    <div class="row" style="width: 100%;" *ngFor="let product of productList; let i = index;" >
+                        <div class="form-group text-left col-lg-9"   >
+                            <label  class="font-bold mt-2">Product Link</label>
+                            <input  class="form-control form-control-lg" placeholder="Enter product link here …" type="text" readonly value="{{product.productUrl}}">
+                        </div>
+                        <div class="form-group text-left col-lg-3"   >
+                            <label  class="font-bold mt-2">Product Price:</label>
+                            <input  class="form-control form-control-lg" placeholder="Enter price here..."  type="number" readonly value="{{product.amount}}">
+                          </div>
+                      </div>
+
+                    <div class="row" style="width: 100%;">
+                        <div class="col-lg-4">
+                          <label for="RequestDate" class="font-bold mt-2">Request Date</label>
+                          <input formControlName="RequestDate" class="form-control form-control-lg" value="{{requestDate}}" placeholder="Request Date" readonly [attr.disabled]="true">
+                      </div>
+                      <div class="col-lg-4">
+                          <label for="Amount" class="font-bold mt-2">Total price</label>
+                          <input formControlName="FundingAmount" class="form-control form-control-lg" value="{{totalPrice}}" type="number" placeholder="Amount of funding"  [attr.disabled]="true" readonly>
+                      </div>
+                      <div class="col-lg-4">
+                        <label for="totalAmount" class="font-bold mt-2">Total Payable Amount</label>
+                        <input formControlName="TotalAmount" class="form-control form-control-lg" value="{{totalPriceWithProfit}}" type="number" placeholder="Installment amount per month" [attr.disabled]="true" readonly>
+                    </div>
+                  </div>
+
+                   <div class="row" style="width: 100%;">
+                   <div class="col-lg-4" >
+                      <label for="Installment" class="font-bold mt-2">Installment Period</label>
+                      <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{installmentPeriod}}" placeholder="Installment Period" [attr.disabled]="true">
+                  </div>
+
+                      <div class="col-lg-4">
+                          <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
+                          <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}"   readonly placeholder="Installment amount per month" [attr.disabled]="true">
+                      </div>
+                  </div>
+                  <div class="row" style="width: 100%;">
+                      <div class="col-lg-6">
+                        <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
+                        <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{requestType}}" readonly [attr.disabled]="true">
+                      </div>
+
+
+                      <div class="col-lg-6"></div>
+                      </div>
+
+
+
+                      <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+                color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
+                <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+                </ngx-spinner>
+                      </form>
+            <br/>
+            <br/>
+            </div>
+            <ng-template #content1 let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title">Request Sent!</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+              <div class="modal-body py-5">
+                <p class="my-4">
+                  Dear Customer Your order has been successfully sent and <br/>will be reviewed and answered as soon as possible
+
+
+                </p>
+                <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" (click)="modal.close('Close click')">CLOSE</button></div>
+
+              </div>
+            </ng-template>
+
+
+        </div>
+
+
+
+        </div>

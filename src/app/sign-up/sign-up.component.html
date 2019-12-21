@@ -106,24 +106,23 @@
                               <div *ngIf="SigUpForm.controls['phone'].touched && SigUpForm.controls['phone'].hasError('required')" class="error-msg alert alert-danger text-left">Phone Number is required</div>
                               <span class="redColor" id="phonenumber"> Phone number must be at least 9 characters long.</span>
                            </div>
-                           <div class="row justify-content-center align-items-center">
-                           <div class="col-lg-8 col-11 text-center">
+                           <!-- <div class="row justify-content-center align-items-center"> -->
+                           <!-- <div class="col-lg-8 col-11 text-center">
                               <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
-                              <!-- <label for="box-1">I agree on my <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label> -->
                               <label for="box-1">I agree on my <span class="text-underline" ><a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
                            </div>
                            <div class="col-lg-8 col-11 mt-4 text-center">
                               <input type="checkbox" id="box-2"  (change)="changeCheck2($event)">
-                              <!-- <label for="box-2">I agree on intime <span class="text-underline" [routerLink]="['/terms-conditions']">Terms & Condtions</span></label> -->
                               <label for="box-2">I agree on intime <span class="text-underline" ><a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
-                           </div>
-                           <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
-                           <div class="form-group col-lg-6">
+                           </div> -->
+                           <div class="col-lg-12 mt-2 row justify-content-center align-items-center pb-4">
+                           <div class="form-group col-lg-1"></div>
+                              <div class="form-group col-lg-4">
                               <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="PrevStep()">back</button>
                           </div>
                           <div class="form-group col-lg-4">
                               <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
-                                [disabled]="!isButtonDisabled || !SigUpForm.valid">Sign Up</button>
+                                [disabled]="!SigUpForm.valid">Sign Up</button>
                                 <!-- <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
                               [disabled]="!isButtonDisabled  || signupFirstName.length == 0 || signupLastName.length == 0 || signupIdNum.length == 0 || signupUserName.length >= 6 ||
                               signupPassword.length >= 9 || signupEmail.valid || !numberEntered || signupCPassword.length >= 9">Sign Up</button> -->
@@ -134,7 +133,7 @@
                           <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
                           </ngx-spinner>
                           </div>
-                      </div>
+                      <!-- </div> -->
                       </div>
              </div>
 
@@ -158,7 +157,8 @@
                       <div class="form-group text-left col-lg-2 col-3 text-center">
                           <input formControlName="Four" class="form-control form-control-lg" #four placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="Fourth" (keyup)="keytab($event, 4)">
                       </div>
-                      <p class="mt-3 col-lg-12">The code will expire : 4:36</p>
+                      <!-- <p class="mt-3 col-lg-12">The code will expire : 4:36</p> -->
+                      <p class="mt-3 col-lg-12">The code will expire :  <countdown [config]="{ leftTime: 120, format: 'm:s' }"></countdown></p>
                        <div class="col-lg-11 mt-3 row justify-content-center align-items-center">
                        <div class="form-group col-lg-6">
                           <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="resendOTP()" >Resend</button>

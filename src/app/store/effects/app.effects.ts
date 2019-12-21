@@ -115,6 +115,9 @@ export class AuthenticationEffects {
         return this.userDataService.getUserData().subscribe(res => {
           this.store.dispatch(new SaveUserProfile(res.result));
           this.spinner.hide();
+        }, err => {
+          this.spinner.hide();
+          console.log(err);
         });
       }));
 
@@ -125,8 +128,15 @@ export class AuthenticationEffects {
           tap(() => {
             this.spinner.show();
             return this.customerService.getRequestsCount().subscribe(res => {
+              if (res.message) {
+                this.spinner.hide();
+                this.showErrorToast('Error!!', res.message, 'error');
+              } else {
               console.log('requestCount:', res.result);
               this.store.dispatch(new GetRequestsCountSuccess(res.result));
+              this.spinner.hide();
+              }
+            }, err => {
               this.spinner.hide();
             });
           }));
@@ -165,6 +175,9 @@ export class AuthenticationEffects {
           // this.showErrorToast('', res.message, 'error');
         }
         this.spinner.hide();
+      }, err => {
+        this.spinner.hide();
+        console.log('Error:', err.error);
       });
     }));
 

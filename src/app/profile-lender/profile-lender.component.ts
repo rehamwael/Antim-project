@@ -33,11 +33,14 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   currentUser: any;
   userAddress: any;
   userBankInfo: any;
+
   name: any;
   email: any;
   phone: any;
   countryCode: any;
   NID: any;
+  userBalance: any;
+
   address: any;
   city: any;
   country: any;
@@ -47,7 +50,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
 
   bankName: any;
   bankAccountNo: any;
-  Iban: any;
+  IBAN: any;
   bankAddress: any;
   accountTitle: any;
   fundingLimit: any;
@@ -57,8 +60,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   phoneNumber: any;
   numberEntered = false;
   disableButton = false;
-  userBank: any;
-  userAdress: any = [];
+  BankArray: any;
+  AddressArray: any;
   leafletLayers;
   leafletOptions;
   mapCenter;
@@ -68,7 +71,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   EditForm: FormGroup;
   BankInfoForm: FormGroup;
   AddressForm: FormGroup;
+  UserBalance: FormGroup;
   disabledBankButton = true;
+  disableBalanceButton = false;
   showProfit = false; // hidden by default
   showAddress = false;
   showBank = false;
@@ -166,19 +171,19 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(10)
       ])],
-      'AccountTitle': [{ value: this.accountTitle, disabled: this.disabledBankButton }, Validators.compose([
-        Validators.required,
-        Validators.minLength(6)
-      ])],
+      // 'AccountTitle': [{ value: this.accountTitle, disabled: this.disabledBankButton }, Validators.compose([
+      //   Validators.required,
+      //   Validators.minLength(6)
+      // ])],
       'IBAN': [{ value: this.accountTitle, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required,
         Validators.pattern('^[SA]+[A-Za-z0-9]{25,25}$')
       ])],
 
-      'BankAddress': [{ value: this.bankAddress, disabled: this.disabledBankButton }, Validators.compose([
-        Validators.required,
-        Validators.minLength(10)
-      ])],
+      // 'BankAddress': [{ value: this.bankAddress, disabled: this.disabledBankButton }, Validators.compose([
+      //   Validators.required,
+      //   Validators.minLength(10)
+      // ])],
       'FundingLimit': [{ value: this.fundingLimit, disabled: this.disabledBankButton }, Validators.compose([
         Validators.required
       ])]
@@ -214,6 +219,11 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       ])],
     });
 
+    // this.UserBalance = fb.group({
+    //   'MyBalance':  [{ value: this.UserBalance, disabled: this.disabledButton }, Validators.compose([
+    //     Validators.required
+    //   ])],
+    // });
 
   }
   showSuccessToast(title, message, type) {
@@ -228,16 +238,15 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.currentUser = res.result;
         this.NID = res.result.nationalIdNumber;
         this.phone = res.result.phoneNumber;
+        this.countryCode = res.result.dialingCode;
         this.email = res.result.email;
         this.name = res.result.firstName;
-        this.countryCode = res.result.dialingCode;
+        resolve(res);
         this.userId = res.result.id;
         this.userName = res.result.userName;
-        this.userAdress = res.result.userAddresses;
-        this.userBank = res.result.userBanks;
-        resolve(res.result);
+        this.AddressArray = res.result.userAddresses;
+        this.BankArray = res.result.userBanks;
         console.log('userINFO:', res.result);
-
       }, err => {
         console.log('ERROR:', err);
         reject(err);
@@ -247,9 +256,10 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.showUser = true;
     this.spinner.show();
+    this.showUser = true;
     this.getUserINFO().then(e => {
+      if (this.AddressArray.length > 0) {
       this.profileService.getUserAddress().subscribe(res => {
         this.userAddress = res.result;
         this.address = res.result.address;
@@ -263,18 +273,23 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }, err => {
         console.log('ERROR:', err);
       });
+    }
+    if (this.BankArray.length > 0) {
+
       this.profileService.getUserBankInfo().subscribe(res => {
         this.userBankInfo = res.result;
         this.bankName = res.result.bankName;
-        this.bankAddress = res.result.address;
-        this.accountTitle = res.result.accountTitle;
+        // this.bankAddress = res.result.address;
+        // this.accountTitle = res.result.accountTitle;
         this.bankAccountNo = res.result.accountNumber;
         this.fundingLimit = res.result.fundingLimit;
+        this.IBAN = res.result.ibaNnumber;
         this.bankID = res.result.id;
         console.log('userBankInfo:', this.userBankInfo);
       }, err => {
         console.log('ERROR:', err);
       });
+    }
       this.spinner.hide();
     });
 
@@ -284,7 +299,6 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     body.classList.add('profile');
     this.BankInfoForm.get('BankName').disable();
     this.BankInfoForm.get('BankAccountNo').disable();
-    this.BankInfoForm.get('AccountTitle').disable();
     this.BankInfoForm.get('IBAN').disable();
     this.BankInfoForm.get('FundingLimit').disable();
     // this.BankInfoForm.get('investmentPerYear').disable();
@@ -430,21 +444,21 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.disableBankButton = true;
     this.BankInfoForm.get('BankName').enable();
     this.BankInfoForm.get('BankAccountNo').enable();
-    this.BankInfoForm.get('AccountTitle').enable();
     this.BankInfoForm.get('IBAN').enable();
     this.BankInfoForm.get('FundingLimit').enable();
 
     // this.BankInfoForm.get('investmentPerYear').enable();
   }
   SaveBankInfo() {
-    if (this.userBank.length > 0) {
+    if (this.BankArray.length > 0) {
       this.spinner.show();
       this.profileService.editUserBankInfo({
         'id': this.bankID,
         'BankName': this.bankName,
-        'Address': this.bankAddress,
-        'AccountTitle': this.accountTitle,
+        // 'Address': this.bankAddress,
+        // 'AccountTitle': this.accountTitle,
         'AccountNumber': this.bankAccountNo,
+        'IBANnumber': this.IBAN,
         'FundingLimit': this.fundingLimit
       }).subscribe((res) => {
         console.log('Bank Info edited:', res);
@@ -452,7 +466,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.showSuccessToast('OK!!', res.message, 'success');
         this.BankInfoForm.get('BankName').disable();
         this.BankInfoForm.get('BankAccountNo').disable();
-        this.BankInfoForm.get('AccountTitle').disable();
+        // this.BankInfoForm.get('AccountTitle').disable();
         this.BankInfoForm.get('IBAN').disable();
         this.BankInfoForm.get('FundingLimit').disable();
         this.disableBankButton = false;
@@ -465,9 +479,10 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.spinner.show();
       this.profileService.addUserBankInfo({
         'BankName': this.bankName,
-        'Address': this.bankAddress,
-        'AccountTitle': this.accountTitle,
+        // 'Address': this.bankAddress,
+        // 'AccountTitle': this.accountTitle,
         'AccountNumber': this.bankAccountNo,
+        'IBANnumber': this.IBAN,
         'FundingLimit': this.fundingLimit
       }).subscribe((res) => {
         console.log('BANK  Added:', res);
@@ -475,7 +490,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.showSuccessToast('OK!!', res.message, 'success');
         this.BankInfoForm.get('BankName').disable();
         this.BankInfoForm.get('BankAccountNo').disable();
-        this.BankInfoForm.get('AccountTitle').disable();
+        // this.BankInfoForm.get('AccountTitle').disable();
         this.BankInfoForm.get('IBAN').disable();
         this.BankInfoForm.get('FundingLimit').disable();
         this.disableBankButton = false;
@@ -495,7 +510,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.AddressForm.get('Zip').enable();
   }
   SaveAddressInfo() {
-    if (this.userAdress.length > 0) {
+    if (this.AddressArray.length > 0) {
       this.spinner.show();
       this.profileService.editUserAddress({
         'Id': this.addressID,
@@ -593,9 +608,31 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.numberEntered = false;
     }
   }
-  onSelectChange(value) {
+  SelectBank(value) {
     this.bankName = value;
   }
+  // EditBalanceInfo() {
+  //   this.disableBalanceButton = true;
+  //   this.UserBalance.get('MyBalance').enable();
+  // }
+  // SaveBalanceInfo() {
+  //     this.spinner.show();
+  //     this.profileService.addUserBalance({
+  //       'UserId': this.userId,
+  //       'UserBalance': this.userBalance
+  //     }).subscribe((res) => {
+  //       console.log('balance info', res);
+  //       this.spinner.hide();
+  //       this.showSuccessToast('OK!!', res.message, 'success');
+  //       this.disableBalanceButton = false;
+  //       this.UserBalance.get('MyBalance').disable();
+  //     }, err => {
+  //       this.spinner.hide();
+  //       this.showErrorToast('Error!!', err.error.message, 'error');
+  //     });
+
+  // }
+
 
   // tslint:disable-next-line: member-ordering
   public barChartColors: Color[] = [

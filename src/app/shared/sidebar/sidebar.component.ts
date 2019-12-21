@@ -80,6 +80,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.clear();
     this.store.dispatch(new Logout());
   }
 }

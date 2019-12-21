@@ -24,6 +24,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CustomerRequestDetailsComponent } from './customer-request-details/customer-request-details.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { FunderRequestsDetailsComponent } from './funder-requests-details/funder-requests-details.component';
 
 export const Approutes: Routes = [
   {
@@ -75,7 +76,6 @@ export const Approutes: Routes = [
         data: { userRole: ['customer'] }
       },
       {
-        // path: 'requests-customer/:type',
         path: 'requests-customer',
         component: RequestsComponent,
         canActivate: [AuthGuard],
@@ -100,12 +100,17 @@ export const Approutes: Routes = [
         data: { userRole: ['funder'] }
       },
       {
-        // path: 'requests-funder/:type',
         path: 'requests-funder',
         component: RequestLenderComponent,
         canActivate: [AuthGuard],
         data: { userRole: ['funder'] }
-      } ,
+      },
+      {
+        path: 'requests-funder/:id',
+        component: FunderRequestsDetailsComponent,
+        data: { userRole: ['funder'] },
+        canActivate: [AuthGuard],
+      },
       {
         path: 'profile-funder',
         component: ProfileLenderComponent,

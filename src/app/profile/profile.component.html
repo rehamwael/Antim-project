@@ -93,7 +93,7 @@
 
                                 <div class="col-lg-2">
                                     <label for="countrycode" class="font-bold mt-2">Country Code :</label>
-                                    <input matInput formControlName="CountryCode" type="number" class="form-control form-control-lg" value= "{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" >
+                                    <input matInput formControlName="CountryCode" type="text" class="form-control form-control-lg" value="{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" >
                                     <div *ngIf="EditForm.controls['CountryCode'].touched && EditForm.controls['CountryCode'].hasError('required')" class="error-msg alert alert-danger text-left"> Country Code is required</div>
                                 </div>
                             <div class="col-lg-6">

@@ -32,6 +32,9 @@ export class DashboredComponent implements OnInit, OnDestroy {
     private customerRequestService: CustomerRequestService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+  }
+
+  ngOnInit(): void {
     this.getState.subscribe((state) => {
       console.log('state', state);
       const token = localStorage.getItem('token');
@@ -41,9 +44,7 @@ export class DashboredComponent implements OnInit, OnDestroy {
       }
       console.log( 'USER:' ,  this.currentUser);
     });
-  }
 
-  ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('dashbored-home');

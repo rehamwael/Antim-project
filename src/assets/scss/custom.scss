@@ -230,7 +230,7 @@ select#langSelctor{
 .sticky-fixed-header #langSelctor{
     color: #000;
 }
-.sticky-fixed-header header svg , .contact header svg{
+.sticky-fixed-header svg , .contact header svg , .log-in header svg{
     fill: #000;
 }
 .profile{
@@ -462,6 +462,7 @@ svg.arrow {
 }
 .custom-select{
     border: 1px solid #dad9d8;
+    position: relative;
     height: 62px;
     padding: 1.175rem 1.5rem;
     color: #c5c5c5;
@@ -773,6 +774,15 @@ ol {
     font-weight: 100;
     font-size: 14px;
     margin-bottom: 2rem;
+    height: 155px;
+}
+.box-content-2{
+    background-color: #fff;
+    box-shadow: 0 15px 20px 0 rgba(148,148,148,0.1);
+    padding: 1rem;
+    font-weight: 100;
+    font-size: 14px;
+    margin-bottom: 1rem;
 }
 .mat-tab-label-container {
     display: flex;
@@ -998,6 +1008,12 @@ nav#navbar-app {
         position: relative;
     }
 }
+@media (max-width: 780px){
+    ul.nav {
+        display: -webkit-box;
+        display: inline-table;
+    }
+}
 @media (max-width: 370px){
     div.easy-for-you .col-lg-10 {
         position: relative;
@@ -1024,6 +1040,9 @@ nav#navbar-app {
 @media (max-width: 992px){
     .bg-dark-right{
         display: none;
+    }
+    .steps-antim .col-lg-3, .steps-antim .col-lg-3 p {
+        text-align: center !important;
     }
     .container.mt-5.d-flex.justify-content-center.flex-column.text-center h3 {
         text-align: left;
@@ -1376,9 +1395,6 @@ nav#navbar-app {
     div.mt-10 {
         margin-top: 0em;
         text-align: left !important;
-        .text-right{
-            text-align: left !important;
-        }
     }
     .antim-img-header{
         display: none;
@@ -1479,6 +1495,18 @@ nav#navbar.sticky-fixed-header {
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.08em;
+}
+.dark-grey-text-color a {
+    text-decoration: underline;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+}
+.dark-grey-text-color{
+    color: #5d5a55;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
 }
 .white-text{
     color: #fff;

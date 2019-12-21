@@ -93,7 +93,7 @@
 
                                       <div class="col-lg-2">
                                           <label for="countrycode" class="font-bold mt-2">Country Code :</label>
-                                          <input matInput formControlName="CountryCode" type="number" class="form-control form-control-lg" value= "{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" >
+                                          <input matInput formControlName="CountryCode" type="text" class="form-control form-control-lg" value="{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" >
                                           <div *ngIf="EditForm.controls['CountryCode'].touched && EditForm.controls['CountryCode'].hasError('required')" class="error-msg alert alert-danger text-left"> Country Code is required</div>
                                       </div>
                                   <div class="col-lg-6">
@@ -133,10 +133,7 @@
                                          <div class="col-lg-11 mt-3 row justify-content-center align-items-center">
                                          <div class="form-group col-lg-6">
                                             <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="ResendOTP()" >Resend</button>
-                                            <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
-                                          color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                          <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
-                                          </ngx-spinner>
+
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="verifyOTP()"  [disabled]="(!first && first!=0) || (!second && second!=0) ||(!third && third!=0) ||(!Fourth && Fourth!=0)">Verify</button>
@@ -148,6 +145,32 @@
                                     </div>
                                     </div>
                            </div>
+
+
+                           <!-- BALANCE-->
+                         <!--  <form class="row antim-form mt-3 mb-3" [formGroup]="UserBalance" >
+                              <div class="col-lg-12 mb-2"><h3 class="headingh3">My Antime Balance</h3></div>
+                            <div class="col-lg-8">
+                              <label for="balance" class="font-bold mt-2">My Balance</label>
+                              <input matInput formControlName="MyBalance" class="form-control form-control-lg" value="{{userBalance}}" digitOnly [(ngModel)]="userBalance" >
+                              <div *ngIf="UserBalance.controls['MyBalance'].touched && UserBalance.controls['MyBalance'].hasError('required')" class="error-msg alert alert-danger text-left">Balance is required</div>
+                            </div>
+                          </form>
+                           <div class="col-lg-12 mt-2 row justify-content-end py-4 mt-4" >
+                              <div class="form-group col-lg-3">
+                                     <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBalanceInfo()">
+                                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                          </svg>
+                                          <span class="px-3">Edit</span>
+                                      </button>
+                                  </div>
+                                  <div class="form-group col-lg-3">
+                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableBalanceButton" (click)="SaveBalanceInfo()">Save</button>
+                                </div>
+                      </div> -->
+
+
 
                                 <!-- <div class="col-lg-12">
                                         <label for="Address" class="font-bold mt-2">Address</label>
@@ -182,7 +205,7 @@
                                     </div> -->
                                     <div class="col-lg-6">
                                         <label for="bankName" class="font-bold mt-2">Bank Name</label>
-                                        <select formControlName="BankName" class="form-control custom-select form-control-lg" value="{{bankName}}" [(ngModel)]="bankName" (change)="onSelectChange($event.target.value)">
+                                        <select formControlName="BankName" class="form-control custom-select form-control-lg" value="{{bankName}}" [(ngModel)]="bankName" (change)="SelectBank($event.target.value)">
                                             <option value="AlBilad Bank" selected>AlBilad Bank</option>
                                             <option value="AlRajhi Bank" >AlRajhi Bank</option>
                                             <option value="AlFransi Bank" >AlFransi Bank</option>
@@ -233,7 +256,7 @@
                                     </div> -->
                                     <div class="col-lg-6">
                                         <label for="IBAN" class="font-bold mt-2">IBAN Number</label>
-                                        <input matInput formControlName="IBAN" class="form-control form-control-lg" value=""[(ngModel)]="Iban" maxlength="26"  placeholder="SA 0000XXXXXXXXX">
+                                        <input matInput formControlName="IBAN" class="form-control form-control-lg" value="{{IBAN}}"[(ngModel)]="IBAN" maxlength="26"  placeholder="SA 0000XXXXXXXXX">
                                         <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('required')" class="error-msg alert alert-danger text-left">IBAN Number is required</div>
                                         <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('pattern')" class="error-msg alert alert-danger text-left">IBAN Number must start with "SA" + 24 digits.</div>
                                     </div>
@@ -333,7 +356,7 @@
                                         </button>
                                     </div>
                                     <div class="form-group col-lg-2">
-                                      <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!disableBankButton" (click)="SaveBankInfo()">Save</button>
+                                      <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!disableBankButton || !BankInfoForm.valid " (click)="SaveBankInfo()">Save</button>
                                   </div>
                                   <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                                   color = "white" type = "ball-clip-rotate" [fullScreen] = "true">

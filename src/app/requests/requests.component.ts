@@ -50,7 +50,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'price', 'type'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
   selection = new SelectionModel<PeriodicElement>(true, []);
-  requestType = 'All Requests';
+  CustomerRequestType: any;
   productStatus: any;
   index: any;
   options: IndividualConfig;
@@ -59,37 +59,26 @@ export class RequestsComponent implements OnInit, OnDestroy {
   getState: Observable<any>;
   requestTypes: any[] = [
     {
-      id: 0,
       type: 'All Requests'
     },
     {
-      id: 1,
       type: 'Awaiting for Fund Requests'
     },
     {
-      id: 2,
       type: 'Closed Requests'
     },
     {
-      id: 3,
       type: 'Rejected Requests'
     },
     {
-      id: 4,
       type: 'Ongoing Requests'
     },
     {
-      id: 5,
       type: 'Draft Requests'
     },
     {
-      id: 6,
-      type: 'Accepted Requests'
-    },
-    {
-      id: 7,
       type: 'Under Review Requests'
-    },
+    }
   ];
   constructor(
     private modalService: NgbModal,
@@ -104,7 +93,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
     this.showMessage = false;
-    this.requestType = 'All Requests';
   }
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
@@ -128,10 +116,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.CustomerRequestType = 'All Requests';
     this.dataSourceAll.paginator = this.paginator;
     this.dataSourceAll.sort = this.sort;
-    const type = localStorage.getItem('requestType');
-    const selectedtype = localStorage.getItem('selectedRequestType');
+    const customerRequestType = localStorage.getItem('customerRequestType');
+    const selectedtype = localStorage.getItem('selectedCustomerRequestType');
     this.getCustomerRequestFromStore().then(e => {
       allCustomerRequestData.length = 0;
       if (this.isDatainArray == true && this.allRequestData.length > 0) {
@@ -142,20 +131,16 @@ export class RequestsComponent implements OnInit, OnDestroy {
         element.price = element.totalPaybackAmount + ' SAR';
         element.status = this.requestTypes[element.type].type;
       });
-      if (this.dataSourceAll.filteredData.length == 0) {
-        this.showMessage = true;
-      } else {
-        this.showMessage = false;
-      }
+      this.showMessage = false;
       console.log('customerAllRequests:', allCustomerRequestData);
     } else {
       this.showMessage = true;
     }
-      if (type == selectedtype) {
-        this.requestType = type;
-        this.dataSourceAll.filter = type;
-      } else if (type && !selectedtype) {
-        this.requestType = 'All Requests';
+      if (customerRequestType == selectedtype) {
+        this.CustomerRequestType = customerRequestType;
+        this.dataSourceAll.filter = customerRequestType;
+      } else if (customerRequestType && !selectedtype) {
+        this.CustomerRequestType = 'All Requests';
         this.dataSourceAll.filter = '';
       } else {
         this.dataSourceAll.filter = '';
@@ -176,8 +161,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     body.classList.remove('requests');
-    localStorage.removeItem('requestType');
-    // localStorage.removeItem('selectedRequestType');
+    localStorage.removeItem('customerRequestType');
   }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
@@ -187,17 +171,17 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
   onChange(deviceValue) {
     this.dataSourceAll.filter = deviceValue;
-    this.requestType = deviceValue;
+    this.CustomerRequestType = deviceValue;
+    localStorage.setItem('selectedCustomerRequestType', deviceValue);
     if (deviceValue == 'All Requests') {
       this.dataSourceAll.filter = '';
-      this.requestType = 'All Requests';
+      this.CustomerRequestType = 'All Requests';
     }
     if (this.dataSourceAll.filteredData.length > 0) {
       this.showMessage = false;
     } else {
       this.showMessage = true;
     }
-    localStorage.setItem('selectedRequestType', this.requestType);
   }
 
   openProductDetails(row) {
@@ -293,7 +277,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   resetPage() {
     this.dataSourceAll.filter = '';
     this.dataSourceAll.data = allCustomerRequestData;
-    this.requestType = 'All Requests';
+    this.CustomerRequestType = 'All Requests';
     this.fromDate = '';
     this.toDate = '';
     this.disableSearch = false;

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState } from './../store/app.states';
 import { UserProfile } from './../store/actions/auth.actions';
+import { FunderRequestService } from '../services/funder-requests.service';
 
 @Component({
   selector: 'app-dashbored-lender',
@@ -15,11 +16,17 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
   currentUser: any;
   getState: Observable<any>;
   isAuthenticated: boolean;
+  funderDashboardData: any;
 
-  constructor(public router: Router, private userDataService: ProfileService,
+  constructor(public router: Router,
+    private userDataService: ProfileService,
+    private funderService: FunderRequestService,
     private store: Store<AppState>,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+  }
+
+  ngOnInit(): void {
     this.getState.subscribe((state) => {
       console.log('state', state);
       const token = localStorage.getItem('token');
@@ -29,9 +36,8 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
       }
       // console.log( 'USER:' ,  this.currentUser);
     });
-  }
 
-  ngOnInit(): void {
+
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('dashbored-home');
@@ -40,6 +46,10 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
         return;
       }
       window.scrollTo(0, 0);
+    });
+    this.funderService.getFunderDashboardData().subscribe(res => {
+      this.funderDashboardData = res.result;
+      console.log(this.funderDashboardData);
     });
 
   }

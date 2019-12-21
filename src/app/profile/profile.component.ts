@@ -68,8 +68,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   showAddress = false;
   showBank = false;
   showUser = false;
-  userBank: any;
-  userAdress: any;
+  BankArray: any;
+  AddressArray: any;
   getState: Observable<any>;
   showOTPstep = false;
   OTP: any;
@@ -180,11 +180,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.email = res.result.email;
         this.name = res.result.firstName;
         this.countryCode = res.result.dialingCode;
+        resolve(res);
         this.userId = res.result.id;
         this.userName = res.result.userName;
-        this.userAdress = res.result.userAddresses;
-        this.userBank = res.result.userBanks;
-        resolve(res.result);
+        this.AddressArray = res.result.userAddresses;
+        this.BankArray = res.result.userBanks;
         console.log('userINFO:', res.result);
 
       }, err => {
@@ -198,6 +198,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.showUser = true;
     this.spinner.show();
     this.getUserINFO().then(e => {
+      if (this.AddressArray.length > 0) {
       this.profileService.getUserAddress().subscribe(res => {
         this.userAddress = res.result;
         this.address = res.result.address;
@@ -211,6 +212,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }, err => {
         console.log('ERROR:', err);
       });
+    }
+    if (this.BankArray.length > 0) {
       this.profileService.getUserBankInfo().subscribe(res => {
         this.userBankInfo = res.result;
         this.bankName = res.result.bankName;
@@ -222,6 +225,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }, err => {
         console.log('ERROR:', err);
       });
+    }
       this.spinner.hide();
     });
 
@@ -378,7 +382,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.BankInfoForm.get('BankAddress').enable();
   }
   SaveBankInfo() {
-    if (this.userBank.length > 0) {
+    if (this.BankArray.length > 0) {
       this.spinner.show();
       this.profileService.editUserBankInfo({
         'id': this.bankID,
@@ -433,7 +437,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.AddressForm.get('Zip').enable();
   }
   SaveAddressInfo() {
-    if (this.userAdress.length > 0) {
+    if (this.AddressArray.length > 0) {
       this.spinner.show();
       this.profileService.editUserAddress({
         'Id': this.addressID,

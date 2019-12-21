@@ -71,6 +71,8 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
 }
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { FunderRequestsDetailsComponent } from './funder-requests-details/funder-requests-details.component';
+import { CountdownModule } from 'ngx-countdown';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 1,
@@ -108,7 +110,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ResetPasswordComponent,
     NumberOnlyDirective,
     CustomerRequestDetailsComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    FunderRequestsDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -145,7 +148,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     StoreModule.forRoot(reducers, {}),
     NgxSpinnerModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    CountdownModule
   ],
   providers: [
     {
