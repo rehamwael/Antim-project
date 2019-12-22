@@ -333,12 +333,17 @@
                                 <br/>
 
 
-                                    <div class="col-lg-10 grey-text-color my-5">
+                                    <!-- <div class="col-lg-10 grey-text-color my-5">
                                         <input type="checkbox" id="box-2" (change)="changeCheck($event)">
                                         <label style="font-size: 16px;"for="box-2"> I agree on purchasing the request #1032 showing in the request screen.
                                             <br/>and with the price showing in the request screen.
                                             </label>
-                                    </div>
+                                    </div> -->
+                                    <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request #1032 showing in the request screen.
+                                      and with the <br/>price showing in the request screen.
+                                      <input type="checkbox" (change)="changeCheck($event)">
+                                      <span class="checkmark"></span>
+                                    </label>
 
                               <div>
 

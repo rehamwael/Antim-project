@@ -69,7 +69,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         }
       }
     });
-    console.log( 'USER:' ,  this.currentUser);
+    // console.log( 'USER:' ,  this.currentUser);
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
     this.href = this.router.url;
     const x = this.href.split('/')[1].split('-');
