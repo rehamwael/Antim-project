@@ -59,7 +59,7 @@
                     <div class="row" style="width: 100%;">
                       <div class="col-lg-12">
                           <label for="Name" class="font-bold mt-2">Request Name: </label>
-                          <input formControlName="ProductName" class="form-control form-control-lg" value="{{requestName}}"  placeholder="Product Name"  [attr.disabled]="true">
+                          <input formControlName="ProductName" class="form-control form-control-lg" value="{{requestName}}" readonly placeholder="Product Name"  [attr.disabled]="true">
                       </div>
                     </div>
 
@@ -93,7 +93,7 @@
                    <div class="row" style="width: 100%;">
                    <div class="col-lg-4" >
                       <label for="Installment" class="font-bold mt-2">Installment Period</label>
-                      <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{installmentPeriod}}" placeholder="Installment Period" [attr.disabled]="true">
+                      <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{installmentPeriod}}" placeholder="Installment Period" readonly [attr.disabled]="true">
                   </div>
 
                       <div class="col-lg-4">
@@ -364,27 +364,27 @@
                                 <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                         <mat-form-field>
                                             <label for="numberOfProduct" class="font-bold mt-2">Number of product</label>
-                                            <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} Product">
+                                            <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} Product" readonly>
                                         </mat-form-field>
 
                                         <mat-form-field>
                                             <label for="total" class="font-bold mt-2"> Total price of products:</label>
-                                            <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="{{totalPrice}}">
+                                            <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="{{totalPrice}}" readonly>
                                         </mat-form-field>
 
                                         <mat-form-field>
                                             <label for="InstallmentPeriod" class="font-bold mt-2">Installment Period</label>
-                                            <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}">
+                                            <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}" readonly>
                                         </mat-form-field>
 
                                         <mat-form-field>
                                                 <label for="InstallmentPerMonth" class="font-bold mt-2">Installment amount per month</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="{{monthlyInstallment}}">
+                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="{{monthlyInstallment}}" readonly>
                                         </mat-form-field>
 
                                         <mat-form-field>
                                                 <label for="FinalProduct" class="font-bold mt-2">Total Payable Product Price </label>
-                                                <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}">
+                                                <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}" readonly>
                                         </mat-form-field>
                                         <p class="my-5 grey-text-color">
                                             <span class="mr-1">
