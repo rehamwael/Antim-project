@@ -33,7 +33,7 @@
                             <form class="col-lg-3">
                               <div class="form-group">
                                   <label for="Type" class="font-size-13">Select Request Type</label>
-                                  <select class="form-control form-control-lg mb-2§ custom-select" [(value)]="CustomerRequestType"  (change)="onChange($event.target.value)">
+                                  <select class="form-control form-control-lg mb-2§ custom-select" [(ngModel)]="CustomerRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
                                     <!-- <option *ngFor="let options of requestTypes" >{{options.type}}</option> -->
                                     <option value="All Requests" >All Requests</option>
                                     <option value="Awaiting for Fund Requests">Awaiting for Fund Requests</option>
