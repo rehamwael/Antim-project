@@ -129,7 +129,9 @@ export class FunderRequestsDetailsComponent implements OnInit {
     });
 
   }
-
+  OpenPopUp(content) {
+    this.modalService.open(content, { centered: false });
+  }
   makeFund() {
     this.spinner.show();
     this.funderRequestService.addFunderRequest({
@@ -137,10 +139,13 @@ export class FunderRequestsDetailsComponent implements OnInit {
     }).subscribe(res => {
       this.spinner.hide();
       console.log(res);
+      this.modalService.dismissAll();
       this.showSuccessToast('OK!!', res.message, 'success');
+      this.showFundButton = false;
     }, err => {
       this.spinner.hide();
       console.log(err);
+      this.modalService.dismissAll();
       this.showErrorToast('ERROR!!', err.error.message, 'error');
     });
   }

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { NgbModal, NgbDateStruct, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
@@ -34,7 +34,7 @@ let filterRequestData: PeriodicElement[] = [];
 
 export class RequestsComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   fromDate = null;
   toDate = null;
@@ -50,7 +50,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'price', 'type'];
   dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
   selection = new SelectionModel<PeriodicElement>(true, []);
-  CustomerRequestType: any;
+  CustomerRequestType = 'All Requests';
   productStatus: any;
   index: any;
   options: IndividualConfig;
@@ -116,26 +116,34 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.CustomerRequestType = 'All Requests';
-    this.dataSourceAll.paginator = this.paginator;
-    this.dataSourceAll.sort = this.sort;
     const customerRequestType = localStorage.getItem('customerRequestType');
     const selectedtype = localStorage.getItem('selectedCustomerRequestType');
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('dashbored');
+    body.classList.add('requests');
+    // this.router.events.subscribe((evt) => {
+    //   if (!(evt instanceof NavigationEnd)) {
+    //     return;
+    //   }
+    //   window.scrollTo(0, 0);
+    // });
+    this.dataSourceAll.paginator = this.paginator;
+    this.dataSourceAll.sort = this.sort;
     this.getCustomerRequestFromStore().then(e => {
       allCustomerRequestData.length = 0;
       if (this.isDatainArray == true && this.allRequestData.length > 0) {
-      this.allRequestData.forEach(element => {
-        allCustomerRequestData.push(element);
-        // element.date = moment(element.createdAt).format('LL');
-        element.date = moment(element.updatedAt).format('LL');
-        element.price = element.totalPaybackAmount + ' SAR';
-        element.status = this.requestTypes[element.type].type;
-      });
-      this.showMessage = false;
-      console.log('customerAllRequests:', allCustomerRequestData);
-    } else {
-      this.showMessage = true;
-    }
+        this.allRequestData.forEach(element => {
+          allCustomerRequestData.push(element);
+          // element.date = moment(element.createdAt).format('LL');
+          element.date = moment(element.updatedAt).format('LL');
+          element.price = element.totalPaybackAmount + ' SAR';
+          element.status = this.requestTypes[element.type].type;
+        });
+        this.showMessage = false;
+        console.log('customerAllRequests:', allCustomerRequestData);
+      } else {
+        this.showMessage = true;
+      }
       if (customerRequestType == selectedtype) {
         this.CustomerRequestType = customerRequestType;
         this.dataSourceAll.filter = customerRequestType;
@@ -145,15 +153,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
       } else {
         this.dataSourceAll.filter = '';
       }
-      const body = document.getElementsByTagName('body')[0];
-      body.classList.add('dashbored');
-      body.classList.add('requests');
-      this.router.events.subscribe((evt) => {
-        if (!(evt instanceof NavigationEnd)) {
-          return;
-        }
-        window.scrollTo(0, 0);
-      });
     });
 
   }

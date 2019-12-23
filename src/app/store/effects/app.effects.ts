@@ -40,7 +40,7 @@ export class AuthenticationEffects {
     private spinner: NgxSpinnerService) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 6000;
+    this.options.timeOut = 7000;
     this.options.progressBar = true;
   }
 
@@ -84,6 +84,7 @@ export class AuthenticationEffects {
   LoginFailure: Observable<any> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN_FAILURE),
     tap((res) => {
+      console.log(res);
       if (res.payload.error.error_description) {
         this.showToast('Error!!', res.payload.error.error_description, 'error');
       } else {

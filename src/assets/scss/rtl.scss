@@ -1,9 +1,10 @@
 [lang="arabic"]{
-    .row ,nav#navbar{
+    .row ,nav#navbar , ul.nav.nav-pills.justify-content-start{
         flex-direction: row-reverse !important;
     }
     body{
         font-family: 'Cairo', sans-serif !important;
+        text-align: right;
     }
     ul.navbar-nav.mr-auto.mt-2 {
         margin-top: 0.25rem !important;
@@ -14,21 +15,36 @@
     .contact .bg-image ul.navbar-nav.ml-auto li a.nav-link ,.contact header #langSelctor{
          color: #000 !important;
     }
+    svg.arrow {
+        position: absolute;
+        display: block;
+        top: 3.5em;
+        left: 2em;
+    }
     .bg-dark-right{
         left: 0;
         right: auto;
     }
     header.bg-image ul.navbar-nav.ml-auto li a.nav-link.purple-btn{
         padding: 8px 0 11px;
+        position: relative;
+        top: -4px;
     }
     #langSelctor{
         margin: 5px 0 10px;
     }
-    .main-header-font ,.font-purple ,.light-paragraph{
+    .main-header-font ,.font-purple ,.light-paragraph , .Privilege p{
         letter-spacing: 0;
     }
     .light-paragraph {
         line-height: 26px;
+    }
+    img.women-image {
+        position: absolute;
+        top: -19em;
+        left: 13em;
+        right: auto;
+        height: 400px;
     }
     .header-inner p{
         letter-spacing: 0;
@@ -41,7 +57,7 @@
         height: auto;
         padding: 0;
     }
-    .header-inner h1{
+    .header-inner h1 , .grey-text-color , .form-antim label{
         letter-spacing: 0;
     }
     .d-flex{
@@ -63,6 +79,62 @@
     .text-left {
         text-align: right !important;
     }
+    dl dt:before {
+        top: -33px;
+        left: auto;
+        right: 46px;
+    }
+    li.media {
+        display: flex;
+        align-items: baseline;
+        flex-direction: row-reverse;
+        .media-body{
+            padding: 5px 15px;
+        }
+    }
+    div.card-header button{
+        text-align: right;
+    }
+    .card-header button.btn.btn-link.collapsed:after  ,.card-header button.btn.btn-link:after{
+        left: 26px;
+        top: 12px;
+        right: auto;
+    }
+    .subscribtion-form .btn-subscribe{
+        float: left;
+    }
+    .footer .copy-right{
+        text-align: right;
+    }
+    .path-dashed {
+        right:  11em;
+        left: auto;
+        height: 542px;
+        display: block;
+        width: 860px;
+        margin-top: 1em;
+        position: absolute;
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipV;
+        -ms-filter: "FlipV";
+    }
+    p.grey-text.mt-3.text-left.col-lg-8.mr-4{
+        margin-left: 5.5rem !important;
+        margin-right: 0 !important;
+    }
+    .mt-min-4 {
+        margin-top: -1em;
+    }
+    .mt-22 {
+        margin-right: 5em;
+    }
+    
+}
+.logo-img{
+    width: 100px;
 }
 .contact .bg-image ul.navbar-nav.ml-auto li a.nav-link ,.contact header #langSelctor , .log-in header #langSelctor{
     color: #000 !important;

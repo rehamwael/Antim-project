@@ -220,7 +220,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
     });
     console.log('totalPrice:', this.totalPrice);
     if (this.totalPrice < 500 || this.totalPrice > 10000) {
-      this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000,Go back and Enter correct price.', 'error');
+      this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000.', 'error');
       this.disableFirstStep = false;
       this.showTotalPrice = false;
       this.totalPrice = 0;

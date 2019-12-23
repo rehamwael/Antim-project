@@ -25,6 +25,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { CustomerRequestDetailsComponent } from './customer-request-details/customer-request-details.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { FunderRequestsDetailsComponent } from './funder-requests-details/funder-requests-details.component';
+import { StarterComponent } from './starter/starter.component';
+
 
 export const Approutes: Routes = [
   {
@@ -32,10 +34,6 @@ export const Approutes: Routes = [
     component: FullComponent,
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      {
-        path: 'home',
-        loadChildren: './starter/starter.module#StarterModule'
-      },
       {
         path: 'component',
         loadChildren: './component/component.module#ComponentsModule'
@@ -47,6 +45,10 @@ export const Approutes: Routes = [
       {
         path: 'signup',
         component: SignUpComponent
+      },
+      {
+        path: 'home',
+        component: StarterComponent
       },
       {
         path: 'contact',
