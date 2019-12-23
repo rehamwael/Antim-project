@@ -177,5 +177,24 @@
         "newUser" : "هل انت مستخدم جديد?", 
         "SignUp" : "سجل",
         "forgotpPassword" : "هل نسيت كلمة المرور?"
+    }, 
+    "SignUp" : {
+        "SignUp" : "سجل الأن",
+        "SignUpDesc1" : "من السهل جدا ومباشرة خطوات إلى الأمام للتسجيل" ,
+        "SignUpDesc2" : "فقط اتبع الصدارة",
+        "whataboutyou" : "ماذا عنك ؟",
+        "Next" : "التالى",
+        "Alright" : "حسنا",
+        "FillBelow" : "ملء النموذج أدناه من فضلك!",
+        "FirstName" : "الاسم الاول" , 
+        "TypeFirstName" : "اكتب الاسم الأول هنا ...",
+        "FirstNamerequired" : "الاسم الأول مطلوب",
+        "FirstNameValidate" : "يجب أن يحتوي الاسم الأول على أحرف فقط",
+        "LastName" : "اسم العائلة" , 
+        "TypeLastName" : "اكتب اسم العائلة هنا ..." , 
+        "LastNamerequired" : "اسم العائلة مطلوب",
+        "LastNameValidate" : "يجب أن يحتوي اسم العائلة على أحرف فقط"
+
+
     }
 }

@@ -179,5 +179,23 @@
         "newUser" : "Are you new user ? " , 
         "SignUp" : "Sign Up",
         "forgotpPassword" : "forgotp password ?"
+    } , 
+    "SignUp" : {
+        "SignUp" : "Sign Up",
+        "SignUpDesc1" : "Very Easy and straight forward steps to register.",
+        "SignUpDesc2" : "Just follow the lead" , 
+        "whataboutyou" : "what about you ?",
+        "Next" : "Next",
+        "Alright" : "Alright",
+        "FillBelow" : "Fill the below form please!",
+        "FirstName" : "First Name",
+        "TypeFirstName" : "Type First Name here...",
+        "FirstNamerequired" : "First Name required",
+        "FirstNameValidate" : "First Name must contains only characters.",
+        "LastName" : "Last Name",
+        "TypeLastName" : "Type Last Name here...",
+        "LastNamerequired" : "Last Name required",
+        "LastNameValidate" : "Last Name must contains only characters."
+
     }
 }
