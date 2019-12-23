@@ -22,15 +22,14 @@ import { AddCustomerRequest, IsUpdatedFalse } from '../store/actions/customer.ac
 
 
 export class CreateOrderComponent implements OnInit, OnDestroy {
-  @ViewChild('stepper', { static: false }) myStepper: MatStepper;
+  @ViewChild('stepper', { static: true }) stepper: MatStepper;
 
   getUserState: Observable<any>;
   getCustomerState: Observable<any>;
   currentUser: any;
-  disableButton = false;
   checkIsUpdated = false;
   requestName: any;
-  totalPrice = 0;
+  totalPrice: number;
   monthlyPrice: number;
   totalPriceWithProfit: number;
   showOptions = false;
@@ -39,10 +38,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   totalProducts: any;
   requestType: any;
   disabledAgreement = false;
-  disableFirstStep = false;
-  hideTotalButton = false;
-  // isLinear = true;
-  showTotalPrice = false;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -74,7 +69,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.getUserState = this.store.select(selectAuthenticationState);
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
+    this.options.timeOut = 7000;
   }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
@@ -137,23 +132,20 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.totalPrice = 0;
     this.totalPriceWithProfit = 0;
   }
-  calculateTotalPrice() {
+
+  nextStep() {
     this.totalPrice = 0;
     this.userPoductList.map(product => {
       this.totalPrice = 1 * this.totalPrice + 1 * product.amount;
     });
     console.log('totalPrice:', this.totalPrice);
     if (this.totalPrice < 500 || this.totalPrice > 10000) {
-      this.disableFirstStep = false;
-      this.showTotalPrice = false;
       this.totalPrice = 0;
-      this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000.', 'error');
+      this.showErrorToast('Error!!', 'Total Price of Products must be greater than 500 and less than 10000.', 'error');
     } else {
-      this.showTotalPrice = true;
-      this.disableFirstStep = true;
+      this.stepper.selected.completed = true;
+      this.stepper.next();
     }
-  }
-  nextStep() {
     this.totalProducts = Object.keys(this.userPoductList).length;
     if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
@@ -237,12 +229,14 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
   }
-  inputNumber() {
+
+  onFocusoutMethod() {
     this.totalPrice = 0;
-    this.hideTotalButton = true;
-    this.disableFirstStep = false;
-    this.showTotalPrice = false;
-  }
+    this.userPoductList.map(product => {
+      this.totalPrice = 1 * this.totalPrice + 1 * product.amount;
+    });
+   }
+
   addMoreItems() {
     this.userPoductList.push({
       productUrl: '',

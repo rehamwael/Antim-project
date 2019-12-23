@@ -36,7 +36,7 @@ import { ContactComponent } from './contact/contact.component';
 import { WhoWeAreComponent } from './who-we-are/who-we-are.component';
 import { DashboredComponent } from './dashbored/dashbored.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
-import { MatStepperModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSortModule } from '@angular/material';
+import { MatStepperModule, MatInputModule, MatButtonModule, MatAutocompleteModule } from '@angular/material';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestsComponent } from './requests/requests.component';
 import {MatTableModule} from '@angular/material/table';
@@ -51,7 +51,6 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { LenderInfoComponent } from './lender-info/lender-info.component';
 import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
 import { MatTabsModule } from '@angular/material';
-import {MatPaginatorModule} from '@angular/material/paginator';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SettingComponent } from './shared/setting/setting.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -71,6 +70,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
 // import {MatSelectModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
+import {MatPaginatorModule, MatSortModule} from '@angular/material';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
