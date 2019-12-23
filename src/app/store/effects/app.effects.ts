@@ -100,9 +100,9 @@ export class AuthenticationEffects {
   public Logout: Observable<any> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGOUT),
     tap((user) => {
+      this.store.dispatch(new RemoveRequestsFromStore());
       localStorage.removeItem('token');
       localStorage.removeItem('role');
-      // this.store.dispatch(new RemoveRequestsFromStore());
       this.router.navigateByUrl('/login');
     })
   );

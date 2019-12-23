@@ -1,8 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { NgbModal, NgbDateStruct, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
@@ -13,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, customerState } from './../store/app.states';
 import { GetAllCustomerRequests } from './../store/actions/customer.actions';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 export interface PeriodicElement {
   position: number;
@@ -29,7 +27,8 @@ let filterRequestData: PeriodicElement[] = [];
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.scss']
+  styleUrls: ['./requests.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class RequestsComponent implements OnInit, OnDestroy {
@@ -121,14 +120,12 @@ export class RequestsComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
-    // this.router.events.subscribe((evt) => {
-    //   if (!(evt instanceof NavigationEnd)) {
-    //     return;
-    //   }
-    //   window.scrollTo(0, 0);
-    // });
-    this.dataSourceAll.paginator = this.paginator;
-    this.dataSourceAll.sort = this.sort;
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
+    });
     this.getCustomerRequestFromStore().then(e => {
       allCustomerRequestData.length = 0;
       if (this.isDatainArray == true && this.allRequestData.length > 0) {
@@ -139,9 +136,14 @@ export class RequestsComponent implements OnInit, OnDestroy {
           element.price = element.totalPaybackAmount + ' SAR';
           element.status = this.requestTypes[element.type].type;
         });
-        this.showMessage = false;
+        this.CustomerRequestType = 'All Requests';
+        this.dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
         console.log('customerAllRequests:', allCustomerRequestData);
+        this.dataSourceAll.paginator = this.paginator;
+        this.dataSourceAll.sort = this.sort;
+        this.showMessage = false;
       } else {
+        this.dataSourceAll = new MatTableDataSource<PeriodicElement>(null);
         this.showMessage = true;
       }
       if (customerRequestType == selectedtype) {
@@ -207,10 +209,14 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.disableSearch = true;
   }
   filterRequests() {
-    if (this.selectedRequestType === 0) {
+    // if (this.selectedRequestType === 0) {
       this.spinner.show();
       this.customerRequestService.getFilteredRequestsByDate(this.fromDate, this.toDate).subscribe((res) => {
         if (res.message) {
+          this.dataSourceAll = new MatTableDataSource<PeriodicElement>(null);
+          this.showMessage = true;
+          this.disableReset = true;
+          this.disableSearch = false;
           this.showErrorToast('', res.message, 'error');
           this.spinner.hide();
         } else {
@@ -224,13 +230,14 @@ export class RequestsComponent implements OnInit, OnDestroy {
             element.price = element.totalPaybackAmount + ' SAR';
             element.status = this.requestTypes[element.type].type;
           });
-          if (this.dataSourceAll.filteredData.length == 0) {
-            this.showMessage = true;
-          } else {
-            this.showMessage = false;
-          }
+          // if (this.dataSourceAll.filteredData.length == 0) {
+          //   this.showMessage = true;
+          // } else {
+          //   this.showMessage = false;
+          // }
           this.dataSourceAll.data = filterRequestData;
           this.spinner.hide();
+          this.showMessage = false;
           this.disableReset = true;
           this.disableSearch = false;
         }
@@ -238,42 +245,48 @@ export class RequestsComponent implements OnInit, OnDestroy {
         this.spinner.hide();
         console.log(' ERROR:', err);
       });
-    } else {
-      this.spinner.show();
-      this.customerRequestService.getFilteredRequestsByTypeAndDate(this.selectedRequestType, this.fromDate, this.toDate)
-        .subscribe((res) => {
-          if (res.message) {
-            this.showErrorToast('', res.message, 'error');
-            this.spinner.hide();
-          } else {
-            this.allFilterRequests = [];
-            this.allFilterRequests = res.result;
-            filterRequestData.length = 0;
-            console.log('allFilterRequests', this.allFilterRequests);
-            this.allFilterRequests.forEach(element => {
-              filterRequestData.push(element);
-              element.date = moment(element.createdAt).format('LL');
-              element.price = element.totalPaybackAmount + ' SAR';
-              element.status = this.requestTypes[element.type].type;
-            });
-            if (this.dataSourceAll.filteredData.length == 0) {
-              this.showMessage = true;
-            } else {
-              this.showMessage = false;
-            }
-            this.dataSourceAll.data = filterRequestData;
-            this.spinner.hide();
-            this.disableReset = true;
-            this.disableSearch = false;
-          }
-        }, err => {
-          this.spinner.hide();
-          console.log(' ERROR:', err);
-        });
+    // } else {
+    //   this.spinner.show();
+    //   this.customerRequestService.getFilteredRequestsByTypeAndDate(this.selectedRequestType, this.fromDate, this.toDate)
+    //     .subscribe((res) => {
+    //       if (res.message) {
+    //         this.dataSourceAll = new MatTableDataSource<PeriodicElement>(null);
+    //         this.showMessage = true;
+    //         this.disableReset = true;
+    //         this.disableSearch = false;
+    //         this.showErrorToast('', res.message, 'error');
+    //         this.spinner.hide();
+    //       } else {
+    //         this.allFilterRequests = [];
+    //         this.allFilterRequests = res.result;
+    //         filterRequestData.length = 0;
+    //         console.log('allFilterRequests', this.allFilterRequests);
+    //         this.allFilterRequests.forEach(element => {
+    //           filterRequestData.push(element);
+    //           element.date = moment(element.createdAt).format('LL');
+    //           element.price = element.totalPaybackAmount + ' SAR';
+    //           element.status = this.requestTypes[element.type].type;
+    //         });
+    //         // if (this.dataSourceAll.filteredData.length == 0) {
+    //         //   this.showMessage = true;
+    //         // } else {
+    //         //   this.showMessage = false;
+    //         // }
+    //         this.dataSourceAll.data = filterRequestData;
+    //         this.showMessage = false;
+    //         this.spinner.hide();
+    //         this.disableReset = true;
+    //         this.disableSearch = false;
+    //       }
+    //     }, err => {
+    //       this.spinner.hide();
+    //       console.log(' ERROR:', err);
+    //     });
 
-    }
+    // }
   }
   resetPage() {
+    this.ngOnInit();
     this.dataSourceAll.filter = '';
     this.dataSourceAll.data = allCustomerRequestData;
     this.CustomerRequestType = 'All Requests';

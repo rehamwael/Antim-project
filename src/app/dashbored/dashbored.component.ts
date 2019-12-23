@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { ProfileService } from '../services/userProfile.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState } from './../store/app.states';
 import { UserProfile, GetCustomerRequestCount } from './../store/actions/auth.actions';
 import { CustomerRequestService } from '../services/customer-request.service';
+import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
+import { IndividualConfig, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashbored',
@@ -16,20 +17,17 @@ import { CustomerRequestService } from '../services/customer-request.service';
 export class DashboredComponent implements OnInit, OnDestroy {
   currentUser: any;
   customerRequests: any;
-  onGoing: any;
-  rejected: any;
-  closed: any;
-  awaiting: any;
-  draft: any;
-  underReview: any;
-  accepted: any;
   getState: Observable<any>;
   isAuthenticated: boolean;
+  email: any;
+  options: IndividualConfig;
 
-  constructor(public router: Router,
-    private userDataService: ProfileService,
+  constructor(
+    private emailService: UserEmailPasswordService,
+    public router: Router,
     private store: Store<AppState>,
-    private customerRequestService: CustomerRequestService
+    private customerRequestService: CustomerRequestService,
+    private toastr: ToastrService,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
   }
@@ -42,7 +40,10 @@ export class DashboredComponent implements OnInit, OnDestroy {
       if (state.userProfile == null && token && state.isAuthenticated == true) {
         this.store.dispatch(new UserProfile());
       }
-      console.log( 'USER:' ,  this.currentUser);
+      // console.log('USER:', this.currentUser);
+      if (this.currentUser) {
+        this.email = this.currentUser.email;
+      }
     });
 
     const body = document.getElementsByTagName('body')[0];
@@ -75,6 +76,24 @@ export class DashboredComponent implements OnInit, OnDestroy {
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
+  }
+  showSuccessToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+  showErrorToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+
+  resendEmail() {
+    this.emailService.resendRegisterEmail({
+      'Email': this.email
+    }).subscribe(res => {
+      console.log(res);
+      this.showSuccessToast('OK!!', res.message, 'success');
+    }, err => {
+      console.log(err);
+      this.showErrorToast('Error!!', err.error.message, 'error');
+    });
   }
 
 }

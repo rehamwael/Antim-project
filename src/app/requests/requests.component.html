@@ -33,9 +33,9 @@
                             <form class="col-lg-3">
                               <div class="form-group">
                                   <label for="Type" class="font-size-13">Select Request Type</label>
-                                  <select class="form-control form-control-lg mb-2§ custom-select" [value]="CustomerRequestType"  (change)="onChange($event.target.value)">
+                                  <select class="form-control form-control-lg mb-2§ custom-select" [(ngModel)]="CustomerRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
                                     <!-- <option *ngFor="let options of requestTypes" >{{options.type}}</option> -->
-                                    <option value="All Requests" selected>All Requests</option>
+                                    <option value="All Requests" >All Requests</option>
                                     <option value="Awaiting for Fund Requests">Awaiting for Fund Requests</option>
                                     <option value="Closed Requests">Closed Requests</option>
                                     <option value="Rejected Requests">Rejected Requests</option>
@@ -121,7 +121,7 @@
                                             </ng-container>
 
                                             <ng-container matColumnDef="price">
-                                              <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Price  </th>
+                                              <th mat-header-cell *matHeaderCellDef >Total Price  </th>
                                               <td mat-cell *matCellDef="let element"> {{element.price}} </td>
                                             </ng-container>
 
@@ -139,7 +139,8 @@
                                               <h3 class="error">No Data Found</h3>
                                             </div>
                                           <!-- <mat-paginator [pageSize]="10" ></mat-paginator> --><div style="margin-top: 25px;">
-                                              <mat-paginator #paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+                                              <!-- <mat-paginator #paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator> -->
+                                              <mat-paginator [pageSizeOptions]="[10]" ></mat-paginator>
 
                                           </div>
 

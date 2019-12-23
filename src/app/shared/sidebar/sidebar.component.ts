@@ -18,10 +18,9 @@ declare var $: any;
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  user: User;
   getState: Observable<any>;
-  isAuthenticated: boolean;
   currentUser: any;
+  role: any;
 
 
   showMenu = '';
@@ -48,22 +47,29 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>,
-    ) {
-      this.getState = this.store.select(selectAuthenticationState);
-    }
+  ) {
+    this.getState = this.store.select(selectAuthenticationState);
+  }
 
   // End open close
   ngOnInit() {
     this.getState.subscribe((state) => {
       const token = localStorage.getItem('token');
-      this.isAuthenticated = state.isAuthenticated;
-      this.user = state.user;
-      this.currentUser = state.userProfile;
-      // console.log( 'USER:' ,  this.currentUser);
-      if (!this.currentUser && token) {
+      if (state.userProfile == null && token) {
         this.store.dispatch(new UserProfile());
       }
+      this.currentUser = state.userProfile;
+      if (this.currentUser) {
+        if (this.currentUser.roles[0] == 'customer') {
+          this.role = 'Borrower';
+        } else if (this.currentUser.roles[0] == 'funder') {
+          this.role = 'Lender';
+        } else {
+          this.role = '';
+        }
+      }
     });
+    // console.log( 'USER:' ,  this.currentUser);
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
     this.href = this.router.url;
     const x = this.href.split('/')[1].split('-');
@@ -72,7 +78,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.dashboredUrl = 'dashbored-' + this.userType;
     this.profileUrl = 'profile-' + this.userType;
     this.notificationUrl = 'notification-' + this.userType;
-
   }
   ngOnDestroy(): void {
     this.currentUser = null;
