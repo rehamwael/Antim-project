@@ -44,5 +44,12 @@ export class UserEmailPasswordService {
         })
     );
   }
+  resendRegisterEmail(email: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.post(`${this.Url}Account/ResendRegisterEmail`, email, this.httpOptions).pipe(
+      tap((res: any ) => {
+        })
+    );
+  }
 
 }
