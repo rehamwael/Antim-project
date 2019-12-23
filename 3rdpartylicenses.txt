@@ -170,6 +170,12 @@ MIT
 @ngrx/store
 MIT
 
+@ngx-translate/core
+MIT
+
+@ngx-translate/http-loader
+MIT
+
 chart.js
 MIT
 The MIT License (MIT)
