@@ -121,15 +121,81 @@
         filter: FlipV;
         -ms-filter: "FlipV";
     }
+    .page-wraper-right {
+        margin-right: 243px;
+        margin-left: 0;
+        margin-left: 3em !important;  
+
+    }
     p.grey-text.mt-3.text-left.col-lg-8.mr-4{
         margin-left: 5.5rem !important;
         margin-right: 0 !important;
+
     }
+    .col-lg-11.row.justify-content-around.mt-5.dashbored-info {
+        max-width: 100%;
+        .col-lg-1 {
+            display: none;
+        }
+    }
+    .select-options-radio{
+        text-align: center;
+    }
+    .dashbored-nav .dropdown-item{
+        direction: inherit;
+    }
+    .dropdown-menu.show {
+        top: 14px !important;
+        left: -75px !important;
+    }
+    app-setting {
+        width: 100%;
+        .navbar-nav{
+            flex-direction: row;
+
+        }
+    }
+    span.fa.fa-search.form-control-feedback {
+        left: 29px;
+        right: auto;
+    }
+    .sidebar-nav ul .sidebar-item .sidebar-link span {
+        margin-right: 1em;
+    }
+    .left-sidebar{
+        border-radius: 23px 0px 0px 23px;
+
+    }
+    .user-info .material-icons svg {
+        position: relative;
+        transform: rotate(180deg);
+        top: 17px;
+    }
+    .user-info img{
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+    .sidebar-nav ul .sidebar-item .sidebar-link {
+        border-right: 3px solid transparent;
+        border-left: 0;
+        padding: 20px 36px 13px 0px;
+        flex-direction: row-reverse;
+
+    }
+    .dashbored-home .home span {
+        margin-right: 1em !important;
+    }
+
     .mt-min-4 {
         margin-top: -1em;
     }
     .mt-22 {
         margin-right: 5em;
+    }
+    .bottom-sidebar i {
+        position: relative;
+        right: -2em;
+        left: auto;
     }
     
 }
@@ -139,3 +205,15 @@
 .contact .bg-image ul.navbar-nav.ml-auto li a.nav-link ,.contact header #langSelctor , .log-in header #langSelctor{
     color: #000 !important;
 }
+*:focus:not(.focus-visible) {
+    outline: none;
+  }
+body .btn-Red , body .btn-Red:hover{
+    background-color: rgb(219, 69, 69);
+    border-color: rgb(219, 69, 69);
+}
+button:active , button:focus{
+    outline:none !important;
+ }
+  
+  
