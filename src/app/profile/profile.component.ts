@@ -27,7 +27,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   userBankInfo: any;
   userId: any;
   userName: any;
-  name: any;
+  firstName: any;
+  lastName: any;
   email: any;
   phone: any;
   countryCode: any;
@@ -92,7 +93,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.options.timeOut = 5000;
 
     this.EditForm = fb.group({
-      'Name': [{ value: this.name, disabled: this.disabledButton }, Validators.compose([
+      'FirstName': [{ value: this.firstName, disabled: this.disabledButton }, Validators.compose([
+        Validators.required
+      ])],
+      'LastName': [{ value: this.lastName, disabled: this.disabledButton }, Validators.compose([
+        Validators.required
+      ])],
+      'UserName': [{ value: this.userName, disabled: this.disabledButton }, Validators.compose([
         Validators.required
       ])],
       'MobileNo': [{ value: this.phone, disabled: this.disabledButton }, Validators.compose([
@@ -178,11 +185,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.NID = res.result.nationalIdNumber;
         this.phone = res.result.phoneNumber;
         this.email = res.result.email;
-        this.name = res.result.firstName;
+        this.firstName = res.result.firstName;
+        this.lastName = res.result.lastName;
+        this.userName = res.result.userName;
         this.countryCode = res.result.dialingCode;
         resolve(res);
         this.userId = res.result.id;
-        this.userName = res.result.userName;
         this.AddressArray = res.result.userAddresses;
         this.BankArray = res.result.userBanks;
         console.log('userINFO:', res.result);
@@ -253,7 +261,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.disableprofileButton = true;
     this.emailButton = true;
     this.phoneButton = true;
-    this.EditForm.get('Name').enable();
+    this.EditForm.get('FirstName').enable();
+    this.EditForm.get('LastName').enable();
+    this.EditForm.get('UserName').enable();
     this.EditForm.get('NID').enable();
     this.EditForm.get('MobileNo').enable();
     this.EditForm.get('Email').enable();
@@ -360,16 +370,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   SaveInfo() {
     const actionPayload = {
-      'FirstName': this.name,
+      'FirstName': this.firstName,
+      'LastName': this.lastName,
+      'UserName': this.userName,
       'NationalIdNumber': this.NID,
       // 'PhoneNumber': this.phone.toString(),
       // 'Email': this.email
     };
     this.store.dispatch(new EditUserProfile(actionPayload));
-    this.EditForm.get('Name').disable();
+    this.EditForm.get('FirstName').disable();
+    this.EditForm.get('LastName').disable();
+    this.EditForm.get('UserName').disable();
     this.EditForm.get('NID').disable();
-    // this.EditForm.get('MobileNo').disable();
-    // this.EditForm.get('Email').disable();
     this.disableprofileButton = false;
 
 
