@@ -117,7 +117,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       }
       if (this.requestType_ENUM == 2) {
         this.requestType = 'Closed  Requests';
-        this.deleteButton = true;
+        // this.deleteButton = true;
       }
       if (this.requestType_ENUM == 3) {
         this.requestType = 'Rejected Requests';
