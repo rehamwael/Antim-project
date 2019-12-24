@@ -3,3 +3,11 @@
   font-size: 10px;
   visibility: hidden;
 }
+.btn-blue {
+  background-color: rgb(82, 171, 230);
+  color: white;
+  border-radius: 3px;
+  text-transform: uppercase;
+  padding: 10px 1rem;
+  font-size: 13px;
+}

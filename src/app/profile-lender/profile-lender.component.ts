@@ -82,6 +82,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   disableprofileButton = false;
   disableBankButton = false;
   disableAddressButton = false;
+  disablePasswordButton = false;
 
   emailButton = false;
   phoneButton = false;
@@ -91,6 +92,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   second: number;
   third: number;
   Fourth: number;
+  oldPassword: any;
+  newPassword: any;
+  confirmPassword: any;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -163,9 +167,22 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       'One': [''],
       'Two': [''],
       'Three': [''],
-      'Four': ['']
+      'Four': [''],
+      'OldPassword': [{ value: this.oldPassword, disabled: this.disabledButton },
+        [
+          Validators.required,
+          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+         ]
+      ],
+      'NewPassword': [{ value: this.newPassword, disabled: this.disabledButton },
+        [
+          Validators.required,
+          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+         ]
+      ],
+      'ConfirmPassword': [{ value: this.confirmPassword, disabled: this.disabledButton }]
 
-      // 'Address': [{ value: null, disabled: this.disabledButton }],
+      // 'Address': [{value: null, disabled: this.disabledButton}],
     });
 
 
@@ -623,27 +640,42 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   SelectBank(value) {
     this.bankName = value;
   }
-  // EditBalanceInfo() {
-  //   this.disableBalanceButton = true;
-  //   this.UserBalance.get('MyBalance').enable();
-  // }
-  // SaveBalanceInfo() {
-  //     this.spinner.show();
-  //     this.profileService.addUserBalance({
-  //       'UserId': this.userId,
-  //       'UserBalance': this.userBalance
-  //     }).subscribe((res) => {
-  //       console.log('balance info', res);
-  //       this.spinner.hide();
-  //       this.showSuccessToast('OK!!', res.message, 'success');
-  //       this.disableBalanceButton = false;
-  //       this.UserBalance.get('MyBalance').disable();
-  //     }, err => {
-  //       this.spinner.hide();
-  //       this.showErrorToast('Error!!', err.error.message, 'error');
-  //     });
 
-  // }
+  editPassword() {
+    this.disablePasswordButton = true;
+    this.EditForm.get('OldPassword').enable();
+    this.EditForm.get('NewPassword').enable();
+    this.EditForm.get('ConfirmPassword').enable();
+  }
+
+  changeCurrentPassword() {
+    this.spinner.show();
+    this.editUserService.changePassword({
+      'Id': this.userId,
+      'OldPassword': this.oldPassword,
+      'NewPassword': this.newPassword,
+      'ConfirmPassword': this.confirmPassword
+    }).subscribe(res => {
+      console.log(res);
+      this.spinner.hide();
+      this.showSuccessToast('OK!!', res.message, 'success');
+      this.EditForm.get('OldPassword').disable();
+      this.EditForm.get('NewPassword').disable();
+      this.EditForm.get('ConfirmPassword').disable();
+      this.disablePasswordButton = false;
+      this.oldPassword = '';
+      this.newPassword = '';
+      this.confirmPassword = '';
+    }, err => {
+      this.spinner.hide();
+      console.log(' ERROR:', err);
+      if (err.error.message == 'Incorrect password.') {
+        this.showErrorToast('Error!!', 'Incorrect Old Password', 'error');
+      } else {
+        this.showErrorToast('Error!!', err.error.message, 'error');
+      }
+    });
+  }
 
 
   // tslint:disable-next-line: member-ordering

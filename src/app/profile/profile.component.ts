@@ -66,6 +66,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   phoneButton = false;
   disableBankButton = false;
   disableAddressButton = false;
+  disablePasswordButton = false;
   showAddress = false;
   showBank = false;
   showUser = false;
@@ -78,6 +79,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   second: number;
   third: number;
   Fourth: number;
+  oldPassword: any;
+  newPassword: any;
+  confirmPassword: any;
 
   constructor(private store: Store<AppState>,
     private fb: FormBuilder,
@@ -120,7 +124,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
       'One': [''],
       'Two': [''],
       'Three': [''],
-      'Four': ['']
+      'Four': [''],
+      'OldPassword': [{ value: this.oldPassword, disabled: this.disabledButton },
+        [
+          Validators.required,
+          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+         ]
+      ],
+      'NewPassword': [{ value: this.newPassword, disabled: this.disabledButton },
+        [
+          Validators.required,
+          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+         ]
+      ],
+      'ConfirmPassword': [{ value: this.confirmPassword, disabled: this.disabledButton }]
 
       // 'Address': [{value: null, disabled: this.disabledButton}],
     });
@@ -532,6 +549,42 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   onSelectChange(value) {
     this.bankName = value;
+  }
+
+  editPassword() {
+    this.disablePasswordButton = true;
+    this.EditForm.get('OldPassword').enable();
+    this.EditForm.get('NewPassword').enable();
+    this.EditForm.get('ConfirmPassword').enable();
+  }
+
+  changeCurrentPassword() {
+    this.spinner.show();
+    this.editUserService.changePassword({
+      'Id': this.userId,
+      'OldPassword': this.oldPassword,
+      'NewPassword': this.newPassword,
+      'ConfirmPassword': this.confirmPassword
+    }).subscribe(res => {
+      console.log(res);
+      this.spinner.hide();
+      this.showSuccessToast('OK!!', res.message, 'success');
+      this.EditForm.get('OldPassword').disable();
+      this.EditForm.get('NewPassword').disable();
+      this.EditForm.get('ConfirmPassword').disable();
+      this.oldPassword = '';
+      this.newPassword = '';
+      this.confirmPassword = '';
+      this.disablePasswordButton = false;
+    }, err => {
+      this.spinner.hide();
+      console.log(' ERROR:', err);
+      if (err.error.message == 'Incorrect password.') {
+        this.showErrorToast('Error!!', 'Incorrect Old Password', 'error');
+      } else {
+        this.showErrorToast('Error!!', err.error.message, 'error');
+      }
+    });
   }
 
 }

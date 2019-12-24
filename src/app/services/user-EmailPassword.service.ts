@@ -22,8 +22,8 @@ export class UserEmailPasswordService {
     };
   }
   // RESET PASSWORD
-  resetPassword(user: any): Observable<any> {
-    return this.httpClient.patch(`${this.Url}Account/ResetPassword`, user).pipe(
+  resetPassword(passwordDetails: any): Observable<any> {
+    return this.httpClient.patch(`${this.Url}Account/ResetPassword`, passwordDetails).pipe(
       tap((res: any ) => {
         })
     );
@@ -36,6 +36,15 @@ export class UserEmailPasswordService {
         })
     );
   }
+  // CHANGE PASSWORD
+  changePassword(passwordDetails: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}Account/ChangePassword`, passwordDetails, this.httpOptions).pipe(
+      tap((res: any ) => {
+        })
+    );
+  }
+
   editUserEmail(body: any): Observable<any> {
     this.getTokenAndHeaders();
 
