@@ -2,3 +2,7 @@ u{
   cursor: pointer;
   color: #5c20d2 !important
 }
+.color-white {
+  color: white !important;
+  height: 40px !important;
+}

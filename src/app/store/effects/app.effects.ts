@@ -128,16 +128,18 @@ export class AuthenticationEffects {
           ofType(AuthenticationActionTypes.GET_REQUESTS_COUNT),
           tap(() => {
             this.spinner.show();
-            return this.customerService.getRequestsCount().subscribe(res => {
+            return this.customerService.getCustomerDashboard().subscribe(res => {
               if (res.message) {
                 this.spinner.hide();
                 this.showErrorToast('Error!!', res.message, 'error');
               } else {
+
               console.log('requestCount:', res.result);
               this.store.dispatch(new GetRequestsCountSuccess(res.result));
               this.spinner.hide();
               }
             }, err => {
+              console.log('Error', err);
               this.spinner.hide();
             });
           }));

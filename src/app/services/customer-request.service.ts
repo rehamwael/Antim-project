@@ -36,9 +36,9 @@ export class CustomerRequestService {
       })
     );
   }
-  getRequestsCount(): Observable<any> {
+  getCustomerDashboard(): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequestsCount`, this.httpOptions).pipe(
+    return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerDashboard`, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
