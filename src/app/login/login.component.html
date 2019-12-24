@@ -2,29 +2,33 @@
         <div class="row justify-content-center align-items-center h-100">
             <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 background-box px-5 py-5 text-center">
                     <img src="assets/images/user.svg" alt="antim">
-                <p class="grey-text-color mt-4 mb-2">Hello sir, nice to see you again!<br/>Please insert your login info below to proceed </p>
+                <p class="grey-text-color mt-3 mb-1">{{ 'login.loginDesc1' | translate }}<br/>{{ 'login.loginDesc2' | translate }} </p>
                 <form class="form-log-in mt-5 form-antim"  [formGroup]="LoginForm">
                     <div class="form-group text-left">
-                        <label for="name">Email or Username	<span class="red-color"> *</span></label>
-                        <input formControlName="username" name="username" class="form-control form-control-lg" placeholder="Type Email or Username here..." type="text" required minlength="5"  [(ngModel)]="loginUsername">
-                        <div *ngIf="LoginForm.controls['username'].touched && LoginForm.controls['username'].hasError('required')" class="error-msg alert alert-danger text-left">Username/Email is required</div>
+                        <label for="name">{{ 'login.EmailorUsername' | translate }}	<span class="red-color"> *</span></label>
+                        <input formControlName="username" name="username" class="form-control form-control-lg" placeholder="{{ 'login.TypeEmailorUsername' | translate }}" type="text" required minlength="5"  [(ngModel)]="loginUsername">
+                        <div *ngIf="LoginForm.controls['username'].touched && LoginForm.controls['username'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'login.requiredEmailorUsername' | translate }}</div>
                         <!-- <div *ngIf="LoginForm.controls['username'].touched && LoginForm.controls['username'].hasError('minlength')" class="error-msg alert alert-danger text-left">Username length must be at least 4 characters long. </div> -->
                     </div>
                     <div class="form-group text-left pt-2">
-                        <label for="password">Password<span class="red-color"> *</span></label>
+                        <label for="password">{{ 'login.Password' | translate }}<span class="red-color"> *</span></label>
                         <input formControlName="password" name="password" class="form-control form-control-lg" placeholder="***********" type="password" required minlength="9" [(ngModel)]="loginPassword">
-                        <div *ngIf="LoginForm.controls['password'].touched && LoginForm.controls['password'].hasError('required')" class="error-msg alert alert-danger text-left">Password is required</div>
-                        <div *ngIf="LoginForm.controls['password'].touched && LoginForm.controls['password'].hasError('minlength')" class="error-msg alert alert-danger text-left">Password length must be at least 9 characters long.</div>
+                        <div *ngIf="LoginForm.controls['password'].touched && LoginForm.controls['password'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'login.Passwordrequired' | translate }}</div>
+                        <div *ngIf="LoginForm.controls['password'].touched && LoginForm.controls['password'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'login.PasswordValidation' | translate }}</div>
                     </div>
                     <div class="form-group mt-4">
                         <!-- <button class="btn btn-info btn-lg btn-block btn-purple mt-5" [routerLink]="[ '/dashbored-borrower' ]" [disabled]="disabledSubmitButton">Sign In</button> -->
-                        <button class="btn btn-info btn-lg btn-block btn-purple mt-5" (click)="login()" [disabled]="!LoginForm.valid">Sign In</button>
+
+                        <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="login()" [disabled]="!LoginForm.valid">{{ 'login.SignIn' | translate }}</button>
                         <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                         color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
                         <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
                         </ngx-spinner>
                       </div>
-                    <p class="grey-text-color pt-4 cursor-pointer" [routerLink]="[ '/forget-password' ]" >forgot password ?</p>
+                      <div class="row">
+                        <p class="dark-grey-text-color pt-2 cursor-pointer col-lg-12" [routerLink]="[ '/forget-password' ]" >{{ 'login.newUser' | translate }}<a [routerLink]="[ '/signup' ]" class="font-purple">{{ 'login.SignUp' | translate }}</a></p>
+                        <p class="dark-grey-text-color pt-1 cursor-pointer col-lg-12" [routerLink]="[ '/forget-password' ]" >{{ 'login.forgotpPassword' | translate }}</p>
+                      </div>
                 </form>
             </div>
         </div>

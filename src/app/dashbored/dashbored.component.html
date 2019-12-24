@@ -1,52 +1,49 @@
-<div>
-<div class="row">
-        <nav id="navbar-app" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav" ngStickyNav stickyClass="sticky-fixed-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
-                        <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" [routerLink]="[ '/' ]">
-                        <img src="assets/images/logo-white.svg" alt="antim">
+ <div>
+        <div class="row">
+                <nav id="navbar-app" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav" ngStickyNav stickyClass="sticky-fixed-header">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+                                <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand" [routerLink]="[ '/' ]">
+                                <img src="assets/images/logo-white.svg" alt="antim">
 
-                </a>
-        </nav>
-    <aside class="left-sidebar col-lg-4">
-        <!-- Sidebar scroll-->
-        <div class="scroll-sidebar">
-            <app-sidebar></app-sidebar>
-        </div>
-        <!-- End Sidebar scroll-->
-    </aside>
-    <div class="page-wraper-right row">
-        <app-setting></app-setting>
-    </div>
+                        </a>
+                </nav>
+                <aside class="left-sidebar col-lg-4">
+                  <!-- Sidebar scroll-->
+                  <div class="scroll-sidebar">
+                      <app-sidebar></app-sidebar>
+                  </div>
+                  <!-- End Sidebar scroll-->
+              </aside>
+              <div class="page-wraper-right row">
+                  <app-setting></app-setting>
+              </div>
 
+              <div class="page-wraper-right">
 
-
-<div class="page-wraper-right">
-
-  <div class="row" *ngIf="currentUser">
-    <div class="col-lg-12 mt-3" *ngIf="!currentUser?.emailConfirmed">
-      <p style="color: rgb(201, 22, 22); text-align: center;"> Your email is not verified. please verify your email to get the most benefits from ANTIM.  <u><a (click)="resendEmail()"> Resend Verification Link</a></u>
-        </p>
-    </div>
-  </div>
-                <div class="mat-card col-lg-11 mt-5 row welcome-card p-2 align-items-center">
-                    <img class="col-lg-2" src="assets/images/bookWithMen.svg">
-                    <div class="col-lg-7 px-0" *ngIf="currentUser">
-                      <p class="grey-text-color">Oh! Welcome Home {{currentUser?.firstName}}! We've prepared some useful information below ;)</p>
-                    </div>
-                    <!-- <form class="col-lg-3">
-                    <div class="form-group">
-                        <label for="dateOfBirth" class="font-size-13">Filter Date</label>
-                        <div class="input-group">
-                        <input (click)="dp.toggle()" class="form-control date-picker" placeholder="mm-dd-yyyy" name="dp" ngbDatepicker #dp="ngbDatepicker">
-                        <i class="fa fa-calendar"></i>
-                        </div>
-                    </div>
-                    </form> -->
+                <div class="row" *ngIf="currentUser">
+                  <div class="col-lg-12 mt-3" *ngIf="!currentUser?.emailConfirmed">
+                    <p style="color: rgb(201, 22, 22); text-align: center;"> Your email is not verified. please verify your email to get the most benefits from ANTIM.  <u><a (click)="resendEmail()"> Resend Verification Link</a></u>
+                      </p>
+                  </div>
                 </div>
 
-
+                <div class="mat-card col-lg-11 mt-5 row welcome-card p-2 align-items-center">
+                  <img class="col-lg-2" src="assets/images/bookWithMen.svg">
+                  <div class="col-lg-7 px-0" *ngIf="currentUser">
+                    <p class="grey-text-color">Oh! Welcome Home {{currentUser?.firstName}}! We've prepared some useful information below ;)</p>
+                  </div>
+                  <!-- <form class="col-lg-3">
+                  <div class="form-group">
+                      <label for="dateOfBirth" class="font-size-13">Filter Date</label>
+                      <div class="input-group">
+                      <input (click)="dp.toggle()" class="form-control date-picker" placeholder="mm-dd-yyyy" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                      <i class="fa fa-calendar"></i>
+                      </div>
+                  </div>
+                  </form> -->
+              </div>
 
                 <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
                     <!-- <div class="col-lg-2 blue-bg cursor-pointer" [routerLink]="[ '/requests-customer' , 'Ongoing']"> -->
@@ -62,20 +59,16 @@
                         <p class="color-white">Ongoing Requests</p >
                         <div style="text-align: center;">{{customerRequests?.ongoing}}</div>
                     </div>
-                    </div>
+                </div>
                     <!-- <div class="col-lg-2 black-bg cursor-pointer" [routerLink]="[ '/requests-customer' ,'Rejected']"> -->
                     <div class="col-lg-2 black-bg cursor-pointer" >
                         <div class="dashbored-info-content">
                           <p class="color-white">Total Installment Paid</p>
                           <div style="text-align: center;" *ngIf="customerRequests">{{customerRequests?.paidInstallmentsAmount}} SAR</div>
                         </div>
-                    </div>
-                    <!-- <div class="col-lg-2 blue-bg-2 cursor-pointer" [routerLink]="[ '/requests-customer' ,'' ]">
-                        <div class="dashbored-info-content">
-                            <p>Total Installment Paid</p>
-                            <div>3600 SAR </div>
-                        </div>
-                    </div> -->
+                      </div>
+
+
                     <!-- <div class="col-lg-2 purple-bg-2 cursor-pointer" [routerLink]="[ '/requests-customer' ,'Closed']"> -->
                     <div class="col-lg-2 purple-bg-2 cursor-pointer" >
                         <div class="dashbored-info-content">

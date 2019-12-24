@@ -5,13 +5,15 @@ export interface State {
   isUpdated: Boolean;
   isApiCall: Boolean;
   requestsArrayIsEmpty: Boolean;
+  customerRequestCount: any;
 }
 
 export const initialState: State = {
   customerRequestsData: [],
   isUpdated: false,
   isApiCall: false,
-  requestsArrayIsEmpty: null
+  requestsArrayIsEmpty: null,
+  customerRequestCount: null
 };
 
 export function reducer(state = initialState, action: CustomerRequests): State {
@@ -68,6 +70,13 @@ export function reducer(state = initialState, action: CustomerRequests): State {
         customerRequestsData: AddcustomerRequestsData,
       };
     }
+    case CustomerActionTypes.GET_REQUESTS_COUNT_SUCCESS: {
+      return {
+        ...state,
+        customerRequestCount: action.payload
+      };
+    }
+
 
     case CustomerActionTypes.EDIT_REQUEST: {
       let data = action.payload;

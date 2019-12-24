@@ -13,7 +13,9 @@ export enum CustomerActionTypes {
   IS_UPDATED_TRUE = 'IsUpdatedTrue',
   IS_API_CALL_TRUE = 'IsApiCallTrue',
   IS_API_CALL_FALSE = 'IsApiCallFalse',
-  REMOVE_REQUESTS_FROM_STORE = 'RemoveRequestsFromStore'
+  REMOVE_REQUESTS_FROM_STORE = 'RemoveRequestsFromStore',
+  GET_REQUESTS_COUNT = 'GetRequestsCount',
+  GET_REQUESTS_COUNT_SUCCESS = 'GetRequestsCountSuccess'
 }
 
 export class IsApiCallTrue implements Action {
@@ -68,6 +70,15 @@ export class DeleteRequestSuccess implements Action {
 export class RemoveRequestsFromStore implements Action {
   readonly type = CustomerActionTypes.REMOVE_REQUESTS_FROM_STORE;
 }
+export class GetCustomerRequestCount implements Action {
+  readonly type = CustomerActionTypes.GET_REQUESTS_COUNT;
+  constructor() {}
+}
+export class GetRequestsCountSuccess implements Action {
+  readonly type = CustomerActionTypes.GET_REQUESTS_COUNT_SUCCESS;
+  constructor(public payload: any) {}
+}
+
 
 
 export type CustomerRequests =
@@ -83,4 +94,7 @@ export type CustomerRequests =
   | IsApiCallFalse
   | IsApiCallTrue
   | IsUpdatedTrue
-  | RemoveRequestsFromStore;
+  | RemoveRequestsFromStore
+  | GetCustomerRequestCount
+  | GetRequestsCountSuccess;
+

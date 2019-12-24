@@ -652,4 +652,3 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     { backgroundColor: '#5C20D2' },
   ];
 }
-

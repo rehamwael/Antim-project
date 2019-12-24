@@ -2,15 +2,15 @@
   <div class="row justify-content-center align-items-center mt-3">
       <div class="col col-sm-12 col-md-6 col-lg-5 col-xl-3 background-box px-5 py-1 pb-4 text-center mt-0">
           <div *ngIf="!firstStep  && !secondStep  && !lastStep && chooseRole">
-              <h2 class="mt-5">Sign Up</h2>
-              <p class="grey-text-color mt-3 mb-4">Very Easy and straight forward steps to register.
-              <br/> Just follow the lead</p>
+              <h2 class="mt-5">{{ 'SignUp.SignUp' | translate }}</h2>
+              <p class="grey-text-color mt-3 mb-4">{{ 'SignUp.SignUpDesc1' | translate }}
+              <br/>{{ 'SignUp.SignUpDesc2' | translate }} </p>
           </div>
           <!-- <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm" (keydown)="keyDownFunction($event)"> -->
           <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm">
               <div class="first-step row" *ngIf="!firstStep  && !secondStep  && !lastStep && chooseRole">
               <div class="col-lg-2">
-                  <h5 class="vertical-text mt-4">what about you ?</h5>
+                  <h5 class="vertical-text mt-4">{{ 'SignUp.whataboutyou' | translate }}</h5>
               </div>
               <div class="form-group text-left col-lg-4 col-6 text-center">
                   <div class="select-options-radio" [ngClass]="{'active': id === 1 }" id="1" (click)="addClass(id=1)">
@@ -21,7 +21,7 @@
                           <div class="mat-checkbox-mixedmark"></div></div>
                   </div>
                       <img src="assets/images/lender.svg" alt="antim">
-                      <p class="grey-text-color mt-4">Lender</p>
+                      <p class="grey-text-color mt-4">{{ 'HOME.Lender' | translate }}</p>
                   </div>
               </div>
               <div class="form-group text-left col-lg-4 col-6 text-center">
@@ -33,29 +33,29 @@
                               <div class="mat-checkbox-mixedmark"></div></div>
                       </div>
                           <img src="assets/images/borrower-2.svg" alt="antim">
-                          <p class="grey-text-color mt-4">Borrower</p>
+                          <p class="grey-text-color mt-4">{{ 'HOME.Borrower' | translate }}</p>
                   </div>
               </div>
               <div class="form-group mt-1 mb-4 col-lg-12 d-flex justify-content-center">
-                  <button class="btn btn-lg btn-block btn-grey mt-3 mb-4 col-lg-3 col-12 " [ngClass]="(disabledNextButton)?' ':'purple'"  [disabled]="disabledNextButton" (click)="Nextstep()">Next</button>
+                  <button class="btn btn-lg btn-block btn-grey mt-3 mb-4 col-lg-3 col-12 " [ngClass]="(disabledNextButton)?' ':'purple'"  [disabled]="disabledNextButton" (click)="Nextstep()">{{ 'SignUp.Next' | translate }}</button>
               </div>
               </div>
 
               <div *ngIf="firstStep  && !secondStep  && !lastStep && !chooseRole" class="px-4">
                       <img src="assets/images/borrower.svg" alt="antim" class="mb-2">
-                      <p class="grey-text-color mt-2 mb-4">Alright {{userType}}, Fill the below form please!</p>
+                      <p class="grey-text-color mt-2 mb-4">{{ 'SignUp.Alright' | translate }} {{userType}}, {{ 'SignUp.FillBelow' | translate }}</p>
                       <div class="row mt-3">
                           <div class="form-group text-left col-lg-6">
-                              <label for="name">First Name<span class="red-color"> *</span></label>
-                              <input formControlName="FirstName" class="form-control form-control-lg" placeholder="Type First Name here..." type="text" [(ngModel)]="signupFirstName">
-                              <div *ngIf="SigUpForm.controls['FirstName'].touched && SigUpForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">First Name required</div>
-                              <div *ngIf="SigUpForm.controls['FirstName'].touched && SigUpForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">First Name must contains only characters.</div>
+                              <label for="name">{{ 'SignUp.FirstName' | translate }} <span class="red-color"> *</span></label>
+                              <input formControlName="FirstName" class="form-control form-control-lg" placeholder="{{ 'SignUp.TypeFirstName' | translate }}" type="text" [(ngModel)]="signupFirstName">
+                              <div *ngIf="SigUpForm.controls['FirstName'].touched && SigUpForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNamerequired' | translate }}</div>
+                              <div *ngIf="SigUpForm.controls['FirstName'].touched && SigUpForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNameValidate' | translate }}</div>
                           </div>
                           <div class="form-group text-left col-lg-6">
-                            <label for="name">Last Name<span class="red-color"> *</span></label>
-                            <input formControlName="LastName" class="form-control form-control-lg" placeholder="Type Last Name here..." type="text" [(ngModel)]="signupLastName">
-                            <div *ngIf="SigUpForm.controls['LastName'].touched && SigUpForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">Last Name required</div>
-                            <div *ngIf="SigUpForm.controls['LastName'].touched && SigUpForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">Last Name must contains only characters.</div>
+                            <label for="name">{{ 'SignUp.LastName' | translate }} <span class="red-color"> *</span></label>
+                            <input formControlName="LastName" class="form-control form-control-lg" placeholder="{{ 'SignUp.TypeLastName' | translate }}" type="text" [(ngModel)]="signupLastName">
+                            <div *ngIf="SigUpForm.controls['LastName'].touched && SigUpForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNamerequired' | translate }} </div>
+                            <div *ngIf="SigUpForm.controls['LastName'].touched && SigUpForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNameValidate' | translate }} </div>
                         </div>
 
                           <div class="form-group text-left col-lg-6">

@@ -11,7 +11,7 @@
         <div class="sticky-nav-wrapper">
         <nav id="navbar" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav wow fadeInDown" data-wow-duration="1.4s" data-wow-delay="0.7s" ngStickyNav stickyClass="sticky-fixed-header">
             <a class="navbar-brand" [routerLink]="[ '/' ]">
-                    <img src="assets/images/logo.svg" alt="antim">
+                    <img src="{{userLang == 'english' ? 'assets/images/logo.svg' : 'assets/images/antim-logo-arabic.svg' }}" alt="antim" class="logo-img">
 
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
@@ -21,20 +21,20 @@
                 <div class="close-icon d-lg-none d-block"><a (click)="toggleNavbar()" id="navButton" class="btn-close"><i class="ti-close"></i></a> </div>
               <ul class="navbar-nav mr-auto mt-2">
                 <li class="nav-item">
-                  <a class="nav-link" [routerLink]="[ '/' ]" routerLinkActive="active-link" (click)=closeMenu()>home</a>
+                  <a class="nav-link" [routerLink]="[ '/' ]" routerLinkActive="active-link" (click)=closeMenu()> {{ 'HOME.home' | translate }}</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/who-we-are' ]" (click)=closeMenu()>who we are</a>
+                  <a class="nav-link" [routerLink]="[ '/who-we-are' ]" (click)=closeMenu()>{{ 'HOME.who' | translate }}</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/lender-info' ]" (click)=closeMenu()>Lender</a>
+                  <a class="nav-link" [routerLink]="[ '/lender-info' ]" (click)=closeMenu()>{{ 'HOME.Lender' | translate }}</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/borrower-info' ]" (click)=closeMenu()>Borrower</a>
+                  <a class="nav-link" [routerLink]="[ '/borrower-info' ]" (click)=closeMenu()>{{ 'HOME.Borrower' | translate }}</a>
                 </li>
 
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/contact' ]" (click)=closeMenu()>contact us</a>
+                  <a class="nav-link" [routerLink]="[ '/contact' ]" (click)=closeMenu()>{{ 'HOME.contact' | translate }}</a>
                 </li>
 
               </ul>
@@ -42,16 +42,24 @@
                 <!-- <li class="nav-item mt-1 login-header">
                     <a class="nav-link purple-btn" [routerLink]="[ '/login' ]" (click)=closeMenu()>Log In</a>
                 </li> -->
-                 <li class="nav-item " *ngIf="!(islogin)">
-                    <a class="nav-link purple-btn" [routerLink]="[ '/login' ]" (click)=closeMenu()>Log In</a>
+                <li class="nav-item " *ngIf="!(islogin)">
+                    <a class="nav-link purple-btn" [routerLink]="[ '/login' ]" (click)=closeMenu()>{{ 'HOME.LogIn' | translate }}</a>
                 </li>
                 <li class="nav-item " *ngIf="!(islogin)">
-                    <a class="nav-link purple-btn" [routerLink]="[ '/signup' ]" (click)=closeMenu()>Sign up</a>
-                  </li>
-                  <li class="nav-item " *ngIf="islogin">
+                    <a class="nav-link purple-btn" [routerLink]="[ '/signup' ]" (click)=closeMenu()>{{ 'HOME.SignUp' | translate }}</a>
+                </li>
+                <li class="nav-item " *ngIf="islogin">
                     <!-- <a class="nav-link purple-btn" [routerLink]="[ '/dashbored-'+ userRole ]" (click)=closeMenu()>Dashboard</a> -->
-                    <a class="nav-link purple-btn btn-style" [routerLink]="['/', dashboredUrl]" (click)=closeMenu()>Dashboard</a>
+                    <a class="nav-link purple-btn btn-style" [routerLink]="['/', dashboredUrl]" (click)=closeMenu()>{{ 'HOME.Dashboard' | translate }}</a>
                   </li>
+                <li class="nav-item">
+                  <select #langSelect (change)="translate.use(langSelect.value)" id="langSelctor">
+                    <option *ngFor="let lang of translate.getLangs()" [value]="lang">{{ lang }}</option>
+                  </select>
+                  <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L7 7L13 1" stroke="#F9F9F9" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </li>
 
               </ul>
             </div>
@@ -61,9 +69,9 @@
                 <div class="row">
                     <div class="col-lg-6 h-100 d-flex justify-content-center flex-column">
                         <h1 class="main-header-font wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="0.5s">
-                            Select,<br/> Send and Get… <br/>Pay by installment
+                          {{ 'HOME.SELECT' | translate }}<br/>  {{ 'HOME.SEND' | translate }} <br/> {{ 'HOME.PAY' | translate }}
                         </h1>
-                        <button type="button" class="btn btn-block btn-antim btn-rounded mt-5 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.7s" (click)="btnClick();">Get Started</button>
+                        <button type="button" class="btn btn-block btn-antim btn-rounded mt-5 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.7s" (click)="btnClick();">{{ 'HOME.GetStarted' | translate }}</button>
 
                     </div>
                     <div class="col-lg-6 h-100 d-flex justify-content-center flex-column">

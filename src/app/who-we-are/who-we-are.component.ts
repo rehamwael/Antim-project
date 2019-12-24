@@ -1,5 +1,6 @@
 import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -9,7 +10,15 @@ import { Router } from '@angular/router';
 })
 export class WhoWeAreComponent implements OnInit ,OnDestroy {
 
-  constructor(public router: Router) {}
+  userLang: any;
+  
+    constructor(public router: Router, public translate: TranslateService) {
+        this.translate.onLangChange.subscribe((event) => {
+          this.userLang=event.lang;
+          console.log(this.userLang); 
+        });
+    }
+
 
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];

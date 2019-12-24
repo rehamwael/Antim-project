@@ -1,25 +1,34 @@
-import { Component, AfterViewInit ,OnInit
- } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
 
-
 @Component({
-  templateUrl: './starter.component.html'
+  selector: 'app-starter',
+  templateUrl: './starter.component.html',
+  styleUrls: ['./starter.component.css']
 })
-export class StarterComponent implements AfterViewInit ,OnInit{
-  subtitle: string;
-  constructor(public router: Router) {}
+export class StarterComponent implements OnInit {
 
-  ngOnInit(): void {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-          return;
-      }
-      window.scrollTo(0, 0)
-  });
-}
+  userLang: any;
+
+    constructor( public router: Router , public translate: TranslateService) {
+        this.translate.onLangChange.subscribe((event) => {
+          this.userLang = event.lang;
+          console.log(this.userLang);
+        });
+    }
+
+    ngOnInit(): void {
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0);
+    });
+  }
+  // tslint:disable-next-line: use-life-cycle-interface
   ngAfterViewInit() {}
-  btnClick= function () {
+  btnClick = function () {
     this.router.navigateByUrl('/signup');
   };
 }

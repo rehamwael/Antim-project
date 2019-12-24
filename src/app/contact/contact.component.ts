@@ -3,6 +3,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {latLng, tileLayer} from "leaflet";
 import { Router, NavigationEnd } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contact',
@@ -21,8 +22,10 @@ export class ContactComponent implements OnInit ,OnDestroy{
       this.disabledSubmitButton = false;
       }
   }
+  userLang: any;
+  
 
-  constructor(private fb: FormBuilder ,private router: Router) { 
+  constructor(private fb: FormBuilder ,private router: Router , public translate: TranslateService) { 
     this.contactForm = fb.group({
       'contactFormName': ['', Validators.required],
       'contactFormEmail': ['', Validators.compose([Validators.required, Validators.email])],
@@ -36,6 +39,10 @@ export class ContactComponent implements OnInit ,OnDestroy{
         { })];
       this.mapCenter = latLng(24.8085046, 46.6711241);
       this.zoomLevel=10;
+      this.translate.onLangChange.subscribe((event) => {
+        this.userLang=event.lang;
+        console.log(this.userLang); 
+      });
   }
   currentJustify = 'start';
   currentOrientation = 'horizontal';

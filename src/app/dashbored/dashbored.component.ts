@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState, selectAuthenticationState } from './../store/app.states';
-import { UserProfile, GetCustomerRequestCount } from './../store/actions/auth.actions';
+import { AppState, selectAuthenticationState, customerState } from './../store/app.states';
+import { UserProfile } from './../store/actions/auth.actions';
+import { GetCustomerRequestCount } from './../store/actions/customer.actions';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
@@ -18,6 +19,7 @@ export class DashboredComponent implements OnInit, OnDestroy {
   currentUser: any;
   customerRequests: any;
   getState: Observable<any>;
+  getCustomerState: Observable<any>;
   isAuthenticated: boolean;
   email: any;
   options: IndividualConfig;
@@ -30,14 +32,16 @@ export class DashboredComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+    this.getCustomerState = this.store.select(customerState);
   }
 
   ngOnInit(): void {
     this.getState.subscribe((state) => {
       console.log('state', state);
       const token = localStorage.getItem('token');
+      const role = localStorage.getItem('role');
       this.currentUser = state.userProfile;
-      if (state.userProfile == null && token && state.isAuthenticated == true) {
+      if (state.userProfile == null && token && state.isAuthenticated == true && role == 'customer') {
         this.store.dispatch(new UserProfile());
       }
       // console.log('USER:', this.currentUser);
@@ -66,9 +70,9 @@ export class DashboredComponent implements OnInit, OnDestroy {
   }
   getCount() {
     const role = localStorage.getItem('role');
-    this.getState.subscribe((state) => {
+    this.getCustomerState.subscribe((state) => {
       this.customerRequests = state.customerRequestCount;
-      if (state.customerRequestCount == null && state.isAuthenticated == true && role == 'customer') {
+      if (state.customerRequestCount == null && role == 'customer') {
         this.store.dispatch(new GetCustomerRequestCount());
       }
     });

@@ -2,6 +2,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import {TranslateModule , TranslateLoader } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {
   CommonModule,
   LocationStrategy,
@@ -63,11 +65,16 @@ import { reducers } from './store/app.states';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NumberOnlyDirective } from './number-only.directive';
 import { CustomerRequestDetailsComponent } from './customer-request-details/customer-request-details.component';
+import { from } from 'rxjs';
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/translate/', '.json');
+}
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { FunderRequestsDetailsComponent } from './funder-requests-details/funder-requests-details.component';
 import { CountdownModule } from 'ngx-countdown';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
+import { StarterComponent } from './starter/starter.component';
 // import {MatSelectModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule, MatSortModule} from '@angular/material';
@@ -111,7 +118,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NumberOnlyDirective,
     CustomerRequestDetailsComponent,
     ConfirmEmailComponent,
-    FunderRequestsDetailsComponent
+    FunderRequestsDetailsComponent,
+    StarterComponent
   ],
   imports: [
     CommonModule,
@@ -122,6 +130,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToastrModule.forRoot(),
     FormsModule,
     MatSliderModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+    }
+    }),
     ChartsModule,
     LeafletModule.forRoot(),
     HttpClientModule,

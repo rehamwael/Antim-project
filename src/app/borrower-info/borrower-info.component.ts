@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-borrower-info',
@@ -7,7 +8,14 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 })
 export class BorrowerInfoComponent implements OnInit ,OnDestroy {
 
-  constructor() { }
+  userLang: any;
+  
+  constructor(public translate: TranslateService) {
+      this.translate.onLangChange.subscribe((event) => {
+        this.userLang=event.lang;
+        console.log(this.userLang); 
+      });
+  }
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('contact');

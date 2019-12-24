@@ -13,12 +13,12 @@ import { Store } from '@ngrx/store';
 import { AuthService } from '../../auth/auth.service';
 import {
   AuthenticationActionTypes,
-  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile, GetRequestsCountSuccess
+  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile,
 } from '../actions/auth.actions';
 import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
 import {
-  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests,
+  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, GetRequestsCountSuccess,
   DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess, GetAllRequestsFailure, RemoveRequestsFromStore
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -125,7 +125,7 @@ export class AuthenticationEffects {
       @Effect({ dispatch: false })
       GetCustomerRequestCount: Observable<any> = this.actions
         .pipe(
-          ofType(AuthenticationActionTypes.GET_REQUESTS_COUNT),
+          ofType(CustomerActionTypes.GET_REQUESTS_COUNT),
           tap(() => {
             this.spinner.show();
             return this.customerService.getCustomerDashboard().subscribe(res => {

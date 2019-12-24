@@ -6,7 +6,6 @@ export interface State {
   isAuthenticated: boolean;
   user: User | null;
   userProfile: any;
-  customerRequestCount: any;
 }
 
 export const initialState: State = {
@@ -17,7 +16,6 @@ export const initialState: State = {
   //       },
   user: null,
   userProfile: null,
-  customerRequestCount: null
 };
 
 export function reducer(state = initialState, action: AuthenticationActions): State {
@@ -55,12 +53,6 @@ export function reducer(state = initialState, action: AuthenticationActions): St
             ...state,
             userProfile: editedUser
           };
-    }
-    case AuthenticationActionTypes.GET_REQUESTS_COUNT_SUCCESS: {
-      return {
-        ...state,
-        customerRequestCount: action.payload
-      };
     }
     case AuthenticationActionTypes.LOGOUT: {
       console.log(initialState);
