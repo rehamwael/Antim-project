@@ -144,12 +144,18 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         } else {
           this.funderRequestData = res.result;
           AllFunderRequests.length = 0;
+          console.log(this.funderRequestData);
           this.funderRequestData.forEach(element => {
             AllFunderRequests.push(element);
             element.name = element.requestName;
             element.date = moment(element.startingDate).format('LL');
             element.price = element.fundedAmount + ' SAR';
-            element.status = 'Ongoing Request';
+            if (element.requestType == 1) {
+              element.status = 'Ongoing Request';
+            }
+            if (element.requestType == 2) {
+              element.status = 'Closed Request';
+            }
           });
           this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
           this.showMessage = false;
@@ -266,7 +272,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           this.installmentPeriod = '12-Months';
           // this.noOfCheckBoxes = 12;
         }
-        this.RequestType_ENUM = res.result.requestStatus;
+        this.RequestType_ENUM = res.result.requestType;
         if (this.RequestType_ENUM == 1) {
           this.RequestType = 'Ongoing';
         }
