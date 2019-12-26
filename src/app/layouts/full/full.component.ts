@@ -20,18 +20,20 @@ export class FullComponent implements OnInit {
   getState: Observable<any>;
   dashboredUrl: any;
   userLang: any;
+  token: any;
 // tslint:disable-next-line: indent
 	public config: PerfectScrollbarConfigInterface = {};
 
   constructor(public router: Router,  private store: Store<AppState>, public translate: TranslateService) {
+    this.token = localStorage.getItem('token');
       this.getState = this.store.select(selectAuthenticationState);
       translate.addLangs([ 'english' , 'arabic']);
       translate.setDefaultLang('english');
       const browserLang = translate.getBrowserLang();
-      translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
+      translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
       this.translate.onLangChange.subscribe((event) => {
-        this.userLang=event.lang;
-        console.log(this.userLang); 
+        this.userLang = event.lang;
+        console.log(this.userLang);
       });
   }
 
@@ -50,17 +52,17 @@ export class FullComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.token);
     const role = localStorage.getItem('role');
     this.userRole = role;
     this.dashboredUrl = 'dashbored-' + role;
-    this.getState.subscribe((state) => {
-      const token = localStorage.getItem('token');
-      if (token) {
+    // this.getState.subscribe((state) => {
+      if (this.token) {
         this.islogin = true;
       } else {
         this.islogin = false;
       }
-    });
+    // });
     if (this.router.url === '/') {
       this.router.navigate(['/home']);
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { AppState, customerState } from './../store/app.states';
 import { EditCustomerRequest, DeleteCustomerRequests, IsUpdatedFalse } from './../store/actions/customer.actions';
 import { Observable } from 'rxjs';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-customer-request-details',
@@ -17,6 +18,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./customer-request-details.component.css']
 })
 export class CustomerRequestDetailsComponent implements OnInit {
+  @ViewChild('stepper', {static: false}) stepper: ElementRef;
 
   requestName: any;
   requestID: any;
@@ -164,9 +166,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
     });
 
   }
-  // ngOnDestroy() {
-  // console.log('heheh');
-  // }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
@@ -181,7 +180,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
   }
 
   openDeletePopup(content) {
-    // this.modalService.open(content, { centered: true });
     this.modalService.open(content, { centered: false });
   }
   OpenCancelRequestPopup(content) {
@@ -195,7 +193,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
     this.store.dispatch(new DeleteCustomerRequests(actionPayload));
   }
 
-
   editRequestInfo() {
     this.disableFirstStep = true;
     this.editDraftRequest = true;
@@ -203,54 +200,47 @@ export class CustomerRequestDetailsComponent implements OnInit {
   }
   openVerticallyCentered(content3) {
     this.modalService.open(content3, { centered: false });
-    // this.modalService.open(content3, { centered: true });
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
-
   }
-  backButton() {
+
+  nextStep(stepper: MatStepper) {
     this.totalPrice = 0;
     this.totalPriceWithProfit = 0;
-  }
-  calculateTotalPrice() {
-    this.totalPrice = 0;
     this.productList.map(product => {
       this.totalPrice = 1 * this.totalPrice + 1 * product.amount;
     });
     console.log('totalPrice:', this.totalPrice);
     if (this.totalPrice < 500 || this.totalPrice > 10000) {
-      this.showErrorToast('Error!!', 'Total Product Price must be greater than 500 and less than 10000.', 'error');
-      this.disableFirstStep = false;
-      this.showTotalPrice = false;
       this.totalPrice = 0;
+      this.showErrorToast('Error!!', 'Total Price of Products must be greater than 500 and less than 10000.', 'error');
     } else {
-      this.showTotalPrice = true;
-      this.disableFirstStep = true;
+      console.log(stepper);
+      stepper.next();
     }
-  }
-  inputNumber() {
-    this.totalPrice = 0;
-    this.hideTotalButton = true;
-    this.disableFirstStep = false;
-    this.showTotalPrice = false;
-  }
-  nextStep() {
-    this.monthlyInstallment = 0;
     this.totalProducts = Object.keys(this.productList).length;
     if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
       this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
       this.showOptions = false;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
-    } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+    }
+    if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
       this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
       this.showOptions = true;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     }
   }
-  onChange(Value) {
+  onFocusoutMethod() {
+    this.totalPrice = 0;
+    this.productList.map(product => {
+      this.totalPrice = 1 * this.totalPrice + 1 * product.amount;
+    });
+   }
+
+    onChange(Value) {
     if (Value === '3-Months') {
       this.installmentPeriod = '3-Months';
       this.installmentPeriod_ENUM = 1;
@@ -278,9 +268,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
       this.monthlyInstallment = this.totalPriceWithProfit / 12;
       this.monthlyInstallment = Math.round(this.monthlyInstallment);
       this.disabledSubmitButtonSecond = true;
-    }
-    if (this.totalPrice < 500 || this.totalPrice > 10000) {
-      this.disabledSubmitButtonSecond = false;
     }
   }
 

@@ -57,6 +57,7 @@ showErrorToast(title, message, type) {
           this.showMessage = false;
         } else {
           this.showMessage = true;
+          this.internalError = false;
         }
         console.log('error: ', err);
         // this.showErrorToast('Error!!', err.error.message, 'error');
@@ -77,6 +78,7 @@ showErrorToast(title, message, type) {
             this.showMessage = false;
           }  else {
             this.showMessage = true;
+            this.internalError = false;
           }
           console.log('error: ', err);
           // this.showErrorToast('Error!!', err.error.message, 'error');
