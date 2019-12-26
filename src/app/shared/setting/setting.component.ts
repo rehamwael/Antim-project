@@ -61,12 +61,11 @@ export class SettingComponent implements OnInit, OnDestroy {
   }
   deleteAccount() {
     this.userId = this.currentUser.id;
-    console.log(this.userId);
     this.spinner.show();
     this.userProfileService.deleteUser(this.userId).subscribe(res => {
-      console.log(res);
+      localStorage.removeItem('token');
       this.modalService.dismissAll();
-      this.router.navigateByUrl('/login');
+      this.logOut();
       this.spinner.hide();
       this.showSuccessToast('OK!!', res.message, 'success');
     }, err => {
@@ -77,13 +76,13 @@ export class SettingComponent implements OnInit, OnDestroy {
   }
   deActivateAccount() {
     this.userId = this.currentUser.id;
-    console.log(this.userId);
     this.spinner.show();
     this.userProfileService.deActivateUser(this.userId).subscribe(res => {
+      localStorage.removeItem('token');
       this.modalService.dismissAll();
       console.log(res);
       this.spinner.hide();
-      this.router.navigateByUrl('/login');
+      this.logOut();
       this.showSuccessToast('OK!!', res.message, 'success');
     }, err => {
       this.spinner.hide();
