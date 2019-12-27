@@ -6,7 +6,7 @@
                     </button>
                     <a class="navbar-brand" [routerLink]="[ '/' ]">
                             <img src="assets/images/logo-white.svg" alt="antim">
-        
+
                     </a>
             </nav>
         <aside class="left-sidebar col-lg-4">
@@ -19,9 +19,9 @@
         <div class="page-wraper-right row">
             <app-setting></app-setting>
         </div>
-    
-    
-    
+
+
+
     <div class="page-wraper-right mb-5">
         <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2 align-items-center">
             <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
@@ -29,7 +29,7 @@
                 <p class="grey-text-color">Notification </p>
             </div>
             <div class="form-group has-search col-lg-4">
-                    
+
                     <input type="text" class="form-control" placeholder="Search by request number">
                     <span class="fa fa-search form-control-feedback"></span>
              </div>
@@ -47,7 +47,7 @@
         </div>
 
 
-                    <div class="mat-card col-lg-11 row mt-4">
+                    <div class="mat-card col-lg-11 row mt-4" *ngFor="let notification of allNotifications">
                         <div>
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="#5C20D2" fill-opacity="0.0998143"/>
@@ -58,26 +58,27 @@
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M6 14.7576L25 9L20.3939 19.9394L12.9091 17.6364L11.1818 22.8182L10.6061 17.0606L6 14.7576Z" fill="#C7C7C7"/>
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M24.2424 10L11 16.9091L11.1958 21.8952L13.303 17.4848L24.2424 10Z" fill="black"/>
                                 </g>
-                            </svg>                                    
+                            </svg>
                         </div>
                         <div class="col-lg-8">
                             <h5 class="font-purple font-bold no-letter-spacing m-0">Your request has been approved 1044</h5>
                             <div class="grey-text-color mb-2 mt-1">02-Jan-2019</div>
                         </div>
-                            <p class="dark-text-color col-lg-12">Congratulations! Your request has been approved and you are qualified for fund. You are kindly requested to agree on the below Undertaking to Purchase statement to proceed with the request.</p>
-                            <p class="dark-text-color col-lg-12">I agree as a requester for the request #(.......), to re-purchase the product(s) purchased by intime platform, based on my request, and with the total amount of (.........) SAR, where the original prodcut(s) price is (.......) SAR, with profit margin (....%) which equal to (......) SAR, and the total amount will be divided to (.......) month, with a total amount of (.......) SAR for the single installment.
-                                </p>
+                            <!-- <p class="dark-text-color col-lg-12">Congratulations! Your request has been approved and you are qualified for fund. You are kindly requested to agree on the below Undertaking to Purchase statement to proceed with the request.</p> -->
+                            <p class="dark-text-color col-lg-12">{{notification.notificationDescription}}</p>
+                            <!-- <p class="dark-text-color col-lg-12">I agree as a requester for the request #(.......), to re-purchase the product(s) purchased by intime platform, based on my request, and with the total amount of (.........) SAR, where the original prodcut(s) price is (.......) SAR, with profit margin (....%) which equal to (......) SAR, and the total amount will be divided to (.......) month, with a total amount of (.......) SAR for the single installment.
+                                </p> -->
 
-                <div class="col-lg-12 mt-3 row d-flex flex-row-reverse">     
+                <!-- <div class="col-lg-12 mt-3 row d-flex flex-row-reverse">
                        <div class="form-group col-lg-3">
                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2">Agree and proceed                            </button>
                        </div>
                        <div class="form-group col-lg-2">
                             <button class="btn btn-info btn-lg btn-block btn-black mt-2">cancel </button>
                     </div>
-                </div>
+                </div> -->
                     </div>
-                    <div class="mat-card col-lg-11 row mt-1">
+                    <!-- <div class="mat-card col-lg-11 row mt-1">
                     <div>
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="#5C20D2" fill-opacity="0.0998143"/>
@@ -88,7 +89,7 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M6 14.7576L25 9L20.3939 19.9394L12.9091 17.6364L11.1818 22.8182L10.6061 17.0606L6 14.7576Z" fill="#C7C7C7"/>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M24.2424 10L11 16.9091L11.1958 21.8952L13.303 17.4848L24.2424 10Z" fill="black"/>
                             </g>
-                        </svg>                                    
+                        </svg>
                     </div>
                     <div class="col-lg-8">
                         <h5 class="font-purple font-bold no-letter-spacing m-0">Your request has been approved 1044</h5>
@@ -100,8 +101,8 @@
                         </p>
                         <p class="dark-text-color col-lg-12 text-right mb-0 cursor-pointer" (click)="isCollapsed1 = !isCollapsed1">{{isCollapsed1? 'less' : 'more'}}</p>
 
-                    </div>
-                    <div class="mat-card col-lg-11 row mt-1 mb-5">
+                    </div> -->
+                    <!-- <div class="mat-card col-lg-11 row mt-1 mb-5">
                       <div>
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="#5C20D2" fill-opacity="0.0998143"/>
@@ -112,7 +113,7 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M6 14.7576L25 9L20.3939 19.9394L12.9091 17.6364L11.1818 22.8182L10.6061 17.0606L6 14.7576Z" fill="#C7C7C7"/>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M24.2424 10L11 16.9091L11.1958 21.8952L13.303 17.4848L24.2424 10Z" fill="black"/>
                             </g>
-                        </svg>                                    
+                        </svg>
                     </div>
                     <div class="col-lg-8">
                         <h5 class="font-purple font-bold no-letter-spacing m-0">Your request has been approved 1044</h5>
@@ -124,10 +125,10 @@
                     </p>
                     <p class="dark-text-color col-lg-12 text-right mb-0 cursor-pointer" (click)="isCollapsed2 = !isCollapsed2">{{isCollapsed2? 'less' : 'more'}}</p>
 
-                    </div>
-    
-    
+                    </div> -->
 
-    
+
+
+
         </div>
     </div>

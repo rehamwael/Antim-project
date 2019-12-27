@@ -280,7 +280,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       // 'MonthlyPaybackAmount': this.monthlyInstallment,
-      // 'TotalPaybackAmount': this.totalPriceWithProfit,
+      'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 5,
       'Products': this.productList
     };
@@ -295,7 +295,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       // 'MonthlyPaybackAmount': this.monthlyInstallment,
-      // 'TotalPaybackAmount': this.totalPriceWithProfit,
+      'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 6,
       'Products': this.productList
     };

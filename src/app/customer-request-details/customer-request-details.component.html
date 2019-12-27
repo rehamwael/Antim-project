@@ -224,7 +224,7 @@
             </div>
 
             <mat-horizontal-stepper linear #matStep class="mt-5">
-              <mat-step [stepControl]="firstFormGroup" completed="false">
+              <mat-step [stepControl]="firstFormGroup" >
                 <form [formGroup]="firstFormGroup">
                           <ng-template matStepLabel>
                               <img src="assets/images/add-product.svg">
@@ -308,16 +308,16 @@
 
                                 <div class="col-lg-6">
                                     <label for="amount" class="font-bold mt-2">Installment Amount per Month </label>
-                                    <input placeholder="E.g. 1200 SAR" class="form-control form-control-lg" formControlName="secondCtrl" type="number"  [(ngModel)]="monthlyInstallment" value= "{{monthlyInstallment}}" required readonly style="height: 53px;">
+                                    <input placeholder="E.g. 1200 SAR" class="form-control form-control-lg" formControlName="secondCtrl" type="number"  [(ngModel)]="monthlyInstallment" required readonly style="height: 53px;">
                                 </div>
                             </div>
                                 <p class="my-5 grey-text-color">
-                                    <span class="mr-1">
+                                    <!-- <span class="mr-1">
                                         <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.0899 15 14 12.0899 14 8.5C14 4.91015 11.0899 2 7.5 2C3.91015 2 1 4.91015 1 8.5C1 12.0899 3.91015 15 7.5 15Z" stroke="#607AE6"/>
                                             <path d="M7.5 11.1V8.5" stroke="#607AE6"/>
                                          </svg>
-                                    </span>
+                                    </span> -->
 
                                     The information selected at the top is subject to change based on your credit record and your premitted amount of SIMAH. We will call you if any change is made within a period not exceeding one hour.
                                     </p>
@@ -347,8 +347,8 @@
                                             <br/>and with the price showing in the request screen.
                                             </label>
                                     </div> -->
-                                    <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request #1032 showing in the request screen.
-                                      and with the <br/>price showing in the request screen.
+                                    <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request name : <b>{{requestName}} </b> showing in the request screen.
+                                      and with the price showing in the request screen.
                                       <input type="checkbox" (change)="changeCheck($event)">
                                       <span class="checkmark"></span>
                                     </label>
@@ -443,7 +443,7 @@
                                          Your request has been Successfully sent, and will be verified if you are qualified for funding and will be responded to within 30 minutes.
 
                                   </p>
-                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">See All Requests</button></div>
+                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">OK</button></div>
 
                                 </div>
                               </ng-template>
@@ -460,7 +460,7 @@
                                       Your request has been Updated as Draft.
 
                                   </p>
-                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">See All Requests</button></div>
+                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">OK</button></div>
 
                                 </div>
                               </ng-template>

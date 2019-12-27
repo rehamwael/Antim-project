@@ -32,10 +32,9 @@
 
                     <div class="mat-card col-lg-11 mt-5 row welcome-card p-2 align-items-center">
                         <img class="col-lg-2" src="assets/images/bookWithMen.svg">
-                        <div class="col-lg-5 px-0" >
+                        <div class="col-lg-6 px-0" >
                             <p class="grey-text-color">Oh! Welcome Home {{currentUser?.firstName}}! We've prepared some useful information below ;)</p>
                         </div>
-                        <div class="col-lg-1"></div>
                         <form class="col-lg-4" *ngIf="currentUser">
                         <div class="form-group">
                             <label for="dateOfBirth" class="balance-style mt-2">Your Antime Balance : <span style="color: green; font-size: 17px;">{{currentUser?.balance}} SAR </span> </label>

@@ -122,47 +122,47 @@ export class AuthenticationEffects {
         });
       }));
 
-      @Effect({ dispatch: false })
-      GetCustomerRequestCount: Observable<any> = this.actions
-        .pipe(
-          ofType(CustomerActionTypes.GET_REQUESTS_COUNT),
-          tap(() => {
-            this.spinner.show();
-            return this.customerService.getCustomerDashboard().subscribe(res => {
-              if (res.message) {
-                this.spinner.hide();
-                this.showErrorToast('Error!!', res.message, 'error');
-              } else {
-
-              console.log('requestCount:', res.result);
-              this.store.dispatch(new GetRequestsCountSuccess(res.result));
-              this.spinner.hide();
-              }
-            }, err => {
-              console.log('Error', err);
-              this.spinner.hide();
-            });
-          }));
-
-      @Effect({ dispatch: false })
-      EditUser: Observable<any> = this.actions.pipe(
-        ofType(AuthenticationActionTypes.EDIT_USER_PROFILE),
-        map((action: EditUserProfile) => action.payload),
-        switchMap(payload => {
-          this.spinner.show();
-          // console.log('huhuh',payload);
-          return this.userDataService.editUser(payload).pipe(
-            map((res) => {
-              console.log('User Info edited:', res);
-              this.spinner.hide();
-              this.showSuccessToast('OK!!', res.message, 'success');
-          }),
-          catchError( error => {
-            console.log(' ERROR:', error);
+  @Effect({ dispatch: false })
+  GetCustomerRequestCount: Observable<any> = this.actions
+    .pipe(
+      ofType(CustomerActionTypes.GET_REQUESTS_COUNT),
+      tap(() => {
+        this.spinner.show();
+        return this.customerService.getCustomerDashboard().subscribe(res => {
+          if (res.message) {
             this.spinner.hide();
-            return of(this.showErrorToast('Error!!', error.message, 'error'));
-          }));
+            this.showErrorToast('Error!!', res.message, 'error');
+          } else {
+
+            console.log('requestCount:', res.result);
+            this.store.dispatch(new GetRequestsCountSuccess(res.result));
+            this.spinner.hide();
+          }
+        }, err => {
+          console.log('Error', err);
+          this.spinner.hide();
+        });
+      }));
+
+  @Effect({ dispatch: false })
+  EditUser: Observable<any> = this.actions.pipe(
+    ofType(AuthenticationActionTypes.EDIT_USER_PROFILE),
+    map((action: EditUserProfile) => action.payload),
+    switchMap(payload => {
+      this.spinner.show();
+      // console.log('huhuh',payload);
+      return this.userDataService.editUser(payload).pipe(
+        map((res) => {
+          console.log('User Info edited:', res);
+          this.spinner.hide();
+          this.showSuccessToast('OK!!', res.message, 'success');
+        }),
+        catchError(error => {
+          console.log(' ERROR:', error);
+          this.spinner.hide();
+          return of(this.showErrorToast('Error!!', error.message, 'error'));
         }));
+    }));
 
   @Effect({ dispatch: false })
   GetAllCustomerRequests: Observable<any> = this.actions.pipe(
@@ -184,69 +184,71 @@ export class AuthenticationEffects {
       });
     }));
 
-    @Effect({ dispatch: false })
-    AddCustomersRequest: Observable<any> = this.actions.pipe(
-      ofType(CustomerActionTypes.ADD_REQUEST),
-      map((action: AddCustomerRequest) => action.payload),
-      switchMap(payload => {
-        this.spinner.show();
-        return this.customerService.AddCustomerRequest(payload).pipe(
-          map((res) => {
+  @Effect({ dispatch: false })
+  AddCustomersRequest: Observable<any> = this.actions.pipe(
+    ofType(CustomerActionTypes.ADD_REQUEST),
+    map((action: AddCustomerRequest) => action.payload),
+    switchMap(payload => {
+      this.spinner.show();
+      return this.customerService.AddCustomerRequest(payload).pipe(
+        map((res) => {
           console.log(' Added:', res);
           this.store.dispatch(new AddCustomerRequestSuccess(res.result));
           this.spinner.hide();
           this.store.dispatch(new IsUpdatedTrue());
           this.showSuccessToast('OK!!', res.message, 'success');
+          this.router.navigate(['/requests-customer']);
         }),
-        catchError( error => {
+        catchError(error => {
           console.log(' ERROR:', error);
           this.spinner.hide();
           return of(this.showErrorToast('Error!!', error.error.message, 'error'));
         }));
-      }));
+    }));
 
-    @Effect({ dispatch: false })
-    EditCustomerRequests: Observable<any> = this.actions.pipe(
-      ofType(CustomerActionTypes.EDIT_REQUEST),
-      map((action: EditCustomerRequest) => action.payload),
-      switchMap(payload => {
-        this.spinner.show();
-        return this.customerService.EditCustomerRequest(payload).pipe(
-          map((res) => {
+  @Effect({ dispatch: false })
+  EditCustomerRequests: Observable<any> = this.actions.pipe(
+    ofType(CustomerActionTypes.EDIT_REQUEST),
+    map((action: EditCustomerRequest) => action.payload),
+    switchMap(payload => {
+      this.spinner.show();
+      return this.customerService.EditCustomerRequest(payload).pipe(
+        map((res) => {
           console.log(' Edited:', res);
           this.store.dispatch(new IsUpdatedTrue());
           this.spinner.hide();
           this.showSuccessToast('OK!!', res.message, 'success');
+          this.router.navigate(['/requests-customer']);
         }),
-        catchError( error => {
+        catchError(error => {
           console.log(' ERROR:', error);
           this.spinner.hide();
           return of(this.showErrorToast('Error!!', error.error.message, 'error'));
         }));
-      }));
+    }));
 
-      @Effect({ dispatch: false })
-      DeleteCustomerRequest: Observable<any> = this.actions.pipe(
-        ofType(CustomerActionTypes.DELETE_REQUEST),
-        map((action: DeleteCustomerRequests) => action.payload),
-        switchMap(payload => {
-          this.spinner.show();
-          return this.customerService.deleteCustomerRequest(payload.id).pipe(
-            map((res) => {
-            console.log(' Deleted:', res);
-            this.spinner.hide();
-            this.modalService.dismissAll();
-            this.router.navigate(['/requests-customer']);
-            this.showSuccessToast('OK!!', res.message, 'success');
-            this.store.dispatch(new DeleteRequestSuccess(payload));
-          }),
-          catchError( error => {
-            console.log(' ERROR:', error);
-            this.modalService.dismissAll();
-            this.spinner.hide();
-            return of(this.showErrorToast('Error!!', error.error.message, 'error'));
-          }));
+  @Effect({ dispatch: false })
+  DeleteCustomerRequest: Observable<any> = this.actions.pipe(
+    ofType(CustomerActionTypes.DELETE_REQUEST),
+    map((action: DeleteCustomerRequests) => action.payload),
+    switchMap(payload => {
+      this.spinner.show();
+      return this.customerService.deleteCustomerRequest(payload.id).pipe(
+        map((res) => {
+          console.log(' Deleted:', res);
+          this.spinner.hide();
+          this.modalService.dismissAll();
+          this.router.navigate(['/requests-customer']);
+          this.showSuccessToast('OK!!', res.message, 'success');
+          this.store.dispatch(new DeleteRequestSuccess(payload));
+        }),
+        catchError(error => {
+          console.log(' ERROR:', error);
+          this.modalService.dismissAll();
+          this.spinner.hide();
+          return of(this.showErrorToast('Error!!', error.error.message, 'error'));
         }));
+    }));
 
 
   showToast(title: string, message: string, type: string) {
