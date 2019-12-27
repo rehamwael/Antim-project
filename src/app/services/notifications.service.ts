@@ -21,6 +21,7 @@ export class NotificationsService {
       })
     };
   }
+
   getUserNotifications(): Observable<any> {
     this.getTokenAndHeaders();
     return this.httpClient.get(`${this.Url}Notification/GetLoggedInUserNotifications`, this.httpOptions).pipe(

@@ -24,30 +24,47 @@
 
     <div class="page-wraper-right mb-5">
         <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2 align-items-center">
-            <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
-            <div class="col-lg-3 px-0 col-8">
+            <img class="col-lg-2" src="assets/images/bookWithMen 2.svg">
+            <!-- <div class="col-lg-1 px-0">
                 <p class="grey-text-color">Notification </p>
-            </div>
-            <div class="form-group has-search col-lg-4">
-
-                    <input type="text" class="form-control" placeholder="Search by request number">
-                    <span class="fa fa-search form-control-feedback"></span>
-             </div>
+            </div> -->
+            <div class="col-lg-1" ></div>
             <form class="col-lg-3">
-            <div class="form-group">
-                <label for="profileInformation" class="font-size-13">Filter</label>
-                <select class="form-control form-control-lg mb-2 custom-select color-inherit">
-                        <option value="" selected>Choose year</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                </select>
+              <div class="form-group">
+                  <label for="Filter" class="font-size-13"> From Date</label>
+                  <div class="input-group">
+                  <input (click)="dp.toggle()" (dateSelect) = "selectFromDate($event)" [value]="fromDate" class="form-control date-picker" ngbDatepicker #dp="ngbDatepicker">
+
+                  <i style="color: rgb(99, 94, 94) !important;" class="fa fa-calendar"></i>
+                </div>
+              </div>
+     </form>
+     <form class="col-lg-3">
+        <div class="form-group">
+            <label for="Filter" class="font-size-13"> To Date</label>
+            <div class="input-group">
+                <input (click)="d.toggle()" (dateSelect) = "selectToDate($event)" [value]="toDate" class="form-control date-picker"  ngbDatepicker #d="ngbDatepicker">
+
+             <i style="color: rgb(99, 94, 94) !important;" class="fa fa-calendar"></i>
             </div>
-            </form>
         </div>
+    </form>
+    <!-- <div class="col-lg-1" ></div> -->
+    <!-- <div class="col-lg-2" style="text-align: right;"> -->
+       <button class="btn btn-responsive btn-purple mt-2 col-lg-1" [disabled]="!disableSearch" (click)="filterRequests()">search</button>
+    <!-- </div> -->
+        <button class="btn btn-responsive btn-purple mt-2 col-lg-1" [disabled]="!disableReset" (click)="resetPage()">Reset</button>
+     <!-- </div> -->
 
+            <!-- <div class="form-group has-search col-lg-4">
+                <input type="text" class="form-control" placeholder="Search">
+                <span class="fa fa-search form-control-feedback"></span>
+             </div> -->
 
-                    <div class="mat-card col-lg-11 row mt-4" *ngFor="let notification of allNotifications">
+            </div>
+
+            <div *ngIf="getNotifications">
+                    <div class="mat-card col-lg-11 row mt-4" *ngFor="let notification of customerNotifications" >
                         <div>
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="#5C20D2" fill-opacity="0.0998143"/>
@@ -61,13 +78,12 @@
                             </svg>
                         </div>
                         <div class="col-lg-8">
-                            <h5 class="font-purple font-bold no-letter-spacing m-0">Your request has been approved 1044</h5>
-                            <div class="grey-text-color mb-2 mt-1">02-Jan-2019</div>
+                            <!-- <h5 class="font-purple font-bold no-letter-spacing m-0">New Notification</h5> -->
+                                  <h5 class="font-purple font-bold no-letter-spacing m-0">{{notification.enNotificationTitle}}</h5>
+                            <div class="grey-text-color mb-2 mt-1">{{notification.date}} </div>
                         </div>
                             <!-- <p class="dark-text-color col-lg-12">Congratulations! Your request has been approved and you are qualified for fund. You are kindly requested to agree on the below Undertaking to Purchase statement to proceed with the request.</p> -->
-                            <p class="dark-text-color col-lg-12">{{notification.notificationDescription}}</p>
-                            <!-- <p class="dark-text-color col-lg-12">I agree as a requester for the request #(.......), to re-purchase the product(s) purchased by intime platform, based on my request, and with the total amount of (.........) SAR, where the original prodcut(s) price is (.......) SAR, with profit margin (....%) which equal to (......) SAR, and the total amount will be divided to (.......) month, with a total amount of (.......) SAR for the single installment.
-                                </p> -->
+                            <p class="dark-text-color col-lg-12">{{notification.enNotificationDescription}}</p>
 
                 <!-- <div class="col-lg-12 mt-3 row d-flex flex-row-reverse">
                        <div class="form-group col-lg-3">
@@ -78,6 +94,11 @@
                     </div>
                 </div> -->
                     </div>
+                    </div>
+                    <div *ngIf="!getNotifications">
+                      <h1 style="margin-top: 50px; text-align: center; color: rgb(202, 12, 12);">No Notifications Found!</h1>
+                    </div>
+
                     <!-- <div class="mat-card col-lg-11 row mt-1">
                     <div>
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,33 +123,10 @@
                         <p class="dark-text-color col-lg-12 text-right mb-0 cursor-pointer" (click)="isCollapsed1 = !isCollapsed1">{{isCollapsed1? 'less' : 'more'}}</p>
 
                     </div> -->
-                    <!-- <div class="mat-card col-lg-11 row mt-1 mb-5">
-                      <div>
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="#5C20D2" fill-opacity="0.0998143"/>
-                            <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="white"/>
-                            </mask>
-                            <g mask="url(#mask0)">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6 14.7576L25 9L20.3939 19.9394L12.9091 17.6364L11.1818 22.8182L10.6061 17.0606L6 14.7576Z" fill="#C7C7C7"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M24.2424 10L11 16.9091L11.1958 21.8952L13.303 17.4848L24.2424 10Z" fill="black"/>
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="col-lg-8">
-                        <h5 class="font-purple font-bold no-letter-spacing m-0">Your request has been approved 1044</h5>
-                        <div class="grey-text-color mb-2 mt-1">02-Jan-2019</div>
-                    </div>
-                    <p class="dark-text-color col-lg-12">Dear Customer, Congratulations! your request has been approved by the Antime platform, will be follow-up by sending.....
-                    </p>
-                    <p class="dark-text-color col-lg-12" *ngIf="isCollapsed2">Dear Customer, Congratulations! your request has been approved by the Antime platform, will be follow-up by sending.....
-                    </p>
-                    <p class="dark-text-color col-lg-12 text-right mb-0 cursor-pointer" (click)="isCollapsed2 = !isCollapsed2">{{isCollapsed2? 'less' : 'more'}}</p>
-
-                    </div> -->
-
-
-
+                    <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+                    color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
+                    <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+                    </ngx-spinner>
 
         </div>
     </div>
