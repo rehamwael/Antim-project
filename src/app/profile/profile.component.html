@@ -52,17 +52,17 @@
                             <div class="col-lg-6">
                                 <label for="Name" class="font-bold mt-2"> First Name :</label>
                                 <input matInput formControlName="FirstName" type="text" class="form-control form-control-lg" value= "{{firstName}}" [(ngModel)]="firstName" placeholder="First name" >
-                                <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left"> Name is required</div>
+                                <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">First Name is required</div>
                             </div>
                             <div class="col-lg-6">
                               <label for="Name" class="font-bold mt-2">Last Name :</label>
                               <input matInput formControlName="LastName" type="text" class="form-control form-control-lg" value= "{{lastName}}" [(ngModel)]="lastName" placeholder="Last name" >
-                              <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left"> Name is required</div>
+                              <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">Last Name is required</div>
                           </div>
                           <div class="col-lg-6">
                             <label for="Name" class="font-bold mt-2">User Name :</label>
                             <input matInput formControlName="UserName" type="text" class="form-control form-control-lg" value= "{{userName}}" [(ngModel)]="userName" placeholder="User name" >
-                            <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('required')" class="error-msg alert alert-danger text-left"> Name is required</div>
+                            <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('required')" class="error-msg alert alert-danger text-left"> UserName is required</div>
                         </div>
                             <div class="col-lg-6">
                                 <label for="NID" class="font-bold mt-2">National ID / Iqama :</label>

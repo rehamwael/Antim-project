@@ -48,13 +48,6 @@ export class ProfileService {
     );
   }
 
-  addUserBalance(balance: any) {
-    this.getTokenAndHeaders();
-    return this.httpClient.patch(`${this.Url}User/AddOrUpdateUserBalance`, balance, this.httpOptions).pipe(
-      tap((res: any) => {
-      })
-    );
-  }
 
   editUserPhoneNumber(editedMobileNo: any): Observable<any> {
     this.getTokenAndHeaders();

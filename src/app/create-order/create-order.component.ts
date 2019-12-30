@@ -5,7 +5,6 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Product } from './product';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState, customerState } from './../store/app.states';
@@ -128,10 +127,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     body.classList.remove('dashbored');
     body.classList.remove('dashbored-home');
   }
-  backButton() {
-    this.totalPrice = 0;
-    this.totalPriceWithProfit = 0;
-  }
 
   nextStep() {
     this.totalPrice = 0;
@@ -152,7 +147,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
       this.showOptions = false;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
-    } else if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+    }
+    if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
       this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
       this.showOptions = true;
@@ -188,9 +184,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.monthlyPrice = this.totalPriceWithProfit / 12;
       this.monthlyPrice = Math.round(this.monthlyPrice);
       this.disabledSubmitButtonSecond = true;
-    }
-    if (this.totalPrice < 500 || this.totalPrice > 10000) {
-      this.disabledSubmitButtonSecond = false;
     }
   }
   saveAsDraft(content) {

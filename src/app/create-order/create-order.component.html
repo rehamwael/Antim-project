@@ -59,9 +59,6 @@
                               <div class="form-group text-left col-lg-3"   >
                                   <label  class="font-bold mt-2">Product Price</label>
                                   <input  class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly [(ngModel)]="product.amount" [ngModelOptions]="{standalone: true}" (focusout)="onFocusoutMethod()" >
-                                  <!-- oninput="javascript: if (this.value >= 200 && this.value <= 10000) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
-                                  else { document.getElementById('phonenumber').style.visibility = 'visible'; }" > -->
-                                  <!-- <span class="redColor" id="phonenumber{{i}}"> Price must be greater than 200 and less than 10000.</span> -->
                               </div>
                             </div>
                             <div class="row mt-2 mb-4" style="width: 100%;">
@@ -73,7 +70,6 @@
                                     <path d="M10 6.91309V15.2609" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M6 11.0869H14" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                  </svg>
-
                             More Item</button>
                             </div>
                             </div>
@@ -123,19 +119,19 @@
                                     </div>
                                 </div>
                                     <p class="my-5 grey-text-color">
-                                        <span class="mr-1">
+                                        <!-- <span class="mr-1">
                                             <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.0899 15 14 12.0899 14 8.5C14 4.91015 11.0899 2 7.5 2C3.91015 2 1 4.91015 1 8.5C1 12.0899 3.91015 15 7.5 15Z" stroke="#607AE6"/>
                                                 <path d="M7.5 11.1V8.5" stroke="#607AE6"/>
                                              </svg>
-                                        </span>
+                                        </span> -->
 
                                         The information selected at the top is subject to change based on your credit record and your premitted amount of SIMAH. We will call you if any change is made within a period not exceeding one hour.
                                         </p>
                                     <div>
                                     <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">
                                             <div class="form-group col-lg-4">
-                                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious (click)="backButton()">Back</button>
+                                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious >Back</button>
                                             </div>
                                             <div class="form-group col-lg-3">
                                                 <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext [disabled]="!disabledSubmitButtonSecond">Next</button>
@@ -171,8 +167,8 @@
                                                 <br/>and with the price showing in the request screen.
                                                 </label>
                                         </div> -->
-                                        <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request #1032 showing in the request screen.
-                                          and with the <br/>price showing in the request screen.
+                                        <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request  name : <b>{{requestName}} </b>showing in the request screen.
+                                          and with the price showing in the request screen.
                                           <input type="checkbox" (change)="changeCheck($event)">
                                           <span class="checkmark"></span>
                                         </label>
@@ -264,7 +260,7 @@
                                              Your request has been Successfully sent, and will be verified if you are qualified for funding and will be responded to within 30 minutes
 
                                       </p>
-                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">See All Requests</button></div>
+                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">OK</button></div>
 
                                     </div>
                                   </ng-template>
@@ -281,7 +277,7 @@
                                              Your request has been Saved as Draft.
 
                                       </p>
-                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">See All Requests</button></div>
+                                      <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">OK</button></div>
 
                                     </div>
                                   </ng-template>

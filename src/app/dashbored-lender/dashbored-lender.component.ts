@@ -7,6 +7,7 @@ import { UserProfile } from './../store/actions/auth.actions';
 import { FunderRequestService } from '../services/funder-requests.service';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashbored-lender',
@@ -20,6 +21,7 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
   funderDashboardData: any;
   email: any;
   options: IndividualConfig;
+  error = false;
 
   constructor(
     private emailService: UserEmailPasswordService,
@@ -27,6 +29,7 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
     public router: Router,
     private funderService: FunderRequestService,
     private store: Store<AppState>,
+    private spinner: NgxSpinnerService,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
   }
@@ -55,9 +58,19 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
       }
       window.scrollTo(0, 0);
     });
+    this.spinner.show();
     this.funderService.getFunderDashboardData().subscribe(res => {
+      this.spinner.hide();
       this.funderDashboardData = res.result;
       console.log(this.funderDashboardData);
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+      if (err.status == 500) {
+        this.error = true;
+      }  else {
+        this.error = false;
+      }
     });
 
   }
