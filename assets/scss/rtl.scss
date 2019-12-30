@@ -6,6 +6,9 @@
         font-family: 'Cairo', sans-serif !important;
         text-align: right;
     }
+    .row-arabic-revrese {
+        flex-direction: row !important;
+    }
     ul.navbar-nav.mr-auto.mt-2 {
         margin-top: 0.25rem !important;
     }
@@ -137,6 +140,10 @@
         .col-lg-1 {
             display: none;
         }
+    }
+    .dropdown-toggle svg {
+        right: 8px;
+        left: auto;
     }
     .select-options-radio{
         text-align: center;
