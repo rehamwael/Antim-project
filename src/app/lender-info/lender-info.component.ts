@@ -8,12 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LenderInfoComponent implements OnInit ,OnDestroy{
 
-  userLang: any;
-  
+  userLang: "english";
+
   constructor(public translate: TranslateService) {
+    translate.addLangs([ 'english' , 'arabic']);
       this.translate.onLangChange.subscribe((event) => {
         this.userLang=event.lang;
-        console.log(this.userLang); 
       });
   }
 
@@ -21,6 +21,7 @@ export class LenderInfoComponent implements OnInit ,OnDestroy{
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('contact');
     body.classList.add('who-we-are');
+
   }
   ngOnDestroy(): void{
     const body = document.getElementsByTagName('body')[0];

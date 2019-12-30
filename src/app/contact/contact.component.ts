@@ -22,7 +22,7 @@ export class ContactComponent implements OnInit ,OnDestroy{
       this.disabledSubmitButton = false;
       }
   }
-  userLang: any;
+  userLang: "english";
   
 
   constructor(private fb: FormBuilder ,private router: Router , public translate: TranslateService) { 
@@ -39,9 +39,9 @@ export class ContactComponent implements OnInit ,OnDestroy{
         { })];
       this.mapCenter = latLng(24.8085046, 46.6711241);
       this.zoomLevel=10;
+      translate.addLangs([ 'english' , 'arabic']);
       this.translate.onLangChange.subscribe((event) => {
         this.userLang=event.lang;
-        console.log(this.userLang); 
       });
   }
   currentJustify = 'start';
@@ -58,18 +58,19 @@ export class ContactComponent implements OnInit ,OnDestroy{
       $event.preventDefault();
     }
   }
-  ngOnInit(): void {
+  ngOnInit() {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
           return;
       }
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
+
   });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('contact');
     window.dispatchEvent(new Event('resize'));
   }
-  ngOnDestroy(): void{
+  ngOnDestroy() {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('contact');
   }

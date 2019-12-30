@@ -19,7 +19,7 @@ export class FullComponent implements OnInit {
   islogin = false;
   getState: Observable<any>;
   dashboredUrl: any;
-  userLang: any;
+  userLang: "english";
 // tslint:disable-next-line: indent
 	public config: PerfectScrollbarConfigInterface = {};
 
@@ -29,9 +29,9 @@ export class FullComponent implements OnInit {
       translate.setDefaultLang('english');
       const browserLang = translate.getBrowserLang();
       translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
+      this.userLang = "english";
       this.translate.onLangChange.subscribe((event) => {
         this.userLang=event.lang;
-        console.log(this.userLang); 
       });
   }
 
@@ -75,6 +75,10 @@ export class FullComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.handleSidebar();
+  }
+  changeLanguage(lang: string) {
+    this.translate.use(lang);
+    
   }
 
   handleSidebar() {

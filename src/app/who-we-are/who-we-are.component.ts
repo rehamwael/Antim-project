@@ -10,12 +10,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class WhoWeAreComponent implements OnInit ,OnDestroy {
 
-  userLang: any;
+  userLang: "english";
   
     constructor(public router: Router, public translate: TranslateService) {
+      translate.addLangs([ 'english' , 'arabic']);
         this.translate.onLangChange.subscribe((event) => {
           this.userLang=event.lang;
-          console.log(this.userLang); 
         });
     }
 

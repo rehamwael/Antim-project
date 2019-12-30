@@ -9,12 +9,12 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class StarterComponent implements OnInit {
 
-  userLang: any;
-
+  userLang: "english";
+  
     constructor( public router: Router , public translate: TranslateService) {
+      translate.addLangs([ 'english' , 'arabic']);
         this.translate.onLangChange.subscribe((event) => {
           this.userLang = event.lang;
-          console.log(this.userLang);
         });
     }
 
@@ -24,6 +24,7 @@ export class StarterComponent implements OnInit {
             return;
         }
         window.scrollTo(0, 0);
+
     });
   }
   // tslint:disable-next-line: use-life-cycle-interface
