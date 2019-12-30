@@ -1509,6 +1509,11 @@ nav#navbar-app {
             left: auto;
             top: -3px;
         }
+        ul.navbar-nav.mr-auto.mt-2, .navbar-nav.ml-auto {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding: 0 !important;
+        }
         .navbar-light .navbar-brand img {
             width: 81px !important;
         }
