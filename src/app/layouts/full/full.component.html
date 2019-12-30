@@ -14,7 +14,7 @@
                     <img src="{{userLang == 'english' ? 'assets/images/logo.svg' : 'assets/images/antim-logo-arabic.svg' }}" alt="antim" class="logo-img">
 
             </a>
-            <li class="nav-item mt-1 d-block d-m-none">
+            <li class="nav-item mt-1 d-block d-md-none">
                 <div
                 class="btn-group"
                 ngbDropdown
@@ -72,7 +72,7 @@
                     <!-- <a class="nav-link purple-btn" [routerLink]="[ '/dashbored-'+ userRole ]" (click)=closeMenu()>Dashboard</a> -->
                     <a class="nav-link purple-btn btn-style" [routerLink]="['/', dashboredUrl]" (click)=closeMenu()>{{ 'HOME.Dashboard' | translate }}</a>
                   </li>
-                <li class="nav-item mt-1 d-none d-m-block">
+                <li class="nav-item mt-1 d-none d-md-block">
                     <div
                     class="btn-group"
                     ngbDropdown
