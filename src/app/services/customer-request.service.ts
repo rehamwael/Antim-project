@@ -86,6 +86,13 @@ export class CustomerRequestService {
         })
       );
   }
+  getRequestInstallmentDetails(id: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}Transaction/GetRequestInstallments?requestId=${id}`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
 
 }

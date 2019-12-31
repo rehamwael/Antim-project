@@ -92,3 +92,20 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+td{
+  background-color: rgb(230, 245, 255) !important;
+}
+
+table th.mat-header-cell {
+  background-color: rgb(230, 245, 255) !important;
+  font-size: 14px !important;
+  color:  black !important;
+  font-weight: 600 !important;
+}
+tr.mat-row:after {
+  border-style: none !important;
+}
+table td.mat-cell:last-child {
+  width: 30px !important;
+}
