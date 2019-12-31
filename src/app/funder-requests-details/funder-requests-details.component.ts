@@ -47,7 +47,6 @@ export class FunderRequestsDetailsComponent implements OnInit {
   addMoreItem = false;
   disabledSubmitButtonSecond = false;
   disabledSubmitButton = true;
-  showRequestDetiails = true;
   hideTotalButton = false;
   showFundButton = false;
 

@@ -46,7 +46,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   addMoreItem = false;
   disabledSubmitButtonSecond = false;
   disabledSubmitButton = true;
-  showRequestDetiails = true;
+  showRequestDetails = true;
   hideTotalButton = false;
   showCancelButton = false;
 
@@ -86,7 +86,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.modalService.open(this.content, { centered: false });
       }
     });
-    this.showRequestDetiails = true;
+    this.showRequestDetails = true;
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');
     });
@@ -196,7 +196,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   editRequestInfo() {
     this.disableFirstStep = true;
     this.editDraftRequest = true;
-    this.showRequestDetiails = false;
+    this.showRequestDetails = false;
   }
   openVerticallyCentered(content3) {
     this.modalService.open(content3, { centered: false });
