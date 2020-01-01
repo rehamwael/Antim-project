@@ -218,7 +218,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
       }
     });
 
-
     this.editRequestForm = this._formBuilder.group({
       ProductName: [''],
       RequestDate: [''],

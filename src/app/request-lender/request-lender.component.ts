@@ -14,6 +14,8 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { SaveRequestType } from './../store/actions/funder.actions';
 
+let InstallmentDetails: any[] = [];
+
 export interface PeriodicElement {
   position?: number;
   name: string;
@@ -41,9 +43,11 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'price', 'status'];
   dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
   selection = new SelectionModel<PeriodicElement>(true, []);
+
   selectedRequestType = 'My Requests';
   selectedProduct = false;
   productStatus: any;
+  customerRequestId: any;
   content4: any;
   funderRequestsData: any;
   awaitingRequestsData: any;
@@ -63,13 +67,40 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   RequestType_ENUM: any;
   RequestType: any;
   totalPrice: number;
+  totalProfit: number;
   totalPriceWithProfit: number;
   monthlyInstallment: number;
   installmentPeriod: any;
   installmentPeriod_ENUM: any;
-  noOfCheckBoxes: number;
   getState: Observable<any>;
   requestTypeInStore: any;
+
+  ProductStatus: any[] = [
+    {
+      type: 'Pending'
+    },
+    {
+      type: 'Purchased'
+    },
+    {
+      type: 'Delivered'
+    },
+    {
+      type: 'Recieved'
+    }
+  ];
+  amountStatus: any[] = [
+    {
+      type: 'Unpaid'
+    },
+    {
+      type: 'Paid'
+    },
+  ];
+  InstallmentDetailsTable = new MatTableDataSource<PeriodicElement>(InstallmentDetails);
+  displayColumns: string[] = ['months', 'dueDate', 'price', 'status'];
+  monthlyInstallmentsData: any;
+  showTable = false;
 
   constructor(
     private modalService: NgbModal,
@@ -90,6 +121,43 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   showErrorToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
+
+  GetFunderAllRequests() {
+    this.spinner.show();
+    this.funderRequestService.getFunderAllRequests().subscribe(res => {
+      if (res.message) {
+        this.showMessage = true;
+        this.spinner.hide();
+        this.showErrorToast('', res.message, 'error');
+      } else {
+        this.funderRequestData = res.result;
+        AllFunderRequests.length = 0;
+        console.log(this.funderRequestData);
+        this.funderRequestData.forEach(element => {
+          AllFunderRequests.push(element);
+          element.name = element.requestName;
+          element.date = moment(element.startingDate).format('LL');
+          element.price = element.fundedAmount + ' SAR';
+          if (element.requestType == 1) {
+            element.status = 'Ongoing Request';
+          }
+          if (element.requestType == 2) {
+            element.status = 'Closed Request';
+          }
+        });
+        this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+        this.showMessage = false;
+        this.spinner.hide();
+        console.log('FunderAllRequests:', AllFunderRequests);
+      }
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+    });
+
+
+  }
+
   ngOnInit(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -135,44 +203,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       });
     } else {
-      this.spinner.show();
-      this.funderRequestService.getFunderAllRequests().subscribe(res => {
-        if (res.message) {
-          this.showMessage = true;
-          this.spinner.hide();
-          this.showErrorToast('', res.message, 'error');
-        } else {
-          this.funderRequestData = res.result;
-          AllFunderRequests.length = 0;
-          console.log(this.funderRequestData);
-          this.funderRequestData.forEach(element => {
-            AllFunderRequests.push(element);
-            element.name = element.requestName;
-            element.date = moment(element.startingDate).format('LL');
-            element.price = element.fundedAmount + ' SAR';
-            if (element.requestType == 1) {
-              element.status = 'Ongoing Request';
-            }
-            if (element.requestType == 2) {
-              element.status = 'Closed Request';
-            }
-          });
-          this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
-          this.showMessage = false;
-          this.spinner.hide();
-          // if (this.dataSource.filteredData.length == 0) {
-          //   this.showMessage = true;
-          // } else {
-          //   this.showMessage = false;
-          // }
-          console.log('FunderAllRequests:', AllFunderRequests);
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
-        }
-      }, err => {
-        this.spinner.hide();
-        console.log(err);
-      });
+      this.GetFunderAllRequests();
     }
 
   }
@@ -189,7 +220,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.selectedRequestType = deviceValue;
     localStorage.setItem('selectedFunderRequestType', this.selectedRequestType);
     if (deviceValue == 'My Requests') {
-      this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+      this.GetFunderAllRequests();
       this.dataSource.filter = '';
       this.selectedRequestType = 'My Requests';
     }
@@ -242,7 +273,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   openProductDetails(row) {
     this.reqID = row.id;
     if (row.type == 1) {
-      // this.store.dispatch(new SaveRequestType({type: 'Awaiting Fund'}));
       this.store.dispatch(new SaveRequestType('Awaiting Fund'));
       this.router.navigate(['requests-funder', this.reqID]);
     } else {
@@ -251,26 +281,25 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         console.log('REQUEST DETAILS: ', res.result);
         this.productList = res.result.customerRequestProducts.slice();
         this.requestDate = moment(res.result.startingDate).format('LL');
-        this.monthlyInstallment = res.result.monthlyInstallmentAmount;
+        // this.monthlyInstallment = res.result.monthlyInstallmentAmount;
         this.requestName = res.result.requestName;
         this.totalPrice = res.result.fundedAmount;
-        // this.totalPriceWithProfit = res.result.totalPaybackAmount;
+        this.totalPriceWithProfit = res.result.totalPaybackAmount;
+        this.totalProfit = this.totalPriceWithProfit - this.totalPrice;
+        this.totalProfit = Math.round((this.totalProfit * 80) / 100) ;
+        this.monthlyInstallment = Math.round((this.totalPrice + this.totalProfit) / (res.result.paybackPeriod * 3));
         this.installmentPeriod_ENUM = res.result.paybackPeriod;
         if (this.installmentPeriod_ENUM === 1) {
           this.installmentPeriod = '3-Months';
-          // this.noOfCheckBoxes = 3;
         }
         if (this.installmentPeriod_ENUM === 2) {
           this.installmentPeriod = '6-Months';
-          // this.noOfCheckBoxes = 6;
         }
         if (this.installmentPeriod_ENUM === 3) {
           this.installmentPeriod = '9-Months';
-          // this.noOfCheckBoxes = 9;
         }
         if (this.installmentPeriod_ENUM === 4) {
           this.installmentPeriod = '12-Months';
-          // this.noOfCheckBoxes = 12;
         }
         this.RequestType_ENUM = res.result.requestType;
         if (this.RequestType_ENUM == 1) {
@@ -278,6 +307,34 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         }
         if (this.RequestType_ENUM == 2) {
           this.RequestType = 'Closed';
+        }
+        this.productStatus = this.ProductStatus[res.result.productStatus].type;
+        this.customerRequestId = res.result.customerRequestId;
+        if (res.result.productStatus == 3) {
+          this.showTable = true;
+          this.spinner.show();
+          // tslint:disable-next-line: no-shadowed-variable
+          this.funderRequestService.getRequestInstallmentDetails(this.customerRequestId).subscribe(res => {
+            console.log(res);
+            this.monthlyInstallmentsData = res.result.customerInstallments;
+            InstallmentDetails.length = 0;
+            let i = 1;
+            this.monthlyInstallmentsData.forEach(element => {
+              InstallmentDetails.push(element);
+              element.month = i;
+              element.date = moment(element.dueDate).format('LL');
+              element.price = Math.round((element.amount - element.intimeMonthlyProfit) ) + ' SAR';
+              element.status = this.amountStatus[element.status].type;
+              if (element.status == 'Paid') {
+              }
+              i++;
+            });
+            this.InstallmentDetailsTable = new MatTableDataSource<any>(InstallmentDetails);
+            console.log('InstallmentDetails:', InstallmentDetails);
+            this.spinner.hide();
+          });
+        } else {
+          this.showTable = false;
         }
         this.spinner.hide();
       }, err => {
@@ -294,5 +351,13 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   }
   openVerticallyCentered(content3) {
     this.modalService.open(content3, { centered: true });
+  }
+  Search(value) {
+    this.dataSource.filter = value.trim().toLowerCase();
+    if (this.dataSource.filteredData.length == 0) {
+      this.showMessage = true;
+    } else {
+      this.showMessage = false;
+    }
   }
 }

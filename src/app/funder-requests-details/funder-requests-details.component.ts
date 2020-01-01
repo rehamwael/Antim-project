@@ -29,6 +29,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
   requestType: any;
   totalPrice: number;
   totalPriceWithProfit: number;
+  totalProfit: number;
   monthlyInstallment: number;
   installmentPeriod: any;
   installmentPeriod_ENUM: any;
@@ -48,7 +49,6 @@ export class FunderRequestsDetailsComponent implements OnInit {
   disabledSubmitButtonSecond = false;
   disabledSubmitButton = true;
   hideTotalButton = false;
-  showFundButton = false;
 
   totalProducts: any;
   getState: Observable<any>;
@@ -98,14 +98,15 @@ export class FunderRequestsDetailsComponent implements OnInit {
 
     this.spinner.show();
     this.customerRequestService.getRequestDataById(this.requestID).subscribe(res => {
-      this.showFundButton = true;
       this.productList = res.result.customerRequestProducts.slice();
       console.log('REQUEST DETAILS: ', res.result);
       this.requestDate = moment(res.result.createdAt).format('LL');
-      this.monthlyInstallment = res.result.monthlyPaybackAmount;
+      // this.monthlyInstallment = res.result.monthlyPaybackAmount;
       this.requestName = res.result.name;
       this.totalPrice = res.result.totalFundAmount;
       this.totalPriceWithProfit = res.result.totalPaybackAmount;
+      this.totalProfit = this.totalPriceWithProfit - this.totalPrice;
+      this.totalProfit = Math.round((this.totalProfit * 80) / 100);
       this.installmentPeriod_ENUM = res.result.paybackPeriod;
       if (this.installmentPeriod_ENUM === 1) {
         this.installmentPeriod = '3-Months';
@@ -119,6 +120,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
       if (this.installmentPeriod_ENUM === 4) {
         this.installmentPeriod = '12-Months';
       }
+      this.monthlyInstallment = Math.round((this.totalProfit + this.totalPrice) / (res.result.paybackPeriod * 3));
       this.requestType_ENUM = res.result.type;
       if (this.requestType_ENUM == 1) {
         this.requestType = 'Awaiting for Fund';
@@ -140,7 +142,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
       console.log(res);
       this.modalService.dismissAll();
       this.showSuccessToast('OK!!', res.message, 'success');
-      this.showFundButton = false;
+      this.router.navigateByUrl('/requests-funder');
     }, err => {
       this.spinner.hide();
       console.log(err);
