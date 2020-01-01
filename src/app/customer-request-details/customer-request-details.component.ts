@@ -11,6 +11,9 @@ import { AppState, customerState } from './../store/app.states';
 import { EditCustomerRequest, DeleteCustomerRequests, IsUpdatedFalse } from './../store/actions/customer.actions';
 import { Observable } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
+import { MatTableDataSource } from '@angular/material';
+
+let InstallmentDetails: any[] = [];
 
 @Component({
   selector: 'app-customer-request-details',
@@ -18,7 +21,10 @@ import { MatStepper } from '@angular/material/stepper';
   styleUrls: ['./customer-request-details.component.css']
 })
 export class CustomerRequestDetailsComponent implements OnInit {
-  @ViewChild('stepper', {static: false}) stepper: ElementRef;
+  @ViewChild('stepper', { static: false }) stepper: ElementRef;
+  displayedColumns: string[] = ['months', 'dueDate', 'price', 'status'];
+  dataSource = new MatTableDataSource<any>(InstallmentDetails);
+  monthlyInstallmentsData: any;
 
   requestName: any;
   requestID: any;
@@ -35,6 +41,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   secondFormGroup: FormGroup;
   lastFormGroup: FormGroup;
 
+  showTable = false;
   showEditButton = false;
   deleteButton = false;
   editDraftRequest = false;
@@ -46,7 +53,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   addMoreItem = false;
   disabledSubmitButtonSecond = false;
   disabledSubmitButton = true;
-  showRequestDetiails = true;
+  showRequestDetails = true;
   hideTotalButton = false;
   showCancelButton = false;
 
@@ -54,12 +61,60 @@ export class CustomerRequestDetailsComponent implements OnInit {
   getState: Observable<any>;
   content: any;
   checkIsUpdated = false;
+  requestDetails: any;
 
   options: IndividualConfig;
   productList: any[] = [{
     productUrl: '',
     amount: null
   }];
+  productStatus: any;
+  requestTypes: any[] = [
+    {
+      type: 'All Requests'
+    },
+    {
+      type: 'Awaiting For Fund Requests'
+    },
+    {
+      type: 'Closed Requests'
+    },
+    {
+      type: 'Rejected Requests'
+    },
+    {
+      type: 'Ongoing Requests'
+    },
+    {
+      type: 'Draft Requests'
+    },
+    {
+      type: 'Under Review Requests'
+    }
+  ];
+
+  ProductStatus: any[] = [
+    {
+      type: 'Pending'
+    },
+    {
+      type: 'Purchased'
+    },
+    {
+      type: 'Delivered'
+    },
+    {
+      type: 'Recieved'
+    }
+  ];
+  amountStatus: any[] = [
+    {
+      type: 'Unpaid'
+    },
+    {
+      type: 'Paid'
+    },
+  ];
 
 
   constructor(private modalService: NgbModal,
@@ -75,8 +130,56 @@ export class CustomerRequestDetailsComponent implements OnInit {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
+    this.route.paramMap.subscribe(params => {
+      this.requestID = params.get('id');
+    });
   }
 
+  getCustomerRequestDetails() {
+    this.spinner.show();
+    return new Promise((resolve, reject) => {
+      this.customerRequestService.getRequestDataById(this.requestID).subscribe(res => {
+        this.requestDetails = res.result;
+        this.productList = res.result.customerRequestProducts.slice();
+        console.log('REQUEST DETAILS: ', res.result);
+        this.requestDate = moment(res.result.createdAt).format('LL');
+        this.monthlyInstallment = res.result.monthlyPaybackAmount;
+        this.requestName = res.result.name;
+        this.totalPrice = res.result.totalFundAmount;
+        this.totalPriceWithProfit = res.result.totalPaybackAmount;
+        this.installmentPeriod_ENUM = res.result.paybackPeriod;
+        if (this.installmentPeriod_ENUM === 1) {
+          this.installmentPeriod = '3-Months';
+        }
+        if (this.installmentPeriod_ENUM === 2) {
+          this.installmentPeriod = '6-Months';
+        }
+        if (this.installmentPeriod_ENUM === 3) {
+          this.installmentPeriod = '9-Months';
+        }
+        if (this.installmentPeriod_ENUM === 4) {
+          this.installmentPeriod = '12-Months';
+        }
+        this.requestType_ENUM = res.result.type;
+        this.requestType = this.requestTypes[res.result.type].type;
+        if (this.requestType_ENUM == 1) {
+          this.showCancelButton = true;
+        }
+        if (this.requestType_ENUM == 5) {
+          this.deleteButton = true;
+          this.showEditButton = true;
+        }
+        if (this.requestType_ENUM == 6) {
+          this.showCancelButton = true;
+        }
+        this.productStatus = this.ProductStatus[res.result.productStatus].type;
+        this.spinner.hide();
+        localStorage.setItem('customerRequestType', this.requestType);
+
+        resolve(res);
+      });
+    });
+  }
 
   ngOnInit(): void {
     this.getState.subscribe((state) => {
@@ -86,59 +189,35 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.modalService.open(this.content, { centered: false });
       }
     });
-    this.showRequestDetiails = true;
-    this.route.paramMap.subscribe(params => {
-      this.requestID = params.get('id');
+    this.showRequestDetails = true;
+    this.getCustomerRequestDetails().then(e => {
+      if (this.requestDetails.productStatus == 3) {
+        this.showTable = true;
+        this.spinner.show();
+        this.customerRequestService.getRequestInstallmentDetails(this.requestID).subscribe(res => {
+          console.log(res);
+          this.monthlyInstallmentsData = res.result.customerInstallments;
+          InstallmentDetails.length = 0;
+          let i = 1;
+          this.monthlyInstallmentsData.forEach(element => {
+            InstallmentDetails.push(element);
+            element.month = i;
+            element.date = moment(element.dueDate).format('LL');
+            element.price = element.amount + ' SAR';
+            element.status = this.amountStatus[element.status].type;
+            if (element.status == 'Paid') {
+            }
+            i++;
+          });
+          this.dataSource = new MatTableDataSource<any>(InstallmentDetails);
+          console.log('InstallmentDetails:', InstallmentDetails);
+          this.spinner.hide();
+        });
+      } else {
+        this.showTable = false;
+      }
     });
-    this.spinner.show();
-    this.customerRequestService.getRequestDataById(this.requestID).subscribe(res => {
-      this.productList = res.result.customerRequestProducts.slice();
-      console.log('REQUEST DETAILS: ', res.result);
-      this.requestDate = moment(res.result.createdAt).format('LL');
-      this.monthlyInstallment = res.result.monthlyPaybackAmount;
-      this.requestName = res.result.name;
-      this.totalPrice = res.result.totalFundAmount;
-      this.totalPriceWithProfit = res.result.totalPaybackAmount;
-      this.installmentPeriod_ENUM = res.result.paybackPeriod;
-      if (this.installmentPeriod_ENUM === 1) {
-        this.installmentPeriod = '3-Months';
-      }
-      if (this.installmentPeriod_ENUM === 2) {
-        this.installmentPeriod = '6-Months';
-      }
-      if (this.installmentPeriod_ENUM === 3) {
-        this.installmentPeriod = '9-Months';
-      }
-      if (this.installmentPeriod_ENUM === 4) {
-        this.installmentPeriod = '12-Months';
-      }
-      this.requestType_ENUM = res.result.type;
-      if (this.requestType_ENUM == 1) {
-        this.requestType = 'Awaiting for Fund Requests';
-        this.showCancelButton = true;
-      }
-      if (this.requestType_ENUM == 2) {
-        this.requestType = 'Closed  Requests';
-        // this.deleteButton = true;
-      }
-      if (this.requestType_ENUM == 3) {
-        this.requestType = 'Rejected Requests';
-      }
-      if (this.requestType_ENUM == 4) {
-        this.requestType = 'Ongoing Requests';
-      }
-      if (this.requestType_ENUM == 5) {
-        this.requestType = 'Draft Requests';
-        this.deleteButton = true;
-        this.showEditButton = true;
-      }
-      if (this.requestType_ENUM == 6) {
-        this.requestType = 'Under Review Requests';
-        this.showCancelButton = true;
-      }
-      this.spinner.hide();
-      localStorage.setItem('customerRequestType', this.requestType);
-    });
+
     this.editRequestForm = this._formBuilder.group({
       ProductName: [''],
       RequestDate: [''],
@@ -196,7 +275,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   editRequestInfo() {
     this.disableFirstStep = true;
     this.editDraftRequest = true;
-    this.showRequestDetiails = false;
+    this.showRequestDetails = false;
   }
   openVerticallyCentered(content3) {
     this.modalService.open(content3, { centered: false });
@@ -238,9 +317,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
     this.productList.map(product => {
       this.totalPrice = 1 * this.totalPrice + 1 * product.amount;
     });
-   }
+  }
 
-    onChange(Value) {
+  onChange(Value) {
     if (Value === '3-Months') {
       this.installmentPeriod = '3-Months';
       this.installmentPeriod_ENUM = 1;

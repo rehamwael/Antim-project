@@ -1703,6 +1703,15 @@ td.mat-cell.AWAITING  {
   color: #d64532 !important;
   text-transform: uppercase;
 }
+td.mat-cell.Paid  {
+  color: #38d147 !important;
+  text-transform: uppercase;
+}
+td.mat-cell.Unpaid  {
+  color: rgb(212, 16, 16) !important;
+  text-transform: uppercase;
+}
+
 td.mat-cell.Draft {
   color: #5c20d2 !important;
   text-transform: uppercase;

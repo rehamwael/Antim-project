@@ -101,8 +101,7 @@ export class AuthenticationEffects {
     ofType(AuthenticationActionTypes.LOGOUT),
     tap((user) => {
       this.store.dispatch(new RemoveRequestsFromStore());
-      localStorage.removeItem('token');
-      localStorage.removeItem('role');
+      localStorage.clear();
       this.router.navigateByUrl('/login');
     })
   );

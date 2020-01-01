@@ -25,14 +25,13 @@
         <div class="page-wraper-right " *ngIf="!selectedProduct">
 
             <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2 align-items-center">
-                <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
-                <!-- <div class="col-lg-3 px-0 col-8">
+                <img class="col-lg-2 " src="assets/images/bookWithMen 2.svg">
+                <div class="col-lg-2 px-0">
                     <p class="grey-text-color" [innerHTML]="selectedRequestType"></p>
-                </div> -->
+                </div>
                 <form class="col-lg-4">
                 <div class="form-group">
                     <label for="Type" class="font-size-13">Select Request Type</label>
-                    <!-- <select class="form-control form-control-lg mb-2 custom-select"  (change)="onChange($event.target.value)"> -->
                     <select class="form-control form-control-lg mb-2 custom-select" [(ngModel)]="selectedRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
                             <option value="My Requests">My All Requests</option>
                             <option value="Ongoing">My Ongoing Requests</option>
@@ -40,10 +39,13 @@
                             <option value="Awaiting Fund">All Awaiting Fund Requests</option>
 
                     </select>
-                    <!-- <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg> -->
                 </div>
                 </form>
                 <div class="col-lg-1"></div>
+                <div class="col-lg-3" >
+                    <label  class="font-size-13">Search :</label>
+                    <input  class="form-control form-control-lg mb-3" (keyup)="Search($event.target.value)" >
+            </div>
                 <!-- <form class="col-lg-2">
                         <div class="form-group">
                           <label for="amount" class="font-size-13">Funding amount (SAR)</label>
@@ -70,15 +72,15 @@
             </div>
             <div class="col-lg-11 row justify-content-end mt-5 dashbored-info">
               <div class="justify-content-center col-lg-12">
-                      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mb-5" cellpadding="20">
+                      <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8 mb-5" cellpadding="20">
 
                               <ng-container matColumnDef="name">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Name </th>
+                                <th mat-header-cell *matHeaderCellDef >Request Name </th>
                                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                               </ng-container>
 
                               <ng-container matColumnDef="date">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Date</th>
+                                <th mat-header-cell *matHeaderCellDef >Request Date</th>
                                 <td mat-cell *matCellDef="let element"> {{element.date}} </td>
                               </ng-container>
 
@@ -147,12 +149,20 @@
                           <input  class="form-control form-control-lg" value="{{requestDate}}" placeholder="Request Date" readonly [attr.disabled]="true">
                       </div>
                       <div class="col-lg-6">
-                          <label for="Amount" class="font-bold mt-2">Total price</label>
-                          <input  class="form-control form-control-lg" value="{{totalPrice}}" type="number" placeholder="Total price"  [attr.disabled]="true" readonly>
+                        <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
+                        <input  class="form-control form-control-lg " value="{{RequestType}}" readonly placeholder="Request Status" [attr.disabled]="true">
                       </div>
-
-
                   </div>
+                  <div class="row" style="width: 100%;">
+                    <div class="col-lg-6">
+                      <label for="Amount" class="font-bold mt-2">Total price</label>
+                      <input  class="form-control form-control-lg" value="{{totalPrice}}" placeholder="Total price"  [attr.disabled]="true" readonly>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="Amount" class="font-bold mt-2">Total Funder Profit</label>
+                    <input  class="form-control form-control-lg" value="{{totalProfit}}" placeholder="Total profit"  [attr.disabled]="true" readonly>
+                </div>
+              </div>
                   <div class="row" style="width: 100%;">
                       <div class="col-lg-6" >
                          <label for="Installment" class="font-bold mt-2">Installment Period</label>
@@ -164,39 +174,52 @@
                              <input  class="form-control form-control-lg" value="{{monthlyInstallment}}" placeholder="Monthly Installment"  readonly  [attr.disabled]="true">
                          </div>
                      </div>
-                     <div class="row" style="width: 100%;">
-                        <div class="col-lg-6">
-                          <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
-                          <input  class="form-control form-control-lg " value="{{RequestType}}" readonly placeholder="Request Status" [attr.disabled]="true">
+
+                <div class="row" style="width: 100%;">
+                        <div class="col-lg-6" *ngIf="RequestType == 'Ongoing'">
+                          <label  class="font-bold mt-2">Product Status</label>
+                          <input  class="form-control form-control-lg " value="{{productStatus}}" readonly [attr.disabled]="true" >
                         </div>
+                      </div>
+
+                      <div class="col-lg-11 row justify-content-end mt-3 "  *ngIf="RequestType == 'Ongoing'">
+
+                        <div class="justify-content-center col-lg-12" >
+
+                          <div class="row my-3 justify-content-center" style="width: 100%;" *ngIf="showTable">
+                              <h3  class="font-bold">Installment Details</h3>
+                           </div>
+
+                            <table mat-table [dataSource]="InstallmentDetailsTable" id="InstallmentDetailsTable" class="mat-elevation-z8 my-2" cellpadding="20" *ngIf="showTable" >
+
+                                <ng-container matColumnDef="months">
+                                    <th mat-header-cell *matHeaderCellDef >No. </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.month}} </td>
+                                  </ng-container>
+                                  <ng-container matColumnDef="dueDate">
+                                      <th mat-header-cell *matHeaderCellDef >Due Date </th>
+                                      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="price">
+                                    <th mat-header-cell *matHeaderCellDef > Monthly Installment </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="status">
+                                    <th mat-header-cell *matHeaderCellDef >Status</th>
+                                    <td mat-cell *matCellDef="let element" class="mat-cell {{element.status}}"> {{element.status}} </td>
+                                  </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                                          <tr mat-row *matRowDef="let row; columns: displayColumns;">
+                                          </tr>
+                                        </table>
 
 
-                        <div class="col-lg-6"></div>
                         </div>
+                      </div>
 
-              <div class="row" style="width: 100%;">
-                 <div class="col-lg-12" *ngIf="RequestType == 'Ongoing'">
-                  <label for="installmentPiad" class="font-bold mt-2">Number of installment paid</label>
-                  <div class="installment-period" >
-              <!-- <div *ngFor="let checkbox of noOfCheckBoxes; let i = index;">
-                      <mat-checkbox ></mat-checkbox>
-                    </div> -->
-                    <button
-                    type="button"
-                    class="btn btn-secondary btn-bor-red"
-                    placement="bottom"
-                    ngbTooltip="Next Due Date 22-dec-2018" tooltipClass="my-custom-class">
-                    delyed
-                  </button>
-                    <mat-checkbox ></mat-checkbox>
-                    <mat-checkbox ></mat-checkbox>
-                    <mat-checkbox ></mat-checkbox>
-                    <mat-checkbox ></mat-checkbox>
-                    <mat-checkbox ></mat-checkbox>
-                    <!-- <mat-checkbox [checked]= "true" disabled="true"></mat-checkbox> -->
-                 </div>
-                </div>
-              </div>
                 </form>
                 <br/>
                 <br/>

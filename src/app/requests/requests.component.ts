@@ -146,13 +146,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
         this.dataSourceAll = new MatTableDataSource<PeriodicElement>(null);
         this.showMessage = true;
       }
-      if (customerRequestType == selectedtype) {
+      if (customerRequestType == selectedtype && customerRequestType != null && selectedtype != null ) {
         this.CustomerRequestType = customerRequestType;
         this.dataSourceAll.filter = customerRequestType;
-      } else if (customerRequestType && !selectedtype) {
+      }  else {
         this.CustomerRequestType = 'All Requests';
-        this.dataSourceAll.filter = '';
-      } else {
         this.dataSourceAll.filter = '';
       }
     });
