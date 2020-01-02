@@ -111,7 +111,7 @@ header.bg-image ul.navbar-nav.ml-auto li a.nav-link {
     z-index: 99999;
 }
 .antim-img-header{
-    z-index: 99;
+    z-index: 9999;
     height: 86%;
     position: relative;
     top: -20px;
@@ -220,42 +220,6 @@ div.card-header button:hover {
     text-transform: capitalize;
     padding: 0 10px;
 }
-.dropdown-toggle {
-    background: none;
-    color: #fff;
-    text-transform: capitalize;
-    padding: 0 0px;
-    font-size: 13px;
-    svg{
-        left: 8px;
-        top: -1px;
-        position: relative;
-    }
-}
-.dropdown-menu.lang-selector-dropdown.show{
-    top: 140% !important;
-    left: -72% !important;
-    box-shadow: none !important;
-    .dropdown-item{
-        color: #000;
-        font-size: 14px;
-        cursor: pointer !important;
-        text-align: left;
-    }
-    
-}
-.dropdown-menu.lang-selector-dropdown.show:after{
-    top: -6px;
-    left: 50%;
-    border-width: 0 11px 10px 11px;
-}
-
-.lang-selector.dropdown-toggle:not(:disabled):not(.disabled):active:focus, .lang-selector.dropdown-toggle:not(:disabled):not(.disabled).active:focus, .show > .lang-selector.dropdown-toggle:focus , .lang-selector.dropdown-toggle:focus ,.lang-selector.dropdown-toggle:active {
-    box-shadow: none !important;
-}
-.dropdown-toggle.dropdown-toggle::after{
-    display: none;
-}
 select#langSelctor::-ms-expand {
     display: none;
 }
@@ -263,11 +227,11 @@ select#langSelctor{
     -moz-appearance: none;
     -webkit-appearance: none;
   }
-.sticky-fixed-header #langSelctor , .sticky-fixed-header .dropdown-toggle ,.contact .dropdown-toggle , .log-in .dropdown-toggle{
+.sticky-fixed-header #langSelctor{
     color: #000;
 }
-.sticky-fixed-header svg path, .contact header svg path, .log-in header svg path{ 
-    stroke: #000;
+.sticky-fixed-header svg , .contact header svg , .log-in header svg{
+    fill: #000;
 }
 .profile{
     .user-info{
@@ -1088,21 +1052,6 @@ nav#navbar-app {
     .steps-antim .col-lg-3, .steps-antim .col-lg-3 p {
         text-align: center !important;
     }
-    .dropdown-menu.lang-selector-dropdown.show {
-        top: 30% !important;
-        left: 169% !important;
-        box-shadow: none !important;
-    }
-    button.btn.lang-selector.dropdown-toggle {
-        color: #000;
-        position: relative;
-        left: 39px;
-        top: 1px;
-        font-size: 13px !important;
-        svg path{
-            stroke: #000;
-        }
-    }
     .container.mt-5.d-flex.justify-content-center.flex-column.text-center h3 {
         text-align: left;
         margin: 15px 0;
@@ -1497,66 +1446,6 @@ nav#navbar-app {
         text-align: center;
         height: 80vh !important;
     }
-    .dropdown-menu.lang-selector-dropdown.show .dropdown-item {
-        font-size: 12px !important;
-    }
-    ///rtl mobile 
-    [lang="arabic"]{
-        button.btn.lang-selector.dropdown-toggle {
-            color: #000;
-            position: relative;
-            right: 53px;
-            left: auto;
-            top: -3px;
-        }
-        ul.navbar-nav.mr-auto.mt-2, .navbar-nav.ml-auto {
-            margin-left: auto !important;
-            margin-right: auto !important;
-            padding: 0 !important;
-        }
-        .navbar-light .navbar-brand img {
-            width: 81px !important;
-        }
-        .navbar-light .navbar-toggler{
-            top: 0;
-        }
-        .dropdown-menu.lang-selector-dropdown.show {
-            top: 3px !important;
-            right: 0 !important;
-            left: 2em !important;
-        }
-        .main-header-font {
-            font-size: 37px;
-        }
-        .mt-22 {
-            margin-right: 0 !important;
-        }
-        div img.women-image {
-            position: relative;
-            top: -3em;
-            left: auto;
-            height: 300px;
-            margin: 0 auto;
-            display: block;
-        }
-        .footer .copy-right {
-            text-align: center !important;
-        }
-        
-        .easy-for-you .col-lg-10 {
-            position: relative;
-            top: -34px;
-            padding: 0 27px 0 0;
-        }
-        .path-dashed{
-            display: none !important;
-        }
-        body p.grey-text.mt-3.text-left.col-lg-8.mr-4 {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-        }
-        
-    }
 }
 nav#navbar{
     position: relative !important;
@@ -1612,7 +1501,8 @@ nav#navbar.sticky-fixed-header {
 .grey-text-color{
     color: rgb(146, 146, 146);
     font-size: 13px;
-    letter-spacing: 0.04em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
 }
 .dark-grey-text-color a {
     text-decoration: underline;
