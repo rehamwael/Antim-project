@@ -1,15 +1,17 @@
-import { Component, OnInit , OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificationsService } from '../services/notifications.service';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css']
 })
-export class NotificationComponent implements OnInit , OnDestroy {
+export class NotificationComponent implements OnInit, OnDestroy {
   allNotifications: any;
+  filterNotifications: any;
   customerNotifications: any = [];
   // isCollapsed1 = false;
   // isCollapsed2 = false;
@@ -17,15 +19,23 @@ export class NotificationComponent implements OnInit , OnDestroy {
 
   fromDate = null;
   toDate = null;
-  disableReset = false;
-  disableSearch = false;
+  disableReset: boolean;
+  disableSearch: boolean;
+  options: IndividualConfig;
 
   constructor(
     private notificationService: NotificationsService,
     private spinner: NgxSpinnerService,
-  ) { }
+    private toastr: ToastrService,
+  ) {
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-top-right';
+    this.options.timeOut = 5000;
+  }
 
   ngOnInit(): void {
+    this.disableReset = false;
+    this.disableSearch = false;
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('notification');
@@ -35,6 +45,7 @@ export class NotificationComponent implements OnInit , OnDestroy {
       console.log(res.result);
       this.allNotifications = res.result;
       if (this.allNotifications.length > 0) {
+        this.customerNotifications.length = 0;
         this.getNotifications = true;
         this.allNotifications.forEach(element => {
           this.customerNotifications.push(element);
@@ -43,10 +54,9 @@ export class NotificationComponent implements OnInit , OnDestroy {
       } else {
         this.getNotifications = false;
       }
-
     }, err => {
       this.spinner.hide();
-
+      console.log(err);
     });
 
   }
@@ -71,9 +81,43 @@ export class NotificationComponent implements OnInit , OnDestroy {
       this.disableSearch = true;
     }
   }
+  showErrorToast(title, message, type) {
+    this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+
   filterRequests() {
+    this.spinner.show();
+    this.notificationService.filterByDateNotifications(this.fromDate, this.toDate).subscribe(res => {
+      this.spinner.hide();
+      console.log(res);
+      if (res.message) {
+        this.getNotifications = false;
+        this.disableReset = true;
+        this.disableSearch = false;
+        this.showErrorToast('', res.message, 'error');
+      } else {
+      this.filterNotifications = res.result;
+        this.allNotifications = null;
+        this.allNotifications = this.filterNotifications;
+        this.getNotifications = true;
+        this.disableReset = true;
+        this.disableSearch = false;
+        this.customerNotifications.length = 0;
+        this.allNotifications.forEach(element => {
+          this.customerNotifications.push(element);
+          element.date = moment(element.createdAt).format('LL');
+        });
+    }
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+    });
   }
   resetPage() {
-
+    this.ngOnInit();
+    this.fromDate = '';
+    this.toDate = '';
+    this.disableSearch = false;
+    this.disableReset = false;
   }
 }

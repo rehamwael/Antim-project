@@ -24,10 +24,10 @@
             <div class="page-wraper-right mb-5">
               <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2 align-items-center">
                   <img class="col-lg-2" src="assets/images/bookWithMen 2.svg">
-                  <!-- <div class="col-lg-1 px-0">
-                      <p class="grey-text-color">Notification </p>
-                  </div> -->
-                  <div class="col-lg-1" ></div>
+                  <div class="col-lg-1 px-0">
+                      <!-- <p class="grey-text-color">Notification </p> -->
+                  </div>
+                  <!-- <div class="col-lg-1" ></div> -->
                   <form class="col-lg-3">
                     <div class="form-group">
                         <label for="Filter" class="font-size-13"> From Date</label>
@@ -49,11 +49,11 @@
               </div>
           </form>
           <!-- <div class="col-lg-1" ></div> -->
-          <!-- <div class="col-lg-2" style="text-align: right;"> -->
-             <button class="btn btn-responsive btn-purple mt-2 col-lg-1" [disabled]="!disableSearch" (click)="filterRequests()">search</button>
+          <div class="col-lg-3 ">
+             <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableSearch" (click)="filterRequests()">search</button>
           <!-- </div> -->
-              <button class="btn btn-responsive btn-purple mt-2 col-lg-1" [disabled]="!disableReset" (click)="resetPage()">Reset</button>
-           <!-- </div> -->
+              <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableReset" (click)="resetPage()">Reset</button>
+           </div>
 
                   <!-- <div class="form-group has-search col-lg-4">
                       <input type="text" class="form-control" placeholder="Search">
