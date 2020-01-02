@@ -169,6 +169,7 @@ export class AuthenticationEffects {
     tap(() => {
       this.spinner.show();
       return this.customerService.customerAllRequests().subscribe(res => {
+        console.log(res);
         if (res.result) {
           this.store.dispatch(new SaveAllCustomerRequests(res.result));
           this.store.dispatch(new IsApiCallTrue());
