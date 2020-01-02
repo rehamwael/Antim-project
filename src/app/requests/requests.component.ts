@@ -91,7 +91,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
           this.isDatainArray = false;
           resolve();
         }
-        if (state.isApiCall == false || state.customerRequestsData.length == 0) {
+        if (state.isApiCall == false && state.customerRequestsData.length == 0) {
           this.store.dispatch(new GetAllCustomerRequests());
         } else {
           if (state.requestsArrayIsEmpty == false) {

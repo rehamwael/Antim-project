@@ -26,6 +26,11 @@ export class FullComponent implements OnInit {
 
   constructor(public router: Router,  private store: Store<AppState>, public translate: TranslateService) {
     this.token = localStorage.getItem('token');
+        if (this.token) {
+      this.islogin = true;
+    } else {
+      this.islogin = false;
+    }
       this.getState = this.store.select(selectAuthenticationState);
       translate.addLangs([ 'english' , 'arabic']);
       translate.setDefaultLang('english');
@@ -52,17 +57,10 @@ export class FullComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.token);
+    // console.log(this.token);
     const role = localStorage.getItem('role');
     this.userRole = role;
     this.dashboredUrl = 'dashbored-' + role;
-    // this.getState.subscribe((state) => {
-      if (this.token) {
-        this.islogin = true;
-      } else {
-        this.islogin = false;
-      }
-    // });
     if (this.router.url === '/') {
       this.router.navigate(['/home']);
     }

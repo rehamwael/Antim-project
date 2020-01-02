@@ -165,7 +165,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
 
     this.getState.subscribe((state) => {
      this.requestTypeInStore = state.requestType;
-     console.log(this.requestTypeInStore);
     });
 
     this.selectedRequestType = 'My Requests';

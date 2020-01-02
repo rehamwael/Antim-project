@@ -79,11 +79,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getUserState.subscribe((state) => {
-      const token = localStorage.getItem('token');
       this.currentUser = state.userProfile;
-      if (!this.currentUser && token) {
-        this.store.dispatch(new UserProfile());
-      }
     });
     this.getCustomerState.subscribe((state) => {
       console.log('check store', state);

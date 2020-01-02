@@ -22,17 +22,19 @@ export function reducer(state = initialState, action: CustomerRequests): State {
       return {
         ...state,
         customerRequestsData: action.payload,
-        requestsArrayIsEmpty: false
+        requestsArrayIsEmpty: false,
+        isApiCall: true
       };
     }
     case CustomerActionTypes.GET_ALL_REQUESTS_FAILURE: {
       return {
         ...state,
-        requestsArrayIsEmpty: true,
         customerRequestsData: [],
+        requestsArrayIsEmpty: false,
         isApiCall: true
       };
     }
+
     case CustomerActionTypes.IS_UPDATED_TRUE: {
       return {
         ...state,
@@ -57,12 +59,8 @@ export function reducer(state = initialState, action: CustomerRequests): State {
         isApiCall: false
       };
     }
-    case CustomerActionTypes.GET_ALL_REQUESTS_FAILURE: {
-      return initialState;
-    }
 
     case CustomerActionTypes.ADD_REQUEST_SUCCESS: {
-      console.log(action.payload);
       let data = action.payload;
       let AddcustomerRequestsData = [data, ...state.customerRequestsData ];
       return {
@@ -102,7 +100,6 @@ export function reducer(state = initialState, action: CustomerRequests): State {
       };
     }
     case CustomerActionTypes.REMOVE_REQUESTS_FROM_STORE: {
-      console.log(initialState);
       return initialState;
     }
 

@@ -172,10 +172,10 @@ export class AuthenticationEffects {
         console.log(res);
         if (res.result) {
           this.store.dispatch(new SaveAllCustomerRequests(res.result));
-          this.store.dispatch(new IsApiCallTrue());
-        } else {
+        }
+        if (res.message) {
           this.store.dispatch(new GetAllRequestsFailure());
-          // this.showErrorToast('', res.message, 'error');
+          this.showErrorToast('', res.message, 'error');
         }
         this.spinner.hide();
       }, err => {
