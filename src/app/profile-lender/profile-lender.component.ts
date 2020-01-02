@@ -462,10 +462,10 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       // 'Email': this.email
     };
     this.store.dispatch(new EditUserProfile(actionPayload));
-    this.EditForm.get('FirstName').disable();
-    this.EditForm.get('LastName').disable();
-    this.EditForm.get('UserName').disable();
-    this.EditForm.get('NID').disable();
+    // this.EditForm.get('FirstName').disable();
+    // this.EditForm.get('LastName').disable();
+    // this.EditForm.get('UserName').disable();
+    // this.EditForm.get('NID').disable();
       this.disableprofileButton = false;
 
   }

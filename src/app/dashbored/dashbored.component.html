@@ -47,21 +47,21 @@
 
                 <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
                     <!-- <div class="col-lg-2 blue-bg cursor-pointer" [routerLink]="[ '/requests-customer' , 'Ongoing']"> -->
-                    <div class="col-lg-2 blue-bg cursor-pointer" >
+                    <div class="col-lg-2 blue-bg  " >
                         <div class="dashbored-info-content">
                             <p class="color-white">Total Submitted requests</p>
                             <div style="text-align: center;">{{customerRequests?.submitted}}</div>
                         </div>
                     </div>
                 <!-- <div class="col-lg-2 purple-bg cursor-pointer" [routerLink]="[ '/requests-customer' ,'Waiting for approval']"> -->
-                <div class="col-lg-2 purple-bg cursor-pointer" >
+                <div class="col-lg-2 purple-bg  " >
                     <div class="dashbored-info-content">
                         <p class="color-white">Ongoing Requests</p >
                         <div style="text-align: center;">{{customerRequests?.ongoing}}</div>
                     </div>
                 </div>
                     <!-- <div class="col-lg-2 black-bg cursor-pointer" [routerLink]="[ '/requests-customer' ,'Rejected']"> -->
-                    <div class="col-lg-2 black-bg cursor-pointer" >
+                    <div class="col-lg-2 black-bg  " >
                         <div class="dashbored-info-content">
                           <p class="color-white">Total Installment Paid</p>
                           <div style="text-align: center;" *ngIf="customerRequests">{{customerRequests?.paidInstallmentsAmount}} SAR</div>
@@ -70,14 +70,14 @@
 
 
                     <!-- <div class="col-lg-2 purple-bg-2 cursor-pointer" [routerLink]="[ '/requests-customer' ,'Closed']"> -->
-                    <div class="col-lg-2 purple-bg-2 cursor-pointer" >
+                    <div class="col-lg-2 purple-bg-2  " >
                         <div class="dashbored-info-content">
                             <p class="color-white">UnderReview requests</p>
                             <div style="text-align: center;">{{customerRequests?.underReview}}</div>
                         </div>
                     </div>
                     <!-- <div class="col-lg-2 blue-bg-2 cursor-pointer" [routerLink]="[ '/requests-customer' ,'Draft']"> -->
-                    <div class="col-lg-2 blue-bg-2 cursor-pointer" >
+                    <div class="col-lg-2 blue-bg-2  " >
 
                       <div class="dashbored-info-content">
                         <p class="color-white">Awaiting for Fund Requests</p>

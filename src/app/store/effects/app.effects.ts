@@ -159,7 +159,7 @@ export class AuthenticationEffects {
         catchError(error => {
           console.log(' ERROR:', error);
           this.spinner.hide();
-          return of(this.showErrorToast('Error!!', error.message, 'error'));
+          return of(this.showErrorToast('Error!!', error.error.message, 'error'));
         }));
     }));
 
