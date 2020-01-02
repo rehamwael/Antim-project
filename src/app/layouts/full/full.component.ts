@@ -57,7 +57,6 @@ export class FullComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.token);
     const role = localStorage.getItem('role');
     this.userRole = role;
     this.dashboredUrl = 'dashbored-' + role;

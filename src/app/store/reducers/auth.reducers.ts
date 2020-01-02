@@ -55,7 +55,6 @@ export function reducer(state = initialState, action: AuthenticationActions): St
           };
     }
     case AuthenticationActionTypes.LOGOUT: {
-      console.log(initialState);
       return initialState;
     }
     default: {
