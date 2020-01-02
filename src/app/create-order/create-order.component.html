@@ -47,6 +47,7 @@
                                 <label for="name" class="font-bold mt-2">Request Name</label>
                                 <input formControlName="Name" class="form-control form-control-lg" placeholder="Enter Request name here …"  type="text" [(ngModel)]="requestName" required>
                                 <div *ngIf="firstFormGroup.controls['Name'].touched && firstFormGroup.controls['Name'].hasError('required')" class="error-msg alert alert-danger text-left">Request Name is required.</div>
+                                <div *ngIf="firstFormGroup.controls['Name'].touched && firstFormGroup.controls['Name'].hasError('minlength')" class="error-msg alert alert-danger text-left">Request Name must be at least 6 characters long.</div>
                               </div>
                             </div>
 

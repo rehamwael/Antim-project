@@ -47,7 +47,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   content: any;
   userPoductList: any[] = [{
     productUrl: '',
-    amount: null
+    amount: 0
   }];
 
   @HostListener('input') oninput() {
@@ -93,7 +93,10 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     const regex = new RegExp(expression);
 
     this.firstFormGroup = this._formBuilder.group({
-      Name: ['', Validators.required]
+      Name: [null, Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
+      ])]
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
