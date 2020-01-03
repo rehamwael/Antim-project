@@ -38,4 +38,12 @@ export class NotificationsService {
     );
   }
 
+  filterByDateNotifications(fromDate, toDate): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}Notification/GetFilteredNotifications?dateFrom=${fromDate}&dateTo=${toDate}`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
 }

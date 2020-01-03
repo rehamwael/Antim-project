@@ -25,8 +25,16 @@ export class FullComponent implements OnInit {
 	public config: PerfectScrollbarConfigInterface = {};
 
   constructor(public router: Router,  private store: Store<AppState>, public translate: TranslateService) {
-    this.token = localStorage.getItem('token');
       this.getState = this.store.select(selectAuthenticationState);
+      this.getState.subscribe((state) => {
+        console.log(state);
+        const token = localStorage.getItem('token');
+        if (state.loggedIn == true || token) {
+          this.islogin = true;
+        } else {
+          this.islogin = false;
+        }
+      });
       translate.addLangs([ 'english' , 'arabic']);
       translate.setDefaultLang('english');
       const browserLang = translate.getBrowserLang();
@@ -52,17 +60,9 @@ export class FullComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.token);
     const role = localStorage.getItem('role');
     this.userRole = role;
     this.dashboredUrl = 'dashbored-' + role;
-    // this.getState.subscribe((state) => {
-      if (this.token) {
-        this.islogin = true;
-      } else {
-        this.islogin = false;
-      }
-    // });
     if (this.router.url === '/') {
       this.router.navigate(['/home']);
     }

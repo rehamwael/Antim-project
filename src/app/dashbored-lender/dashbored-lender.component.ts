@@ -36,13 +36,14 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getState.subscribe((state) => {
-      console.log('state', state);
+      // console.log('state', state);
       const token = localStorage.getItem('token');
-      this.currentUser = state.userProfile;
-      if (state.userProfile == null && token && state.isAuthenticated == true) {
+      const role = localStorage.getItem('role');
+      if (state.userProfile == null && token && state.isAuthenticated == true && role == 'funder') {
         this.store.dispatch(new UserProfile());
       }
-      // console.log( 'USER:' ,  this.currentUser);
+      this.currentUser = state.userProfile;
+      // console.log('USER:', this.currentUser);
       if (this.currentUser) {
         this.email = this.currentUser.email;
       }

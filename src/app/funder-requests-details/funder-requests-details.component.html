@@ -30,25 +30,29 @@
                   <div class="mat-card row p-4 m-0">
                       <div class="header col-lg-9">
                         <span class="icon-close" [routerLink]="['/requests-funder']"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
-                        <p>Request Details</p>
+                        <h1 class="ml-5">Request Details</h1>
                       </div>
                     </div>
 
                 <form class="col-lg-10 row antim-form p-5 mt-2 mb-5 m-auto" [formGroup]="editRequestForm">
                     <div class="row" style="width: 100%;">
-                      <div class="col-lg-6 padding mt-4"><h3 class="headingh3">Request Details</h3>
-                        </div>
-                        <div class="col-lg-2 ">
+                      <!-- <div class="col-lg-6 padding mt-4"><h3 class="headingh3">Request Details</h3>
+                        </div> -->
+                        <div class="col-lg-8 ">
                           </div>
                           <div class="form-group col-lg-4" >
-                            <button class="btn btn-info btn-lg btn-block btn-green mt-2"  (click)="OpenPopUp(content)">Make Fund</button>
+                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  (click)="OpenPopUp(content)">Make Fund</button>
                         </div>
                         </div>
                     <div class="row" style="width: 100%;">
-                      <div class="col-lg-12">
+                      <div class="col-lg-8">
                           <label for="Name" class="font-bold mt-2">Request Name: </label>
                           <input formControlName="ProductName" class="form-control form-control-lg" value="{{requestName}}"  placeholder="Product Name"  [attr.disabled]="true">
                       </div>
+                      <div class="col-lg-4">
+                        <label  class="font-bold mt-2">Request Number: </label>
+                        <input  class="form-control form-control-lg" value="{{requestDetails?.requestNumber}}" readonly   [attr.disabled]="true">
+                    </div>
                     </div>
 
 

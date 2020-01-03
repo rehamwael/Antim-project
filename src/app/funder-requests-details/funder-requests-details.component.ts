@@ -23,6 +23,7 @@ import { CustomerRequestService } from '../services/customer-request.service';
 })
 export class FunderRequestsDetailsComponent implements OnInit {
 
+  requestDetails: any;
   requestName: any;
   requestID: any;
   requestType_ENUM: any;
@@ -100,6 +101,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
     this.customerRequestService.getRequestDataById(this.requestID).subscribe(res => {
       this.productList = res.result.customerRequestProducts.slice();
       console.log('REQUEST DETAILS: ', res.result);
+      this.requestDetails = res.result;
       this.requestDate = moment(res.result.createdAt).format('LL');
       // this.monthlyInstallment = res.result.monthlyPaybackAmount;
       this.requestName = res.result.name;
@@ -126,7 +128,6 @@ export class FunderRequestsDetailsComponent implements OnInit {
         this.requestType = 'Awaiting for Fund';
       }
       this.spinner.hide();
-      // localStorage.setItem('FunderRequestType', 'Awaiting Fund');
     });
 
   }
@@ -156,29 +157,9 @@ export class FunderRequestsDetailsComponent implements OnInit {
   showErrorToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
-  closeModal() {
-    this.checkIsUpdated = false;
-    this.modalService.dismissAll();
-    this.store.dispatch(new IsUpdatedFalse());
-    this.content = '';
-  }
 
-  openDeletePopup(content) {
-    // this.modalService.open(content, { centered: true });
-    this.modalService.open(content, { centered: false });
-  }
-  OpenCancelRequestPopup(content) {
-    this.modalService.open(content, { centered: false });
-  }
-
-
-
-  openVerticallyCentered(content3) {
-    this.modalService.open(content3, { centered: false });
-    // this.modalService.open(content3, { centered: true });
-  }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
-
   }
+
 }

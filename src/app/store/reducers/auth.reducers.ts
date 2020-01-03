@@ -6,25 +6,23 @@ export interface State {
   isAuthenticated: boolean;
   user: User | null;
   userProfile: any;
+  loggedIn: boolean;
 }
 
 export const initialState: State = {
   isAuthenticated: false,
-  // user: {
-  //         token: localStorage.getItem('token'),
-  //         role: localStorage.getItem('role')
-  //       },
   user: null,
   userProfile: null,
+  loggedIn: false
 };
 
 export function reducer(state = initialState, action: AuthenticationActions): State {
   switch (action.type) {
     case AuthenticationActionTypes.LOGIN_SUCCESS: {
-      // console.log(action.payload);
       return {
         ...state,
         isAuthenticated: true,
+        loggedIn: true,
         user: {
           token: action.payload.token,
           role: action.payload.role
@@ -35,7 +33,6 @@ export function reducer(state = initialState, action: AuthenticationActions): St
       return initialState;
     }
     case AuthenticationActionTypes.SAVE_USER_PROFILE: {
-      // console.log(action.payload);
       return  {
         ...state,
         userProfile: action.payload,
@@ -55,7 +52,6 @@ export function reducer(state = initialState, action: AuthenticationActions): St
           };
     }
     case AuthenticationActionTypes.LOGOUT: {
-      console.log(initialState);
       return initialState;
     }
     default: {

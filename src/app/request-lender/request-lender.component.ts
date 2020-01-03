@@ -56,6 +56,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   reqID: any;
   funderRequestData: any;
 
+  requestDetails: any;
   requestName: any;
   requestDate: any;
   requestAmount: any;
@@ -77,16 +78,16 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
 
   ProductStatus: any[] = [
     {
-      type: 'Pending'
+      type: 'Pending (Products Not Purchased Yet).'
     },
     {
-      type: 'Purchased'
+      type: 'Products Purchased.'
     },
     {
-      type: 'Delivered'
+      type: 'Products Delivered to Customer.'
     },
     {
-      type: 'Recieved'
+      type: 'Products Recieved by Customer.'
     }
   ];
   amountStatus: any[] = [
@@ -165,7 +166,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
 
     this.getState.subscribe((state) => {
      this.requestTypeInStore = state.requestType;
-     console.log(this.requestTypeInStore);
     });
 
     this.selectedRequestType = 'My Requests';
@@ -278,7 +278,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     } else {
       this.spinner.show();
       this.funderRequestService.getRequestDataById(row.id).subscribe(res => {
-        console.log('REQUEST DETAILS: ', res.result);
+        console.log(res);
+        this.requestDetails = res.result;
         this.productList = res.result.customerRequestProducts.slice();
         this.requestDate = moment(res.result.startingDate).format('LL');
         // this.monthlyInstallment = res.result.monthlyInstallmentAmount;

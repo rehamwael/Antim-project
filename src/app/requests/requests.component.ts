@@ -12,17 +12,8 @@ import { AppState, customerState } from './../store/app.states';
 import { GetAllCustomerRequests } from './../store/actions/customer.actions';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
-export interface PeriodicElement {
-  position: number;
-  name: string;
-  date: string;
-  price: string;
-  status: string;
-  id?: string;
-}
-
-let allCustomerRequestData: PeriodicElement[] = [];
-let filterRequestData: PeriodicElement[] = [];
+let allCustomerRequestData: any[] = [];
+let filterRequestData: any[] = [];
 
 @Component({
   selector: 'app-requests',
@@ -47,8 +38,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
   model2: NgbDateStruct;
   reqID: any;
   displayedColumns: string[] = ['name', 'date', 'price', 'type'];
-  dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  dataSourceAll = new MatTableDataSource<any>(allCustomerRequestData);
+  selection = new SelectionModel<any>(true, []);
   CustomerRequestType = 'All Requests';
   productStatus: any;
   index: any;
@@ -100,7 +91,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
           this.isDatainArray = false;
           resolve();
         }
-        if (state.isApiCall == false || state.customerRequestsData.length == 0) {
+        if (state.isApiCall == false && state.customerRequestsData.length == 0) {
           this.store.dispatch(new GetAllCustomerRequests());
         } else {
           if (state.requestsArrayIsEmpty == false) {
@@ -137,13 +128,13 @@ export class RequestsComponent implements OnInit, OnDestroy {
           element.status = this.requestTypes[element.type].type;
         });
         this.CustomerRequestType = 'All Requests';
-        this.dataSourceAll = new MatTableDataSource<PeriodicElement>(allCustomerRequestData);
-        console.log('customerAllRequests:', allCustomerRequestData);
+        this.dataSourceAll = new MatTableDataSource<any>(allCustomerRequestData);
+        // console.log('customerAllRequests:', allCustomerRequestData);
         this.dataSourceAll.paginator = this.paginator;
         this.dataSourceAll.sort = this.sort;
         this.showMessage = false;
       } else {
-        this.dataSourceAll = new MatTableDataSource<PeriodicElement>(null);
+        this.dataSourceAll = new MatTableDataSource<any>(null);
         this.showMessage = true;
       }
       if (customerRequestType == selectedtype && customerRequestType != null && selectedtype != null ) {
@@ -193,8 +184,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
-
   }
+
   selectFromDate(evt: any) {
     this.fromDate = new Date(evt.year, evt.month - 1, evt.day);
     this.fromDate = moment(this.fromDate).format('YYYY-MM-DD');
@@ -210,8 +201,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
     // if (this.selectedRequestType === 0) {
       this.spinner.show();
       this.customerRequestService.getFilteredRequestsByDate(this.fromDate, this.toDate).subscribe((res) => {
+        console.log(res);
         if (res.message) {
-          this.dataSourceAll = new MatTableDataSource<PeriodicElement>(null);
+          this.dataSourceAll = new MatTableDataSource<any>(null);
           this.showMessage = true;
           this.disableReset = true;
           this.disableSearch = false;
@@ -221,7 +213,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
           this.allFilterRequests = [];
           this.allFilterRequests = res.result;
           filterRequestData.length = 0;
-          console.log('allFilterRequests', this.allFilterRequests);
+          // console.log('allFilterRequests', this.allFilterRequests);
           this.allFilterRequests.forEach(element => {
             filterRequestData.push(element);
             element.date = moment(element.createdAt).format('LL');
@@ -233,7 +225,10 @@ export class RequestsComponent implements OnInit, OnDestroy {
           // } else {
           //   this.showMessage = false;
           // }
-          this.dataSourceAll.data = filterRequestData;
+          this.dataSourceAll = new MatTableDataSource<any>(filterRequestData);
+          this.dataSourceAll.paginator = this.paginator;
+          this.dataSourceAll.sort = this.sort;
+          // this.dataSourceAll.data = filterRequestData;
           this.spinner.hide();
           this.showMessage = false;
           this.disableReset = true;
@@ -248,7 +243,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     //   this.customerRequestService.getFilteredRequestsByTypeAndDate(this.selectedRequestType, this.fromDate, this.toDate)
     //     .subscribe((res) => {
     //       if (res.message) {
-    //         this.dataSourceAll = new MatTableDataSource<PeriodicElement>(null);
+    //         this.dataSourceAll = new MatTableDataSource<any>(null);
     //         this.showMessage = true;
     //         this.disableReset = true;
     //         this.disableSearch = false;
