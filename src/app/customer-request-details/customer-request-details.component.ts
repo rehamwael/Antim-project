@@ -95,16 +95,16 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
   ProductStatus: any[] = [
     {
-      type: 'Pending'
+      type: 'Pending (Products Not Purchased Yet).'
     },
     {
-      type: 'Purchased'
+      type: 'Products Purchased.'
     },
     {
-      type: 'Delivered'
+      type: 'Products Delivered to Customer.'
     },
     {
-      type: 'Recieved'
+      type: 'Products Recieved by Customer.'
     }
   ];
   amountStatus: any[] = [
