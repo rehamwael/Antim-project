@@ -79,12 +79,12 @@
                                   </svg>
                               </div>
                               <div class="col-lg-8">
-                            <!-- <h5 class="font-purple font-bold no-letter-spacing m-0">New Notification</h5> -->
-                            <h5 class="font-purple font-bold no-letter-spacing m-0">{{notification.enNotificationTitle}}</h5>
-                            <div class="grey-text-color mb-2 mt-1">{{notification.date}} </div>
-                        </div>
-                            <!-- <p class="dark-text-color col-lg-12">Congratulations! Your request has been approved and you are qualified for fund. You are kindly requested to agree on the below Undertaking to Purchase statement to proceed with the request.</p> -->
-                            <p class="dark-text-color col-lg-12">{{notification.enNotificationDescription}}</p>
+                                <h5 class="font-purple font-bold no-letter-spacing m-0" *ngIf="userLang == 'english'">{{notification.enNotificationTitle}}</h5>
+                                <h5 class="font-purple font-bold no-letter-spacing m-0" *ngIf="userLang == 'arabic'">{{notification.arNotificationTitle}}</h5>
+                          <div class="grey-text-color mb-2 mt-1">{{notification.date}} </div>
+                      </div>
+                          <p class="dark-text-color col-lg-12"  *ngIf="userLang == 'english'">{{notification.enNotificationDescription}}</p>
+                          <p class="dark-text-color col-lg-12"  *ngIf="userLang == 'arabic'">{{notification.arNotificationDescription}}</p>
 
 
                       <!-- <div class="col-lg-12 mt-3 row d-flex flex-row-reverse">

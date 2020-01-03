@@ -3,6 +3,7 @@ import { NotificationsService } from '../services/notifications.service';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notification',
@@ -13,8 +14,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   allNotifications: any;
   filterNotifications: any;
   customerNotifications: any = [];
-  // isCollapsed1 = false;
-  // isCollapsed2 = false;
   getNotifications = true;
 
   fromDate = null;
@@ -22,15 +21,19 @@ export class NotificationComponent implements OnInit, OnDestroy {
   disableReset: boolean;
   disableSearch: boolean;
   options: IndividualConfig;
+  userLang: any;
 
   constructor(
     private notificationService: NotificationsService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
+    public translate: TranslateService,
   ) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
+    this.userLang = this.translate.currentLang;
+    console.log(this.translate.currentLang);
   }
 
   ngOnInit(): void {
@@ -96,7 +99,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.disableSearch = false;
         this.showErrorToast('', res.message, 'error');
       } else {
-      this.filterNotifications = res.result;
+        this.filterNotifications = res.result;
         this.allNotifications = null;
         this.allNotifications = this.filterNotifications;
         this.getNotifications = true;
@@ -107,7 +110,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
           this.customerNotifications.push(element);
           element.date = moment(element.createdAt).format('LL');
         });
-    }
+      }
     }, err => {
       this.spinner.hide();
       console.log(err);

@@ -1,19 +1,19 @@
-import { Component, OnInit , OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificationsService } from '../services/notifications.service';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notification-lender',
   templateUrl: './notification-lender.component.html',
   styleUrls: ['./notification-lender.component.css']
 })
-export class NotificationLenderComponent implements OnInit , OnDestroy {
+export class NotificationLenderComponent implements OnInit, OnDestroy {
   allNotifications: any;
   funderNotifications: any = [];
   filterNotifications: any;
-
 
   fromDate = null;
   toDate = null;
@@ -21,15 +21,19 @@ export class NotificationLenderComponent implements OnInit , OnDestroy {
   disableSearch = false;
   getNotifications = true;
   options: IndividualConfig;
+  userLang: any;
 
   constructor(
     private notificationService: NotificationsService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
+    public translate: TranslateService,
   ) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
+    this.userLang = this.translate.currentLang;
+    console.log(this.translate.currentLang);
   }
 
   ngOnInit(): void {
@@ -43,13 +47,13 @@ export class NotificationLenderComponent implements OnInit , OnDestroy {
       this.allNotifications = res.result;
       if (this.allNotifications.length > 0) {
         this.getNotifications = true;
-      this.allNotifications.forEach(element => {
-        this.funderNotifications.push(element);
-        element.date = moment(element.createdAt).format('LL');
-      });
-    }  else {
-      this.getNotifications = false;
-    }
+        this.allNotifications.forEach(element => {
+          this.funderNotifications.push(element);
+          element.date = moment(element.createdAt).format('LL');
+        });
+      } else {
+        this.getNotifications = false;
+      }
     }, err => {
       this.spinner.hide();
       console.log(err);
@@ -92,7 +96,7 @@ export class NotificationLenderComponent implements OnInit , OnDestroy {
         this.disableSearch = false;
         this.showErrorToast('', res.message, 'error');
       } else {
-      this.filterNotifications = res.result;
+        this.filterNotifications = res.result;
         this.allNotifications = null;
         this.allNotifications = this.filterNotifications;
         this.getNotifications = true;
@@ -103,7 +107,7 @@ export class NotificationLenderComponent implements OnInit , OnDestroy {
           this.funderNotifications.push(element);
           element.date = moment(element.createdAt).format('LL');
         });
-    }
+      }
     }, err => {
       this.spinner.hide();
       console.log(err);
