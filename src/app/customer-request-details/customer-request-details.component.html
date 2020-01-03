@@ -57,10 +57,14 @@
                         </div>
                       </div>
                     <div class="row" style="width: 100%;">
-                      <div class="col-lg-12">
+                      <div class="col-lg-8">
                           <label for="Name" class="font-bold mt-2">Request Name: </label>
                           <input formControlName="ProductName" class="form-control form-control-lg" value="{{requestName}}" readonly placeholder="Product Name"  [attr.disabled]="true">
                       </div>
+                      <div class="col-lg-4">
+                        <label  class="font-bold mt-2">Request Number: </label>
+                        <input  class="form-control form-control-lg" value="{{requestDetails?.requestNumber}}" readonly   [attr.disabled]="true">
+                    </div>
                     </div>
 
 

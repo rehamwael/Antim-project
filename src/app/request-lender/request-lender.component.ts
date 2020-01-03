@@ -56,6 +56,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   reqID: any;
   funderRequestData: any;
 
+  requestDetails: any;
   requestName: any;
   requestDate: any;
   requestAmount: any;
@@ -277,7 +278,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     } else {
       this.spinner.show();
       this.funderRequestService.getRequestDataById(row.id).subscribe(res => {
-        console.log('REQUEST DETAILS: ', res.result);
+        console.log(res);
+        this.requestDetails = res.result;
         this.productList = res.result.customerRequestProducts.slice();
         this.requestDate = moment(res.result.startingDate).format('LL');
         // this.monthlyInstallment = res.result.monthlyInstallmentAmount;

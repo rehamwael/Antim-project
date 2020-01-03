@@ -82,7 +82,8 @@
                         <div class="col-lg-8">
                                   <h5 class="font-purple font-bold no-letter-spacing m-0" *ngIf="userLang == 'english'">{{notification.enNotificationTitle}}</h5>
                                   <h5 class="font-purple font-bold no-letter-spacing m-0" *ngIf="userLang == 'arabic'">{{notification.arNotificationTitle}}</h5>
-                            <div class="grey-text-color mb-2 mt-1">{{notification.date}} </div>
+                            <div class="grey-text-color mb-2 mt-1" *ngIf="userLang == 'english'">{{notification.date}} </div>
+                            <div class="grey-text-color mb-2 mt-1" *ngIf="userLang == 'arabic'">{{notification.arCreatedAt}} </div>
                         </div>
                             <p class="dark-text-color col-lg-12"  *ngIf="userLang == 'english'">{{notification.enNotificationDescription}}</p>
                             <p class="dark-text-color col-lg-12"  *ngIf="userLang == 'arabic'">{{notification.arNotificationDescription}}</p>
