@@ -56,6 +56,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   showRequestDetails = true;
   hideTotalButton = false;
   showCancelButton = false;
+  showRequestDetailsTable = false;
 
   totalProducts: any;
   getState: Observable<any>;
@@ -162,6 +163,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
         }
         this.requestType_ENUM = res.result.type;
         this.requestType = this.requestTypes[res.result.type].type;
+        if (res.result.type == 4 || res.result.type == 2) {
+          this.showRequestDetailsTable = true;
+        }
         if (this.requestType_ENUM == 1) {
           this.showCancelButton = true;
         }
