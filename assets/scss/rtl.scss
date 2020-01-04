@@ -6,9 +6,6 @@
         font-family: 'Cairo', sans-serif !important;
         text-align: right;
     }
-    .row-arabic-revrese {
-        flex-direction: row !important;
-    }
     ul.navbar-nav.mr-auto.mt-2 {
         margin-top: 0.25rem !important;
     }
@@ -29,10 +26,9 @@
         right: auto;
     }
     header.bg-image ul.navbar-nav.ml-auto li a.nav-link.purple-btn{
-        padding: 10px 0 12px;
+        padding: 8px 0 11px;
         position: relative;
-        top: -1px;
-        font-weight: 500 !important;
+        top: -4px;
     }
     #langSelctor{
         margin: 5px 0 10px;
@@ -141,10 +137,6 @@
         .col-lg-1 {
             display: none;
         }
-    }
-    .dropdown-toggle svg {
-        right: 8px;
-        left: auto;
     }
     .select-options-radio{
         text-align: center;
