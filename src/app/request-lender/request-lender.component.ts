@@ -75,6 +75,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   installmentPeriod_ENUM: any;
   getState: Observable<any>;
   requestTypeInStore: any;
+  showRequestDetailsTable: boolean;
 
   ProductStatus: any[] = [
     {
@@ -308,10 +309,12 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         }
         if (this.RequestType_ENUM == 2) {
           this.RequestType = 'Closed';
+          this.showRequestDetailsTable = true;
         }
         this.productStatus = this.ProductStatus[res.result.productStatus].type;
         this.customerRequestId = res.result.customerRequestId;
         if (res.result.productStatus == 3) {
+          this.showRequestDetailsTable = true;
           this.showTable = true;
           this.spinner.show();
           // tslint:disable-next-line: no-shadowed-variable

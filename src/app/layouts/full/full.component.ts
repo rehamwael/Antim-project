@@ -27,7 +27,6 @@ export class FullComponent implements OnInit {
   constructor(public router: Router,  private store: Store<AppState>, public translate: TranslateService) {
       this.getState = this.store.select(selectAuthenticationState);
       this.getState.subscribe((state) => {
-        console.log(state);
         const token = localStorage.getItem('token');
         if (state.loggedIn == true || token) {
           this.islogin = true;
