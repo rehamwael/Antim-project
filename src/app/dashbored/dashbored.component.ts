@@ -8,6 +8,7 @@ import { GetCustomerRequestCount } from './../store/actions/customer.actions';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashbored',
@@ -30,6 +31,7 @@ export class DashboredComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private customerRequestService: CustomerRequestService,
     private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
     this.getCustomerState = this.store.select(customerState);
@@ -44,7 +46,7 @@ export class DashboredComponent implements OnInit, OnDestroy {
         this.store.dispatch(new UserProfile());
       }
       this.currentUser = state.userProfile;
-      // console.log('USER:', this.currentUser);
+      console.log('USER:', this.currentUser);
       if (this.currentUser) {
         this.email = this.currentUser.email;
       }
@@ -89,12 +91,15 @@ export class DashboredComponent implements OnInit, OnDestroy {
   }
 
   resendEmail() {
+    this.spinner.show();
     this.emailService.resendRegisterEmail({
       'Email': this.email
     }).subscribe(res => {
+      this.spinner.hide();
       console.log(res);
       this.showSuccessToast('OK!!', res.message, 'success');
     }, err => {
+      this.spinner.hide();
       console.log(err);
       this.showErrorToast('Error!!', err.error.message, 'error');
     });

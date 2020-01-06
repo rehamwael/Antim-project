@@ -254,9 +254,10 @@ showErrorToast(title, message, type) {
         this.secondStep = false;
         this.lastStep = true;
         this.showSuccessToast('OK!!', 'A verification link has been sent to your email account. Please verify your email to get the most benefits from ANTIM', 'success');
-      }, async err => {
+      }, err => {
         this.spinner.hide();
         console.log('Errrrrror : ', err);
+        this.showErrorToast('Error!', err.error.message, 'error');
       });
   }
   closeBack() {
@@ -294,7 +295,8 @@ showErrorToast(title, message, type) {
         this.spinner.hide();
       }, err => {
         this.spinner.hide();
-          console.log('Errrrrror : ', err);
+        this.showErrorToast('Error!', err.error.message, 'error');
+        console.log('Errrrrror : ', err);
       });
   }
 

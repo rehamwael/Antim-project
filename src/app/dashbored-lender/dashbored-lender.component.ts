@@ -92,12 +92,15 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
   }
 
   resendEmail() {
+    this.spinner.show();
     this.emailService.resendRegisterEmail({
       'Email': this.email
     }).subscribe(res => {
+      this.spinner.hide();
       console.log(res);
       this.showSuccessToast('OK!!', res.message, 'success');
     }, err => {
+      this.spinner.hide();
       console.log(err);
       this.showErrorToast('Error!!', err.error.message, 'error');
     });

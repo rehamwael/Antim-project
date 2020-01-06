@@ -48,7 +48,7 @@ export class NgbdModalBasicComponent {
     this.modalService.open(content3, { centered: true });
   }
 
-  
+
 
 
   private getDismissReason(reason: any): string {
