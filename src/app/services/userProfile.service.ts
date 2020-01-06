@@ -165,4 +165,11 @@ export class ProfileService {
       })
     );
   }
+  contactUs(body: any) {
+    return this.httpClient.post(`${this.Url}ContactUs/AddMessage`, body, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
 }

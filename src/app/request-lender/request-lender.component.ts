@@ -329,8 +329,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
               element.date = moment(element.dueDate).format('LL');
               element.price = Math.round((element.amount - element.intimeMonthlyProfit) ) + ' SAR';
               element.status = this.amountStatus[element.status].type;
-              if (element.status == 'Paid') {
-              }
               i++;
             });
             this.InstallmentDetailsTable = new MatTableDataSource<any>(InstallmentDetails);
