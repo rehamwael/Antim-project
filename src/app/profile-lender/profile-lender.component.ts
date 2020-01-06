@@ -49,7 +49,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   state: any;
   addressID: any;
 
-  bankName: any;
+  bankName = 'select';
   bankAccountNo: any;
   IBAN: any;
   bankAddress: any;

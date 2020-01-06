@@ -147,7 +147,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.showOptions = false;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     }
-    if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+    if (this.totalPrice > 5000 && this.totalPrice <= 10000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
       this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
       this.showOptions = true;

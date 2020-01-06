@@ -204,7 +204,8 @@
                                     <div class="col-lg-6">
                                         <label for="bankName" class="font-bold mt-2">Bank Name</label>
                                         <select formControlName="BankName" class="form-control form-control-lg custom-select" value="{{bankName}}" [(ngModel)]="bankName" (change)="onSelectChange($event.target.value)">
-                                            <option value="AlBilad Bank" selected>AlBilad Bank</option>
+                                          <option value="select" selected>Select your Bank</option>
+                                          <option value="AlBilad Bank" >AlBilad Bank</option>
                                             <option value="AlRajhi Bank" >AlRajhi Bank</option>
                                             <option value="AlFransi Bank" >AlFransi Bank</option>
                                             <option value="Samba Bank" >Samba Bank</option>
@@ -230,7 +231,7 @@
                                       </div>
                                     <div class="col-lg-6">
                                         <label for="bankAccountNo" class="font-bold mt-2">Bank Account Number</label>
-                                        <input matInput formControlName="BankAccountNo" class="form-control form-control-lg" value="{{bankAccountNo}}" maxlength="24" [(ngModel)]="bankAccountNo" placeholder="Bank Account Name...">
+                                        <input matInput formControlName="BankAccountNo" class="form-control form-control-lg" value="{{bankAccountNo}}" maxlength="24" [(ngModel)]="bankAccountNo" placeholder="Bank Account Number...">
                                         <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('required')" class="error-msg alert alert-danger text-left">Bank AccountNo is required</div>
                                         <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank AccountNo length must be greater than 10  and less than 25.</div>
                                     </div>

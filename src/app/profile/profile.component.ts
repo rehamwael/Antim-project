@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   state: any;
   addressID: any;
   bankID: any;
-  bankName: any;
+  bankName = 'select';
   bankAccountNo: any;
   bankAddress: any;
   accountTitle: any;

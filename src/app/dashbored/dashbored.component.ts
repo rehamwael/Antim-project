@@ -46,7 +46,7 @@ export class DashboredComponent implements OnInit, OnDestroy {
         this.store.dispatch(new UserProfile());
       }
       this.currentUser = state.userProfile;
-      console.log('USER:', this.currentUser);
+      // console.log('USER:', this.currentUser);
       if (this.currentUser) {
         this.email = this.currentUser.email;
       }

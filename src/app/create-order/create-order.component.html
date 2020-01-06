@@ -173,7 +173,6 @@
                                           <input type="checkbox" (change)="changeCheck($event)">
                                           <span class="checkmark"></span>
                                         </label>
-
                                   <div>
 
 
@@ -187,6 +186,11 @@
                                                         </button>
                                                 </div>
                                         </div>
+                                  </div>
+                                  <div class="mt-3">
+                                    <p style="color: rgb(206, 19, 19)">
+                                      <b> <span class="red-color"> *</span> Note: </b>Dear {{currentUser?.firstName}} {{currentUser?.lastName}}, please note that, you can cancel the request while the status is "Under Review". However, if the request has been approved, then you will not longer be able to Cancel it."
+                                    </p>
                                   </div>
                                 </mat-step>
                                 <mat-step [stepControl]="lastFormGroup">

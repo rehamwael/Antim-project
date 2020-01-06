@@ -7,7 +7,7 @@ import { CustomerRequestService } from '../services/customer-request.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
-import { AppState, customerState } from './../store/app.states';
+import { AppState, customerState, selectAuthenticationState } from './../store/app.states';
 import { EditCustomerRequest, DeleteCustomerRequests, IsUpdatedFalse } from './../store/actions/customer.actions';
 import { Observable } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
@@ -93,7 +93,23 @@ export class CustomerRequestDetailsComponent implements OnInit {
       type: 'Under Review Requests'
     }
   ];
-
+  installmentTypes: any[] = [
+    {
+      type: 'Null'
+    },
+    {
+      type: '3 Months'
+    },
+    {
+      type: '6 Months'
+    },
+    {
+      type: '9 Months'
+    },
+    {
+      type: '12 Months'
+    }
+  ];
   ProductStatus: any[] = [
     {
       type: 'Pending (Products Not Purchased Yet).'
@@ -116,7 +132,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
       type: 'Paid'
     },
   ];
-
+  getUserState: Observable<any>;
+  currentUser: any;
 
   constructor(private modalService: NgbModal,
     private _formBuilder: FormBuilder,
@@ -127,6 +144,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private store: Store<AppState>
   ) {
+    this.getUserState = this.store.select(selectAuthenticationState);
     this.getState = this.store.select(customerState);
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
@@ -134,6 +152,10 @@ export class CustomerRequestDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');
     });
+    this.getUserState.subscribe((state) => {
+      this.currentUser = state.userProfile;
+    });
+
   }
 
   getCustomerRequestDetails() {
@@ -149,26 +171,27 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.totalPrice = res.result.totalFundAmount;
         this.totalPriceWithProfit = res.result.totalPaybackAmount;
         this.installmentPeriod_ENUM = res.result.paybackPeriod;
-        if (this.installmentPeriod_ENUM === 1) {
-          this.installmentPeriod = '3-Months';
-        }
-        if (this.installmentPeriod_ENUM === 2) {
-          this.installmentPeriod = '6-Months';
-        }
-        if (this.installmentPeriod_ENUM === 3) {
-          this.installmentPeriod = '9-Months';
-        }
-        if (this.installmentPeriod_ENUM === 4) {
-          this.installmentPeriod = '12-Months';
-        }
+        // if (this.installmentPeriod_ENUM === 1) {
+        //   this.installmentPeriod = '3-Months';
+        // }
+        // if (this.installmentPeriod_ENUM === 2) {
+        //   this.installmentPeriod = '6-Months';
+        // }
+        // if (this.installmentPeriod_ENUM === 3) {
+        //   this.installmentPeriod = '9-Months';
+        // }
+        // if (this.installmentPeriod_ENUM === 4) {
+        //   this.installmentPeriod = '12-Months';
+        // }
+        this.installmentPeriod = this.installmentTypes[res.result.paybackPeriod].type;
         this.requestType_ENUM = res.result.type;
         this.requestType = this.requestTypes[res.result.type].type;
         if (res.result.type == 4 || res.result.type == 2) {
           this.showRequestDetailsTable = true;
         }
-        if (this.requestType_ENUM == 1) {
-          this.showCancelButton = true;
-        }
+        // if (this.requestType_ENUM == 1) {
+        //   this.showCancelButton = true;
+        // }
         if (this.requestType_ENUM == 5) {
           this.deleteButton = true;
           this.showEditButton = true;
@@ -309,7 +332,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       this.showOptions = false;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     }
-    if (this.totalPrice >= 5000 && this.totalPrice <= 10000) {
+    if (this.totalPrice > 5000 && this.totalPrice <= 10000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 15) / 100);
       this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
       this.showOptions = true;

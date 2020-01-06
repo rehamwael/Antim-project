@@ -68,7 +68,9 @@ export class SettingComponent implements OnInit, OnDestroy {
       this.logOut();
       this.spinner.hide();
       this.showSuccessToast('OK!!', res.message, 'success');
+      console.log(res);
     }, err => {
+      console.log(err);
       this.spinner.hide();
       this.modalService.dismissAll();
       this.showErrorToast('Error!!', err.error.message, 'error');
@@ -84,7 +86,9 @@ export class SettingComponent implements OnInit, OnDestroy {
       this.spinner.hide();
       this.logOut();
       this.showSuccessToast('OK!!', res.message, 'success');
+      console.log(res);
     }, err => {
+      console.log(err);
       this.spinner.hide();
       this.modalService.dismissAll();
       this.showErrorToast('Error!!', err.error.message, 'error');
