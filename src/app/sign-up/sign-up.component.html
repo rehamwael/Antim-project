@@ -1,14 +1,14 @@
 <div class="container-fluid mt-5">
   <div class="row justify-content-center align-items-center mt-3">
       <div class="col col-sm-12 col-md-6 col-lg-5 col-xl-3 background-box px-5 py-1 pb-4 text-center mt-0">
-          <div *ngIf="!firstStep  && !secondStep  && !lastStep && chooseRole">
+          <div *ngIf="!firstStep  && !secondStep  && chooseRole">
               <h2 class="mt-5">{{ 'SignUp.SignUp' | translate }}</h2>
               <p class="grey-text-color mt-3 mb-4">{{ 'SignUp.SignUpDesc1' | translate }}
               <br/>{{ 'SignUp.SignUpDesc2' | translate }} </p>
           </div>
           <!-- <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm" (keydown)="keyDownFunction($event)"> -->
           <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm">
-              <div class="first-step row" *ngIf="!firstStep  && !secondStep  && !lastStep && chooseRole">
+              <div class="first-step row" *ngIf="!firstStep  && !secondStep  && chooseRole">
               <div class="col-lg-2">
                   <h5 class="vertical-text mt-4">{{ 'SignUp.whataboutyou' | translate }}</h5>
               </div>
@@ -41,7 +41,7 @@
               </div>
               </div>
 
-              <div *ngIf="firstStep  && !secondStep  && !lastStep && !chooseRole" class="px-4">
+              <div *ngIf="firstStep  && !secondStep && !chooseRole" class="px-4">
                       <img src="assets/images/borrower.svg" alt="antim" class="mb-2">
                       <p class="grey-text-color mt-2 mb-4">{{ 'SignUp.Alright' | translate }} {{userType}}, {{ 'SignUp.FillBelow' | translate }}</p>
                       <div class="row mt-3">
@@ -106,23 +106,24 @@
                               <div *ngIf="SigUpForm.controls['phone'].touched && SigUpForm.controls['phone'].hasError('required')" class="error-msg alert alert-danger text-left">Phone Number is required</div>
                               <span class="redColor" id="phonenumber"> Phone number must be at least 9 characters long.</span>
                            </div>
-                           <!-- <div class="row justify-content-center align-items-center"> -->
-                           <!-- <div class="col-lg-8 col-11 text-center">
-                              <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
-                              <label for="box-1">I agree on my <span class="text-underline" ><a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
+                           <div class="row mb-4 justify-content-center align-items-center">
+                            <div class="col-lg-8 col-11 text-center">
+                                <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
+                                <label for="box-1">I agree on my <span class="text-underline" ><a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
+                            </div>
+                            <div class="col-lg-8 col-11 mt-4 text-center">
+                                <input type="checkbox" id="box-2"  (change)="changeCheck2($event)">
+                                <label for="box-2">I agree on intime <span class="text-underline" ><a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
+                            </div>
                            </div>
-                           <div class="col-lg-8 col-11 mt-4 text-center">
-                              <input type="checkbox" id="box-2"  (change)="changeCheck2($event)">
-                              <label for="box-2">I agree on intime <span class="text-underline" ><a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank" >Terms & Condtions</a></span></label>
-                           </div> -->
                            <div class="col-lg-12 mt-2 row justify-content-center align-items-center pb-4">
                            <div class="form-group col-lg-1"></div>
                               <div class="form-group col-lg-4">
                               <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="PrevStep()">back</button>
                           </div>
                           <div class="form-group col-lg-4">
-                              <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
-                                [disabled]="!SigUpForm.valid">Sign Up</button>
+                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
+                            [disabled]="!isButtonDisabled || !SigUpForm.valid">Sign Up</button>
                           </div>
                           <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                           color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
@@ -134,7 +135,7 @@
              </div>
 
 
-             <div *ngIf="!firstStep  && secondStep  && !lastStep && !chooseRole">
+             <div *ngIf="!firstStep  && secondStep && !chooseRole">
                  <a class="close-icon" (click)="closeBack()"><img src="assets/images/close.svg"></a>
                   <img src="assets/images/mobile.svg" alt="antim" class="mb-2 mt-5">
                   <p class="mt-2 mb-4 text-left">Well!<br/>
@@ -175,7 +176,7 @@
          </div>
 
 
-         <div *ngIf="!firstStep  && !secondStep  && lastStep && !chooseRole">
+         <!-- <div *ngIf="!firstStep  && !secondStep  && lastStep && !chooseRole">
               <a class="close-icon" (click)="closeBackLast()"><img src="assets/images/close.svg"></a>
                <img src="assets/images/borrower-lg.svg" alt="antim" class="mb-2 mt-5">
                <p class="grey-text-color mt-4 mb-4">The last thing, Please approve the below</p>
@@ -183,12 +184,10 @@
                <div class="row mt-3 justify-content-center align-items-center phone-number-code pb-5">
                       <div class="col-lg-7 col-11 text-center mt-3">
                               <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
-                              <!-- <label for="box-1">I agree on my <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label> -->
                               <label for="box-1">I agree on my <a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank">Terms & Condtions</a></label>
                        </div>
                        <div class="col-lg-7 col-11 mt-4 text-center mb-5">
                               <input type="checkbox" id="box-2" (change)="changeCheck2($event)">
-                              <!-- <label for="box-2">I agree on intime <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label> -->
                               <label for="box-2">I agree on intime <a href="https://rehamwael.github.io/Antim-project/terms-conditions" target="blank">Terms & Condtions</a></label>
                        </div>
                     <div class="col-lg-11 mt-3 row justify-content-center align-items-center pb-4">
@@ -197,7 +196,7 @@
                    </div>
                </div>
                </div>
-      </div>
+      </div> -->
 
           </form>
       </div>

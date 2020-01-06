@@ -20,7 +20,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   chooseRole = true;
   firstStep = false;
   secondStep = false;
-  lastStep = false;
+  // lastStep = false;
 
   public selectedItem: any;
   disabledNextButton = true;
@@ -215,20 +215,13 @@ showErrorToast(title, message, type) {
             console.log('next OTP step: ', res);
         }, err => {
           this.spinner.hide();
+          console.log(err);
             if (err.error.message) {
               this.showErrorToast('Error!!', err.error.message, 'error');
             }
         });
     }
   }
-  // keyDownFunction(event) {
-  //   this.chooseRole = false;
-  //   console.log(event.key);
-  //   if (event.key == 'Enter') {
-  //     // alert('Please click to SignUp Button to Submit Form.');
-  //     this.chooseRole = false;
-  //   }
-  // }
 
   goToLastStep() {
     this.spinner.show();
@@ -252,8 +245,9 @@ showErrorToast(title, message, type) {
         this.spinner.hide();
         console.log('signUp : ', res);
         this.secondStep = false;
-        this.lastStep = true;
-        this.showSuccessToast('OK!!', 'A verification link has been sent to your email account. Please verify your email to get the most benefits from ANTIM', 'success');
+        // this.lastStep = true;
+        this.router.navigateByUrl('/login');
+        this.showSuccessToast('Account Created Successfully!', 'A verification link has been sent to your email account. Please verify your email to get the most benefits from ANTIM', 'success');
       }, err => {
         this.spinner.hide();
         console.log('Errrrrror : ', err);
@@ -274,7 +268,7 @@ showErrorToast(title, message, type) {
     this.chooseRole = true;
     this.firstStep = false;
     this.secondStep = false;
-    this.lastStep = false;
+    // this.lastStep = false;
   }
   resendOTP() {
     this.spinner.show();
@@ -300,10 +294,10 @@ showErrorToast(title, message, type) {
       });
   }
 
-  signUp() {
-    this.router.navigateByUrl('/login');
-    this.showSuccessToast('OK!!', 'Your Account Created Successfully!!', 'success');
-  }
+  // signUp() {
+  //   this.router.navigateByUrl('/login');
+  //   this.showSuccessToast('OK!!', 'Your Account Created Successfully!!', 'success');
+  // }
 
    keytab(event, next) {
     if (next === 1) {

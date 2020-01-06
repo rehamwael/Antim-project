@@ -77,6 +77,18 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   requestTypeInStore: any;
   showRequestDetailsTable: boolean;
 
+  requestTypes: any[] = [
+    {
+      type: 'All Requests'
+    },
+    {
+      type: 'Ongoing Requests'
+    },
+    {
+      type: 'Closed Requests'
+    }
+  ];
+
   ProductStatus: any[] = [
     {
       type: 'Pending (Products Not Purchased Yet).'
@@ -140,12 +152,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           element.name = element.requestName;
           element.date = moment(element.startingDate).format('LL');
           element.price = element.fundedAmount + ' SAR';
-          if (element.requestType == 1) {
-            element.status = 'Ongoing Request';
-          }
-          if (element.requestType == 2) {
-            element.status = 'Closed Request';
-          }
+          element.status = this.requestTypes[element.requestType].type;
         });
         this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
         this.showMessage = false;
@@ -304,11 +311,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           this.installmentPeriod = '12-Months';
         }
         this.RequestType_ENUM = res.result.requestType;
-        if (this.RequestType_ENUM == 1) {
-          this.RequestType = 'Ongoing';
-        }
+        this.RequestType = this.requestTypes[res.result.requestType].type;
         if (this.RequestType_ENUM == 2) {
-          this.RequestType = 'Closed';
           this.showRequestDetailsTable = true;
         }
         this.productStatus = this.ProductStatus[res.result.productStatus].type;
