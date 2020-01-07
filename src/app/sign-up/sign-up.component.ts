@@ -5,7 +5,6 @@ import { AuthService } from '../auth/auth.service';
 import { Store } from '@ngrx/store';
 import { AppState } from './../store/app.states';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { ProfileService } from '../services/userProfile.service';
 
 @Component({
@@ -46,8 +45,6 @@ export class SignUpComponent implements OnInit , OnDestroy {
   phoneNumber: string;
   numberEntered = false;
   OTP = '';
-  options: IndividualConfig;
-  option: IndividualConfig;
   disabledAgreement1 = false;
   disabledAgreement2 = false;
   isButtonDisabled = false;
@@ -55,15 +52,11 @@ export class SignUpComponent implements OnInit , OnDestroy {
   constructor(
     private fb: FormBuilder,
     private authservice: AuthService,
-    private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private profileService: ProfileService,
     ) {
 
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 8000;
 
     this.SigUpForm = fb.group({
       'FirstName': [null, Validators.compose([

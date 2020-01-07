@@ -191,6 +191,7 @@ export class ProfileService {
   }
   showErrorToastr(message: any) {
     this.userLang = this.translate.currentLang;
+    console.log(this.userLang);
     var errorMessage = message.split('|');
     console.log(errorMessage);
     // var indexToSplit = message.indexOf('|');
@@ -201,6 +202,8 @@ export class ProfileService {
     }
     if (this.userLang == 'arabic') {
       this.showArabicToast('خطأ!', errorMessage[1], 'error');
+    } else {
+      this.showEnglishToast('OK!!', errorMessage[0], 'error');
     }
   }
   showEnglishToast(title, message, type) {

@@ -1,8 +1,6 @@
-import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ROUTES } from './menu-items';
-import { RouteInfo } from './sidebar.metadata';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -11,7 +9,6 @@ import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { Logout, UserProfile, SaveTotalNotifications } from './../../store/actions/auth.actions';
 import { NotificationsService } from '../../services/notifications.service';
 
-declare var $: any;
 
 @Component({
   selector: 'app-sidebar',
@@ -55,7 +52,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   // End open close
   ngOnInit() {
     this.getState.subscribe((state) => {
-      console.log( 'state:' , state);
+      // console.log( 'state:' , state);
       const token = localStorage.getItem('token');
       if (state.userProfile == null && token) {
         this.store.dispatch(new UserProfile());
