@@ -86,8 +86,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public router: Router,
     private profileService: ProfileService,
-    private toastr: ToastrService,
-    private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private editUserService: UserEmailPasswordService,
   ) {

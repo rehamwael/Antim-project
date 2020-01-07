@@ -6,8 +6,8 @@ import { AppState, selectAuthenticationState } from './../store/app.states';
 import { UserProfile } from './../store/actions/auth.actions';
 import { FunderRequestService } from '../services/funder-requests.service';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
-import { IndividualConfig, ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ProfileService } from '../services/userProfile.service';
 
 @Component({
   selector: 'app-dashbored-lender',
@@ -20,16 +20,15 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean;
   funderDashboardData: any;
   email: any;
-  options: IndividualConfig;
   error = false;
 
   constructor(
     private emailService: UserEmailPasswordService,
-    private toastr: ToastrService,
     public router: Router,
     private funderService: FunderRequestService,
     private store: Store<AppState>,
     private spinner: NgxSpinnerService,
+    private profileService: ProfileService,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
   }
@@ -84,12 +83,7 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
   toggleNavbar() {
     window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
   }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
+
 
   resendEmail() {
     this.spinner.show();
@@ -98,11 +92,11 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
     }).subscribe(res => {
       this.spinner.hide();
       console.log(res);
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.profileService.showSuccessToastr(res);
     }, err => {
       this.spinner.hide();
       console.log(err);
-      this.showErrorToast('Error!!', err.error.message, 'error');
+      this.profileService.showErrorToastr(err.error.message);
     });
   }
 
