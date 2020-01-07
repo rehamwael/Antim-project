@@ -50,6 +50,7 @@ export class NotificationLenderComponent implements OnInit, OnDestroy {
         this.allNotifications.forEach(element => {
           this.funderNotifications.push(element);
           element.date = moment(element.createdAt).format('LL');
+          element.arDate = moment(element.createdAt).locale('ar-sa').format('LL');
         });
       } else {
         this.getNotifications = false;
