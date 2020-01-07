@@ -22,12 +22,15 @@ import {
   DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess, GetAllRequestsFailure, RemoveRequestsFromStore
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
 export class AuthenticationEffects {
   options: IndividualConfig;
+  option: IndividualConfig;
   userRole: string;
+  userLang: any;
 
   constructor(private modalService: NgbModal,
     private actions: Actions,
@@ -37,11 +40,17 @@ export class AuthenticationEffects {
     private userDataService: ProfileService,
     private store: Store<AppState>,
     private customerService: CustomerRequestService,
-    private spinner: NgxSpinnerService) {
+    public translate: TranslateService,
+    private spinner: NgxSpinnerService,
+  ) {
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 7000;
+    this.options.timeOut = 6000;
     this.options.progressBar = true;
+    this.option = this.toastr.toastrConfig;
+    this.option.positionClass = 'toast-top-left';
+    this.option.timeOut = 6000;
+    this.option.progressBar = true;
   }
 
   @Effect()
@@ -86,9 +95,9 @@ export class AuthenticationEffects {
     tap((res) => {
       console.log(res);
       if (res.payload.error.error_description) {
-        this.showToast('Error!!', res.payload.error.error_description, 'error');
+        this.showErrorToast('Error!!', res.payload.error.error_description, 'error');
       } else {
-        this.showToast('Error!!',
+        this.showErrorToast('Error!!',
           'The email address and password that you\'ve entered doesn\'t match any account. Please try again.',
           'error'
         );
@@ -152,9 +161,15 @@ export class AuthenticationEffects {
       // console.log('huhuh',payload);
       return this.userDataService.editUser(payload).pipe(
         map((res) => {
+          this.userLang = this.translate.currentLang;
           console.log('User Info edited:', res);
           this.spinner.hide();
-          this.showSuccessToast('OK!!', res.message, 'success');
+          if (this.userLang == 'english') {
+            this.showSuccessToast('OK!!', res.message, 'success');
+          }
+          if (this.userLang == 'arabic') {
+            this.showARToast('!حسنا', res.arabicMessage, 'success');
+          }
         }),
         catchError(error => {
           console.log(' ERROR:', error);
@@ -251,13 +266,13 @@ export class AuthenticationEffects {
     }));
 
 
-  showToast(title: string, message: string, type: string) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
   showSuccessToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
   }
   showErrorToast(title, message, type) {
     this.toastr.show(message, title, this.options, 'toast-' + type);
+  }
+  showARToast(title, message, type) {
+    this.toastr.show(message, title, this.option, 'toast-' + type);
   }
 }

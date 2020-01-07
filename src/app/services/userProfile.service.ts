@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +12,15 @@ import { environment } from '../../environments/environment';
 export class ProfileService {
   Url = environment.BaseURL;
   token: any;
+  userLang: any;
   httpOptions: any;
+  option: IndividualConfig;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private toastr: ToastrService,
+    public translate: TranslateService,
+    ) {
+    }
 
   getTokenAndHeaders() {
     this.token = localStorage.getItem('token');
@@ -170,6 +178,36 @@ export class ProfileService {
       tap((res: any) => {
       })
     );
+  }
+
+  showSuccessToastr(result: any) {
+    this.userLang = this.translate.currentLang;
+    if (this.userLang == 'english') {
+      this.showEnglishToast('OK!!', result.message, 'success');
+    }
+    if (this.userLang == 'arabic') {
+      this.showArabicToast('حسنا!', result.arabicMessage, 'success');
+    }
+  }
+  showErrorToastr(message: any) {
+    this.userLang = this.translate.currentLang;
+    var errorMessage = message.split('|');
+    console.log(errorMessage);
+    // var indexToSplit = message.indexOf('|');
+    // var eng = message.slice(0, indexToSplit);
+    // var arb = message.slice(indexToSplit + 1);
+    if (this.userLang == 'english') {
+      this.showEnglishToast('OK!!', errorMessage[0], 'error');
+    }
+    if (this.userLang == 'arabic') {
+      this.showArabicToast('خطأ!', errorMessage[1], 'error');
+    }
+  }
+  showEnglishToast(title, message, type) {
+    this.toastr.show(message, title, this.option, 'toast-' + type);
+  }
+  showArabicToast(title, message, type) {
+    this.toastr.show(message, title, this.option, 'toast-' + type);
   }
 
 }

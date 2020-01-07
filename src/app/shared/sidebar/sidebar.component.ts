@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { User } from './../../store/models/users';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { Logout, UserProfile } from './../../store/actions/auth.actions';
+import { NotificationsService } from '../../services/notifications.service';
 
 declare var $: any;
 
@@ -21,7 +22,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   getState: Observable<any>;
   currentUser: any;
   role: any;
-
+  notificationsCount: any;
+  showCount = false;
 
   showMenu = '';
   showSubMenu = '';
@@ -43,10 +45,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute,
     private store: Store<AppState>,
+    private notificationService: NotificationsService,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
   }
@@ -78,7 +79,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.dashboredUrl = 'dashbored-' + this.userType;
     this.profileUrl = 'profile-' + this.userType;
     this.notificationUrl = 'notification-' + this.userType;
+    this.notificationService.getNotificationsCount().subscribe(res => {
+      console.log(res);
+      this.notificationsCount = res.result.count;
+      if (this.notificationsCount == 0) {
+        this.showCount = false;
+      } else {
+        this.showCount = true;
+      }
+    }, err => {
+      console.log(err);
+    });
   }
+
   ngOnDestroy(): void {
     this.currentUser = null;
   }

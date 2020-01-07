@@ -32,7 +32,7 @@ export class NotificationsService {
 
   readNotification(id: any): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.get(`${this.Url}Notification/ReadNotificationById?id=${id}`, this.httpOptions).pipe(
+    return this.httpClient.patch(`${this.Url}Notification/ReadNotificationById?id=${id}`, null, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
@@ -41,6 +41,14 @@ export class NotificationsService {
   filterByDateNotifications(fromDate, toDate): Observable<any> {
     this.getTokenAndHeaders();
     return this.httpClient.get(`${this.Url}Notification/GetFilteredNotifications?dateFrom=${fromDate}&dateTo=${toDate}`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
+  getNotificationsCount(): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}Notification/GetUnreadUserNotificationsCount`, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );

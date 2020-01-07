@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { ProfileService } from '../services/userProfile.service';
 
 @Component({
   selector: 'app-notification',
@@ -22,10 +23,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
   disableSearch: boolean;
   options: IndividualConfig;
   userLang: any;
+  DisableButton = false;
 
   constructor(
     private notificationService: NotificationsService,
     private spinner: NgxSpinnerService,
+    private profileService: ProfileService,
     private toastr: ToastrService,
     public translate: TranslateService,
   ) {
@@ -33,7 +36,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
     this.userLang = this.translate.currentLang;
-    console.log(this.translate.currentLang);
   }
 
   ngOnInit(): void {
@@ -61,6 +63,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }, err => {
       this.spinner.hide();
       console.log(err);
+      this.profileService.showErrorToastr(err.error.message);
     });
 
   }
@@ -98,7 +101,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.getNotifications = false;
         this.disableReset = true;
         this.disableSearch = false;
-        this.showErrorToast('', res.message, 'error');
+        this.profileService.showErrorToastr(res.message);
       } else {
         this.filterNotifications = res.result;
         this.allNotifications = null;
@@ -115,6 +118,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }, err => {
       this.spinner.hide();
       console.log(err);
+      this.profileService.showErrorToastr(err.error.message);
     });
   }
   resetPage() {
@@ -124,4 +128,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.disableSearch = false;
     this.disableReset = false;
   }
+
+  markAsReadNotification(id: any) {
+    this.spinner.show();
+    this.notificationService.readNotification(id).subscribe(res => {
+      this.ngOnInit();
+      console.log(res);
+      this.spinner.hide();
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+      this.profileService.showErrorToastr(err.error.message);
+    });
+  }
+
 }
