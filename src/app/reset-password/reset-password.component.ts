@@ -1,9 +1,9 @@
 import { Component, OnInit , OnDestroy , HostListener} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProfileService } from '../services/userProfile.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -16,30 +16,22 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   confirmPassword: any;
   token: any;
   userID: any;
-  options: IndividualConfig;
   disabledSubmitButton = true;
+
   @HostListener('input') oninput() {
     if (this.PasswordForm.valid) {
       this.disabledSubmitButton = false;
       }
   }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-}
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private RPservice: UserEmailPasswordService,
-    private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) {
-      this.options = this.toastr.toastrConfig;
-      this.options.positionClass = 'toast-top-right';
-      this.options.timeOut = 6000;
-      this.options.progressBar = true;
+    private router: Router,
+    private profileService: ProfileService,
+    ) {
 
     this.PasswordForm = fb.group({
       'password': ['', [
@@ -64,7 +56,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
   ResetPassword() {
     if (this.password !== this.confirmPassword) {
-      this.showErrorToast('Error!!', 'Password Must Match', 'error');
+      this.profileService.showErrorToastr('Password Must Match | كلمة المرور يجب ان تتطابق');
     } else {
     this.spinner.show();
     this.RPservice.resetPassword({
@@ -75,12 +67,12 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         console.log('res', res);
           this.spinner.hide();
           this.router.navigateByUrl('/login');
-          this.showSuccessToast('OK!!', res.message, 'success');
-      }, err => {
+          this.profileService.showSuccessToastr(res);
+        }, err => {
         console.log('err', err);
         this.spinner.hide();
           if (err.error.message) {
-            this.showErrorToast('Error!!', err.error.message, 'error');
+            this.profileService.showErrorToastr(err.error.message);
           }
       });
     }

@@ -5,7 +5,6 @@ import { latLng, tileLayer } from 'leaflet';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { ProfileService } from '../services/userProfile.service';
 
 @Component({
@@ -33,7 +32,6 @@ export class ContactComponent implements OnInit, OnDestroy {
   mobile: any;
   messageType = 0;
   message: any;
-  options: IndividualConfig;
 
   @HostListener('input') oninput() {
     if (this.contactForm.valid) {
@@ -46,12 +44,8 @@ export class ContactComponent implements OnInit, OnDestroy {
     private router: Router,
     public translate: TranslateService,
     private profileService: ProfileService,
-    private toastr: ToastrService,
     private spinner: NgxSpinnerService,
   ) {
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
 
     this.contactForm = fb.group({
       'contactFormName': [null, Validators.compose([
@@ -104,12 +98,6 @@ export class ContactComponent implements OnInit, OnDestroy {
   //     this.contactForm.reset();
   //     this.disabledSubmitButton = true;
   // }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
   sendMessage() {
     this.spinner.show();
     this.profileService.contactUs({
@@ -122,11 +110,11 @@ export class ContactComponent implements OnInit, OnDestroy {
       console.log(res);
       this.spinner.hide();
       this.contactForm.reset();
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.profileService.showSuccessToastr(res);
       this.disabledSubmitButton = true;
     }, err => {
       this.spinner.hide();
-      this.showErrorToast('Error!!', err.error.message, 'error');
+      this.profileService.showErrorToastr(err.error.message);
     });
   }
 

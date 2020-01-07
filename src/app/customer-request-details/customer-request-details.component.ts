@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IndividualConfig, ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,6 +11,7 @@ import { EditCustomerRequest, DeleteCustomerRequests, IsUpdatedFalse } from './.
 import { Observable } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material';
+import { ProfileService } from '../services/userProfile.service';
 
 let InstallmentDetails: any[] = [];
 
@@ -64,7 +64,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
   checkIsUpdated = false;
   requestDetails: any;
 
-  options: IndividualConfig;
   productList: any[] = [{
     productUrl: '',
     amount: null
@@ -139,16 +138,14 @@ export class CustomerRequestDetailsComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService,
     private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private profileService: ProfileService,
   ) {
     this.getUserState = this.store.select(selectAuthenticationState);
     this.getState = this.store.select(customerState);
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
+
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');
     });
@@ -272,12 +269,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
     });
 
   }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
+
   closeModal() {
     this.checkIsUpdated = false;
     this.modalService.dismissAll();
@@ -320,7 +312,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
     console.log('totalPrice:', this.totalPrice);
     if (this.totalPrice < 500 || this.totalPrice > 10000) {
       this.totalPrice = 0;
-      this.showErrorToast('Error!!', 'Total Price of Products must be greater than 500 and less than 10000.', 'error');
+      this.profileService.showErrorToastr('Total Price of Products must be greater than 500 and less than 10000. | يجب أن يكون إجمالي سعر المنتجات أكبر من 500 وأقل من 10000');
     } else {
       console.log(stepper);
       stepper.next();

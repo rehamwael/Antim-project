@@ -7,7 +7,6 @@ import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { ProfileService } from './../../services/userProfile.service';
 import { Logout, UserProfile } from './../../store/actions/auth.actions';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 
 
 @Component({
@@ -19,20 +18,15 @@ export class SettingComponent implements OnInit, OnDestroy {
   getState: Observable<any>;
   currentUser: any;
   userId: any;
-  options: IndividualConfig;
 
-  constructor(public router: Router,
+  constructor(
+    public router: Router,
     private modalService: NgbModal,
     private store: Store<AppState>,
     private spinner: NgxSpinnerService,
     private userProfileService: ProfileService,
-    private toastr: ToastrService,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
-
   }
 
   ngOnInit(): void {
@@ -48,12 +42,6 @@ export class SettingComponent implements OnInit, OnDestroy {
       window.scrollTo(0, 0);
     });
   }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
@@ -67,13 +55,13 @@ export class SettingComponent implements OnInit, OnDestroy {
       this.modalService.dismissAll();
       this.logOut();
       this.spinner.hide();
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.userProfileService.showSuccessToastr(res);
       console.log(res);
     }, err => {
       console.log(err);
       this.spinner.hide();
       this.modalService.dismissAll();
-      this.showErrorToast('Error!!', err.error.message, 'error');
+      this.userProfileService.showErrorToastr(err.error.message);
     });
   }
   deActivateAccount() {
@@ -85,13 +73,13 @@ export class SettingComponent implements OnInit, OnDestroy {
       console.log(res);
       this.spinner.hide();
       this.logOut();
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.userProfileService.showSuccessToastr(res);
       console.log(res);
     }, err => {
       console.log(err);
       this.spinner.hide();
       this.modalService.dismissAll();
-      this.showErrorToast('Error!!', err.error.message, 'error');
+      this.userProfileService.showErrorToastr(err.error.message);
     });
   }
   openVerticallyCentered(content3) {

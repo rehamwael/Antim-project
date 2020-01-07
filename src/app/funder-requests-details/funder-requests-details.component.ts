@@ -2,19 +2,18 @@
 
 
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IndividualConfig, ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FunderRequestService } from '../services/funder-requests.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { AppState, customerState } from './../store/app.states';
-import { EditCustomerRequest, DeleteCustomerRequests, IsUpdatedFalse } from './../store/actions/customer.actions';
 import { Observable } from 'rxjs';
 import { CustomerRequestService } from '../services/customer-request.service';
+import { ProfileService } from '../services/userProfile.service';
 
 @Component({
   selector: 'app-funder-requests-details',
@@ -56,7 +55,6 @@ export class FunderRequestsDetailsComponent implements OnInit {
   content: any;
   checkIsUpdated = false;
 
-  options: IndividualConfig;
   productList: any[] = [{
     productUrl: '',
     amount: null
@@ -67,16 +65,13 @@ export class FunderRequestsDetailsComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService,
+    private profileService: ProfileService,
     private funderRequestService: FunderRequestService,
     private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
     private store: Store<AppState>
   ) {
     this.getState = this.store.select(customerState);
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
 
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');
@@ -142,20 +137,14 @@ export class FunderRequestsDetailsComponent implements OnInit {
       this.spinner.hide();
       console.log(res);
       this.modalService.dismissAll();
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.profileService.showSuccessToastr(res);
       this.router.navigateByUrl('/requests-funder');
     }, err => {
       this.spinner.hide();
       console.log(err);
       this.modalService.dismissAll();
-      this.showErrorToast('ERROR!!', err.error.message, 'error');
+      this.profileService.showErrorToastr(err.error.message);
     });
-  }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
   }
 
   toggleNavbar() {

@@ -1,8 +1,8 @@
 import { Component, OnInit , OnDestroy , HostListener} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ProfileService } from '../services/userProfile.service';
 
 @Component({
   selector: 'app-forget-password',
@@ -12,21 +12,18 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ForgetPasswordComponent implements OnInit  , OnDestroy {
   LoginForm: FormGroup;
   email: any;
-  options: IndividualConfig;
   disabledSubmitButton = true;
   @HostListener('input') oninput() {
     if (this.LoginForm.valid) {
       this.disabledSubmitButton = false;
       }
   }
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private FPservice: UserEmailPasswordService,
-    private toastr: ToastrService,
-    private spinner: NgxSpinnerService) {
-      this.options = this.toastr.toastrConfig;
-      this.options.positionClass = 'toast-top-right';
-      this.options.timeOut = 6000;
-      this.options.progressBar = true;
+    private profileService: ProfileService,
+    private spinner: NgxSpinnerService
+    ) {
 
       this.LoginForm = fb.group({
         'email': [null, Validators.compose([
@@ -40,12 +37,6 @@ export class ForgetPasswordComponent implements OnInit  , OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('log-in');
   }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-}
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('log-in');
@@ -57,11 +48,11 @@ export class ForgetPasswordComponent implements OnInit  , OnDestroy {
         }).subscribe(  async (res) => {
           console.log('res', res.message);
           this.spinner.hide();
-          this.showSuccessToast('OK!!', res.message, 'success');
+          this.profileService.showSuccessToastr(res);
         }, err => {
           this.spinner.hide();
             if (err) {
-              this.showErrorToast('Error!!', err.error.message, 'error');
+              this.profileService.showErrorToastr(err.error.message);
             }
         });
     }

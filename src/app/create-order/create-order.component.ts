@@ -2,15 +2,12 @@ import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
-import { CustomerRequestService } from '../services/customer-request.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState, customerState } from './../store/app.states';
-import { UserProfile } from './../store/actions/auth.actions';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { AddCustomerRequest, IsUpdatedFalse } from '../store/actions/customer.actions';
+import { ProfileService } from '../services/userProfile.service';
 
 
 @Component({
@@ -43,7 +40,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   lastFormGroup: FormGroup;
   disabledSubmitButton = true;
   disabledSubmitButtonSecond = false;
-  options: IndividualConfig;
   content: any;
   userPoductList: any[] = [{
     productUrl: '',
@@ -56,25 +52,15 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(public router: Router,
+  constructor(
+    public router: Router,
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private toastr: ToastrService,
-    private customerRequestService: CustomerRequestService,
-    private spinner: NgxSpinnerService,
     private store: Store<AppState>,
+    private profileService: ProfileService,
   ) {
     this.getCustomerState = this.store.select(customerState);
     this.getUserState = this.store.select(selectAuthenticationState);
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 7000;
-  }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
   }
 
   ngOnInit(): void {
@@ -135,7 +121,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     console.log('totalPrice:', this.totalPrice);
     if (this.totalPrice < 500 || this.totalPrice > 10000) {
       this.totalPrice = 0;
-      this.showErrorToast('Error!!', 'Total Price of Products must be greater than 500 and less than 10000.', 'error');
+      this.profileService.showErrorToastr('Total Price of Products must be greater than 500 and less than 10000. | يجب أن يكون إجمالي سعر المنتجات أكبر من 500 وأقل من 10000');
     } else {
       this.stepper.selected.completed = true;
       this.stepper.next();
