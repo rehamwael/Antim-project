@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 import { User } from './../../store/models/users';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
-import { Logout, UserProfile } from './../../store/actions/auth.actions';
+import { Logout, UserProfile, SaveTotalNotifications } from './../../store/actions/auth.actions';
 import { NotificationsService } from '../../services/notifications.service';
 
 declare var $: any;
@@ -55,11 +55,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
   // End open close
   ngOnInit() {
     this.getState.subscribe((state) => {
+      console.log( 'state:' , state);
       const token = localStorage.getItem('token');
       if (state.userProfile == null && token) {
         this.store.dispatch(new UserProfile());
       }
       this.currentUser = state.userProfile;
+      this.notificationsCount = state.totalUnReadNotifications;
+      if (this.notificationsCount == 0) {
+        this.showCount = false;
+      }
       if (this.currentUser) {
         if (this.currentUser.roles[0] == 'customer') {
           this.role = 'Borrower';
@@ -79,12 +84,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.dashboredUrl = 'dashbored-' + this.userType;
     this.profileUrl = 'profile-' + this.userType;
     this.notificationUrl = 'notification-' + this.userType;
+
     this.notificationService.getNotificationsCount().subscribe(res => {
       console.log(res);
       this.notificationsCount = res.result.count;
       if (this.notificationsCount == 0) {
         this.showCount = false;
       } else {
+        this.store.dispatch(new SaveTotalNotifications(this.notificationsCount));
         this.showCount = true;
       }
     }, err => {

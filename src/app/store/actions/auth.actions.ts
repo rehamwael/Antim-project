@@ -8,6 +8,8 @@ export enum AuthenticationActionTypes {
   USER_PROFILE = 'userProfile',
   SAVE_USER_PROFILE = 'saveUserProfile',
   EDIT_USER_PROFILE = 'editUserProfile',
+  SAVE_TOTAL_NOTIFICATIONS = 'SaveTotalNotifications',
+  READ_NOTIFICATION = 'ReadNotification',
 }
 
 export class Login implements Action {
@@ -41,6 +43,14 @@ export class EditUserProfile implements Action {
   constructor(public payload: any) {}
 }
 
+export class SaveTotalNotifications implements Action {
+  readonly type = AuthenticationActionTypes.SAVE_TOTAL_NOTIFICATIONS;
+  constructor(public payload: any) {}
+}
+export class ReadNotification implements Action {
+  readonly type = AuthenticationActionTypes.READ_NOTIFICATION;
+  constructor(public payload: any) {}
+}
 
 export type AuthenticationActions =
   | Login
@@ -49,4 +59,6 @@ export type AuthenticationActions =
   | Logout
   | UserProfile
   | SaveUserProfile
-  | EditUserProfile;
+  | EditUserProfile
+  | SaveTotalNotifications
+  | ReadNotification;

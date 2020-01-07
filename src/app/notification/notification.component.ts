@@ -2,9 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificationsService } from '../services/notifications.service';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileService } from '../services/userProfile.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, selectAuthenticationState } from './../store/app.states';
+import { ReadNotification } from './../store/actions/auth.actions';
 
 @Component({
   selector: 'app-notification',
@@ -16,12 +19,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
   filterNotifications: any;
   customerNotifications: any = [];
   getNotifications = true;
+  getState: Observable<any>;
 
   fromDate = null;
   toDate = null;
   disableReset: boolean;
   disableSearch: boolean;
-  options: IndividualConfig;
   userLang: any;
   DisableButton = false;
 
@@ -29,12 +32,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
     private notificationService: NotificationsService,
     private spinner: NgxSpinnerService,
     private profileService: ProfileService,
-    private toastr: ToastrService,
     public translate: TranslateService,
+    private store: Store<AppState>,
   ) {
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
+    this.getState = this.store.select(selectAuthenticationState);
     this.userLang = this.translate.currentLang;
   }
 
@@ -88,9 +89,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.disableSearch = true;
     }
   }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
 
   filterRequests() {
     this.spinner.show();
@@ -130,13 +128,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   markAsReadNotification(id: any) {
-    this.spinner.show();
     this.notificationService.readNotification(id).subscribe(res => {
       this.ngOnInit();
       console.log(res);
-      this.spinner.hide();
+      this.store.dispatch(new ReadNotification(1));
     }, err => {
-      this.spinner.hide();
       console.log(err);
       this.profileService.showErrorToastr(err.error.message);
     });

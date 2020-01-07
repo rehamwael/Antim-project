@@ -9,7 +9,6 @@ import { latLng, tileLayer } from 'leaflet';
 
 import { ProfileService } from '../services/userProfile.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthenticationState } from './../store/app.states';
 import { EditUserProfile } from './../store/actions/auth.actions';
@@ -57,7 +56,6 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   fundingLimit: any;
   bankID: any;
 
-  options: IndividualConfig;
   phoneNumber: any;
   numberEntered = false;
   disableButton = false;
@@ -129,15 +127,11 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     public router: Router,
     private profileService: ProfileService,
-    private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private editUserService: UserEmailPasswordService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
     this.showUser = true;
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
 
     this.EditForm = fb.group({
       'FirstName': [{ value: this.firstName, disabled: this.disabledButton }, Validators.compose([
@@ -250,12 +244,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     // });
 
   }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
+
   getUserINFO() {
     return new Promise((resolve, reject) => {
       this.profileService.getUserData().subscribe(res => {
@@ -357,7 +346,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   }
   editEmail() {
     if (this.email == '') {
-      this.showErrorToast('Error!!', 'Please Enter Email.', 'error');
+      this.profileService.showErrorToastr('Please Enter Email | الرجاء إدخال عنوان البريد الإلكتروني');
     } else {
       this.spinner.show();
       this.editUserService.editUserEmail({
@@ -367,20 +356,20 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }).subscribe(res => {
         console.log(res);
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.emailButton = false;
         this.EditForm.get('Email').disable();
       }, err => {
         this.spinner.hide();
         console.log(' ERROR:', err);
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     }
   }
 
   editMobileNo() {
     if (this.phone == '' || this.countryCode == null) {
-      this.showErrorToast('Error!!', 'Please Enter Proper Mobile Number.', 'error');
+      this.profileService.showErrorToastr('Please Enter Proper Mobile Number | الرجاء إدخال رقم الجوال الصحيح');
     } else {
       this.spinner.show();
       this.profileService.editUserPhoneNumber({
@@ -390,13 +379,13 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }).subscribe(res => {
         this.spinner.hide();
         console.log(res);
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.phoneButton = false;
         this.showOTPstep = true;
       }, err => {
         this.spinner.hide();
         console.log(' ERROR:', err);
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     }
   }
@@ -426,14 +415,14 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     }).subscribe(res => {
       this.spinner.hide();
       console.log(res);
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.profileService.showSuccessToastr(res);
       this.showOTPstep = false;
       this.EditForm.get('MobileNo').disable();
       this.EditForm.get('CountryCode').disable();
     }, err => {
       this.spinner.hide();
       console.log(' ERROR:', err);
-      this.showErrorToast('Error!!', err.error.message, 'error');
+      this.profileService.showErrorToastr(err.error.message);
     });
   }
   ResendOTP() {
@@ -445,11 +434,11 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     }).subscribe(res => {
       this.spinner.hide();
       console.log(res);
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.profileService.showSuccessToastr(res);
     }, err => {
       this.spinner.hide();
       console.log(' ERROR:', err);
-      this.showErrorToast('Error!!', err.error.message, 'error');
+      this.profileService.showErrorToastr(err.error.message);
     });
   }
   SaveInfo() {
@@ -492,7 +481,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }).subscribe((res) => {
         console.log('Bank Info edited:', res);
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.BankInfoForm.get('BankName').disable();
         this.BankInfoForm.get('BankAccountNo').disable();
         // this.BankInfoForm.get('AccountTitle').disable();
@@ -502,7 +491,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }, err => {
         console.log('ERROR', err);
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     } else {
       this.spinner.show();
@@ -516,7 +505,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }).subscribe((res) => {
         console.log('BANK  Added:', res);
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.BankInfoForm.get('BankName').disable();
         this.BankInfoForm.get('BankAccountNo').disable();
         // this.BankInfoForm.get('AccountTitle').disable();
@@ -526,7 +515,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }, err => {
         console.log('ERROR', err);
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     }
   }
@@ -551,7 +540,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }).subscribe((res) => {
         console.log('Address info edited:', res);
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.AddressForm.get('Address').disable();
         this.AddressForm.get('City').disable();
         this.AddressForm.get('Country').disable();
@@ -560,7 +549,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.disableAddressButton = false;
       }, err => {
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     } else {
       this.spinner.show();
@@ -573,7 +562,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }).subscribe((res) => {
         console.log('Address Added:', res);
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.AddressForm.get('Address').disable();
         this.AddressForm.get('City').disable();
         this.AddressForm.get('Country').disable();
@@ -582,7 +571,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.disableAddressButton = false;
       }, err => {
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     }
   }
@@ -658,7 +647,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     }).subscribe(res => {
       console.log(res);
       this.spinner.hide();
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.profileService.showSuccessToastr(res);
       this.EditForm.get('OldPassword').disable();
       this.EditForm.get('NewPassword').disable();
       this.EditForm.get('ConfirmPassword').disable();
@@ -670,9 +659,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.spinner.hide();
       console.log(' ERROR:', err);
       if (err.error.message == 'Incorrect password.') {
-        this.showErrorToast('Error!!', 'Incorrect Old Password', 'error');
+        this.profileService.showErrorToastr('Incorrect Old Password | كلمة السر القديمة غير صحيحة');
       } else {
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       }
     });
   }
