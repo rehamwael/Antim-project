@@ -303,12 +303,13 @@
                                         <button mat-button (click)="nextStep(matStep)" [disabled]="!firstFormGroup.valid" class="btn btn-info btn-lg btn-block btn-purple ">Next </button>
                                       </div>
                                  </div>
-                              <div class="mt-3">
-                                <p style="color: rgb(206, 19, 19)">
-                                  <b> <span class="red-color"> *</span> Note: </b>Please make sure that Total Price of Products must be greater than <b>500 SAR</b> and less than <b>10000 SAR</b>
-                                </p>
-                              </div>
                             </form>
+                            <div class="alert mt-3 alert-warning row" role="alert">
+                              <p>
+                                <i class="mr-1 fa fa-exclamation-circle"></i>
+                                 <b>  Note: </b>Please make sure that Total Price must be greater than <b>500 SAR</b> and less than <b>10000 SAR.</b>
+                            </p>
+                          </div>
                           </mat-step>
                             <mat-step [stepControl]="secondFormGroup">
 
@@ -391,6 +392,13 @@
                                             </div>
                                     </div>
                               </div>
+                              <div class="alert mt-3 alert-warning" role="alert">
+                                <p >
+                                  <i class="mr-1 fa fa-exclamation-circle"></i>
+                                  <b>Note: </b>Dear {{currentUser?.firstName}} {{currentUser?.lastName}}, please note that, you can cancel the request while the status is "Under Review". However, if the request has been approved, then you will not longer be able to Cancel it."
+                                </p>
+                              </div>
+
                             </mat-step>
                             <mat-step [stepControl]="lastFormGroup">
                                 <ng-template matStepLabel>
@@ -424,13 +432,7 @@
                                                 <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}" readonly>
                                         </mat-form-field>
                                         <p class="my-5 grey-text-color">
-                                            <span class="mr-1">
-                                                <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.0899 15 14 12.0899 14 8.5C14 4.91015 11.0899 2 7.5 2C3.91015 2 1 4.91015 1 8.5C1 12.0899 3.91015 15 7.5 15Z" stroke="#607AE6"/>
-                                                    <path d="M7.5 11.1V8.5" stroke="#607AE6"/>
-                                                 </svg>
-                                            </span>
-
+                                          <i class=" fa fa-exclamation-circle"></i>
                                             Selecting this option will require you to pay additional delivery fees of 30 SR.
                                         </p>
                                         <div>

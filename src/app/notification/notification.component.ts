@@ -2,8 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificationsService } from '../services/notifications.service';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { ProfileService } from '../services/userProfile.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, selectAuthenticationState } from './../store/app.states';
+import { ReadNotification } from './../store/actions/auth.actions';
 
 @Component({
   selector: 'app-notification',
@@ -15,25 +19,24 @@ export class NotificationComponent implements OnInit, OnDestroy {
   filterNotifications: any;
   customerNotifications: any = [];
   getNotifications = true;
+  getState: Observable<any>;
 
   fromDate = null;
   toDate = null;
   disableReset: boolean;
   disableSearch: boolean;
-  options: IndividualConfig;
   userLang: any;
+  DisableButton = false;
 
   constructor(
     private notificationService: NotificationsService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService,
+    private profileService: ProfileService,
     public translate: TranslateService,
+    private store: Store<AppState>,
   ) {
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
+    this.getState = this.store.select(selectAuthenticationState);
     this.userLang = this.translate.currentLang;
-    console.log(this.translate.currentLang);
   }
 
   ngOnInit(): void {
@@ -53,6 +56,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.allNotifications.forEach(element => {
           this.customerNotifications.push(element);
           element.date = moment(element.createdAt).format('LL');
+          element.arDate = moment(element.createdAt).locale('ar-sa').format('LL');
         });
       } else {
         this.getNotifications = false;
@@ -60,6 +64,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }, err => {
       this.spinner.hide();
       console.log(err);
+      this.profileService.showErrorToastr(err.error.message);
     });
 
   }
@@ -84,9 +89,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.disableSearch = true;
     }
   }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
 
   filterRequests() {
     this.spinner.show();
@@ -97,7 +99,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.getNotifications = false;
         this.disableReset = true;
         this.disableSearch = false;
-        this.showErrorToast('', res.message, 'error');
+        this.profileService.showErrorToastr(res.message);
       } else {
         this.filterNotifications = res.result;
         this.allNotifications = null;
@@ -114,6 +116,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }, err => {
       this.spinner.hide();
       console.log(err);
+      this.profileService.showErrorToastr(err.error.message);
     });
   }
   resetPage() {
@@ -123,4 +126,16 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.disableSearch = false;
     this.disableReset = false;
   }
+
+  markAsReadNotification(id: any) {
+    this.notificationService.readNotification(id).subscribe(res => {
+      this.ngOnInit();
+      console.log(res);
+      this.store.dispatch(new ReadNotification(1));
+    }, err => {
+      console.log(err);
+      this.profileService.showErrorToastr(err.error.message);
+    });
+  }
+
 }

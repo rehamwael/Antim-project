@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { AuthService } from '../../auth/auth.service';
 import {
   AuthenticationActionTypes,
-  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile,
+  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile, AccountDeActivate
 } from '../actions/auth.actions';
 import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
@@ -22,12 +22,13 @@ import {
   DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess, GetAllRequestsFailure, RemoveRequestsFromStore
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
 export class AuthenticationEffects {
-  options: IndividualConfig;
   userRole: string;
+  userLang: any;
 
   constructor(private modalService: NgbModal,
     private actions: Actions,
@@ -37,11 +38,9 @@ export class AuthenticationEffects {
     private userDataService: ProfileService,
     private store: Store<AppState>,
     private customerService: CustomerRequestService,
-    private spinner: NgxSpinnerService) {
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 7000;
-    this.options.progressBar = true;
+    public translate: TranslateService,
+    private spinner: NgxSpinnerService,
+  ) {
   }
 
   @Effect()
@@ -86,12 +85,12 @@ export class AuthenticationEffects {
     tap((res) => {
       console.log(res);
       if (res.payload.error.error_description) {
-        this.showToast('Error!!', res.payload.error.error_description, 'error');
+        this.userDataService.showErrorToastr(res.payload.error.error_description);
+        if (res.payload.error.error_description == 'Please Activate Your Account | يرجى تفعيل حسابك') {
+          this.store.dispatch(new AccountDeActivate());
+        }
       } else {
-        this.showToast('Error!!',
-          'The email address and password that you\'ve entered doesn\'t match any account. Please try again.',
-          'error'
-        );
+        this.userDataService.showErrorToastr('The email address and password that you\'ve entered doesn\'t match any account. Please try again. | عنوان البريد الإلكتروني وكلمة المرور اللذين أدخلتهما لا يتطابقان مع أي حساب. حاول مرة اخرى.');
       }
     })
   );
@@ -130,9 +129,8 @@ export class AuthenticationEffects {
         return this.customerService.getCustomerDashboard().subscribe(res => {
           if (res.message) {
             this.spinner.hide();
-            this.showErrorToast('Error!!', res.message, 'error');
+            this.userDataService.showErrorToastr(res.message);
           } else {
-
             console.log('requestCount:', res.result);
             this.store.dispatch(new GetRequestsCountSuccess(res.result));
             this.spinner.hide();
@@ -152,14 +150,15 @@ export class AuthenticationEffects {
       // console.log('huhuh',payload);
       return this.userDataService.editUser(payload).pipe(
         map((res) => {
+          this.userLang = this.translate.currentLang;
           console.log('User Info edited:', res);
           this.spinner.hide();
-          this.showSuccessToast('OK!!', res.message, 'success');
+          this.userDataService.showSuccessToastr(res);
         }),
         catchError(error => {
           console.log(' ERROR:', error);
           this.spinner.hide();
-          return of(this.showErrorToast('Error!!', error.error.message, 'error'));
+          return of(this.userDataService.showErrorToastr(error.error.message));
         }));
     }));
 
@@ -175,7 +174,7 @@ export class AuthenticationEffects {
         }
         if (res.message) {
           this.store.dispatch(new GetAllRequestsFailure());
-          this.showErrorToast('', res.message, 'error');
+          this.userDataService.showErrorToastr(res.message);
         }
         this.spinner.hide();
       }, err => {
@@ -196,13 +195,13 @@ export class AuthenticationEffects {
           this.store.dispatch(new AddCustomerRequestSuccess(res.result));
           this.spinner.hide();
           this.store.dispatch(new IsUpdatedTrue());
-          this.showSuccessToast('OK!!', res.message, 'success');
+          this.userDataService.showSuccessToastr(res);
           this.router.navigate(['/requests-customer']);
         }),
         catchError(error => {
           console.log(' ERROR:', error);
           this.spinner.hide();
-          return of(this.showErrorToast('Error!!', error.error.message, 'error'));
+          return of(this.userDataService.showErrorToastr(error.error.message));
         }));
     }));
 
@@ -217,13 +216,13 @@ export class AuthenticationEffects {
           console.log(' Edited:', res);
           this.store.dispatch(new IsUpdatedTrue());
           this.spinner.hide();
-          this.showSuccessToast('OK!!', res.message, 'success');
+          this.userDataService.showSuccessToastr(res);
           this.router.navigate(['/requests-customer']);
         }),
         catchError(error => {
           console.log(' ERROR:', error);
           this.spinner.hide();
-          return of(this.showErrorToast('Error!!', error.error.message, 'error'));
+          return of(this.userDataService.showErrorToastr(error.error.message));
         }));
     }));
 
@@ -239,25 +238,16 @@ export class AuthenticationEffects {
           this.spinner.hide();
           this.modalService.dismissAll();
           this.router.navigate(['/requests-customer']);
-          this.showSuccessToast('OK!!', res.message, 'success');
+          this.userDataService.showSuccessToastr(res);
           this.store.dispatch(new DeleteRequestSuccess(payload));
         }),
         catchError(error => {
           console.log(' ERROR:', error);
           this.modalService.dismissAll();
           this.spinner.hide();
-          return of(this.showErrorToast('Error!!', error.error.message, 'error'));
+          return of(this.userDataService.showErrorToastr(error.error.message));
         }));
     }));
 
 
-  showToast(title: string, message: string, type: string) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
 }

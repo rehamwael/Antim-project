@@ -40,15 +40,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
   state: any;
   addressID: any;
   bankID: any;
-  bankName: any;
+  bankName = 'select';
   bankAccountNo: any;
   bankAddress: any;
   accountTitle: any;
+  AccountDocs: any;
+  SalaryDocs: any;
+  accountStatement: any;
+  salaryStatement: any;
+  showAccountUploadImg = true;
+  showSalaryUploadImg = true;
 
   disabledButton = true;
   EditForm: FormGroup;
   BankInfoForm: FormGroup;
   AddressForm: FormGroup;
+  AccountForm: FormGroup;
+  SalaryForm: FormGroup;
   disabledBankButton = true;
   zoom: number;
   center: L.LatLng;
@@ -58,7 +66,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   leafletOptions;
   mapCenter;
   zoomLevel;
-  options: IndividualConfig;
   phoneNumber: any;
   numberEntered = false;
   disableprofileButton = false;
@@ -67,11 +74,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   disableBankButton = false;
   disableAddressButton = false;
   disablePasswordButton = false;
+  disableAccountButton = false;
+  disableSalaryButton = false;
   showAddress = false;
   showBank = false;
   showUser = false;
-  BankArray: any;
-  AddressArray: any;
+  BankArray: any = [];
+  AddressArray: any = [];
   getState: Observable<any>;
   showOTPstep = false;
   OTP: any;
@@ -87,14 +96,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public router: Router,
     private profileService: ProfileService,
-    private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private editUserService: UserEmailPasswordService
+    private editUserService: UserEmailPasswordService,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
 
     this.EditForm = fb.group({
       'FirstName': [{ value: this.firstName, disabled: this.disabledButton }, Validators.compose([
@@ -126,16 +131,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       'Three': [''],
       'Four': [''],
       'OldPassword': [{ value: this.oldPassword, disabled: this.disabledButton },
-        [
-          Validators.required,
-          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
-         ]
+      [
+        Validators.required,
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+      ]
       ],
       'NewPassword': [{ value: this.newPassword, disabled: this.disabledButton },
-        [
-          Validators.required,
-          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
-         ]
+      [
+        Validators.required,
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+      ]
       ],
       'ConfirmPassword': [{ value: this.confirmPassword, disabled: this.disabledButton }]
 
@@ -183,18 +188,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
         Validators.minLength(10)
       ])],
     });
+    this.AccountForm = this.fb.group({
+      'AccountStatement': ['']
+    });
+    this.SalaryForm = this.fb.group({
+      'SalaryStatement': ['']
+    });
     this.leafletLayers = [tileLayer(
       'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {})];
     this.mapCenter = latLng(24.8085046, 46.6711241);
     this.zoomLevel = 7;
   }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
+
   getUserINFO() {
     return new Promise((resolve, reject) => {
       this.profileService.getUserData().subscribe(res => {
@@ -224,34 +230,46 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.getUserINFO().then(e => {
       if (this.AddressArray.length > 0) {
-      this.profileService.getUserAddress().subscribe(res => {
-        this.userAddress = res.result;
-        this.address = res.result.address;
-        this.city = res.result.city;
-        this.country = res.result.country;
-        this.zip = res.result.postalCode;
-        this.state = res.result.state;
-        this.addressID = res.result.id;
-        console.log('userAddressINFO:', res.result);
-
-      }, err => {
-        console.log('ERROR:', err);
-      });
-    }
-    if (this.BankArray.length > 0) {
-      this.profileService.getUserBankInfo().subscribe(res => {
-        this.userBankInfo = res.result;
-        this.bankName = res.result.bankName;
-        this.bankAddress = res.result.address;
-        this.accountTitle = res.result.accountTitle;
-        this.bankAccountNo = res.result.accountNumber;
-        this.bankID = res.result.id;
-        console.log('userBankInfo:', this.userBankInfo);
-      }, err => {
-        console.log('ERROR:', err);
-      });
-    }
-      this.spinner.hide();
+        this.spinner.show();
+        this.profileService.getUserAddress().subscribe(res => {
+          this.userAddress = res.result;
+          this.address = res.result.address;
+          this.city = res.result.city;
+          this.country = res.result.country;
+          this.zip = res.result.postalCode;
+          this.state = res.result.state;
+          this.addressID = res.result.id;
+          console.log('userAddressINFO:', res.result);
+          this.spinner.hide();
+        }, err => {
+          this.spinner.hide();
+          console.log('ERROR:', err);
+        });
+      }
+      if (this.BankArray.length > 0) {
+        this.spinner.show();
+        this.profileService.getUserBankInfo().subscribe(res => {
+          this.userBankInfo = res.result;
+          this.bankName = res.result.bankName;
+          this.bankAddress = res.result.address;
+          this.accountTitle = res.result.accountTitle;
+          this.bankAccountNo = res.result.accountNumber;
+          this.accountStatement = res.result.accountStatementFile;
+          if (this.accountStatement != null) {
+            this.showAccountUploadImg = false;
+          }
+          this.salaryStatement = res.result.salaryStatementFile;
+          if (this.salaryStatement != null) {
+            this.showSalaryUploadImg = false;
+          }
+          this.bankID = res.result.id;
+          console.log('userBankInfo:', this.userBankInfo);
+          this.spinner.hide();
+        }, err => {
+          this.spinner.hide();
+          console.log('ERROR:', err);
+        });
+      }
     });
 
     const body = document.getElementsByTagName('body')[0];
@@ -289,7 +307,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   editEmail() {
     if (this.email == '') {
-      this.showErrorToast('Error!!', 'Please Enter Email.', 'error');
+      this.profileService.showErrorToastr('Please Enter Email | الرجاء إدخال عنوان البريد الإلكتروني');
     } else {
       this.spinner.show();
       this.editUserService.editUserEmail({
@@ -299,20 +317,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }).subscribe(res => {
         console.log(res);
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.emailButton = false;
         this.EditForm.get('Email').disable();
       }, err => {
         this.spinner.hide();
         console.log(' ERROR:', err);
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     }
   }
 
   editMobileNo() {
     if (this.phone == '' || this.countryCode == null) {
-      this.showErrorToast('Error!!', 'Please Enter Proper Mobile Number.', 'error');
+      this.profileService.showErrorToastr('Please Enter Proper Mobile Number | الرجاء إدخال رقم الجوال الصحيح');
     } else {
       this.spinner.show();
       this.profileService.editUserPhoneNumber({
@@ -322,13 +340,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }).subscribe(res => {
         this.spinner.hide();
         console.log(res);
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.phoneButton = false;
         this.showOTPstep = true;
       }, err => {
         this.spinner.hide();
         console.log(' ERROR:', err);
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     }
   }
@@ -358,14 +376,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }).subscribe(res => {
       this.spinner.hide();
       console.log(res);
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.profileService.showSuccessToastr(res);
       this.showOTPstep = false;
       this.EditForm.get('MobileNo').disable();
       this.EditForm.get('CountryCode').disable();
     }, err => {
       this.spinner.hide();
       console.log(' ERROR:', err);
-      this.showErrorToast('Error!!', err.error.message, 'error');
+      this.profileService.showErrorToastr(err.error.message);
     });
   }
   ResendOTP() {
@@ -377,11 +395,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }).subscribe(res => {
       this.spinner.hide();
       console.log(res);
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.profileService.showSuccessToastr(res);
     }, err => {
       this.spinner.hide();
       console.log(' ERROR:', err);
-      this.showErrorToast('Error!!', err.error.message, 'error');
+      this.profileService.showErrorToastr(err.error.message);
     });
   }
 
@@ -422,7 +440,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }).subscribe((res) => {
         console.log('Bank Info edited:', res);
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.BankInfoForm.get('BankName').disable();
         this.BankInfoForm.get('BankAccountNo').disable();
         this.BankInfoForm.get('AccountTitle').disable();
@@ -431,7 +449,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }, err => {
         console.log('ERROR', err);
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     } else {
       this.spinner.show();
@@ -442,8 +460,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         'AccountNumber': this.bankAccountNo
       }).subscribe((res) => {
         console.log('BANK Added:', res);
+        this.BankArray[0] = res.result;
+        this.bankID = res.result.id;
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
+        this.profileService.showSuccessToastr(res);
         this.BankInfoForm.get('BankName').disable();
         this.BankInfoForm.get('BankAccountNo').disable();
         this.BankInfoForm.get('AccountTitle').disable();
@@ -452,7 +472,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }, err => {
         console.log('ERROR', err);
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     }
   }
@@ -476,18 +496,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
         'State': this.state,
         'PostalCode': this.zip
       }).subscribe((res) => {
-        console.log('Address info edited:', res);
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
         this.AddressForm.get('Address').disable();
         this.AddressForm.get('City').disable();
         this.AddressForm.get('Country').disable();
         this.AddressForm.get('State').disable();
         this.AddressForm.get('Zip').disable();
         this.disableAddressButton = false;
+        this.profileService.showSuccessToastr(res);
       }, err => {
+        this.profileService.showErrorToastr(err.error.message);
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
       });
     } else {
       this.spinner.show();
@@ -499,17 +518,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
         'PostalCode': this.zip
       }).subscribe((res) => {
         console.log('Address Added:', res);
+        this.AddressArray[0] = res.result;
+        this.addressID = res.result.id;
         this.spinner.hide();
-        this.showSuccessToast('OK!!', res.message, 'success');
         this.AddressForm.get('Address').disable();
         this.AddressForm.get('City').disable();
         this.AddressForm.get('Country').disable();
         this.AddressForm.get('State').disable();
         this.AddressForm.get('Zip').disable();
         this.disableAddressButton = false;
+        this.profileService.showSuccessToastr(res);
       }, err => {
         this.spinner.hide();
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       });
     }
   }
@@ -568,7 +589,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }).subscribe(res => {
       console.log(res);
       this.spinner.hide();
-      this.showSuccessToast('OK!!', res.message, 'success');
+      this.profileService.showSuccessToastr(res);
       this.EditForm.get('OldPassword').disable();
       this.EditForm.get('NewPassword').disable();
       this.EditForm.get('ConfirmPassword').disable();
@@ -580,11 +601,72 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.spinner.hide();
       console.log(' ERROR:', err);
       if (err.error.message == 'Incorrect password.') {
-        this.showErrorToast('Error!!', 'Incorrect Old Password', 'error');
+        this.profileService.showErrorToastr('Incorrect Old Password | كلمة السر القديمة غير صحيحة');
       } else {
-        this.showErrorToast('Error!!', err.error.message, 'error');
+        this.profileService.showErrorToastr(err.error.message);
       }
     });
+  }
+  uploadAccoutFile(event) {
+    if (event.target.files.length > 0) {
+      this.AccountDocs = event.target.files[0];
+      this.AccountForm.get('AccountStatement').setValue(this.AccountDocs);
+    }
+    console.log(this.AccountDocs);
+    this.accountStatement = this.AccountDocs.name;
+    this.disableAccountButton = true;
+    this.showAccountUploadImg = false;
+  }
+  onAccountFormSubmit() {
+    let formData = new FormData();
+    formData.append('file', this.AccountForm.get('AccountStatement').value);
+    this.spinner.show();
+    this.profileService.uploadAccountStatement(formData).subscribe(res => {
+      this.spinner.hide();
+      console.log('result:', res);
+      this.profileService.showSuccessToastr(res);
+      this.disableAccountButton = false;
+    }, err => {
+      this.spinner.hide();
+      console.log(' ERROR:', err);
+      this.profileService.showErrorToastr(err.error.message);
+    });
+  }
+
+  uploadSalaryFile(event) {
+    if (event.target.files.length > 0) {
+      this.SalaryDocs = event.target.files[0];
+      this.SalaryForm.get('SalaryStatement').setValue(this.SalaryDocs);
+    }
+    this.disableSalaryButton = true;
+    this.salaryStatement = this.SalaryDocs.name;
+    this.showSalaryUploadImg = false;
+  }
+  onSalaryFormsubmit() {
+    let formData = new FormData();
+    formData.append('file', this.SalaryForm.get('SalaryStatement').value);
+    this.spinner.show();
+    this.profileService.uploadSalaryStatement(formData).subscribe(res => {
+      this.spinner.hide();
+      console.log('result:', res);
+      this.profileService.showSuccessToastr(res);
+      this.disableSalaryButton = false;
+    }, err => {
+      this.spinner.hide();
+      console.log(' ERROR:', err);
+      this.profileService.showErrorToastr(err.error.message);
+    });
+
+  }
+  closeAccountDetails() {
+    this.showAccountUploadImg = true;
+    this.disableAccountButton = false;
+    this.AccountDocs = null;
+  }
+  closeSalaryDetails() {
+    this.showSalaryUploadImg = true;
+    this.disableSalaryButton = false;
+    this.SalaryDocs = null;
   }
 
 }

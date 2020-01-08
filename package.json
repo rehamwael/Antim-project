@@ -24,7 +24,6 @@
     "@asymmetrik/ngx-leaflet": "^5.0.2",
     "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "@ngrx/effects": "^8.5.1",
-    "@ngrx/entity": "^8.5.2",
     "@ngrx/store": "^8.5.1",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",

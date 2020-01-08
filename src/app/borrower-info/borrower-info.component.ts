@@ -6,8 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './borrower-info.component.html',
   styleUrls: ['./borrower-info.component.css']
 })
-export class BorrowerInfoComponent implements OnInit ,OnDestroy {
-
+export class BorrowerInfoComponent implements OnInit , OnDestroy {
   userLang: "english";
 
   constructor(public translate: TranslateService) {
@@ -22,7 +21,7 @@ export class BorrowerInfoComponent implements OnInit ,OnDestroy {
     body.classList.add('who-we-are');
 
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('contact');
     body.classList.remove('who-we-are');

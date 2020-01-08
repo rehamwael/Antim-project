@@ -5,7 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import { Store } from '@ngrx/store';
 import { AppState } from './../store/app.states';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { ProfileService } from '../services/userProfile.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,7 +20,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   chooseRole = true;
   firstStep = false;
   secondStep = false;
-  lastStep = false;
+  // lastStep = false;
 
   public selectedItem: any;
   disabledNextButton = true;
@@ -45,67 +45,18 @@ export class SignUpComponent implements OnInit , OnDestroy {
   phoneNumber: string;
   numberEntered = false;
   OTP = '';
-  options: IndividualConfig;
-  option: IndividualConfig;
   disabledAgreement1 = false;
   disabledAgreement2 = false;
   isButtonDisabled = false;
-  // submitted = false;
-  // onSubmit() {
-  //   this.submitted = true;
-  //   if (this.SigUpForm.invalid) {
-  //       return;
-  //   }
-  // }
-  changeCheck1(event) {
-    if (event.target.checked) {
-      this.disabledAgreement1 = true;
-    } else {
-      this.disabledAgreement1 = false;
-      this.isButtonDisabled = false;
-    }
-    if (this.disabledAgreement1 && this.disabledAgreement2) {
-      this.isButtonDisabled = true;
-    }
-  }
-  changeCheck2(event) {
-    if (event.target.checked) {
-      this.disabledAgreement2 = true;
-    } else {
-      this.disabledAgreement2 = false;
-      this.isButtonDisabled = false;
-    }
-    if (this.disabledAgreement1 && this.disabledAgreement2) {
-      this.isButtonDisabled = true;
-    }
-  }
-  inputNumber(event) {
-    this.phoneNumber = event.target.value;
-    if (this.phoneNumber.length >= 9) {
-    this.numberEntered = true;
-    } else {
-      this.numberEntered = false;
-    }
-  }
-
-  // @HostListener('input') oninput() {
-  //   if (this.SigUpForm.valid) {
-  //     this.disabledSubmitButton = false;
-  //     }
-  // }
 
   constructor(
-    // private store: Store<AppState>,
     private fb: FormBuilder,
     private authservice: AuthService,
-    private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private profileService: ProfileService,
     ) {
 
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 8000;
 
     this.SigUpForm = fb.group({
       'FirstName': [null, Validators.compose([
@@ -152,12 +103,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
     });
 
   }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-}
-showErrorToast(title, message, type) {
-  this.toastr.show(message, title, this.options, 'toast-' + type);
-}
+
   ngOnInit(): void {
     this.clear();
     const body = document.getElementsByTagName('body')[0];
@@ -167,6 +113,38 @@ showErrorToast(title, message, type) {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('log-in');
   }
+
+  changeCheck1(event) {
+    if (event.target.checked) {
+      this.disabledAgreement1 = true;
+    } else {
+      this.disabledAgreement1 = false;
+      this.isButtonDisabled = false;
+    }
+    if (this.disabledAgreement1 && this.disabledAgreement2) {
+      this.isButtonDisabled = true;
+    }
+  }
+  changeCheck2(event) {
+    if (event.target.checked) {
+      this.disabledAgreement2 = true;
+    } else {
+      this.disabledAgreement2 = false;
+      this.isButtonDisabled = false;
+    }
+    if (this.disabledAgreement1 && this.disabledAgreement2) {
+      this.isButtonDisabled = true;
+    }
+  }
+  inputNumber(event) {
+    this.phoneNumber = event.target.value;
+    if (this.phoneNumber.length >= 9) {
+    this.numberEntered = true;
+    } else {
+      this.numberEntered = false;
+    }
+  }
+
   addClass(ID: any) {
     this.id = ID;
     if (this.id === 1) {
@@ -192,7 +170,7 @@ showErrorToast(title, message, type) {
   }
   thirdStep() {
     if (this.signupCPassword !== this.signupPassword) {
-      this.showErrorToast('Error!!', 'Password Must Match', 'error');
+      this.profileService.showErrorToastr('Password Must Match | كلمة المرور يجب ان تتطابق');
     } else {
       this.spinner.show();
       this.authservice.register({
@@ -211,24 +189,17 @@ showErrorToast(title, message, type) {
             this.secondStep = true;
             this.firstStep = false;
             this.chooseRole = false;
-            this.showSuccessToast('OK!!', res.message, 'success');
+            this.profileService.showSuccessToastr(res);
             console.log('next OTP step: ', res);
         }, err => {
           this.spinner.hide();
+          console.log(err);
             if (err.error.message) {
-              this.showErrorToast('Error!!', err.error.message, 'error');
+              this.profileService.showErrorToastr(err.error.message);
             }
         });
     }
   }
-  // keyDownFunction(event) {
-  //   this.chooseRole = false;
-  //   console.log(event.key);
-  //   if (event.key == 'Enter') {
-  //     // alert('Please click to SignUp Button to Submit Form.');
-  //     this.chooseRole = false;
-  //   }
-  // }
 
   goToLastStep() {
     this.spinner.show();
@@ -252,11 +223,17 @@ showErrorToast(title, message, type) {
         this.spinner.hide();
         console.log('signUp : ', res);
         this.secondStep = false;
-        this.lastStep = true;
-        this.showSuccessToast('OK!!', 'A verification link has been sent to your email account. Please verify your email to get the most benefits from ANTIM', 'success');
-      }, async err => {
+        // this.lastStep = true;
+        this.router.navigateByUrl('/login');
+        let result: any = {
+          message: 'Account Created Successfully! A verification link has been sent to your email account. Please verify your email to get the most benefits from ANTIM',
+          arabicMessage: ' تم إنشاء الحساب بنجاح! تم إرسال رابط التحقق إلى حساب البريد الإلكتروني الخاص بك. يرجى التحقق من بريدك الإلكتروني للحصول على أكبر قدر من الفوائد من انتيم'
+        };
+        this.profileService.showSuccessToastr(result);
+      }, err => {
         this.spinner.hide();
         console.log('Errrrrror : ', err);
+        this.profileService.showErrorToastr(err.error.message);
       });
   }
   closeBack() {
@@ -273,7 +250,7 @@ showErrorToast(title, message, type) {
     this.chooseRole = true;
     this.firstStep = false;
     this.secondStep = false;
-    this.lastStep = false;
+    // this.lastStep = false;
   }
   resendOTP() {
     this.spinner.show();
@@ -290,18 +267,19 @@ showErrorToast(title, message, type) {
       'Role': this.userType
       }).subscribe( (res) => {
         console.log('code resend:', res);
-        this.showSuccessToast('OK!!', 'Verification Code ReSent.', 'success');
+        this.profileService.showSuccessToastr(res);
         this.spinner.hide();
       }, err => {
         this.spinner.hide();
-          console.log('Errrrrror : ', err);
+        this.profileService.showErrorToastr(err.error.message);
+        console.log('Errrrrror : ', err);
       });
   }
 
-  signUp() {
-    this.router.navigateByUrl('/login');
-    this.showSuccessToast('OK!!', 'Your Account Created Successfully!!', 'success');
-  }
+  // signUp() {
+  //   this.router.navigateByUrl('/login');
+  //   this.showSuccessToast('OK!!', 'Your Account Created Successfully!!', 'success');
+  // }
 
    keytab(event, next) {
     if (next === 1) {

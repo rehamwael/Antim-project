@@ -6,9 +6,9 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './lender-info.component.html',
   styleUrls: ['./lender-info.component.css']
 })
-export class LenderInfoComponent implements OnInit ,OnDestroy{
+export class LenderInfoComponent implements OnInit , OnDestroy {
 
-  userLang: "english";
+  userLang: any;
 
   constructor(public translate: TranslateService) {
     translate.addLangs([ 'english' , 'arabic']);
@@ -23,7 +23,7 @@ export class LenderInfoComponent implements OnInit ,OnDestroy{
     body.classList.add('who-we-are');
 
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('contact');
     body.classList.remove('who-we-are');

@@ -1,34 +1,63 @@
-import { Component, OnInit ,OnDestroy ,HostListener} from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {latLng, tileLayer} from "leaflet";
+import { latLng, tileLayer } from 'leaflet';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ProfileService } from '../services/userProfile.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css']
 })
-export class ContactComponent implements OnInit ,OnDestroy{
+export class ContactComponent implements OnInit, OnDestroy {
   zoom: number;
   center: L.LatLng;
   fitBounds: L.LatLngBounds;
   baseLayers: L.TileLayer[];
   leafletLayers;
+  userLang: any;
+  currentJustify = 'start';
+  currentOrientation = 'horizontal';
+  contactForm: FormGroup;
+  disabledSubmitButton = true;
+  optionsSelect: Array<any>;
+  leafletOptions;
+  mapCenter;
+  zoomLevel;
+  name: any;
+  email: any;
+  mobile: any;
+  messageType = 0;
+  message: any;
 
   @HostListener('input') oninput() {
     if (this.contactForm.valid) {
       this.disabledSubmitButton = false;
-      }
+    }
   }
-  userLang: "english";
   
 
-  constructor(private fb: FormBuilder ,private router: Router , public translate: TranslateService) { 
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    public translate: TranslateService,
+    private profileService: ProfileService,
+    private spinner: NgxSpinnerService,
+  ) {
+
     this.contactForm = fb.group({
-      'contactFormName': ['', Validators.required],
-      'contactFormEmail': ['', Validators.compose([Validators.required, Validators.email])],
+      'contactFormName': [null, Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]*$')
+      ])],
+      'contactFormEmail': [null, Validators.compose([
+        Validators.required,
+        Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$')
+      ])],
       'contactFormSubjects': ['', Validators.required],
       'contactFormMessage': ['', Validators.required],
       'contactFormCopy': [''],
@@ -43,15 +72,8 @@ export class ContactComponent implements OnInit ,OnDestroy{
       this.translate.onLangChange.subscribe((event) => {
         this.userLang=event.lang;
       });
+
   }
-  currentJustify = 'start';
-  currentOrientation = 'horizontal';
-  contactForm: FormGroup;
-  disabledSubmitButton: boolean = true;
-  optionsSelect: Array<any>;
-  leafletOptions;
-  mapCenter;
-  zoomLevel;
 
   public beforeChange($event: NgbTabChangeEvent) {
     if ($event.nextId === 'tab-preventchange2') {
@@ -61,24 +83,41 @@ export class ContactComponent implements OnInit ,OnDestroy{
   ngOnInit() {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
-          return;
+        return;
       }
       window.scrollTo(0, 0);
-
-  });
+    });
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('contact');
     window.dispatchEvent(new Event('resize'));
   }
-  ngOnDestroy() {
+
+  ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('contact');
   }
-  onSubmit() {
+  // onSubmit() {
+  //     this.contactForm.reset();
+  //     this.disabledSubmitButton = true;
+  // }
+  sendMessage() {
+    this.spinner.show();
+    this.profileService.contactUs({
+      'Name': this.name,
+      'Email': this.email,
+      'PhoneNumber': this.mobile,
+      'CommentType': this.messageType,
+      'Message': this.message
+    }).subscribe((res) => {
+      console.log(res);
+      this.spinner.hide();
       this.contactForm.reset();
+      this.profileService.showSuccessToastr(res);
       this.disabledSubmitButton = true;
+    }, err => {
+      this.spinner.hide();
+      this.profileService.showErrorToastr(err.error.message);
+    });
   }
-
-
 
 }

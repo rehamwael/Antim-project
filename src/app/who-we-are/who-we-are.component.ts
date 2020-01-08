@@ -1,4 +1,4 @@
-import { Component, OnInit ,OnDestroy} from '@angular/core';
+import { Component, OnInit , OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -8,10 +8,10 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './who-we-are.component.html',
   styleUrls: ['./who-we-are.component.css']
 })
-export class WhoWeAreComponent implements OnInit ,OnDestroy {
+export class WhoWeAreComponent implements OnInit , OnDestroy {
 
-  userLang: "english";
-  
+  userLang: any;
+
     constructor(public router: Router, public translate: TranslateService) {
       translate.addLangs([ 'english' , 'arabic']);
         this.translate.onLangChange.subscribe((event) => {
@@ -25,13 +25,13 @@ export class WhoWeAreComponent implements OnInit ,OnDestroy {
     body.classList.add('contact');
     body.classList.add('who-we-are');
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('contact');
     body.classList.remove('who-we-are');
 
   }
-  btnClick= function () {
+  btnClick = function () {
     this.router.navigateByUrl('/contact');
   };
 

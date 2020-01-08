@@ -13,15 +13,14 @@ export class AppComponent {
   constructor(public translate: TranslateService) {
 
     this.translate.onLangChange.subscribe((event) => {
-      this.lang=event.lang;
+      this.lang = event.lang;
       if (event.lang == 'ar') {
       this.ltrrtl = 'rtl';
-      }
-      else {
+      } else {
       this.ltrrtl = 'ltr';
       }
-      document.getElementsByTagName("html")[0].setAttribute('lang', this.lang);
-      document.getElementsByTagName("body")[0].setAttribute('dir', this.ltrrtl);
+      document.getElementsByTagName('html')[0].setAttribute('lang', this.lang);
+      document.getElementsByTagName('body')[0].setAttribute('dir', this.ltrrtl);
       });
   }
 }

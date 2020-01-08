@@ -163,7 +163,7 @@ header.bg-image ul.navbar-nav.ml-auto li a.nav-link.purple-btn{
     margin-top: 2em;
 }
 .h-70{
-    height: 170px;
+    height: 120px;
 }
 input.custom-file-input {
     position: relative;
@@ -2417,4 +2417,14 @@ ul.inline{
 .toast-top-right {
   top: 110px !important;
   right: 12px !important;
+}
+
+.toast-top-left {
+  top: 102px !important;
+  left: 12px !important;
+}
+.redColor{
+  color: red;
+  font-size: 10px;
+  visibility: hidden;
 }

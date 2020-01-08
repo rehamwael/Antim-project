@@ -6,13 +6,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FunderRequestService } from './../services/funder-requests.service';
 import { Router } from '@angular/router';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Store } from '@ngrx/store';
 import { AppState, funderState } from '../store/app.states';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { SaveRequestType } from './../store/actions/funder.actions';
+import { ProfileService } from '../services/userProfile.service';
 
 let InstallmentDetails: any[] = [];
 
@@ -52,7 +52,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   funderRequestsData: any;
   awaitingRequestsData: any;
   showMessage = false;
-  options: IndividualConfig;
   reqID: any;
   funderRequestData: any;
 
@@ -76,6 +75,18 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   getState: Observable<any>;
   requestTypeInStore: any;
   showRequestDetailsTable: boolean;
+
+  requestTypes: any[] = [
+    {
+      type: 'All Requests'
+    },
+    {
+      type: 'Ongoing Requests'
+    },
+    {
+      type: 'Closed Requests'
+    }
+  ];
 
   ProductStatus: any[] = [
     {
@@ -107,21 +118,12 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: NgbModal,
     public router: Router,
-    private toastr: ToastrService,
     private funderRequestService: FunderRequestService,
     private spinner: NgxSpinnerService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private profileService: ProfileService,
   ) {
     this.getState = this.store.select(funderState);
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
-  }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
   }
 
   GetFunderAllRequests() {
@@ -130,7 +132,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       if (res.message) {
         this.showMessage = true;
         this.spinner.hide();
-        this.showErrorToast('', res.message, 'error');
+        this.profileService.showErrorToastr(res.message);
       } else {
         this.funderRequestData = res.result;
         AllFunderRequests.length = 0;
@@ -140,12 +142,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           element.name = element.requestName;
           element.date = moment(element.startingDate).format('LL');
           element.price = element.fundedAmount + ' SAR';
-          if (element.requestType == 1) {
-            element.status = 'Ongoing Request';
-          }
-          if (element.requestType == 2) {
-            element.status = 'Closed Request';
-          }
+          element.status = this.requestTypes[element.requestType].type;
         });
         this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
         this.showMessage = false;
@@ -178,7 +175,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         if (res.message) {
           this.dataSource = new MatTableDataSource<PeriodicElement>(null);
           this.showMessage = true;
-          this.showErrorToast('Error!!', res.message, 'error');
+          this.profileService.showErrorToastr(res.message);
           this.spinner.hide();
         } else {
           this.awaitingRequestsData = res.result;
@@ -239,7 +236,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         if (res.message) {
           this.dataSource = new MatTableDataSource<PeriodicElement>(null);
           this.showMessage = true;
-          this.showErrorToast('Error!!', res.message, 'error');
+          this.profileService.showErrorToastr(res.message);
           this.spinner.hide();
         } else {
           this.awaitingRequestsData = res.result;
@@ -304,11 +301,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           this.installmentPeriod = '12-Months';
         }
         this.RequestType_ENUM = res.result.requestType;
-        if (this.RequestType_ENUM == 1) {
-          this.RequestType = 'Ongoing';
-        }
+        this.RequestType = this.requestTypes[res.result.requestType].type;
         if (this.RequestType_ENUM == 2) {
-          this.RequestType = 'Closed';
           this.showRequestDetailsTable = true;
         }
         this.productStatus = this.ProductStatus[res.result.productStatus].type;
@@ -329,8 +323,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
               element.date = moment(element.dueDate).format('LL');
               element.price = Math.round((element.amount - element.intimeMonthlyProfit) ) + ' SAR';
               element.status = this.amountStatus[element.status].type;
-              if (element.status == 'Paid') {
-              }
               i++;
             });
             this.InstallmentDetailsTable = new MatTableDataSource<any>(InstallmentDetails);

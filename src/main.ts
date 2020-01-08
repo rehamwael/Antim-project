@@ -7,6 +7,10 @@ import 'hammerjs';
 
 if (environment.production) {
   enableProdMode();
+  if (window) {
+    window.console.log = function() {};
+}
+
 }
 
 platformBrowserDynamic()

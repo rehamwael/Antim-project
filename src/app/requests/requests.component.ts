@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation, ElementRef, ViewChild 
 import { SelectionModel } from '@angular/cdk/collections';
 import { NgbModal, NgbDateStruct, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
@@ -11,6 +10,7 @@ import { Observable } from 'rxjs';
 import { AppState, customerState } from './../store/app.states';
 import { GetAllCustomerRequests } from './../store/actions/customer.actions';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { ProfileService } from '../services/userProfile.service';
 
 let allCustomerRequestData: any[] = [];
 let filterRequestData: any[] = [];
@@ -43,7 +43,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
   CustomerRequestType = 'All Requests';
   productStatus: any;
   index: any;
-  options: IndividualConfig;
   allRequestData: any;
   allFilterRequests: any;
   getState: Observable<any>;
@@ -73,15 +72,12 @@ export class RequestsComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: NgbModal,
     public router: Router,
-    private toastr: ToastrService,
     private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
     private store: Store<AppState>,
+    private profileService: ProfileService,
   ) {
     this.getState = this.store.select(customerState);
-    this.options = this.toastr.toastrConfig;
-    this.options.positionClass = 'toast-top-right';
-    this.options.timeOut = 5000;
     this.showMessage = false;
   }
   getCustomerRequestFromStore() {
@@ -153,12 +149,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     body.classList.remove('requests');
     localStorage.removeItem('customerRequestType');
   }
-  showSuccessToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
-  showErrorToast(title, message, type) {
-    this.toastr.show(message, title, this.options, 'toast-' + type);
-  }
+
   onChange(deviceValue) {
     this.dataSourceAll.filter = deviceValue;
     this.CustomerRequestType = deviceValue;
@@ -207,7 +198,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
           this.showMessage = true;
           this.disableReset = true;
           this.disableSearch = false;
-          this.showErrorToast('', res.message, 'error');
+          this.profileService.showErrorToastr(res.message);
           this.spinner.hide();
         } else {
           this.allFilterRequests = [];

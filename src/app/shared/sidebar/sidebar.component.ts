@@ -1,16 +1,14 @@
-import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ROUTES } from './menu-items';
-import { RouteInfo } from './sidebar.metadata';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { User } from './../../store/models/users';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
-import { Logout, UserProfile } from './../../store/actions/auth.actions';
+import { Logout, UserProfile, SaveTotalNotifications } from './../../store/actions/auth.actions';
+import { NotificationsService } from '../../services/notifications.service';
 
-declare var $: any;
 
 @Component({
   selector: 'app-sidebar',
@@ -21,7 +19,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   getState: Observable<any>;
   currentUser: any;
   role: any;
-
+  notificationsCount: any;
+  showCount = false;
 
   showMenu = '';
   showSubMenu = '';
@@ -43,10 +42,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute,
     private store: Store<AppState>,
+    private notificationService: NotificationsService,
   ) {
     this.getState = this.store.select(selectAuthenticationState);
   }
@@ -54,11 +52,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
   // End open close
   ngOnInit() {
     this.getState.subscribe((state) => {
+      // console.log( 'state:' , state);
       const token = localStorage.getItem('token');
       if (state.userProfile == null && token) {
         this.store.dispatch(new UserProfile());
       }
       this.currentUser = state.userProfile;
+      this.notificationsCount = state.totalUnReadNotifications;
+      if (this.notificationsCount == 0) {
+        this.showCount = false;
+      }
       if (this.currentUser) {
         if (this.currentUser.roles[0] == 'customer') {
           this.role = 'Borrower';
@@ -78,7 +81,21 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.dashboredUrl = 'dashbored-' + this.userType;
     this.profileUrl = 'profile-' + this.userType;
     this.notificationUrl = 'notification-' + this.userType;
+
+    this.notificationService.getNotificationsCount().subscribe(res => {
+      console.log(res);
+      this.notificationsCount = res.result.count;
+      if (this.notificationsCount == 0) {
+        this.showCount = false;
+      } else {
+        this.store.dispatch(new SaveTotalNotifications(this.notificationsCount));
+        this.showCount = true;
+      }
+    }, err => {
+      console.log(err);
+    });
   }
+
   ngOnDestroy(): void {
     this.currentUser = null;
   }

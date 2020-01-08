@@ -35,13 +35,14 @@ export class FullComponent implements OnInit {
         }
       });
       translate.addLangs([ 'english' , 'arabic']);
-      translate.setDefaultLang('english');
       const browserLang = translate.getBrowserLang();
       translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
       this.userLang = "english";
       this.translate.onLangChange.subscribe((event) => {
         this.userLang=event.lang;
       });
+      translate.setDefaultLang(this.userLang);
+
   }
 
   public innerWidth: any;

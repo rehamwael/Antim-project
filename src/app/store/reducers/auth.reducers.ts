@@ -7,13 +7,17 @@ export interface State {
   user: User | null;
   userProfile: any;
   loggedIn: boolean;
+  accountDeActivate: boolean;
+  totalUnReadNotifications: any;
 }
 
 export const initialState: State = {
   isAuthenticated: false,
   user: null,
   userProfile: null,
-  loggedIn: false
+  loggedIn: false,
+  accountDeActivate: false,
+  totalUnReadNotifications: 0
 };
 
 export function reducer(state = initialState, action: AuthenticationActions): State {
@@ -23,6 +27,7 @@ export function reducer(state = initialState, action: AuthenticationActions): St
         ...state,
         isAuthenticated: true,
         loggedIn: true,
+        accountDeActivate: false,
         user: {
           token: action.payload.token,
           role: action.payload.role
@@ -53,6 +58,24 @@ export function reducer(state = initialState, action: AuthenticationActions): St
     }
     case AuthenticationActionTypes.LOGOUT: {
       return initialState;
+    }
+    case AuthenticationActionTypes.SAVE_TOTAL_NOTIFICATIONS: {
+      return  {
+        ...state,
+        totalUnReadNotifications: action.payload,
+      };
+    }
+    case AuthenticationActionTypes.READ_NOTIFICATION: {
+      return  {
+        ...state,
+        totalUnReadNotifications: state.totalUnReadNotifications - action.payload,
+      };
+    }
+    case AuthenticationActionTypes.ACCOUNT_DEACTIVATE: {
+      return  {
+        ...state,
+        accountDeActivate: true
+      };
     }
     default: {
       return state;

@@ -4,22 +4,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {TranslateModule , TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {
-  CommonModule,
-  LocationStrategy,
-  PathLocationStrategy
-} from '@angular/common';
+import {  CommonModule, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import {MatRadioModule} from '@angular/material/radio';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FullComponent } from './layouts/full/full.component';
-
 import { NavigationComponent } from './shared/header-navigation/navigation.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
@@ -38,11 +32,11 @@ import { ContactComponent } from './contact/contact.component';
 import { WhoWeAreComponent } from './who-we-are/who-we-are.component';
 import { DashboredComponent } from './dashbored/dashbored.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
-import { MatStepperModule, MatInputModule, MatButtonModule, MatAutocompleteModule } from '@angular/material';
+import { MatStepperModule, MatTabsModule, MatInputModule, MatButtonModule, MatAutocompleteModule,
+         MatCheckboxModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestsComponent } from './requests/requests.component';
 import {MatTableModule} from '@angular/material/table';
-import { MatCheckboxModule } from '@angular/material';
 import { NotificationComponent } from './notification/notification.component';
 import { DashboredLenderComponent } from './dashbored-lender/dashbored-lender.component';
 import { RequestLenderComponent } from './request-lender/request-lender.component';
@@ -52,7 +46,6 @@ import { NotificationLenderComponent } from './notification-lender/notification-
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { LenderInfoComponent } from './lender-info/lender-info.component';
 import { BorrowerInfoComponent } from './borrower-info/borrower-info.component';
-import { MatTabsModule } from '@angular/material';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SettingComponent } from './shared/setting/setting.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -65,20 +58,17 @@ import { reducers } from './store/app.states';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NumberOnlyDirective } from './number-only.directive';
 import { CustomerRequestDetailsComponent } from './customer-request-details/customer-request-details.component';
-import { from } from 'rxjs';
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/translate/', '.json');
-}
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { FunderRequestsDetailsComponent } from './funder-requests-details/funder-requests-details.component';
 import { CountdownModule } from 'ngx-countdown';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
 import { StarterComponent } from './starter/starter.component';
-// import {MatSelectModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
-import {MatPaginatorModule, MatSortModule} from '@angular/material';
 
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/translate/', '.json');
+}
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
