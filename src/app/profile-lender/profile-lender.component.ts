@@ -96,6 +96,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   confirmPassword: any;
   AccountDocs: any;
   AccountForm: FormGroup;
+  accountStatement: any;
+  showAccountUploadImg = true;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -305,6 +307,11 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
         this.fundingLimit = res.result.fundingLimit;
         this.IBAN = res.result.ibaNnumber;
         this.bankID = res.result.id;
+        this.accountStatement = res.result.accountStatementFile;
+        if (this.accountStatement != null) {
+          this.showAccountUploadImg = false;
+        }
+
         console.log('userBankInfo:', this.userBankInfo);
       }, err => {
         console.log('ERROR:', err);
@@ -681,7 +688,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.AccountForm.get('AccountStatement').setValue(this.AccountDocs);
     }
     console.log(this.AccountDocs);
+    this.accountStatement = this.AccountDocs.name;
     this.disableAccountButton = true;
+    this.showAccountUploadImg = false;
   }
   onAccountFormSubmit() {
     let formData = new FormData();
@@ -690,12 +699,18 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.profileService.uploadAccountStatement(formData).subscribe(res => {
       this.spinner.hide();
       console.log('result:', res);
+      this.profileService.showSuccessToastr(res);
       this.disableAccountButton = false;
     }, err => {
       this.spinner.hide();
       console.log(' ERROR:', err);
       this.profileService.showErrorToastr(err.error.message);
     });
+  }
+  closeAccountDetails() {
+    this.showAccountUploadImg = true;
+    this.disableAccountButton = false;
+    this.AccountDocs = null;
   }
 
 

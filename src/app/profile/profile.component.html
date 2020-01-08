@@ -267,10 +267,10 @@
                                      </ngx-spinner>
                               </div>
                               <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
-                                    <div class=" h-70">
-                                            <label for="AccountStatement" class="font-bold mt-2">Account Statement (for last 3 months) </label>
+                                <label for="AccountStatement" class="font-bold mt-2">Account Statement (for last 3 months) </label>
+                                    <div class=" h-70" *ngIf="showAccountUploadImg">
                                             <input type="file"  name="AccountStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadAccoutFile($event)">
-                                            <div class="file-input" *ngIf="showUploadImg">
+                                            <div class="file-input" >
                                                 <p class="text-center">
                                                     <span class="px-3">
                                                         <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -282,20 +282,24 @@
                                                         </span>
                                                     Darg and drop here</p>
                                             </div>
-                                            <div class="select-options-radio" *ngIf="!showUploadImg">
+                                          </div>
+                                          <div class="row w-100" *ngIf="!showAccountUploadImg">
+                                             <div class="mx-auto">
                                               <img src="assets/images/doc.png" width="100px" height="100px">
+                                              <a class="close-icon" (click)="closeAccountDetails()"><img src="assets/images/close.svg"></a>
+                                              <p class="mt-2">{{accountStatement}}</p>
+                                             </div>
                                             </div>
 
-                                    </div>
-                                    <div class="col-lg-12 mt-2 row justify-content-end py-4 " >
+                                      <div class="col-lg-12 row justify-content-end py-4 " >
                                       <div class="form-group col-lg-3">
                                         <button type="submit" class="btn btn-info btn-lg btn-block btn-purple " [disabled]="!disableAccountButton">Save</button>
                                       </div>
-                                  </div>
+                                    </div>
                                 </form>
                                       <form [formGroup]="SalaryForm" (ngSubmit)="onSalaryFormsubmit()" class="col-lg-12">
-                                        <div class="h-70">
-                                          <label for="SalaryStatement" class="font-bold mt-2">Salary Statement</label>
+                                        <label for="SalaryStatement" class="font-bold mt-2">Salary Statement</label>
+                                        <div class="h-70" *ngIf="showSalaryUploadImg">
                                           <input type="file" name="SalaryStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadSalaryFile($event)">
                                           <div class="file-input">
                                             <p class="text-center">
@@ -311,8 +315,15 @@
                                           </div>
 
                                         </div>
-                                          <div class="col-lg-12 mt-2 row justify-content-end py-4 " >
-                                            <div class="form-group col-lg-3">
+                                        <div class="row w-100" *ngIf="!showSalaryUploadImg">
+                                          <div class="mx-auto">
+                                           <img src="assets/images/doc.png" width="100px" height="100px">
+                                           <a class="close-icon" (click)="closeSalaryDetails()"><img src="assets/images/close.svg"></a>
+                                           <p class="mt-2">{{salaryStatement}}</p>
+                                          </div>
+                                         </div>
+                                        <div class="col-lg-12 row justify-content-end py-4 " >
+                                          <div class="form-group col-lg-3">
                                               <button type="submit" class="btn btn-info btn-lg btn-block btn-purple" [disabled]="!disableSalaryButton">Save</button>
                                             </div>
                                         </div>

@@ -46,6 +46,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   accountTitle: any;
   AccountDocs: any;
   SalaryDocs: any;
+  accountStatement: any;
+  salaryStatement: any;
+  showAccountUploadImg = true;
+  showSalaryUploadImg = true;
 
   disabledButton = true;
   EditForm: FormGroup;
@@ -87,7 +91,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   oldPassword: any;
   newPassword: any;
   confirmPassword: any;
-  showUploadImg = false;
 
   constructor(private store: Store<AppState>,
     private fb: FormBuilder,
@@ -248,6 +251,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.bankAddress = res.result.address;
           this.accountTitle = res.result.accountTitle;
           this.bankAccountNo = res.result.accountNumber;
+          this.accountStatement = res.result.accountStatementFile;
+          if (this.accountStatement != null) {
+            this.showAccountUploadImg = false;
+          }
+          this.salaryStatement = res.result.salaryStatementFile;
+          if (this.salaryStatement != null) {
+            this.showSalaryUploadImg = false;
+          }
           this.bankID = res.result.id;
           console.log('userBankInfo:', this.userBankInfo);
         }, err => {
@@ -598,7 +609,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.AccountForm.get('AccountStatement').setValue(this.AccountDocs);
     }
     console.log(this.AccountDocs);
+    this.accountStatement = this.AccountDocs.name;
     this.disableAccountButton = true;
+    this.showAccountUploadImg = false;
   }
   onAccountFormSubmit() {
     let formData = new FormData();
@@ -607,6 +620,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileService.uploadAccountStatement(formData).subscribe(res => {
       this.spinner.hide();
       console.log('result:', res);
+      this.profileService.showSuccessToastr(res);
       this.disableAccountButton = false;
     }, err => {
       this.spinner.hide();
@@ -618,15 +632,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
   uploadSalaryFile(event) {
     if (event.target.files.length > 0) {
       this.SalaryDocs = event.target.files[0];
-      this.SalaryForm.get('AccountStatement').setValue(this.SalaryDocs);
+      this.SalaryForm.get('SalaryStatement').setValue(this.SalaryDocs);
     }
     this.disableSalaryButton = true;
+    this.salaryStatement = this.SalaryDocs.name;
+    this.showSalaryUploadImg = false;
   }
   onSalaryFormsubmit() {
     let formData = new FormData();
-    formData.append('file', this.AccountForm.get('AccountStatement').value);
+    formData.append('file', this.SalaryForm.get('SalaryStatement').value);
+    this.spinner.show();
     this.profileService.uploadSalaryStatement(formData).subscribe(res => {
+      this.spinner.hide();
       console.log('result:', res);
+      this.profileService.showSuccessToastr(res);
       this.disableSalaryButton = false;
     }, err => {
       this.spinner.hide();
@@ -634,6 +653,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileService.showErrorToastr(err.error.message);
     });
 
+  }
+  closeAccountDetails() {
+    this.showAccountUploadImg = true;
+    this.disableAccountButton = false;
+    this.AccountDocs = null;
+  }
+  closeSalaryDetails() {
+    this.showSalaryUploadImg = true;
+    this.disableSalaryButton = false;
+    this.SalaryDocs = null;
   }
 
 }
