@@ -23,12 +23,14 @@
 
 
     <div class="page-wraper-right">
-        <div class="row" *ngIf="currentUser">
-            <div class="col-lg-12 mt-3" *ngIf="!currentUser?.emailConfirmed">
-              <p style="color: rgb(201, 22, 22); text-align: center;"> Your email is not verified. please verify your email to get the most benefits from ANTIM.  <u><a (click)="resendEmail()"> Resend Verification Link</a></u>
-                </p>
-            </div>
-          </div>
+      <div class="row" *ngIf="currentUser">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10 mt-3 alert alert-warning " *ngIf="!currentUser?.emailConfirmed">
+          <p> <i class="mr-1 fa fa-exclamation-circle"></i>
+            Your email is not verified. please verify your email to get the most benefits from ANTIM.  <u><a (click)="resendEmail()"> Resend Verification Link</a></u>
+            </p>
+        </div>
+      </div>
 
                     <div class="mat-card col-lg-11 mt-5 row welcome-card p-2 align-items-center">
                         <img class="col-lg-2" src="assets/images/bookWithMen.svg">

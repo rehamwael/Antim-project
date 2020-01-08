@@ -87,6 +87,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   oldPassword: any;
   newPassword: any;
   confirmPassword: any;
+  showUploadImg = false;
 
   constructor(private store: Store<AppState>,
     private fb: FormBuilder,

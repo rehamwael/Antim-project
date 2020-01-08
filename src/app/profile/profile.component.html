@@ -270,7 +270,7 @@
                                     <div class=" h-70">
                                             <label for="AccountStatement" class="font-bold mt-2">Account Statement (for last 3 months) </label>
                                             <input type="file"  name="AccountStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadAccoutFile($event)">
-                                            <div class="file-input">
+                                            <div class="file-input" *ngIf="showUploadImg">
                                                 <p class="text-center">
                                                     <span class="px-3">
                                                         <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -281,6 +281,9 @@
                                                         </svg>
                                                         </span>
                                                     Darg and drop here</p>
+                                            </div>
+                                            <div class="select-options-radio" *ngIf="!showUploadImg">
+                                              <img src="assets/images/doc.png" width="100px" height="100px">
                                             </div>
 
                                     </div>
