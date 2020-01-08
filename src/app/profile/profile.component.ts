@@ -44,11 +44,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   bankAccountNo: any;
   bankAddress: any;
   accountTitle: any;
+  file: any;
 
   disabledButton = true;
   EditForm: FormGroup;
   BankInfoForm: FormGroup;
   AddressForm: FormGroup;
+  AccountForm: FormGroup;
   disabledBankButton = true;
   zoom: number;
   center: L.LatLng;
@@ -69,8 +71,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   showAddress = false;
   showBank = false;
   showUser = false;
-  BankArray: any;
-  AddressArray: any;
+  BankArray: any = [];
+  AddressArray: any = [];
   getState: Observable<any>;
   showOTPstep = false;
   OTP: any;
@@ -177,6 +179,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(10)
       ])],
+    });
+    this.AccountForm = this.fb.group({
+      'AccountStatement': ['']
     });
     this.leafletLayers = [tileLayer(
       'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -432,6 +437,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         'AccountNumber': this.bankAccountNo
       }).subscribe((res) => {
         console.log('BANK Added:', res);
+        this.BankArray[0] = res.result;
+        this.bankID = res.result.id;
         this.spinner.hide();
         this.profileService.showSuccessToastr(res);
         this.BankInfoForm.get('BankName').disable();
@@ -488,6 +495,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         'PostalCode': this.zip
       }).subscribe((res) => {
         console.log('Address Added:', res);
+        this.AddressArray[0] = res.result;
+        this.addressID = res.result.id;
         this.spinner.hide();
         this.AddressForm.get('Address').disable();
         this.AddressForm.get('City').disable();
@@ -574,6 +583,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileService.showErrorToastr(err.error.message);
       }
     });
+  }
+  uploadImg(event) {
+    console.log(event.target.files);
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+      console.log(this.file);
+      this.AccountForm.get('AccountStatement').setValue(this.file);
+    }
+  }
+  onSubmit() {
+    let formData = new FormData();
+    console.log(this.file);
+    console.log(this.AccountForm.get('AccountStatement').value);
+    formData.append('file', this.AccountForm.get('AccountStatement').value);
+    console.log(formData.get('file'));
+    this.profileService.uploadAccountStatement(formData).subscribe(res => {
+      console.log('result:', res);
+    }, err => {
+      this.spinner.hide();
+      console.log(' ERROR:', err);
+      this.profileService.showErrorToastr(err.error.message);
+    });
+
   }
 
 }

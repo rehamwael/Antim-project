@@ -173,6 +173,21 @@ export class ProfileService {
       })
     );
   }
+  uploadAccountStatement(formData: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}UserBanks/UploadAccountStatement`, formData, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+  uploadSalaryStatement(formData: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}UserBanks/UploadSalaryStatement`, formData, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
   contactUs(body: any) {
     return this.httpClient.post(`${this.Url}ContactUs/AddMessage`, body, this.httpOptions).pipe(
       tap((res: any) => {

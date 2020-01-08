@@ -59,8 +59,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   phoneNumber: any;
   numberEntered = false;
   disableButton = false;
-  BankArray: any;
-  AddressArray: any;
+  BankArray: any = [];
+  AddressArray: any = [];
   leafletLayers;
   leafletOptions;
   mapCenter;
@@ -505,6 +505,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }).subscribe((res) => {
         console.log('BANK  Added:', res);
         this.spinner.hide();
+        this.BankArray[0] = res.result;
+        this.bankID = res.result.id;
         this.profileService.showSuccessToastr(res);
         this.BankInfoForm.get('BankName').disable();
         this.BankInfoForm.get('BankAccountNo').disable();
@@ -562,6 +564,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }).subscribe((res) => {
         console.log('Address Added:', res);
         this.spinner.hide();
+        this.AddressArray[0] = res.result;
+        this.addressID = res.result.id;
         this.profileService.showSuccessToastr(res);
         this.AddressForm.get('Address').disable();
         this.AddressForm.get('City').disable();
