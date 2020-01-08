@@ -128,7 +128,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   getState: Observable<any>;
 
   constructor(private store: Store<AppState>,
-   private fb: FormBuilder,
+    private fb: FormBuilder,
     private modalService: NgbModal,
     public router: Router,
     private profileService: ProfileService,
@@ -168,16 +168,16 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       'Three': [''],
       'Four': [''],
       'OldPassword': [{ value: this.oldPassword, disabled: this.disabledButton },
-        [
-          Validators.required,
-          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
-         ]
+      [
+        Validators.required,
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+      ]
       ],
       'NewPassword': [{ value: this.newPassword, disabled: this.disabledButton },
-        [
-          Validators.required,
-          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
-         ]
+      [
+        Validators.required,
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+      ]
       ],
       'ConfirmPassword': [{ value: this.confirmPassword, disabled: this.disabledButton }]
 
@@ -278,46 +278,47 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.spinner.show();
     this.showUser = true;
     this.getUserINFO().then(e => {
       if (this.AddressArray.length > 0) {
-      this.profileService.getUserAddress().subscribe(res => {
-        this.userAddress = res.result;
-        this.address = res.result.address;
-        this.city = res.result.city;
-        this.country = res.result.country;
-        this.zip = res.result.postalCode;
-        this.state = res.result.state;
-        this.addressID = res.result.id;
-        console.log('userAddressINFO:', res.result);
-
-      }, err => {
-        console.log('ERROR:', err);
-      });
-    }
-    if (this.BankArray.length > 0) {
-
-      this.profileService.getUserBankInfo().subscribe(res => {
-        this.userBankInfo = res.result;
-        this.bankName = res.result.bankName;
-        // this.bankAddress = res.result.address;
-        // this.accountTitle = res.result.accountTitle;
-        this.bankAccountNo = res.result.accountNumber;
-        this.fundingLimit = res.result.fundingLimit;
-        this.IBAN = res.result.ibaNnumber;
-        this.bankID = res.result.id;
-        this.accountStatement = res.result.accountStatementFile;
-        if (this.accountStatement != null) {
-          this.showAccountUploadImg = false;
-        }
-
-        console.log('userBankInfo:', this.userBankInfo);
-      }, err => {
-        console.log('ERROR:', err);
-      });
-    }
-      this.spinner.hide();
+        this.spinner.show();
+        this.profileService.getUserAddress().subscribe(res => {
+          this.userAddress = res.result;
+          this.address = res.result.address;
+          this.city = res.result.city;
+          this.country = res.result.country;
+          this.zip = res.result.postalCode;
+          this.state = res.result.state;
+          this.addressID = res.result.id;
+          console.log('userAddressINFO:', res.result);
+          this.spinner.hide();
+        }, err => {
+          this.spinner.hide();
+          console.log('ERROR:', err);
+        });
+      }
+      if (this.BankArray.length > 0) {
+        this.spinner.show();
+        this.profileService.getUserBankInfo().subscribe(res => {
+          this.userBankInfo = res.result;
+          this.bankName = res.result.bankName;
+          // this.bankAddress = res.result.address;
+          // this.accountTitle = res.result.accountTitle;
+          this.bankAccountNo = res.result.accountNumber;
+          this.fundingLimit = res.result.fundingLimit;
+          this.IBAN = res.result.ibaNnumber;
+          this.bankID = res.result.id;
+          this.accountStatement = res.result.accountStatementFile;
+          if (this.accountStatement != null) {
+            this.showAccountUploadImg = false;
+          }
+          console.log('userBankInfo:', this.userBankInfo);
+          this.spinner.hide();
+        }, err => {
+          this.spinner.hide();
+          console.log('ERROR:', err);
+        });
+      }
     });
 
 
@@ -468,7 +469,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     // this.EditForm.get('LastName').disable();
     // this.EditForm.get('UserName').disable();
     // this.EditForm.get('NID').disable();
-      this.disableprofileButton = false;
+    this.disableprofileButton = false;
 
   }
   EditBankInfo() {

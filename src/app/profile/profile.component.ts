@@ -230,6 +230,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.getUserINFO().then(e => {
       if (this.AddressArray.length > 0) {
+        this.spinner.show();
         this.profileService.getUserAddress().subscribe(res => {
           this.userAddress = res.result;
           this.address = res.result.address;
@@ -239,12 +240,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.state = res.result.state;
           this.addressID = res.result.id;
           console.log('userAddressINFO:', res.result);
-
+          this.spinner.hide();
         }, err => {
+          this.spinner.hide();
           console.log('ERROR:', err);
         });
       }
       if (this.BankArray.length > 0) {
+        this.spinner.show();
         this.profileService.getUserBankInfo().subscribe(res => {
           this.userBankInfo = res.result;
           this.bankName = res.result.bankName;
@@ -261,11 +264,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
           }
           this.bankID = res.result.id;
           console.log('userBankInfo:', this.userBankInfo);
+          this.spinner.hide();
         }, err => {
+          this.spinner.hide();
           console.log('ERROR:', err);
         });
       }
-      this.spinner.hide();
     });
 
     const body = document.getElementsByTagName('body')[0];
