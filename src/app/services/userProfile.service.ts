@@ -195,6 +195,14 @@ export class ProfileService {
     );
   }
 
+  accountReactivateRequest(UsernameOrEmail: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.patch(`${this.Url}User/AccountReactivateRequest?usernameOrEmail=${UsernameOrEmail}`, null, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
   showSuccessToastr(result: any) {
     this.userLang = this.translate.currentLang;
     if (this.userLang == 'english') {
@@ -207,7 +215,7 @@ export class ProfileService {
   showErrorToastr(message: any) {
     this.userLang = this.translate.currentLang;
     console.log(this.userLang);
-    var errorMessage = message.split('|');
+    var errorMessage = message.split(' | ');
     console.log(errorMessage);
     // var indexToSplit = message.indexOf('|');
     // var eng = message.slice(0, indexToSplit);
@@ -217,9 +225,10 @@ export class ProfileService {
     }
     if (this.userLang == 'arabic') {
       this.showArabicToast('خطأ!', errorMessage[1], 'error');
-    } else {
-      this.showEnglishToast('OK!!', errorMessage[0], 'error');
     }
+    // else {
+    //   this.showEnglishToast('OK!!', errorMessage[0], 'error');
+    // }
   }
   showEnglishToast(title, message, type) {
     this.toastr.show(message, title, this.option, 'toast-' + type);

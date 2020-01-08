@@ -68,6 +68,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   disableBankButton = false;
   disableAddressButton = false;
   disablePasswordButton = false;
+  disableAccountButton = false;
+  disableSalaryButton = false;
   showAddress = false;
   showBank = false;
   showUser = false;
@@ -585,21 +587,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
   uploadImg(event) {
-    console.log(event.target.files);
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
-      console.log(this.file);
       this.AccountForm.get('AccountStatement').setValue(this.file);
     }
+    this.disableAccountButton = true;
   }
   onSubmit() {
     let formData = new FormData();
-    console.log(this.file);
-    console.log(this.AccountForm.get('AccountStatement').value);
     formData.append('file', this.AccountForm.get('AccountStatement').value);
-    console.log(formData.get('file'));
     this.profileService.uploadAccountStatement(formData).subscribe(res => {
       console.log('result:', res);
+      this.disableAccountButton = false;
     }, err => {
       this.spinner.hide();
       console.log(' ERROR:', err);

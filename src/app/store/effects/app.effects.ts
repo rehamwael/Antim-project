@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { AuthService } from '../../auth/auth.service';
 import {
   AuthenticationActionTypes,
-  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile,
+  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile, AccountDeActivate
 } from '../actions/auth.actions';
 import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
@@ -86,6 +86,9 @@ export class AuthenticationEffects {
       console.log(res);
       if (res.payload.error.error_description) {
         this.userDataService.showErrorToastr(res.payload.error.error_description);
+        if (res.payload.error.error_description == 'Please Activate Your Account | يرجى تفعيل حسابك') {
+          this.store.dispatch(new AccountDeActivate());
+        }
       } else {
         this.userDataService.showErrorToastr('The email address and password that you\'ve entered doesn\'t match any account. Please try again. | عنوان البريد الإلكتروني وكلمة المرور اللذين أدخلتهما لا يتطابقان مع أي حساب. حاول مرة اخرى.');
       }
