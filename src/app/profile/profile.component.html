@@ -266,10 +266,10 @@
                                      <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
                                      </ngx-spinner>
                               </div>
-                              <form [formGroup]="AccountForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+                              <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
                                     <div class=" h-70">
                                             <label for="AccountStatement" class="font-bold mt-2">Account Statement (for last 3 months) </label>
-                                            <input type="file"  name="AccountStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadImg($event)">
+                                            <input type="file"  name="AccountStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadAccoutFile($event)">
                                             <div class="file-input">
                                                 <p class="text-center">
                                                     <span class="px-3">
@@ -284,35 +284,36 @@
                                             </div>
 
                                     </div>
-                                    <div class="col-lg-12 mt-3 row justify-content-end py-4 " >
+                                    <div class="col-lg-12 mt-2 row justify-content-end py-4 " >
                                       <div class="form-group col-lg-3">
-                                        <button type="submit" class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!disableAccountButton">Save</button>
+                                        <button type="submit" class="btn btn-info btn-lg btn-block btn-purple " [disabled]="!disableAccountButton">Save</button>
                                       </div>
                                   </div>
                                 </form>
-                                    <div class="col-lg-12 h-70">
-                                            <label for="SalaryStatement" class="font-bold mt-2">Salary Statement</label>
-                                            <input type="file" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf">
-                                            <div class="file-input">
-                                               <p class="text-center">
-                                                    <span class="px-3">
-                                                        <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.68117 2.2677L1.96299 4.4627C1.06069 4.80906 0.610006 5.82131 0.956368 6.72361L5.97352 19.7937C6.31988 20.696 7.33212 21.1467 8.23443 20.8004L18.037 17.0375C18.9393 16.6911 19.39 15.6789 19.0436 14.7766L15.5944 5.79087L7.68117 2.2677Z" fill="#F9F9F9" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            <path d="M7.68115 2.26758L9.87616 7.98576L15.5943 5.79075" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.2069 2.62589L14.3816 0.733163C13.4624 0.434498 12.4752 0.937537 12.1765 1.85673L7.85027 15.1715C7.5516 16.0907 8.05464 17.078 8.97384 17.3767L18.9599 20.6213C19.8791 20.92 20.8664 20.417 21.1651 19.4978L24.1393 10.3438L20.2069 2.62589Z" fill="#FEFCF8" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                        </span>
-                                                Darg and drop here</p>
+                                      <form [formGroup]="SalaryForm" (ngSubmit)="onSalaryFormsubmit()" class="col-lg-12">
+                                        <div class="h-70">
+                                          <label for="SalaryStatement" class="font-bold mt-2">Salary Statement</label>
+                                          <input type="file" name="SalaryStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadSalaryFile($event)">
+                                          <div class="file-input">
+                                            <p class="text-center">
+                                                  <span class="px-3">
+                                                      <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.68117 2.2677L1.96299 4.4627C1.06069 4.80906 0.610006 5.82131 0.956368 6.72361L5.97352 19.7937C6.31988 20.696 7.33212 21.1467 8.23443 20.8004L18.037 17.0375C18.9393 16.6911 19.39 15.6789 19.0436 14.7766L15.5944 5.79087L7.68117 2.2677Z" fill="#F9F9F9" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                          <path d="M7.68115 2.26758L9.87616 7.98576L15.5943 5.79075" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M20.2069 2.62589L14.3816 0.733163C13.4624 0.434498 12.4752 0.937537 12.1765 1.85673L7.85027 15.1715C7.5516 16.0907 8.05464 17.078 8.97384 17.3767L18.9599 20.6213C19.8791 20.92 20.8664 20.417 21.1651 19.4978L24.1393 10.3438L20.2069 2.62589Z" fill="#FEFCF8" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                          <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                      </svg>
+                                                      </span>
+                                              Darg and drop here</p>
+                                          </div>
+
+                                        </div>
+                                          <div class="col-lg-12 mt-2 row justify-content-end py-4 " >
+                                            <div class="form-group col-lg-3">
+                                              <button type="submit" class="btn btn-info btn-lg btn-block btn-purple" [disabled]="!disableSalaryButton">Save</button>
                                             </div>
-
-                                    </div>
-                                    <div class="col-lg-12 mt-3 row justify-content-end py-4 " >
-                                      <div class="form-group col-lg-3">
-                                        <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="SaveBankInfo()">Save</button>
-                                      </div>
-                                  </div>
-
+                                        </div>
+                                      </form>
                                     </form>
 
                                     <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser">

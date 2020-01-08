@@ -81,6 +81,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   disableBankButton = false;
   disableAddressButton = false;
   disablePasswordButton = false;
+  disableAccountButton = false;
 
   emailButton = false;
   phoneButton = false;
@@ -93,6 +94,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   oldPassword: any;
   newPassword: any;
   confirmPassword: any;
+  AccountDocs: any;
+  AccountForm: FormGroup;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -235,6 +238,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       'Zip': [{ value: this.zip, disabled: this.disabledButton }, Validators.compose([
         // Validators.required
       ])],
+    });
+    this.AccountForm = this.fb.group({
+      'AccountStatement': ['']
     });
 
     // this.UserBalance = fb.group({
@@ -669,6 +675,29 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }
     });
   }
+  uploadAccoutFile(event) {
+    if (event.target.files.length > 0) {
+      this.AccountDocs = event.target.files[0];
+      this.AccountForm.get('AccountStatement').setValue(this.AccountDocs);
+    }
+    console.log(this.AccountDocs);
+    this.disableAccountButton = true;
+  }
+  onAccountFormSubmit() {
+    let formData = new FormData();
+    formData.append('file', this.AccountForm.get('AccountStatement').value);
+    this.spinner.show();
+    this.profileService.uploadAccountStatement(formData).subscribe(res => {
+      this.spinner.hide();
+      console.log('result:', res);
+      this.disableAccountButton = false;
+    }, err => {
+      this.spinner.hide();
+      console.log(' ERROR:', err);
+      this.profileService.showErrorToastr(err.error.message);
+    });
+  }
+
 
 
   // tslint:disable-next-line: member-ordering

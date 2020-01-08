@@ -322,10 +322,10 @@
                                       <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
                                       </ngx-spinner>
                             </div>
-
-                                  <div class="col-lg-12 h-70 mb-2">
+                              <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
+                                      <div class="h-70">
                                             <label for="AccountStatement" class="font-bold mt-2">Account Statement for last 3 months </label>
-                                            <input type="file" class="custom-file-input">
+                                            <input type="file"  name="AccountStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadAccoutFile($event)">
                                             <div class="file-input">
                                                 <p class="text-center">
                                                     <span class="px-3">
@@ -338,14 +338,14 @@
                                                         </span>
                                                     Darg and drop here</p>
                                             </div>
-
-                                    </div>
-                                    <div class="col-lg-12 mt-2 row justify-content-end py-4 " >
-                                      <div class="form-group col-lg-3">
-                                        <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="SaveBankInfo()">Save</button>
+                                        </div>
+                                        <div class="col-lg-12 mt-2 row justify-content-end py-4 " >
+                                          <div class="form-group col-lg-3">
+                                            <button type="submit" class="btn btn-info btn-lg btn-block btn-purple " [disabled]="!disableAccountButton">Save</button>
+                                          </div>
                                       </div>
-                                  </div>
                                     </form>
+                            </form>
 
                                      <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser && !showProfit">
                                       <div class="col-lg-12 mb-3"><h3 class="headingh3">Address Information.</h3></div>

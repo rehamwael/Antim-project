@@ -44,13 +44,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   bankAccountNo: any;
   bankAddress: any;
   accountTitle: any;
-  file: any;
+  AccountDocs: any;
+  SalaryDocs: any;
 
   disabledButton = true;
   EditForm: FormGroup;
   BankInfoForm: FormGroup;
   AddressForm: FormGroup;
   AccountForm: FormGroup;
+  SalaryForm: FormGroup;
   disabledBankButton = true;
   zoom: number;
   center: L.LatLng;
@@ -184,6 +186,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
     this.AccountForm = this.fb.group({
       'AccountStatement': ['']
+    });
+    this.SalaryForm = this.fb.group({
+      'SalaryStatement': ['']
     });
     this.leafletLayers = [tileLayer(
       'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -586,19 +591,42 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
-  uploadImg(event) {
+  uploadAccoutFile(event) {
     if (event.target.files.length > 0) {
-      this.file = event.target.files[0];
-      this.AccountForm.get('AccountStatement').setValue(this.file);
+      this.AccountDocs = event.target.files[0];
+      this.AccountForm.get('AccountStatement').setValue(this.AccountDocs);
     }
+    console.log(this.AccountDocs);
     this.disableAccountButton = true;
   }
-  onSubmit() {
+  onAccountFormSubmit() {
     let formData = new FormData();
     formData.append('file', this.AccountForm.get('AccountStatement').value);
+    this.spinner.show();
     this.profileService.uploadAccountStatement(formData).subscribe(res => {
+      this.spinner.hide();
       console.log('result:', res);
       this.disableAccountButton = false;
+    }, err => {
+      this.spinner.hide();
+      console.log(' ERROR:', err);
+      this.profileService.showErrorToastr(err.error.message);
+    });
+  }
+
+  uploadSalaryFile(event) {
+    if (event.target.files.length > 0) {
+      this.SalaryDocs = event.target.files[0];
+      this.SalaryForm.get('AccountStatement').setValue(this.SalaryDocs);
+    }
+    this.disableSalaryButton = true;
+  }
+  onSalaryFormsubmit() {
+    let formData = new FormData();
+    formData.append('file', this.AccountForm.get('AccountStatement').value);
+    this.profileService.uploadSalaryStatement(formData).subscribe(res => {
+      console.log('result:', res);
+      this.disableSalaryButton = false;
     }, err => {
       this.spinner.hide();
       console.log(' ERROR:', err);
