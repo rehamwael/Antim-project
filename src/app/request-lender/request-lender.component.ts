@@ -153,7 +153,40 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.spinner.hide();
       console.log(err);
     });
-
+  }
+  getFundingLimitingMatchingRequest() {
+    this.spinner.show();
+    this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
+      console.log(res);
+      if (res.message) {
+        this.dataSource = new MatTableDataSource<PeriodicElement>(null);
+        this.showMessage = true;
+        // this.profileService.showErrorToastr(res.message);
+        this.spinner.hide();
+      } else {
+        this.awaitingRequestsData = res.result;
+        AllAwaitingRequests.length = 0;
+        this.awaitingRequestsData.forEach(element => {
+          AllAwaitingRequests.push(element);
+          element.date = moment(element.updatedAt).format('LL');
+          element.price = element.totalFundAmount + ' SAR';
+          element.status = 'AWAITING FOR FUND';
+        });
+        this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
+        console.log('AllawaitingRequests:', AllAwaitingRequests);
+        this.spinner.hide();
+        if (this.dataSource.filteredData.length == 0) {
+        } else {
+          this.showMessage = false;
+        }
+      }
+    }, err => {
+      console.log(err);
+      this.spinner.hide();
+      this.profileService.showErrorToastr(err.error.message);
+    });
 
   }
 
@@ -170,40 +203,13 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     let selectedFunderRequestType = localStorage.getItem('selectedFunderRequestType');
     if (this.requestTypeInStore == selectedFunderRequestType && selectedFunderRequestType != null) {
       this.selectedRequestType = this.requestTypeInStore;
-      this.spinner.show();
-      this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
-        if (res.message) {
-          this.dataSource = new MatTableDataSource<PeriodicElement>(null);
-          this.showMessage = true;
-          this.profileService.showErrorToastr(res.message);
-          this.spinner.hide();
-        } else {
-          this.awaitingRequestsData = res.result;
-          AllAwaitingRequests.length = 0;
-          this.awaitingRequestsData.forEach(element => {
-            AllAwaitingRequests.push(element);
-            element.date = moment(element.updatedAt).format('LL');
-            element.price = element.totalFundAmount + ' SAR';
-            element.status = 'AWAITING FOR FUND';
-          });
-          this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
-          console.log('AllawaitingRequests:', AllAwaitingRequests);
-          this.spinner.hide();
-          if (this.dataSource.filteredData.length == 0) {
-          } else {
-            this.showMessage = false;
-          }
-        }
-      }, err => {
-        console.log(err);
-        this.spinner.hide();
-      });
+      this.getFundingLimitingMatchingRequest();
+    } else if (selectedFunderRequestType == 'My Requests') {
+      this.selectedRequestType = selectedFunderRequestType;
+      this.GetFunderAllRequests();
     } else {
       this.GetFunderAllRequests();
     }
-
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
@@ -218,6 +224,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.selectedRequestType = deviceValue;
     localStorage.setItem('selectedFunderRequestType', this.selectedRequestType);
     if (deviceValue == 'My Requests') {
+      this.dataSource = new MatTableDataSource<PeriodicElement>(null);
       this.GetFunderAllRequests();
       this.dataSource.filter = '';
       this.selectedRequestType = 'My Requests';
@@ -231,36 +238,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.dataSource.filter = deviceValue;
     }
     if (deviceValue == 'Awaiting Fund') {
-      this.spinner.show();
-      this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
-        if (res.message) {
-          this.dataSource = new MatTableDataSource<PeriodicElement>(null);
-          this.showMessage = true;
-          this.profileService.showErrorToastr(res.message);
-          this.spinner.hide();
-        } else {
-          this.awaitingRequestsData = res.result;
-          AllAwaitingRequests.length = 0;
-          this.awaitingRequestsData.forEach(element => {
-            AllAwaitingRequests.push(element);
-            element.date = moment(element.updatedAt).format('LL');
-            element.price = element.totalFundAmount + ' SAR';
-            element.status = 'AWAITING FOR FUND';
-          });
-          this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
-          console.log('AllawaitingRequests:', AllAwaitingRequests);
-          this.spinner.hide();
-          if (this.dataSource.filteredData.length == 0) {
-          } else {
-            this.showMessage = false;
-          }
-        }
-      }, err => {
-        console.log(err);
-        this.spinner.hide();
-      });
+      this.dataSource = new MatTableDataSource<PeriodicElement>(null);
+      this.getFundingLimitingMatchingRequest();
     }
     if (this.dataSource.filteredData.length == 0) {
       this.showMessage = true;

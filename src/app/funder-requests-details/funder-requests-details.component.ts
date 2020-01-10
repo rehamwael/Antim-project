@@ -131,6 +131,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
     }).subscribe(res => {
       this.spinner.hide();
       console.log(res);
+      localStorage.setItem('selectedFunderRequestType', 'My Requests');
       this.modalService.dismissAll();
       this.profileService.showSuccessToastr(res);
       this.router.navigateByUrl('/requests-funder');
