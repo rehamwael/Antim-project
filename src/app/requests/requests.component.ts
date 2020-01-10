@@ -40,7 +40,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'price', 'type'];
   dataSourceAll = new MatTableDataSource<any>(allCustomerRequestData);
   selection = new SelectionModel<any>(true, []);
-  CustomerRequestType = 'All Requests';
+  CustomerRequestType = '';
   productStatus: any;
   index: any;
   allRequestData: any;
@@ -123,7 +123,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
           element.price = element.totalPaybackAmount + ' SAR';
           element.status = this.requestTypes[element.type].type;
         });
-        this.CustomerRequestType = 'All Requests';
+        // this.CustomerRequestType = 'All Requests';
         this.dataSourceAll = new MatTableDataSource<any>(allCustomerRequestData);
         // console.log('customerAllRequests:', allCustomerRequestData);
         this.dataSourceAll.paginator = this.paginator;
@@ -136,7 +136,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
       if (customerRequestType == selectedtype && customerRequestType != null && selectedtype != null ) {
         this.CustomerRequestType = customerRequestType;
         this.dataSourceAll.filter = customerRequestType;
-      }  else {
+      }  else if (customerRequestType != selectedtype) {
         this.CustomerRequestType = 'All Requests';
         this.dataSourceAll.filter = '';
       }

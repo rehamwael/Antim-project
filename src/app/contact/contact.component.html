@@ -29,7 +29,7 @@
 
                                         </div>
                                         <!-- Email -->
-                                        <div class="form-group col-lg-12 mb-4">
+                                        <div class="form-group col-lg-8 mb-4">
                                             <label class="text-left font-bold">{{ 'contact.Email' | translate }}</label>
                                             <input type="email" formControlName="contactFormEmail" id="defaultContactFormEmail" mdbInput [(ngModel)]="email"
                                             class="form-control" placeholder="{{ 'contact.emailType' | translate }}">
@@ -38,7 +38,7 @@
 
                                          </div>
                                           <!-- Phone Number -->
-                                         <div class="form-group col-lg-8 mb-4">
+                                         <!-- <div class="form-group col-lg-8 mb-4">
                                                 <label class="text-left font-bold">{{ 'contact.MobileNo' | translate }}</label>
                                                 <input type="text" formControlName="contactFormPhone" mdbInput [(ngModel)]="mobile"
                                                 class="form-control" placeholder="{{ 'contact.typeMobile' | translate }}" digitOnly
@@ -46,7 +46,7 @@
                                                 else { document.getElementById('phonenumber').style.visibility = 'visible'; }" [(ngModel)]="signupPhone">
                                                 <div *ngIf="contactForm.controls['contactFormPhone'].touched && contactForm.controls['contactFormPhone'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'contact.Phonerequired' | translate }}</div>
                                                 <span class="redColor" id="phonenumber"> Phone number must be at least 11 characters long.</span>
-                                       </div>
+                                       </div> -->
                                         <!-- Subject -->
                                         <div class="form-group col-lg-4 mb-4">
                                             <label class="text-left font-bold">{{ 'contact.CommentType' | translate }}</label>

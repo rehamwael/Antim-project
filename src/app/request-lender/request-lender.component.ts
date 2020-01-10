@@ -44,7 +44,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
-  selectedRequestType = 'My Requests';
+  selectedRequestType = '';
   selectedProduct = false;
   productStatus: any;
   customerRequestId: any;
@@ -166,7 +166,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
      this.requestTypeInStore = state.requestType;
     });
 
-    this.selectedRequestType = 'My Requests';
+    // this.selectedRequestType = 'My Requests';
     let selectedFunderRequestType = localStorage.getItem('selectedFunderRequestType');
     if (this.requestTypeInStore == selectedFunderRequestType && selectedFunderRequestType != null) {
       this.selectedRequestType = this.requestTypeInStore;

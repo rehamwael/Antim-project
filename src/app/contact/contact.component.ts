@@ -58,10 +58,10 @@ export class ContactComponent implements OnInit, OnDestroy {
       ])],
       'contactFormSubjects': ['', Validators.required],
       'contactFormMessage': ['', Validators.required],
-      'contactFormPhone': [null, Validators.compose([
-        Validators.required,
-        Validators.minLength(11)
-      ])]
+      // 'contactFormPhone': [null, Validators.compose([
+      //   Validators.required,
+      //   Validators.minLength(11)
+      // ])]
     });
     this.leafletLayers = [tileLayer(
       'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -103,7 +103,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.profileService.contactUs({
       'Name': this.name,
       'Email': this.email,
-      'PhoneNumber': this.mobile,
+      // 'PhoneNumber': this.mobile,
       'CommentType': this.messageType,
       'Message': this.message
     }).subscribe((res) => {

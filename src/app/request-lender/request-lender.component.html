@@ -33,11 +33,11 @@
                 <div class="form-group">
                     <label for="Type" class="font-size-13">Select Request Type</label>
                     <select class="form-control form-control-lg mb-2 custom-select" [(ngModel)]="selectedRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
-                            <option value="My Requests">My All Requests</option>
-                            <option value="Ongoing">My Ongoing Requests</option>
-                            <option value="Closed">My Closed Requests</option>
-                            <option value="Awaiting Fund">All Awaiting Fund Requests</option>
-
+                      <option value=""  selected disabled>Select Request Type</option>
+                      <option value="My Requests">My All Requests</option>
+                      <option value="Ongoing">My Ongoing Requests</option>
+                      <option value="Closed">My Closed Requests</option>
+                      <option value="Awaiting Fund">All Awaiting Fund Requests</option>
                     </select>
                 </div>
                 </form>
@@ -46,29 +46,6 @@
                     <label  class="font-size-13">Search :</label>
                     <input  class="form-control form-control-lg mb-3" (keyup)="Search($event.target.value)" >
             </div>
-                <!-- <form class="col-lg-2">
-                        <div class="form-group">
-                          <label for="amount" class="font-size-13">Funding amount (SAR)</label>
-                          <div class="input-group">
-                                <select class="form-control form-control-lg mb-2§ custom-select">
-                                        <option value="0 - 2000" selected>0 - 2000</option>
-                                        <option value="2000 - 5000">2000 - 5000</option>
-                                        <option value="5000 - 10000">5000 - 10000</option>
-                                        <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-
-                                </select>
-                            </div>
-                        </div>
-                      </form> -->
-                <!-- <form class="col-lg-2">
-                        <div class="form-group">
-                            <label for="Filter" class="font-size-13">Filter Date</label>
-                            <div class="input-group">
-                            <input (click)="dp.toggle()" class="form-control date-picker" placeholder="mm-dd-yyyy" name="dp" ngbDatepicker #dp="ngbDatepicker">
-                            <i class="fa fa-calendar"></i>
-                            </div>
-                        </div>
-                        </form> -->
             </div>
             <div class="col-lg-11 row justify-content-end mt-5 dashbored-info">
               <div class="justify-content-center col-lg-12">
