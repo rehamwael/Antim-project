@@ -132,7 +132,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       if (res.message) {
         this.showMessage = true;
         this.spinner.hide();
-        this.profileService.showErrorToastr(res.message);
+        // this.profileService.showErrorToastr(res.message);
       } else {
         this.funderRequestData = res.result;
         AllFunderRequests.length = 0;

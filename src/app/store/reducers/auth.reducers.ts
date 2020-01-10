@@ -1,10 +1,8 @@
-
-import { User } from '../models/users';
 import { AuthenticationActionTypes, AuthenticationActions } from '../actions/auth.actions';
 
 export interface State {
   isAuthenticated: boolean;
-  user: User | null;
+  user: any;
   userProfile: any;
   loggedIn: boolean;
   accountDeActivate: boolean;

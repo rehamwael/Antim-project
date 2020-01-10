@@ -168,15 +168,16 @@ export class AuthenticationEffects {
     tap(() => {
       this.spinner.show();
       return this.customerService.customerAllRequests().subscribe(res => {
+        this.store.dispatch(new IsApiCallTrue());
         console.log(res);
+        this.spinner.hide();
         if (res.result) {
           this.store.dispatch(new SaveAllCustomerRequests(res.result));
         }
         if (res.message) {
+          // this.userDataService.showErrorToastr(res.message);
           this.store.dispatch(new GetAllRequestsFailure());
-          this.userDataService.showErrorToastr(res.message);
         }
-        this.spinner.hide();
       }, err => {
         this.spinner.hide();
         console.log('Error:', err.error);

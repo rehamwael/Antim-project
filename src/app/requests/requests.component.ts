@@ -83,16 +83,15 @@ export class RequestsComponent implements OnInit, OnDestroy {
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
       this.getState.subscribe((state) => {
-        if (state.requestsArrayIsEmpty == true) {
-          this.isDatainArray = false;
+        console.log('in requests', state);
+        if (state.requestsArrayIsEmpty == false) {
+          this.isDatainArray = true;
           resolve();
         }
         if (state.isApiCall == false && state.customerRequestsData.length == 0) {
           this.store.dispatch(new GetAllCustomerRequests());
         } else {
-          if (state.requestsArrayIsEmpty == false) {
-            this.isDatainArray = true;
-          }
+          this.isDatainArray = true;
           this.allRequestData = state.customerRequestsData;
           this.showMessage = false;
           resolve(state.customerRequestsData);

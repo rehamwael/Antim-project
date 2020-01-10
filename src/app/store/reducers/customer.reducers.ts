@@ -12,7 +12,7 @@ export const initialState: State = {
   customerRequestsData: [],
   isUpdated: false,
   isApiCall: false,
-  requestsArrayIsEmpty: null,
+  requestsArrayIsEmpty: true,
   customerRequestCount: null
 };
 
@@ -23,15 +23,12 @@ export function reducer(state = initialState, action: CustomerRequests): State {
         ...state,
         customerRequestsData: action.payload,
         requestsArrayIsEmpty: false,
-        isApiCall: true
       };
     }
     case CustomerActionTypes.GET_ALL_REQUESTS_FAILURE: {
       return {
         ...state,
         customerRequestsData: [],
-        requestsArrayIsEmpty: false,
-        isApiCall: true
       };
     }
 
@@ -51,12 +48,6 @@ export function reducer(state = initialState, action: CustomerRequests): State {
       return {
         ...state,
         isApiCall: true
-      };
-    }
-    case CustomerActionTypes.IS_API_CALL_FALSE: {
-      return {
-        ...state,
-        isApiCall: false
       };
     }
 

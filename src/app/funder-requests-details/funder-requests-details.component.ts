@@ -1,7 +1,3 @@
-
-
-
-
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -10,7 +6,7 @@ import { FunderRequestService } from '../services/funder-requests.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
-import { AppState, customerState } from './../store/app.states';
+import { AppState } from './../store/app.states';
 import { Observable } from 'rxjs';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { ProfileService } from '../services/userProfile.service';
@@ -71,7 +67,6 @@ export class FunderRequestsDetailsComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private store: Store<AppState>
   ) {
-    this.getState = this.store.select(customerState);
 
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');
