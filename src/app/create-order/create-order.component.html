@@ -213,11 +213,16 @@
                                             </p> -->
                                             <div class="row mt-5">
                                               <div class="col-lg-6">
-                                                <input type="radio" name="gender" value="deliver" (click)="ShowAlert()" class="mr-2"> Deliver products to my Address<br>
-
+                                                <label class="container1">Deliver products to my Address
+                                                <input type="radio" name="gender" value="deliver" (click)="ShowAlert()" >
+                                                <span class="checkmark1"></span>
+                                                </label>
                                                </div>
                                                 <div class="col-lg-6">
-                                                <input type="radio" name="gender" value="self" (click)="HideAlert()" class="mr-2">Pick up the products from Antim offices by myself<br>
+                                                <label class="container1">Pick up the products from Antim offices by myself
+                                                  <input type="radio" name="gender" value="self" (click)="HideAlert()" >
+                                                  <span class="checkmark1"></span>
+                                                  </label>
                                               </div>
                                             </div>
                                             <div class="alert mt-3 mb-0 alert-warning" role="alert" *ngIf="showAlert">
