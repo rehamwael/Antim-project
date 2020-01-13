@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  BaseURL: 'https://intimeapis.azurewebsites.net/api/'
+  BaseURL: 'https://antim.azurewebsites.net/api/'
 };
 
 /*

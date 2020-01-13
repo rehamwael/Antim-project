@@ -149,28 +149,8 @@
                                             <p class="font-size-13 mt-2">Confirm</p>
                                     </ng-template>
                                     <br/>
-                                    <!-- <p class="my-5 grey-text-color">
-                                        <input type="checkbox" id="box-1" (change)="changeCheck($event)">
-                                            <span class="mr-1">
-                                                <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.0899 15 14 12.0899 14 8.5C14 4.91015 11.0899 2 7.5 2C3.91015 2 1 4.91015 1 8.5C1 12.0899 3.91015 15 7.5 15Z" stroke="#607AE6"/>
-                                                    <path d="M7.5 11.1V8.5" stroke="#607AE6"/>
-                                                 </svg>
-                                            </span>
 
-                                            I agree on purchasing the request #1032 showing in the request screen.
-                                            <br/>and with the price showing in the request screen. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,<br/> but also the leap into electronic typesetting, remaining essentially unchanged.
-                                        </p> -->
-
-                                        <!-- <label for="box-2">I agree on intime <a [routerLink]="['/terms-conditions']">Terms & Condtions</a></label> -->
-
-                                        <!-- <div class="col-lg-10 grey-text-color my-5">
-                                            <input type="checkbox" id="box-2" (change)="changeCheck($event)" class="check-box">
-                                            <label style="font-size: 16px;"for="box-2"> I agree on purchasing the request #1032 showing in the request screen.
-                                                <br/>and with the price showing in the request screen.
-                                                </label>
-                                        </div> -->
-                                        <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request  name : <b>{{requestName}} </b>showing in the request screen.
+                                    <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request  name : <b>{{requestName}} </b>showing in the request screen.
                                           and with the price showing in the request screen.
                                           <input type="checkbox" (change)="changeCheck($event)">
                                           <span class="checkmark"></span>
@@ -192,7 +172,7 @@
                                   <div class="alert mt-3 alert-warning" role="alert">
                                     <p class= "mb-0">
                                       <i class="mr-1 fa fa-exclamation-circle"></i>
-                                      <b>Note: </b>Dear {{currentUser?.firstName}} {{currentUser?.lastName}}, please note that, you can cancel the request while the status is "Under Review". However, if the request has been approved, then you will not longer be able to Cancel it."
+                                      <b>Note: </b>Dear {{currentUser?.firstName}} {{currentUser?.lastName}}, please note that, you can cancel the request while the status is "Under Review". However, if the request has been approved, then you will no longer be able to Cancel it.
                                     </p>
                                   </div>
                                 </mat-step>
@@ -227,10 +207,29 @@
                                                     <label for="FinalProduct" class="font-bold mt-2">Total Payable Product Price</label>
                                                     <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}" readonly>
                                             </mat-form-field>
-                                            <p class="my-5 grey-text-color">
+                                            <!-- <p class="my-5 grey-text-color">
                                               <i class="fa fa-exclamation-circle"></i>
                                                 Selecting this option will require you to pay additional delivery fees of 30 SR.
-                                            </p>
+                                            </p> -->
+                                            <div class="row">
+                                              <div class="col-lg-6">
+                                                <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request  name : <b>{{requestName}} </b>showing in the request screen.
+                                                  and with the price showing in the request screen.
+                                                  <input type="checkbox" (change)="changeCheck($event)">
+                                                  <span class="checkmark"></span>
+                                                </label>
+
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request  name : <b>{{requestName}} </b>showing in the request screen.
+                                                  and with the price showing in the request screen.
+                                                  <input type="checkbox" (change)="changeCheck($event)">
+                                                  <span class="checkmark"></span>
+                                                </label>
+
+                                              </div>
+                                            </div>
+
                                             <div>
                                             <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">
                                                     <div class="form-group col-lg-3">
