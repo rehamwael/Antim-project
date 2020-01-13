@@ -45,7 +45,7 @@
                             <button class="btn btn-info btn-lg btn-block btn-Red mt-2"  (click)="OpenCancelRequestPopup(contentCancel)">Cancel Request</button>
                         </div>
                         <div class="col-lg-4" *ngIf="deleteButton">
-                            <button class="btn btn-danger btn-lg btn-block btn-red  cursor-pointer col-lg-12" (click)="openDeletePopup(contentDel)">
+                            <button class="btn btn-danger btn-lg btn-block btn-red  mb-3 cursor-pointer col-lg-12" (click)="openDeletePopup(contentDel)">
                               <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 6H3H19" stroke="#C5003E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M5 6C5 4.89543 4.10457 4 3 4V6H5ZM5 20V6H3V20H5ZM5 20H3C3 21.1046 3.89543 22 5 22V20ZM15 20H5V22H15V20ZM15 20V22C16.1046 22 17 21.1046 17 20H15ZM15 6V20H17V6H15ZM17 4C15.8954 4 15 4.89543 15 6H17V4ZM19 6C19 4.89543 18.1046 4 17 4V6H19ZM19 20V6H17V20H19ZM15 24C17.2091 24 19 22.2091 19 20H17C17 21.1046 16.1046 22 15 22V24ZM5 24H15V22H5V24ZM1 20C1 22.2091 2.79086 24 5 24V22C3.89543 22 3 21.1046 3 20H1ZM1 6V20H3V6H1ZM3 4C1.89543 4 1 4.89543 1 6H3V4ZM8 4V2C6.89543 2 6 2.89543 6 4H8ZM8 6V4H6V6H8ZM6 8C7.10457 8 8 7.10457 8 6H6V8ZM4 6C4 7.10457 4.89543 8 6 8V6H4ZM4 4V6H6V4H4ZM8 0C5.79086 0 4 1.79086 4 4H6C6 2.89543 6.89543 2 8 2V0ZM12 0H8V2H12V0ZM16 4C16 1.79086 14.2091 0 12 0V2C13.1046 2 14 2.89543 14 4H16ZM16 6V4H14V6H16ZM14 8C15.1046 8 16 7.10457 16 6H14V8ZM12 6C12 7.10457 12.8954 8 14 8V6H12ZM12 4V6H14V4H12ZM12 4H14C14 2.89543 13.1046 2 12 2V4ZM8 4H12V2H8V4Z" fill="#C5003E"/>
@@ -429,22 +429,34 @@
 
                                         <mat-form-field>
                                                 <label for="FinalProduct" class="font-bold mt-2">Total Payable Product Price </label>
-                                                <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{totalPriceWithProfit}}" readonly>
-                                        </mat-form-field>
-                                        <p class="my-5 grey-text-color">
-                                          <i class=" fa fa-exclamation-circle"></i>
-                                            Selecting this option will require you to pay additional delivery fees of 30 SR.
-                                        </p>
+                                                <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{priceWithDelivery}}" [(ngModel)]="priceWithDelivery" readonly>
+                                              </mat-form-field>
+
+                                              <div class="row mt-5">
+                                                <div class="col-lg-6">
+                                                  <input type="radio" name="gender" value="deliver" (click)="ShowAlert()" class="mr-2"> Deliver products to my Address<br>
+
+                                                 </div>
+                                                  <div class="col-lg-6">
+                                                  <input type="radio" name="gender" value="self" (click)="HideAlert()" class="mr-2">Pick up the products from Antim offices by myself<br>
+                                                </div>
+                                              </div>
+                                              <div class="alert mt-3 mb-0 alert-warning" role="alert" *ngIf="showAlert">
+                                                <p class=" grey-text-color">
+                                                <i class="fa fa-exclamation-circle"></i>
+                                                  Selecting this option will require you to pay additional delivery fees of 30 SAR.
+                                              </p>
+                                            </div>
                                         <div>
                                         <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">
                                                 <div class="form-group col-lg-3">
                                                         <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
                                                 </div>
                                                 <div class="form-group col-lg-4">
-                                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="saveAsDraft(content)">Update as Draft</button>
+                                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2" [disabled]="!disableButton" (click)="saveAsDraft(content)">Update as Draft</button>
                                             </div>
                                                 <div class="form-group col-lg-3">
-                                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext (click)="saveRequest(content3)">Submit Request</button>
+                                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!disableButton" mat-button matStepperNext (click)="saveRequest(content3)">Submit Request</button>
 
                                                 </div>
                                                 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"

@@ -58,7 +58,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       }
       this.currentUser = state.userProfile;
       this.notificationsCount = state.totalUnReadNotifications;
-      if (this.notificationsCount == 0) {
+      if (state.totalUnReadNotifications == 0) {
         this.showCount = false;
       }
       if (this.currentUser) {

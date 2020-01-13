@@ -133,6 +133,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
   ];
   getUserState: Observable<any>;
   currentUser: any;
+  showAlert = false;
+  disableButton = false;
+  priceWithDelivery: number;
 
   constructor(private modalService: NgbModal,
     private _formBuilder: FormBuilder,
@@ -330,6 +333,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       this.showOptions = true;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     }
+    this.priceWithDelivery = this.totalPriceWithProfit;
   }
   onFocusoutMethod() {
     this.totalPrice = 0;
@@ -378,7 +382,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       // 'MonthlyPaybackAmount': this.monthlyInstallment,
-      'TotalPaybackAmount': this.totalPriceWithProfit,
+      'TotalPaybackAmount': this.priceWithDelivery,
       'Type': 5,
       'Products': this.productList
     };
@@ -393,7 +397,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       // 'MonthlyPaybackAmount': this.monthlyInstallment,
-      'TotalPaybackAmount': this.totalPriceWithProfit,
+      'TotalPaybackAmount': this.priceWithDelivery,
       'Type': 6,
       'Products': this.productList
     };
@@ -422,4 +426,17 @@ export class CustomerRequestDetailsComponent implements OnInit {
     };
     this.store.dispatch(new DeleteCustomerRequests(actionPayload));
   }
-}
+  ShowAlert() {
+    this.showAlert = true;
+    this.disableButton = true;
+    this.priceWithDelivery = this.totalPriceWithProfit + 30;
+  }
+  HideAlert() {
+    this.showAlert = false;
+    this.disableButton = true;
+    if ( this.priceWithDelivery == this.totalPriceWithProfit ) {
+      this.priceWithDelivery = this.totalPriceWithProfit;
+    } else {
+      this.priceWithDelivery = this.priceWithDelivery - 30;
+    }
+  }}

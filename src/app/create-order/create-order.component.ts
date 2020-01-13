@@ -34,6 +34,9 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   totalProducts: any;
   requestType: any;
   disabledAgreement = false;
+  showAlert = false;
+  disableButton = false;
+  priceWithDelivery: number;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -139,6 +142,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.showOptions = true;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     }
+    this.priceWithDelivery = this.totalPriceWithProfit;
   }
 
   onChange(Value) {
@@ -231,5 +235,18 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.disabledAgreement = false;
     }
   }
-
+  ShowAlert() {
+    this.showAlert = true;
+    this.disableButton = true;
+    this.priceWithDelivery = this.totalPriceWithProfit + 30;
+  }
+  HideAlert() {
+    this.showAlert = false;
+    this.disableButton = true;
+    if ( this.priceWithDelivery == this.totalPriceWithProfit ) {
+      this.priceWithDelivery = this.totalPriceWithProfit;
+    } else {
+      this.priceWithDelivery = this.priceWithDelivery - 30;
+    }
+  }
 }
