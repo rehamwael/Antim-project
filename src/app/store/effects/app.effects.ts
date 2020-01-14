@@ -18,7 +18,7 @@ import {
 import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
 import {
-  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, GetRequestsCountSuccess,
+  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, DeleteDraftRequest, GetRequestsCountSuccess,
   DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess, GetAllRequestsFailure, RemoveRequestsFromStore
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -233,7 +233,7 @@ export class AuthenticationEffects {
     map((action: DeleteCustomerRequests) => action.payload),
     switchMap(payload => {
       this.spinner.show();
-      return this.customerService.deleteCustomerRequest(payload.id).pipe(
+      return this.customerService.cancelCustomerRequest(payload.id).pipe(
         map((res) => {
           console.log(' Deleted:', res);
           this.spinner.hide();
@@ -250,5 +250,27 @@ export class AuthenticationEffects {
         }));
     }));
 
+    @Effect({ dispatch: false })
+    DeleteDraftRequest: Observable<any> = this.actions.pipe(
+      ofType(CustomerActionTypes.DELETE_DRAFT_REQUEST),
+      map((action: DeleteDraftRequest) => action.payload),
+      switchMap(payload => {
+        this.spinner.show();
+        return this.customerService.DeleteDraftRequest(payload.id).pipe(
+          map((res) => {
+            console.log(' Deleted:', res);
+            this.spinner.hide();
+            this.modalService.dismissAll();
+            this.router.navigate(['/requests-customer']);
+            this.userDataService.showSuccessToastr(res);
+            this.store.dispatch(new DeleteRequestSuccess(payload));
+          }),
+          catchError(error => {
+            console.log(' ERROR:', error);
+            this.modalService.dismissAll();
+            this.spinner.hide();
+            return of(this.userDataService.showErrorToastr(error.error.message));
+          }));
+      }));
 
 }

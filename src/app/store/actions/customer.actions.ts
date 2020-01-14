@@ -9,6 +9,7 @@ export enum CustomerActionTypes {
   EDIT_REQUEST = 'EditRequest',
   DELETE_REQUEST = 'DeleteRequest',
   DELETE_SUCCESS = 'DeleteRequestSuccess',
+  DELETE_DRAFT_REQUEST = 'DeleteDraftRequest',
   IS_UPDATED_FALSE = 'IsUpdatedFalse',
   IS_UPDATED_TRUE = 'IsUpdatedTrue',
   IS_API_CALL_TRUE = 'IsApiCallTrue',
@@ -67,6 +68,10 @@ export class DeleteRequestSuccess implements Action {
   readonly type = CustomerActionTypes.DELETE_SUCCESS;
   constructor(public payload: any) { }
 }
+export class DeleteDraftRequest implements Action {
+  readonly type = CustomerActionTypes.DELETE_DRAFT_REQUEST;
+  constructor(public payload: any) { }
+}
 export class RemoveRequestsFromStore implements Action {
   readonly type = CustomerActionTypes.REMOVE_REQUESTS_FROM_STORE;
 }
@@ -90,6 +95,7 @@ export type CustomerRequests =
   | EditCustomerRequest
   | DeleteCustomerRequests
   | DeleteRequestSuccess
+  | DeleteDraftRequest
   | IsUpdatedFalse
   | IsApiCallFalse
   | IsApiCallTrue

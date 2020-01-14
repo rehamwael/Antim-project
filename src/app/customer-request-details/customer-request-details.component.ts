@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { AppState, customerState, selectAuthenticationState } from './../store/app.states';
-import { EditCustomerRequest, DeleteCustomerRequests, IsUpdatedFalse } from './../store/actions/customer.actions';
+import { EditCustomerRequest, DeleteCustomerRequests, DeleteDraftRequest, IsUpdatedFalse } from './../store/actions/customer.actions';
 import { Observable } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material';
@@ -298,7 +298,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
     const actionPayload = {
       id: this.requestID
     };
-    this.store.dispatch(new DeleteCustomerRequests(actionPayload));
+    this.store.dispatch(new DeleteDraftRequest(actionPayload));
   }
 
   editRequestInfo() {
