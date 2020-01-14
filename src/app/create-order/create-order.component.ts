@@ -83,7 +83,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     });
     this.customerService.getConfigData('deliveryFees').subscribe(res => {
       this.deliveryFee = res.result.value;
-      console.log(this.deliveryFee);
     }, err => {
       console.log(err);
     });
