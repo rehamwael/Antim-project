@@ -100,7 +100,7 @@
                            </div>
                            <div class="form-group text-left col-lg-8">
                               <label for="phone">Mobile No.<span class="red-color"> *</span></label>
-                              <input  formControlName="phone" class="form-control form-control-lg" placeholder="323 4099635" type="text" (keyup)="inputNumber($event)" digitOnly
+                              <input  formControlName="phone" class="form-control form-control-lg" placeholder="323 4099635" type="number" (keyup)="inputNumber($event)" digitOnly
                               oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                               else { document.getElementById('phonenumber').style.visibility = 'visible'; }" [(ngModel)]="signupPhone">
                               <div *ngIf="SigUpForm.controls['phone'].touched && SigUpForm.controls['phone'].hasError('required')" class="error-msg alert alert-danger text-left">Phone Number is required</div>

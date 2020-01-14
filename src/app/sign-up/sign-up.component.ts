@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   signupPassword: any;
   signupCPassword: any;
   signupIdNum: any;
-  signupPhone: any;
+  signupPhone: number;
   signupCountrycode = '+966';
   first: number;
   second: number;
@@ -179,7 +179,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
         'UserName': this.signupUserName,
         'Password': this.signupPassword,
         'ConfirmPassword': this.signupCPassword,
-        'PhoneNumber': this.signupPhone.toString(),
+        'PhoneNumber': this.signupPhone,
         'DialingCode': this.signupCountrycode,
         'Role': this.userType
         }).subscribe(res => {
@@ -213,7 +213,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
       'UserName': this.signupUserName,
       'Password': this.signupPassword,
       'ConfirmPassword': this.signupCPassword,
-      'PhoneNumber': this.signupPhone.toString(),
+      'PhoneNumber': this.signupPhone,
       'DialingCode': this.signupCountrycode,
       'Role': this.userType,
       'VerificationCode': this.OTP
@@ -260,7 +260,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
       'UserName': this.signupUserName,
       'Password': this.signupPassword,
       'ConfirmPassword': this.signupCPassword,
-      'PhoneNumber': this.signupPhone.toString(),
+      'PhoneNumber': this.signupPhone,
       'DialingCode': this.signupCountrycode,
       'Role': this.userType
       }).subscribe( (res) => {
@@ -303,7 +303,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.signupPassword = '';
     this.signupCPassword = '';
     this.signupIdNum = '';
-    this.signupPhone = '';
+    this.signupPhone = null;
     this.signupCountrycode = '+966';
     this.first = null;
     this.second = null;
