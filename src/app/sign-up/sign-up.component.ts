@@ -37,7 +37,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
   signupCPassword: any;
   signupIdNum: any;
   signupPhone: any;
-  signupCountrycode: any;
+  signupCountrycode = '+966';
   first: number;
   second: number;
   third: number;
@@ -89,9 +89,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
       'confirmPassword': [null, Validators.compose([
         Validators.required,
       ])],
-      'countrycode': [null, Validators.compose([
-        Validators.required
-      ])],
+      'countrycode': [''],
       'phone': [null, Validators.compose([
         Validators.required,
         Validators.minLength(9)
@@ -182,7 +180,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
         'Password': this.signupPassword,
         'ConfirmPassword': this.signupCPassword,
         'PhoneNumber': this.signupPhone.toString(),
-        'DialingCode': this.signupCountrycode.toString(),
+        'DialingCode': this.signupCountrycode,
         'Role': this.userType
         }).subscribe(res => {
             this.spinner.hide();
@@ -216,7 +214,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
       'Password': this.signupPassword,
       'ConfirmPassword': this.signupCPassword,
       'PhoneNumber': this.signupPhone.toString(),
-      'DialingCode': this.signupCountrycode.toString(),
+      'DialingCode': this.signupCountrycode,
       'Role': this.userType,
       'VerificationCode': this.OTP
       }).subscribe( (res) => {
@@ -263,7 +261,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
       'Password': this.signupPassword,
       'ConfirmPassword': this.signupCPassword,
       'PhoneNumber': this.signupPhone.toString(),
-      'DialingCode': this.signupCountrycode.toString(),
+      'DialingCode': this.signupCountrycode,
       'Role': this.userType
       }).subscribe( (res) => {
         console.log('code resend:', res);
@@ -306,7 +304,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.signupCPassword = '';
     this.signupIdNum = '';
     this.signupPhone = '';
-    this.signupCountrycode = '';
+    this.signupCountrycode = '+966';
     this.first = null;
     this.second = null;
     this.third = null;
