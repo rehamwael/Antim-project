@@ -136,6 +136,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
   showAlert = false;
   disableButton = false;
   priceWithDelivery: number;
+  deliveryFee: number;
+  isdelivered = false;
 
   constructor(private modalService: NgbModal,
     private _formBuilder: FormBuilder,
@@ -270,6 +272,11 @@ export class CustomerRequestDetailsComponent implements OnInit {
       InstallmentPerMonth: [{ disabled: true }],
       FinalProduct: [{ disabled: true }]
     });
+    this.customerRequestService.getConfigData('deliveryFees').subscribe(res => {
+      this.deliveryFee = res.result.value;
+    }, err => {
+      console.log(err);
+    });
 
   }
 
@@ -384,7 +391,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
       // 'MonthlyPaybackAmount': this.monthlyInstallment,
       'TotalPaybackAmount': this.priceWithDelivery,
       'Type': 5,
-      'Products': this.productList
+      'Products': this.productList,
+      'isDelieveryFees': this.isdelivered
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
   }
@@ -399,7 +407,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
       // 'MonthlyPaybackAmount': this.monthlyInstallment,
       'TotalPaybackAmount': this.priceWithDelivery,
       'Type': 6,
-      'Products': this.productList
+      'Products': this.productList,
+      'isDelieveryFees': this.isdelivered
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
   }
@@ -427,16 +436,20 @@ export class CustomerRequestDetailsComponent implements OnInit {
     this.store.dispatch(new DeleteCustomerRequests(actionPayload));
   }
   ShowAlert() {
+    this.isdelivered = true;
     this.showAlert = true;
     this.disableButton = true;
-    this.priceWithDelivery = this.totalPriceWithProfit + 30;
+    this.priceWithDelivery = 1 * this.totalPriceWithProfit + 1 * this.deliveryFee;
   }
   HideAlert() {
+    this.isdelivered = false;
     this.showAlert = false;
     this.disableButton = true;
-    if ( this.priceWithDelivery == this.totalPriceWithProfit ) {
+    if (this.priceWithDelivery == this.totalPriceWithProfit) {
       this.priceWithDelivery = this.totalPriceWithProfit;
     } else {
-      this.priceWithDelivery = this.priceWithDelivery - 30;
+      this.priceWithDelivery = 1 * this.priceWithDelivery - 1 * this.deliveryFee;
     }
-  }}
+  }
+
+}

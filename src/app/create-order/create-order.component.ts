@@ -39,6 +39,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   disableButton = false;
   priceWithDelivery: number;
   deliveryFee: number;
+  isdelivered = false;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -193,7 +194,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       // 'MonthlyPaybackAmount': this.monthlyPrice,
       // 'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 5,
-      'Products': this.userPoductList
+      'Products': this.userPoductList,
+      'isDelieveryFees': this.isdelivered
     };
     this.store.dispatch(new AddCustomerRequest(actionPayload));
   }
@@ -213,7 +215,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       // 'MonthlyPaybackAmount': this.monthlyPrice,
       // 'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 6,
-      'Products': this.userPoductList
+      'Products': this.userPoductList,
+      'isDelieveryFees': this.isdelivered
     };
     this.store.dispatch(new AddCustomerRequest(actionPayload));
   }
@@ -226,7 +229,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.userPoductList.map(product => {
       this.totalPrice = 1 * this.totalPrice + 1 * product.amount;
     });
-   }
+  }
 
   addMoreItems() {
     this.userPoductList.push({
@@ -244,18 +247,22 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.disabledAgreement = false;
     }
   }
+
   ShowAlert() {
+    this.isdelivered = true;
     this.showAlert = true;
     this.disableButton = true;
     this.priceWithDelivery = 1 * this.totalPriceWithProfit + 1 * this.deliveryFee;
   }
   HideAlert() {
+    this.isdelivered = false;
     this.showAlert = false;
     this.disableButton = true;
-    if ( this.priceWithDelivery == this.totalPriceWithProfit ) {
+    if (this.priceWithDelivery == this.totalPriceWithProfit) {
       this.priceWithDelivery = this.totalPriceWithProfit;
     } else {
       this.priceWithDelivery = 1 * this.priceWithDelivery - 1 * this.deliveryFee;
     }
   }
+
 }
