@@ -129,21 +129,32 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   GetFunderAllRequests() {
     this.spinner.show();
     this.funderRequestService.getFunderAllRequests().subscribe(res => {
-      if (res.message) {
+      console.log(res);
+      if (res.result.otherRequests.length == 0 && res.result.awaitingRequests == null) {
         this.showMessage = true;
         this.spinner.hide();
         // this.profileService.showErrorToastr(res.message);
       } else {
-        this.funderRequestData = res.result;
         AllFunderRequests.length = 0;
-        console.log(this.funderRequestData);
-        this.funderRequestData.forEach(element => {
-          AllFunderRequests.push(element);
-          element.name = element.requestName;
-          element.date = moment(element.startingDate).format('LL');
-          element.price = element.fundedAmount + ' SAR';
-          element.status = this.requestTypes[element.requestType].type;
-        });
+        this.funderRequestData = res.result.otherRequests;
+        this.awaitingRequestsData = res.result.awaitingRequests;
+        if (this.funderRequestData.length > 0) {
+          this.funderRequestData.forEach(element => {
+            AllFunderRequests.push(element);
+            element.name = element.requestName;
+            element.date = moment(element.startingDate).format('LL');
+            element.price = element.fundedAmount + ' SAR';
+            element.status = this.requestTypes[element.requestType].type;
+          });
+        }
+        if (this.awaitingRequestsData != null) {
+          this.awaitingRequestsData.forEach(element => {
+            AllFunderRequests.push(element);
+            element.date = moment(element.updatedAt).format('LL');
+            element.price = element.totalFundAmount + ' SAR';
+            element.status = 'AWAITING FOR FUND';
+          });
+        }
         this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
         this.showMessage = false;
         this.spinner.hide();
@@ -154,6 +165,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       console.log(err);
     });
   }
+
   getFundingLimitingMatchingRequest() {
     this.spinner.show();
     this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
@@ -191,12 +203,13 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource<PeriodicElement>(null);
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
 
     this.getState.subscribe((state) => {
-     this.requestTypeInStore = state.requestType;
+      this.requestTypeInStore = state.requestType;
     });
 
     // this.selectedRequestType = 'My Requests';
@@ -237,11 +250,11 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
       this.dataSource.filter = deviceValue;
     }
-    if (deviceValue == 'Awaiting Fund') {
+    if (deviceValue == 'AWAITING FOR FUND') {
       this.dataSource = new MatTableDataSource<PeriodicElement>(null);
       this.getFundingLimitingMatchingRequest();
     }
-    if (this.dataSource.filteredData.length == 0) {
+    if (this.dataSource.filteredData && this.dataSource.filteredData.length == 0) {
       this.showMessage = true;
     } else {
       this.showMessage = false;
@@ -264,7 +277,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         this.totalPrice = res.result.fundedAmount;
         this.totalPriceWithProfit = res.result.totalPaybackAmount;
         this.totalProfit = this.totalPriceWithProfit - this.totalPrice;
-        this.totalProfit = Math.round((this.totalProfit * 80) / 100) ;
+        this.totalProfit = Math.round((this.totalProfit * 80) / 100);
         this.monthlyInstallment = Math.round((this.totalPrice + this.totalProfit) / (res.result.paybackPeriod * 3));
         this.installmentPeriod_ENUM = res.result.paybackPeriod;
         if (this.installmentPeriod_ENUM === 1) {
@@ -300,7 +313,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
               InstallmentDetails.push(element);
               element.month = i;
               element.date = moment(element.dueDate).format('LL');
-              element.price = Math.round((element.amount - element.intimeMonthlyProfit) ) + ' SAR';
+              element.price = Math.round((element.amount - element.intimeMonthlyProfit)) + ' SAR';
               element.status = this.amountStatus[element.status].type;
               i++;
             });

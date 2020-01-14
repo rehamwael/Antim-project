@@ -221,7 +221,7 @@ export class ProfileService {
     // var eng = message.slice(0, indexToSplit);
     // var arb = message.slice(indexToSplit + 1);
     if (this.userLang == 'english') {
-      this.showEnglishToast('OK!!', errorMessage[0], 'error');
+      this.showEnglishToast('Error!!', errorMessage[0], 'error');
     }
     if (this.userLang == 'arabic') {
       this.showArabicToast('خطأ!', errorMessage[1], 'error');
