@@ -94,5 +94,12 @@ export class CustomerRequestService {
     );
   }
 
+  getConfigData(deliveryFees: any) {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}ConfigData/GetConfigDataByKey?key=${deliveryFees}`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
 }

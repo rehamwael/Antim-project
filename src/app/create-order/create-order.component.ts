@@ -8,6 +8,7 @@ import { AppState, selectAuthenticationState, customerState } from './../store/a
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { AddCustomerRequest, IsUpdatedFalse } from '../store/actions/customer.actions';
 import { ProfileService } from '../services/userProfile.service';
+import { CustomerRequestService } from '../services/customer-request.service';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   showAlert = false;
   disableButton = false;
   priceWithDelivery: number;
+  deliveryFee: number;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -61,6 +63,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private store: Store<AppState>,
     private profileService: ProfileService,
+    private customerService: CustomerRequestService,
   ) {
     this.getCustomerState = this.store.select(customerState);
     this.getUserState = this.store.select(selectAuthenticationState);
@@ -76,6 +79,12 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       if (this.checkIsUpdated == true) {
         this.modalService.open(this.content, { centered: false });
       }
+    });
+    this.customerService.getConfigData('deliveryFees').subscribe(res => {
+      this.deliveryFee = res.result.value;
+      console.log(this.deliveryFee);
+    }, err => {
+      console.log(err);
     });
 
     const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
@@ -238,7 +247,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   ShowAlert() {
     this.showAlert = true;
     this.disableButton = true;
-    this.priceWithDelivery = this.totalPriceWithProfit + 30;
+    this.priceWithDelivery = 1 * this.totalPriceWithProfit + 1 * this.deliveryFee;
   }
   HideAlert() {
     this.showAlert = false;
@@ -246,7 +255,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     if ( this.priceWithDelivery == this.totalPriceWithProfit ) {
       this.priceWithDelivery = this.totalPriceWithProfit;
     } else {
-      this.priceWithDelivery = this.priceWithDelivery - 30;
+      this.priceWithDelivery = 1 * this.priceWithDelivery - 1 * this.deliveryFee;
     }
   }
 }
