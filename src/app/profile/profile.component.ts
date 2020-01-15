@@ -44,10 +44,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   bankAccountNo: any;
   bankAddress: any;
   accountTitle: any;
-  AccountDocs: any;
-  SalaryDocs: any;
-  accountStatement: any;
-  salaryStatement: any;
+  AccountDocs: any[] = [];
+  SalaryDocs: any[] = [];
+  Accountsfiles: any;
+  Salaryfiles: any;
+
   showAccountUploadImg = true;
   showSalaryUploadImg = true;
 
@@ -254,12 +255,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.bankAddress = res.result.address;
           this.accountTitle = res.result.accountTitle;
           this.bankAccountNo = res.result.accountNumber;
-          this.accountStatement = res.result.accountStatementFile;
-          if (this.accountStatement != null) {
+          this.AccountDocs = res.result.accountStatementFiles;
+          if (res.result.accountStatementFiles.length > 0) {
             this.showAccountUploadImg = false;
           }
-          this.salaryStatement = res.result.salaryStatementFile;
-          if (this.salaryStatement != null) {
+          console.log('akufgue', this.AccountDocs);
+          this.SalaryDocs = res.result.salaryStatementFiles;
+          if (res.result.salaryStatementFiles.length > 0) {
             this.showSalaryUploadImg = false;
           }
           this.bankID = res.result.id;
@@ -608,18 +610,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
   uploadAccoutFile(event) {
-    if (event.target.files.length > 0) {
-      this.AccountDocs = event.target.files[0];
-      this.AccountForm.get('AccountStatement').setValue(this.AccountDocs);
+    if (event.target.files && event.target.files[0]) {
+      this.Accountsfiles = event.target.files.length;
+      this.AccountDocs.length = 0;
+      for (let i = 0; i < this.Accountsfiles; i++) {
+        this.AccountDocs.push(event.target.files[i]);
+      }
     }
     console.log(this.AccountDocs);
-    this.accountStatement = this.AccountDocs.name;
     this.disableAccountButton = true;
     this.showAccountUploadImg = false;
   }
   onAccountFormSubmit() {
     let formData = new FormData();
-    formData.append('file', this.AccountForm.get('AccountStatement').value);
+    for (let i = 0; i < this.Accountsfiles; i++) {
+      formData.append('file-' + i, this.AccountDocs[i]);
+    }
     this.spinner.show();
     this.profileService.uploadAccountStatement(formData).subscribe(res => {
       this.spinner.hide();
@@ -634,17 +640,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   uploadSalaryFile(event) {
-    if (event.target.files.length > 0) {
-      this.SalaryDocs = event.target.files[0];
-      this.SalaryForm.get('SalaryStatement').setValue(this.SalaryDocs);
+    if (event.target.files && event.target.files[0]) {
+      this.Salaryfiles = event.target.files.length;
+      this.SalaryDocs.length = 0;
+      for (let i = 0; i < this.Salaryfiles; i++) {
+        this.SalaryDocs.push(event.target.files[i]);
+      }
     }
+    console.log(this.SalaryDocs);
     this.disableSalaryButton = true;
-    this.salaryStatement = this.SalaryDocs.name;
     this.showSalaryUploadImg = false;
   }
   onSalaryFormsubmit() {
     let formData = new FormData();
-    formData.append('file', this.SalaryForm.get('SalaryStatement').value);
+    for (let i = 0; i < this.Salaryfiles; i++) {
+      formData.append('file-' + i, this.SalaryDocs[i]);
+    }
     this.spinner.show();
     this.profileService.uploadSalaryStatement(formData).subscribe(res => {
       this.spinner.hide();
@@ -658,15 +669,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
 
   }
-  closeAccountDetails() {
-    this.showAccountUploadImg = true;
-    this.disableAccountButton = false;
-    this.AccountDocs = null;
+  closeAccountDetails(i: number) {
+    this.AccountDocs.splice(i, 1);
+    if (this.AccountDocs.length == 0) {
+      this.showAccountUploadImg = true;
+      this.disableAccountButton = false;
+    }
   }
-  closeSalaryDetails() {
-    this.showSalaryUploadImg = true;
-    this.disableSalaryButton = false;
-    this.SalaryDocs = null;
+  closeSalaryDetails(i: number) {
+    this.SalaryDocs.splice(i, 1);
+    if (this.SalaryDocs.length == 0) {
+      this.showSalaryUploadImg = true;
+      this.disableSalaryButton = false;
+    }
   }
 
 }

@@ -175,14 +175,14 @@ export class ProfileService {
   }
   uploadAccountStatement(formData: any): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.patch(`${this.Url}UserBanks/UploadAccountStatement`, formData, this.httpOptions).pipe(
+    return this.httpClient.patch(`${this.Url}UserBanks/UploadAccountStatements`, formData, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
   }
   uploadSalaryStatement(formData: any): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.patch(`${this.Url}UserBanks/UploadSalaryStatement`, formData, this.httpOptions).pipe(
+    return this.httpClient.patch(`${this.Url}UserBanks/UploadSalaryStatements`, formData, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );

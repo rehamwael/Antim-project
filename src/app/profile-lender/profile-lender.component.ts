@@ -94,9 +94,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   oldPassword: any;
   newPassword: any;
   confirmPassword: any;
-  AccountDocs: any;
+  AccountDocs: any[] = [];
+  Accountsfiles: any;
   AccountForm: FormGroup;
-  accountStatement: any;
   showAccountUploadImg = true;
 
   public barChartOptions: ChartOptions = {
@@ -308,8 +308,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
           this.fundingLimit = res.result.fundingLimit;
           this.IBAN = res.result.ibaNnumber;
           this.bankID = res.result.id;
-          this.accountStatement = res.result.accountStatementFile;
-          if (this.accountStatement != null) {
+          this.AccountDocs = res.result.accountStatementFiles;
+          if (res.result.accountStatementFiles.length > 0) {
             this.showAccountUploadImg = false;
           }
           console.log('userBankInfo:', this.userBankInfo);
@@ -684,18 +684,22 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     });
   }
   uploadAccoutFile(event) {
-    if (event.target.files.length > 0) {
-      this.AccountDocs = event.target.files[0];
-      this.AccountForm.get('AccountStatement').setValue(this.AccountDocs);
+    if (event.target.files && event.target.files[0]) {
+      this.Accountsfiles = event.target.files.length;
+      this.AccountDocs.length = 0;
+      for (let i = 0; i < this.Accountsfiles; i++) {
+        this.AccountDocs.push(event.target.files[i]);
+      }
     }
     console.log(this.AccountDocs);
-    this.accountStatement = this.AccountDocs.name;
     this.disableAccountButton = true;
     this.showAccountUploadImg = false;
   }
   onAccountFormSubmit() {
     let formData = new FormData();
-    formData.append('file', this.AccountForm.get('AccountStatement').value);
+    for (let i = 0; i < this.Accountsfiles; i++) {
+      formData.append('file-' + i, this.AccountDocs[i]);
+    }
     this.spinner.show();
     this.profileService.uploadAccountStatement(formData).subscribe(res => {
       this.spinner.hide();
@@ -708,12 +712,14 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.profileService.showErrorToastr(err.error.message);
     });
   }
-  closeAccountDetails() {
-    this.showAccountUploadImg = true;
-    this.disableAccountButton = false;
-    this.AccountDocs = null;
-  }
 
+  closeAccountDetails(i: number) {
+    this.AccountDocs.splice(i, 1);
+    if (this.AccountDocs.length == 0) {
+      this.showAccountUploadImg = true;
+      this.disableAccountButton = false;
+    }
+  }
 
 
   // tslint:disable-next-line: member-ordering

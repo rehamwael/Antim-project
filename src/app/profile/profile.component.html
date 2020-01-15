@@ -269,7 +269,7 @@
                               <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
                                 <label for="AccountStatement" class="font-bold mt-2">Account Statement (for last 3 months) </label>
                                     <div class=" h-70" *ngIf="showAccountUploadImg">
-                                            <input type="file"  name="AccountStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadAccoutFile($event)">
+                                            <input type="file"  name="AccountStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadAccoutFile($event)" multiple>
                                             <div class="file-input" >
                                                 <p class="text-center">
                                                     <span class="px-3">
@@ -280,14 +280,14 @@
                                                             <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                         </svg>
                                                         </span>
-                                                    Upload Account Statement here</p>
+                                                    Upload Account Statements here</p>
                                             </div>
                                           </div>
                                           <div class="row w-100" *ngIf="!showAccountUploadImg">
-                                             <div class="mx-auto">
-                                              <img src="assets/images/doc.png" width="100px" height="100px">
-                                              <a class="close-icon" (click)="closeAccountDetails()"><img src="assets/images/close.svg"></a>
-                                              <p class="mt-2">{{accountStatement}}</p>
+                                             <div class="col-lg-10 mx-auto" *ngFor="let file of AccountDocs; let i = index;">
+                                              <img src="assets/images/doc.png" width="60px" height="60px">
+                                              <a class="close-icon" (click)="closeAccountDetails(i)"><img src="assets/images/close.svg"></a>
+                                              <p class="mt-2">{{ file.name }}</p>
                                              </div>
                                             </div>
 
@@ -300,7 +300,7 @@
                                       <form [formGroup]="SalaryForm" (ngSubmit)="onSalaryFormsubmit()" class="col-lg-12">
                                         <label for="SalaryStatement" class="font-bold mt-2">Salary Statement</label>
                                         <div class="h-70" *ngIf="showSalaryUploadImg">
-                                          <input type="file" name="SalaryStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadSalaryFile($event)">
+                                          <input type="file" name="SalaryStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadSalaryFile($event)" multiple>
                                           <div class="file-input">
                                             <p class="text-center">
                                                   <span class="px-3">
@@ -311,17 +311,18 @@
                                                           <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                       </svg>
                                                       </span>
-                                                      Upload Salary Statement here</p>
+                                                      Upload Salary Statements here</p>
                                                     </div>
 
                                         </div>
                                         <div class="row w-100" *ngIf="!showSalaryUploadImg">
-                                          <div class="mx-auto">
-                                           <img src="assets/images/doc.png" width="100px" height="100px">
-                                           <a class="close-icon" (click)="closeSalaryDetails()"><img src="assets/images/close.svg"></a>
-                                           <p class="mt-2">{{salaryStatement}}</p>
-                                          </div>
+                                          <div class="col-lg-10 mx-auto" *ngFor="let file of SalaryDocs; let i = index;">
+                                            <img src="assets/images/doc.png" width="60px" height="60px">
+                                            <a class="close-icon" (click)="closeSalaryDetails(i)"><img src="assets/images/close.svg"></a>
+                                            <p class="mt-2">{{ file.name }}</p>
+                                           </div>
                                          </div>
+
                                         <div class="col-lg-12 row justify-content-end py-4 " >
                                           <div class="form-group col-lg-3">
                                               <button type="submit" class="btn btn-info btn-lg btn-block btn-purple" [disabled]="!disableSalaryButton">Save</button>
