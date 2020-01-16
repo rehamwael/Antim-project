@@ -137,6 +137,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
   disableButton = false;
   priceWithDelivery: number;
   deliveryFee: number;
+  deliveryFees: number;
+  isdeliveryFees: boolean;
   isdelivered = false;
 
   constructor(private modalService: NgbModal,
@@ -167,6 +169,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.requestDetails = res.result;
         this.productList = res.result.customerRequestProducts.slice();
         console.log('REQUEST DETAILS: ', res.result);
+        this.isdeliveryFees = res.result.isDelieveryFees;
+        this.deliveryFees = res.result.delieveryFees;
         this.requestDate = moment(res.result.createdAt).format('LL');
         this.monthlyInstallment = res.result.monthlyPaybackAmount;
         this.requestName = res.result.name;
@@ -253,6 +257,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       TotalAmount: [''],
       installmentPeriod: [''],
       MonthlyInstallment: [''],
+      DelieveryFees: [''],
       FundingAmount: [''],
       RequestStatus: [''],
     });
@@ -450,6 +455,19 @@ export class CustomerRequestDetailsComponent implements OnInit {
     } else {
       this.priceWithDelivery = 1 * this.priceWithDelivery - 1 * this.deliveryFee;
     }
+  }
+  rescheduleRequest() {
+    this.spinner.show();
+    this.customerRequestService.requestReschedule(this.requestID).subscribe(res => {
+      console.log(res);
+      this.spinner.hide();
+      this.modalService.dismissAll();
+      this.profileService.showSuccessToastr(res);
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+      this.profileService.showErrorToastr(err.error.message);
+    });
   }
 
 }

@@ -110,5 +110,12 @@ export class CustomerRequestService {
       })
     );
   }
+  requestReschedule(id: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.post(`${this.Url}CustomerRequest/RequestReschedule?customerRequestId=${id}`, null, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
 }
