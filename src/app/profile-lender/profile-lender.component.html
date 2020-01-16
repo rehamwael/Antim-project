@@ -326,14 +326,14 @@
                               <label for="AccountStatement" class=" my-3" style="font-size: 15px; font-weight: bold;">Account Statement (for last 3 months) </label>
                               <div class="row w-100" *ngIf="!showAccountUploadImg">
                                 <div class="col-lg-10 mx-auto" *ngFor="let file of AccountDocs; let i = index;">
-                                 <img src="assets/images/doc.jpg" width="60px" height="60px">
+                                 <img src="assets/images/doc.png" width="60px" height="60px">
                                  <a class="close-icon" (click)="closeAccountDetails(i)"><img src="assets/images/close.svg"></a>
                                  <p class="mt-2">{{ file.name }}</p>
                                 </div>
                                </div>
                                <div class="row w-100" *ngIf="showNewAccountUploadImg">
                                 <div class="col-lg-10 mx-auto" *ngFor="let file of NewUploadedAccountDocs; let i = index;">
-                                 <img src="assets/images/doc.jpg" width="60px" height="60px">
+                                 <img src="assets/images/doc.png" width="60px" height="60px">
                                  <a class="close-icon" (click)="closeNewAccountDetails(i)"><img src="assets/images/close.svg"></a>
                                  <p class="mt-2">{{ file.name }}</p>
                                 </div>
