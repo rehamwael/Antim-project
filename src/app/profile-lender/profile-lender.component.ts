@@ -98,6 +98,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   Accountsfiles: any;
   AccountForm: FormGroup;
   showAccountUploadImg = true;
+  NewUploadedAccountDocs: any[] = [];
+  showNewAccountUploadImg = false;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -683,22 +685,23 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   uploadAccoutFile(event) {
     if (event.target.files && event.target.files[0]) {
       this.Accountsfiles = event.target.files.length;
-      this.AccountDocs.length = 0;
       for (let i = 0; i < this.Accountsfiles; i++) {
-        this.AccountDocs.push(event.target.files[i]);
+        this.NewUploadedAccountDocs.push(event.target.files[i]);
       }
     }
-    console.log(this.AccountDocs);
+    console.log(this.NewUploadedAccountDocs);
     this.disableAccountButton = true;
-    this.showAccountUploadImg = false;
+    this.showNewAccountUploadImg = true;
   }
+
   onAccountFormSubmit() {
     let formData = new FormData();
     for (let i = 0; i < this.Accountsfiles; i++) {
-      formData.append('file-' + i, this.AccountDocs[i]);
+      formData.append('file-' + i, this.NewUploadedAccountDocs[i]);
     }
     this.spinner.show();
     this.profileService.uploadAccountStatement(formData).subscribe(res => {
@@ -717,6 +720,13 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.AccountDocs.splice(i, 1);
     if (this.AccountDocs.length == 0) {
       this.showAccountUploadImg = true;
+      this.disableAccountButton = false;
+    }
+  }
+  closeNewAccountDetails(i: number) {
+    this.NewUploadedAccountDocs.splice(i, 1);
+    if (this.NewUploadedAccountDocs.length == 0) {
+      this.showNewAccountUploadImg = false;
       this.disableAccountButton = false;
     }
   }
