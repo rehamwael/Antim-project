@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { FunderRequestService } from './../services/funder-requests.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -35,9 +33,8 @@ let AllFunderRequests: PeriodicElement[] = [];
 })
 
 export class RequestLenderComponent implements OnInit, OnDestroy {
-  @ViewChild('clickMe', { static: false }) clickMe: ElementRef<HTMLElement>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
 
   displayedColumns: string[] = ['name', 'date', 'price', 'status'];
@@ -156,6 +153,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           });
         }
         this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
         this.showMessage = false;
         this.spinner.hide();
         console.log('FunderAllRequests:', AllFunderRequests);
@@ -185,8 +184,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           element.status = 'AWAITING FOR FUND';
         });
         this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
-        // this.dataSource.paginator = this.paginator;
-        // this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
         console.log('AllawaitingRequests:', AllAwaitingRequests);
         this.spinner.hide();
         if (this.dataSource.filteredData.length == 0) {
