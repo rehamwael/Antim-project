@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { AppState, customerState, selectAuthenticationState } from './../store/app.states';
-import { EditCustomerRequest, DeleteCustomerRequests, IsUpdatedFalse } from './../store/actions/customer.actions';
+import { EditCustomerRequest, DeleteCustomerRequests, DeleteDraftRequest, IsUpdatedFalse } from './../store/actions/customer.actions';
 import { Observable } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material';
@@ -134,6 +134,13 @@ export class CustomerRequestDetailsComponent implements OnInit {
   ];
   getUserState: Observable<any>;
   currentUser: any;
+  showAlert = false;
+  disableButton = false;
+  priceWithDelivery: number;
+  deliveryFee: number;
+  deliveryFees: number;
+  isdeliveryFees: boolean;
+  isdelivered = false;
 
   constructor(private modalService: NgbModal,
     private _formBuilder: FormBuilder,
@@ -163,6 +170,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.requestDetails = res.result;
         this.productList = res.result.customerRequestProducts.slice();
         console.log('REQUEST DETAILS: ', res.result);
+        this.isdeliveryFees = res.result.isDelieveryFees;
+        this.deliveryFees = res.result.delieveryFees;
         this.requestDate = moment(res.result.createdAt).format('LL');
         this.monthlyInstallment = res.result.monthlyPaybackAmount;
         this.requestName = res.result.name;
@@ -249,6 +258,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       TotalAmount: [''],
       installmentPeriod: [''],
       MonthlyInstallment: [''],
+      DelieveryFees: [''],
       FundingAmount: [''],
       RequestStatus: [''],
     });
@@ -267,6 +277,11 @@ export class CustomerRequestDetailsComponent implements OnInit {
       InstallmentPeriod: [{ disabled: true }],
       InstallmentPerMonth: [{ disabled: true }],
       FinalProduct: [{ disabled: true }]
+    });
+    this.customerRequestService.getConfigData('deliveryFees').subscribe(res => {
+      this.deliveryFee = res.result.value;
+    }, err => {
+      console.log(err);
     });
 
   }
@@ -289,7 +304,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
     const actionPayload = {
       id: this.requestID
     };
-    this.store.dispatch(new DeleteCustomerRequests(actionPayload));
+    this.store.dispatch(new DeleteDraftRequest(actionPayload));
   }
 
   editRequestInfo() {
@@ -331,6 +346,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
       this.showOptions = true;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     }
+    this.priceWithDelivery = this.totalPriceWithProfit;
   }
   onFocusoutMethod() {
     this.totalPrice = 0;
@@ -379,9 +395,10 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       // 'MonthlyPaybackAmount': this.monthlyInstallment,
-      'TotalPaybackAmount': this.totalPriceWithProfit,
+      'TotalPaybackAmount': this.priceWithDelivery,
       'Type': 5,
-      'Products': this.productList
+      'Products': this.productList,
+      'isDelieveryFees': this.isdelivered
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
   }
@@ -394,9 +411,10 @@ export class CustomerRequestDetailsComponent implements OnInit {
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
       // 'MonthlyPaybackAmount': this.monthlyInstallment,
-      'TotalPaybackAmount': this.totalPriceWithProfit,
+      'TotalPaybackAmount': this.priceWithDelivery,
       'Type': 6,
-      'Products': this.productList
+      'Products': this.productList,
+      'isDelieveryFees': this.isdelivered
     };
     this.store.dispatch(new EditCustomerRequest(actionPayload));
   }
@@ -423,4 +441,34 @@ export class CustomerRequestDetailsComponent implements OnInit {
     };
     this.store.dispatch(new DeleteCustomerRequests(actionPayload));
   }
+  ShowAlert() {
+    this.isdelivered = true;
+    this.showAlert = true;
+    this.disableButton = true;
+    this.priceWithDelivery = 1 * this.totalPriceWithProfit + 1 * this.deliveryFee;
+  }
+  HideAlert() {
+    this.isdelivered = false;
+    this.showAlert = false;
+    this.disableButton = true;
+    if (this.priceWithDelivery == this.totalPriceWithProfit) {
+      this.priceWithDelivery = this.totalPriceWithProfit;
+    } else {
+      this.priceWithDelivery = 1 * this.priceWithDelivery - 1 * this.deliveryFee;
+    }
+  }
+  rescheduleRequest() {
+    this.spinner.show();
+    this.customerRequestService.requestReschedule(this.requestID).subscribe(res => {
+      console.log(res);
+      this.spinner.hide();
+      this.modalService.dismissAll();
+      this.profileService.showSuccessToastr(res);
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+      this.profileService.showErrorToastr(err.error.message);
+    });
+  }
+
 }

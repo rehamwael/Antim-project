@@ -105,7 +105,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.profileService.contactUs({
       'Name': this.name,
       'Email': this.email,
-      'PhoneNumber': this.mobile,
+      // 'PhoneNumber': this.mobile,
       'CommentType': this.messageType,
       'Message': this.message
     }).subscribe((res) => {

@@ -62,14 +62,23 @@ export class CustomerRequestService {
     );
   }
 
-  deleteCustomerRequest(id: any): Observable<any> {
+  cancelCustomerRequest(id: any): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.delete(`${this.Url}CustomerRequest/DeleteRequest?id=${id}`, this.httpOptions).pipe(
+    return this.httpClient.delete(`${this.Url}CustomerRequest/CancelRequest?id=${id}`, this.httpOptions).pipe(
       tap((res: any) => {
         // console.log('In deleteCustomerRequest service:', res);
       })
     );
   }
+  DeleteDraftRequest(id: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.delete(`${this.Url}CustomerRequest/DeleteDraftRequest?id=${id}`, this.httpOptions).pipe(
+      tap((res: any) => {
+        // console.log('In deleteCustomerRequest service:', res);
+      })
+    );
+  }
+
   getFilteredRequestsByDate(fromDate, toDate): Observable<any> {
     this.getTokenAndHeaders();
     return this.httpClient.get(`${this.Url}CustomerRequest/GetCustomerRequests?dateFrom=${fromDate}&dateTo=${toDate}`,
@@ -94,5 +103,19 @@ export class CustomerRequestService {
     );
   }
 
+  getConfigData(deliveryFees: any) {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}ConfigData/GetConfigDataByKey?key=${deliveryFees}`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+  requestReschedule(id: any): Observable<any> {
+    this.getTokenAndHeaders();
+    return this.httpClient.post(`${this.Url}CustomerRequest/RequestReschedule?customerRequestId=${id}`, null, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
 }

@@ -35,14 +35,24 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
     public translate: TranslateService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
-    translate.addLangs([ 'english' , 'arabic']);
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
-    this.userLang = "english";
-    this.translate.onLangChange.subscribe((event) => {
-      this.userLang=event.lang;
-    });
-    translate.setDefaultLang(this.userLang);
+    let currentLanguage  =  this.translate.getBrowserLang();
+    if(currentLanguage == "en"){
+       currentLanguage = "english";
+    }else{
+      currentLanguage = "arabic";
+    }
+
+    this.translate.setDefaultLang(currentLanguage);
+    this.translate.use(currentLanguage);
+    console.log(currentLanguage);
+    // translate.addLangs([ 'english' , 'arabic']);
+    // const browserLang = translate.getBrowserLang();
+    // translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
+    // this.userLang = "english";
+    // this.translate.onLangChange.subscribe((event) => {
+    //   this.userLang=event.lang;
+    // });
+    // translate.setDefaultLang(this.userLang);
   }
 
   ngOnInit(): void {

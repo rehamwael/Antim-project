@@ -8,6 +8,7 @@ import { AppState, selectAuthenticationState, customerState } from './../store/a
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { AddCustomerRequest, IsUpdatedFalse } from '../store/actions/customer.actions';
 import { ProfileService } from '../services/userProfile.service';
+import { CustomerRequestService } from '../services/customer-request.service';
 
 @Component({
   selector: 'app-create-order',
@@ -33,6 +34,11 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   totalProducts: any;
   requestType: any;
   disabledAgreement = false;
+  showAlert = false;
+  disableButton = false;
+  priceWithDelivery: number;
+  deliveryFee: number;
+  isdelivered = false;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -57,6 +63,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private store: Store<AppState>,
     private profileService: ProfileService,
+    private customerService: CustomerRequestService,
   ) {
     this.getCustomerState = this.store.select(customerState);
     this.getUserState = this.store.select(selectAuthenticationState);
@@ -72,6 +79,11 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       if (this.checkIsUpdated == true) {
         this.modalService.open(this.content, { centered: false });
       }
+    });
+    this.customerService.getConfigData('deliveryFees').subscribe(res => {
+      this.deliveryFee = res.result.value;
+    }, err => {
+      console.log(err);
     });
 
     const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
@@ -138,6 +150,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.showOptions = true;
       console.log('totalPriceWithProfit :', this.totalPriceWithProfit);
     }
+    this.priceWithDelivery = this.totalPriceWithProfit;
   }
 
   onChange(Value) {
@@ -179,7 +192,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       // 'MonthlyPaybackAmount': this.monthlyPrice,
       // 'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 5,
-      'Products': this.userPoductList
+      'Products': this.userPoductList,
+      'isDelieveryFees': this.isdelivered
     };
     this.store.dispatch(new AddCustomerRequest(actionPayload));
   }
@@ -199,7 +213,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       // 'MonthlyPaybackAmount': this.monthlyPrice,
       // 'TotalPaybackAmount': this.totalPriceWithProfit,
       'Type': 6,
-      'Products': this.userPoductList
+      'Products': this.userPoductList,
+      'isDelieveryFees': this.isdelivered
     };
     this.store.dispatch(new AddCustomerRequest(actionPayload));
   }
@@ -212,7 +227,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.userPoductList.map(product => {
       this.totalPrice = 1 * this.totalPrice + 1 * product.amount;
     });
-   }
+  }
 
   addMoreItems() {
     this.userPoductList.push({
@@ -228,6 +243,23 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.disabledAgreement = true;
     } else {
       this.disabledAgreement = false;
+    }
+  }
+
+  ShowAlert() {
+    this.isdelivered = true;
+    this.showAlert = true;
+    this.disableButton = true;
+    this.priceWithDelivery = 1 * this.totalPriceWithProfit + 1 * this.deliveryFee;
+  }
+  HideAlert() {
+    this.isdelivered = false;
+    this.showAlert = false;
+    this.disableButton = true;
+    if (this.priceWithDelivery == this.totalPriceWithProfit) {
+      this.priceWithDelivery = this.totalPriceWithProfit;
+    } else {
+      this.priceWithDelivery = 1 * this.priceWithDelivery - 1 * this.deliveryFee;
     }
   }
 

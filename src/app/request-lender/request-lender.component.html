@@ -31,66 +31,47 @@
                 </div>
                 <form class="col-lg-4">
                 <div class="form-group">
-                    <label for="Type" class="font-size-13">Select Request Type</label>
-                    <select class="form-control form-control-lg mb-2 custom-select" [(ngModel)]="selectedRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
-                            <option value="My Requests">My All Requests</option>
-                            <option value="Ongoing">My Ongoing Requests</option>
-                            <option value="Closed">My Closed Requests</option>
-                            <option value="Awaiting Fund">All Awaiting Fund Requests</option>
-
-                    </select>
+                  <label for="Type" class="font-size-13">{{ 'Requests.SelectRequestType' | translate }}</label>
+                  <select class="form-control form-control-lg mb-2§ custom-select" [(ngModel)]="CustomerRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
+                    <!-- <option *ngFor="let options of requestTypes" >{{options.type}}</option> -->
+                    <option value=""  selected disabled>{{ 'Requests.SelectRequestType' | translate }}</option>
+                    <option value="{{ 'Requests.AllRequests' | translate }}">{{ 'Requests.AllRequests' | translate }} </option>
+                    <option value="{{ 'Requests.AwaitingforFundRequests' | translate }}">{{ 'Requests.AwaitingforFundRequests' | translate }}</option>
+                    <option value="{{ 'Requests.ClosedRequests' | translate }}">{{ 'Requests.ClosedRequests' | translate }} </option>
+                    <option value="{{ 'Requests.RejectedRequests' | translate }}">{{ 'Requests.RejectedRequests' | translate }} </option>
+                    <option value="{{ 'Requests.OngoingRequests' | translate }} ">{{ 'Requests.OngoingRequests' | translate }} </option>
+                    <option value="{{ 'Requests.DraftRequests' | translate }} ">{{ 'Requests.DraftRequests' | translate }}  </option>
+                    <option value="{{ 'Requests.UnderReviewRequests' | translate }}">{{ 'Requests.UnderReviewRequests' | translate }}  </option>
+                 </select>
                 </div>
                 </form>
                 <div class="col-lg-1"></div>
                 <div class="col-lg-3" >
-                    <label  class="font-size-13">Search :</label>
+                    <label  class="font-size-13">{{ 'Notifications.search' | translate }} :</label>
                     <input  class="form-control form-control-lg mb-3" (keyup)="Search($event.target.value)" >
             </div>
-                <!-- <form class="col-lg-2">
-                        <div class="form-group">
-                          <label for="amount" class="font-size-13">Funding amount (SAR)</label>
-                          <div class="input-group">
-                                <select class="form-control form-control-lg mb-2§ custom-select">
-                                        <option value="0 - 2000" selected>0 - 2000</option>
-                                        <option value="2000 - 5000">2000 - 5000</option>
-                                        <option value="5000 - 10000">5000 - 10000</option>
-                                        <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-
-                                </select>
-                            </div>
-                        </div>
-                      </form> -->
-                <!-- <form class="col-lg-2">
-                        <div class="form-group">
-                            <label for="Filter" class="font-size-13">Filter Date</label>
-                            <div class="input-group">
-                            <input (click)="dp.toggle()" class="form-control date-picker" placeholder="mm-dd-yyyy" name="dp" ngbDatepicker #dp="ngbDatepicker">
-                            <i class="fa fa-calendar"></i>
-                            </div>
-                        </div>
-                        </form> -->
             </div>
             <div class="col-lg-11 row justify-content-end mt-5 dashbored-info">
               <div class="justify-content-center col-lg-12">
                       <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8 mb-5" cellpadding="20">
 
                               <ng-container matColumnDef="name">
-                                <th mat-header-cell *matHeaderCellDef >Request Name </th>
+                                <th mat-header-cell *matHeaderCellDef>{{ 'Requests.RequestName' | translate }} </th>
                                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                               </ng-container>
 
                               <ng-container matColumnDef="date">
-                                <th mat-header-cell *matHeaderCellDef >Request Date</th>
+                                <th mat-header-cell *matHeaderCellDef>{{ 'Requests.RequestDate' | translate }}</th>
                                 <td mat-cell *matCellDef="let element"> {{element.date}} </td>
                               </ng-container>
 
                               <ng-container matColumnDef="price">
-                                <th mat-header-cell *matHeaderCellDef > Total Price </th>
+                                <th mat-header-cell *matHeaderCellDef> {{ 'Requests.TotalPrice' | translate }} </th>
                                 <td mat-cell *matCellDef="let element"> {{element.price}} </td>
                               </ng-container>
 
                               <ng-container matColumnDef="status">
-                                <th mat-header-cell *matHeaderCellDef > Request Status </th>
+                                <th mat-header-cell *matHeaderCellDef>{{ 'Requests.RequestStatus' | translate }} </th>
                                 <td mat-cell *matCellDef="let element" class="mat-cell {{element.status}}"> {{element.status}} </td>
                               </ng-container>
 
@@ -100,15 +81,15 @@
                               </tr>
                             </table>
                             <div *ngIf="showMessage">
-                                <h3 class="error">No Data Found</h3>
-                              </div>
+                              <h3 class="error">{{ 'Requests.NoRequestsFound' | translate }}</h3>
+                            </div>
                               <!-- <div style="margin-top: 10px;">
                                   <mat-paginator [pageSizeOptions]="[10]" ></mat-paginator>
                               </div> -->
              </div>
              <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
              color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-             <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+             <p style="color: white; margin-top:50px;font-size: 26px;" >  {{ 'SignUp.Loading' | translate }}</p>
              </ngx-spinner>
           </div>
         </div>
@@ -120,7 +101,7 @@
                 <div class="mat-card row p-4 m-0">
                     <div class="header col-lg-9">
                       <span class="icon-close" (click)="closeProductDetails()"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
-                      <h1 class="ml-5">Request Details</h1>
+                      <h1 class="ml-5">{{ 'Requests.RequestDetails' | translate }} </h1>
                     </div>
 
                   </div>
@@ -129,60 +110,60 @@
                 <!-- <div class="col-lg-12"><h3 class="headingh3">Request Details</h3></div> -->
                 <div class="row" style="width: 100%;">
                     <div class="col-lg-8">
-                        <label for="Name" class="font-bold mt-2">Request Name: </label>
+                        <label for="Name" class="font-bold mt-2">{{ 'Requests.RequestName' | translate }}: </label>
                         <input  class="form-control form-control-lg" value="{{requestName}}" readonly  placeholder="Request Name"  [attr.disabled]="true">
                     </div>
                     <div class="col-lg-4">
-                      <label  class="font-bold mt-2">Request Number: </label>
+                      <label  class="font-bold mt-2">{{ 'Requests.RequestNumber' | translate }} : </label>
                       <input  class="form-control form-control-lg" value="{{requestDetails?.requestNumber}}" readonly   [attr.disabled]="true">
                   </div>
 
                   </div>
                   <div class="row" style="width: 100%;" *ngFor="let product of productList; let i = index;" >
                       <div class="form-group text-left col-lg-9"   >
-                          <label  class="font-bold mt-2">Product Link</label>
+                          <label  class="font-bold mt-2">{{ 'Requests.ProductLink' | translate }} </label>
                           <input  class="form-control form-control-lg"  type="text" readonly value="{{product.productUrl}}">
                       </div>
                       <div class="form-group text-left col-lg-3"   >
-                          <label  class="font-bold mt-2">Product Price:</label>
+                          <label  class="font-bold mt-2">{{ 'Requests.ProductPrice' | translate }} :</label>
                           <input  class="form-control form-control-lg"   type="number" readonly value="{{product.amount}}">
                         </div>
                     </div>
                     <div class="row" style="width: 100%;">
                         <div class="col-lg-6">
-                          <label for="RequestDate" class="font-bold mt-2">Request Date</label>
+                          <label for="RequestDate" class="font-bold mt-2">{{ 'Requests.RequestDate' | translate }}</label>
                           <input  class="form-control form-control-lg" value="{{requestDate}}" placeholder="Request Date" readonly [attr.disabled]="true">
                       </div>
                       <div class="col-lg-6">
-                        <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
+                        <label for="RequestStatus" class="font-bold mt-2">{{ 'Requests.RequestStatus' | translate }} </label>
                         <input  class="form-control form-control-lg " value="{{RequestType}}" readonly placeholder="Request Status" [attr.disabled]="true">
                       </div>
                   </div>
                   <div class="row" style="width: 100%;">
                     <div class="col-lg-6">
-                      <label for="Amount" class="font-bold mt-2">Total price</label>
+                      <label for="Amount" class="font-bold mt-2">{{ 'Requests.TotalPrice' | translate }}</label>
                       <input  class="form-control form-control-lg" value="{{totalPrice}}" placeholder="Total price"  [attr.disabled]="true" readonly>
                   </div>
                   <div class="col-lg-6">
-                    <label for="Amount" class="font-bold mt-2">Total Funder Profit</label>
+                    <label for="Amount" class="font-bold mt-2">{{ 'Requests.TotalFunderProfit' | translate }}</label>
                     <input  class="form-control form-control-lg" value="{{totalProfit}}" placeholder="Total profit"  [attr.disabled]="true" readonly>
                 </div>
               </div>
                   <div class="row" style="width: 100%;">
                       <div class="col-lg-6" >
-                         <label for="Installment" class="font-bold mt-2">Installment Period</label>
+                         <label for="Installment" class="font-bold mt-2">{{ 'Requests.InstallmentPeriod' | translate }} </label>
                          <input class="form-control form-control-lg" value="{{installmentPeriod}}" readonly placeholder="Installment Period" [attr.disabled]="true">
                      </div>
 
                          <div class="col-lg-6">
-                             <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
+                             <label for="InstallmentAmount" class="font-bold mt-2">{{ 'Requests.MonthlyInstallment' | translate }} </label>
                              <input  class="form-control form-control-lg" value="{{monthlyInstallment}}" placeholder="Monthly Installment"  readonly  [attr.disabled]="true">
                          </div>
                      </div>
 
                 <div class="row" style="width: 100%;">
                         <div class="col-lg-6" >
-                          <label  class="font-bold mt-2">Product Status</label>
+                          <label  class="font-bold mt-2">{{ 'Requests.ProductStatus' | translate }} </label>
                           <input  class="form-control form-control-lg " value="{{productStatus}}" readonly [attr.disabled]="true" >
                         </div>
                       </div>
@@ -192,27 +173,27 @@
                         <div class="justify-content-center col-lg-12" >
 
                           <div class="row my-3 justify-content-center" style="width: 100%;" *ngIf="showTable">
-                              <h3  class="font-bold">Installment Details</h3>
+                              <h3  class="font-bold">{{ 'Requests.InstallmentDetails' | translate }}  </h3>
                            </div>
 
                             <table mat-table [dataSource]="InstallmentDetailsTable" id="InstallmentDetailsTable" class="mat-elevation-z8 my-2" cellpadding="20" *ngIf="showTable" >
 
                                 <ng-container matColumnDef="months">
-                                    <th mat-header-cell *matHeaderCellDef >No. </th>
+                                    <th mat-header-cell *matHeaderCellDef >{{ 'Requests.No' | translate }} </th>
                                     <td mat-cell *matCellDef="let element"> {{element.month}} </td>
                                   </ng-container>
                                   <ng-container matColumnDef="dueDate">
-                                      <th mat-header-cell *matHeaderCellDef >Due Date </th>
+                                      <th mat-header-cell *matHeaderCellDef >{{ 'Requests.DueDate' | translate }}  </th>
                                       <td mat-cell *matCellDef="let element"> {{element.date}} </td>
                                   </ng-container>
 
                                   <ng-container matColumnDef="price">
-                                    <th mat-header-cell *matHeaderCellDef > Monthly Installment </th>
+                                    <th mat-header-cell *matHeaderCellDef>{{ 'Requests.MonthlyInstallment' | translate }} </th>
                                     <td mat-cell *matCellDef="let element"> {{element.price}} </td>
                                   </ng-container>
 
                                   <ng-container matColumnDef="status">
-                                    <th mat-header-cell *matHeaderCellDef >Status</th>
+                                    <th mat-header-cell *matHeaderCellDef >{{ 'Requests.Status' | translate }}</th>
                                     <td mat-cell *matCellDef="let element" class="mat-cell {{element.status}}"> {{element.status}} </td>
                                   </ng-container>
 

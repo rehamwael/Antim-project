@@ -175,14 +175,14 @@ export class ProfileService {
   }
   uploadAccountStatement(formData: any): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.patch(`${this.Url}UserBanks/UploadAccountStatement`, formData, this.httpOptions).pipe(
+    return this.httpClient.patch(`${this.Url}UserBanks/UploadAccountStatements`, formData, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
   }
   uploadSalaryStatement(formData: any): Observable<any> {
     this.getTokenAndHeaders();
-    return this.httpClient.patch(`${this.Url}UserBanks/UploadSalaryStatement`, formData, this.httpOptions).pipe(
+    return this.httpClient.patch(`${this.Url}UserBanks/UploadSalaryStatements`, formData, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
@@ -221,7 +221,7 @@ export class ProfileService {
     // var eng = message.slice(0, indexToSplit);
     // var arb = message.slice(indexToSplit + 1);
     if (this.userLang == 'english') {
-      this.showEnglishToast('OK!!', errorMessage[0], 'error');
+      this.showEnglishToast('Error!!', errorMessage[0], 'error');
     }
     if (this.userLang == 'arabic') {
       this.showArabicToast('خطأ!', errorMessage[1], 'error');

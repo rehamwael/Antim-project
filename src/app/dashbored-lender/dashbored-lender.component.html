@@ -26,7 +26,7 @@
       <div class="row" *ngIf="currentUser">
         <div class="col-lg-1"></div>
         <div class="col-lg-10 mt-3 alert alert-warning " *ngIf="!currentUser?.emailConfirmed">
-                <p> <i class="mr-1 fa fa-exclamation-circle"></i>
+                <p  class= "mb-0"> <i class="mr-1 fa fa-exclamation-circle"></i>
                     {{ 'Dashbored.EmailnoTverified' | translate }} 
                       <u><a (click)="resendEmail()"> {{ 'Dashbored.ResendVerificationLink' | translate }}   </a></u>
                     </p>
@@ -38,7 +38,7 @@
                         <div class="col-lg-6 px-0" >
                                 <p class="grey-text-color">{{ 'Dashbored.WelcomeMsg1' | translate }} {{currentUser?.firstName}}! {{ 'Dashbored.WelcomeMsg2' | translate }}</p>
                             </div>
-                        <form class="col-lg-4" *ngIf="currentUser">
+                        <form class="col-lg-4" *ngIf="funderDashboardData">
                         <div class="form-group">
                             <label for="dateOfBirth" class="balance-style mt-2">{{ 'Dashbored.YourAntimBalance' | translate }}<span style="color: green; font-size: 17px;">{{funderDashboardData?.funderBalance}} {{ 'Dashbored.SAR' | translate }} </span> </label>
 

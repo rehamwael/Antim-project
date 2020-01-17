@@ -44,7 +44,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
-  selectedRequestType = 'My Requests';
+  selectedRequestType = '';
   selectedProduct = false;
   productStatus: any;
   customerRequestId: any;
@@ -129,21 +129,32 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   GetFunderAllRequests() {
     this.spinner.show();
     this.funderRequestService.getFunderAllRequests().subscribe(res => {
-      if (res.message) {
+      console.log(res);
+      if (res.result.otherRequests.length == 0 && res.result.awaitingRequests == null) {
         this.showMessage = true;
         this.spinner.hide();
-        this.profileService.showErrorToastr(res.message);
+        // this.profileService.showErrorToastr(res.message);
       } else {
-        this.funderRequestData = res.result;
         AllFunderRequests.length = 0;
-        console.log(this.funderRequestData);
-        this.funderRequestData.forEach(element => {
-          AllFunderRequests.push(element);
-          element.name = element.requestName;
-          element.date = moment(element.startingDate).format('LL');
-          element.price = element.fundedAmount + ' SAR';
-          element.status = this.requestTypes[element.requestType].type;
-        });
+        this.funderRequestData = res.result.otherRequests;
+        this.awaitingRequestsData = res.result.awaitingRequests;
+        if (this.funderRequestData.length > 0) {
+          this.funderRequestData.forEach(element => {
+            AllFunderRequests.push(element);
+            element.name = element.requestName;
+            element.date = moment(element.startingDate).format('LL');
+            element.price = element.fundedAmount + ' SAR';
+            element.status = this.requestTypes[element.requestType].type;
+          });
+        }
+        if (this.awaitingRequestsData != null) {
+          this.awaitingRequestsData.forEach(element => {
+            AllFunderRequests.push(element);
+            element.date = moment(element.updatedAt).format('LL');
+            element.price = element.totalFundAmount + ' SAR';
+            element.status = 'AWAITING FOR FUND';
+          });
+        }
         this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
         this.showMessage = false;
         this.spinner.hide();
@@ -153,57 +164,67 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.spinner.hide();
       console.log(err);
     });
+  }
 
+  getFundingLimitingMatchingRequest() {
+    this.spinner.show();
+    this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
+      console.log(res);
+      if (res.message) {
+        this.dataSource = new MatTableDataSource<PeriodicElement>(null);
+        this.showMessage = true;
+        // this.profileService.showErrorToastr(res.message);
+        this.spinner.hide();
+      } else {
+        this.awaitingRequestsData = res.result;
+        AllAwaitingRequests.length = 0;
+        this.awaitingRequestsData.forEach(element => {
+          AllAwaitingRequests.push(element);
+          element.date = moment(element.updatedAt).format('LL');
+          element.price = element.totalFundAmount + ' SAR';
+          element.status = 'AWAITING FOR FUND';
+        });
+        this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
+        console.log('AllawaitingRequests:', AllAwaitingRequests);
+        this.spinner.hide();
+        if (this.dataSource.filteredData.length == 0) {
+        } else {
+          this.showMessage = false;
+        }
+      }
+    }, err => {
+      console.log(err);
+      this.spinner.hide();
+      this.profileService.showErrorToastr(err.error.message);
+    });
 
   }
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource<PeriodicElement>(null);
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
 
     this.getState.subscribe((state) => {
-     this.requestTypeInStore = state.requestType;
+      this.requestTypeInStore = state.requestType;
     });
 
-    this.selectedRequestType = 'My Requests';
+    // this.selectedRequestType = 'My Requests';
     let selectedFunderRequestType = localStorage.getItem('selectedFunderRequestType');
     if (this.requestTypeInStore == selectedFunderRequestType && selectedFunderRequestType != null) {
       this.selectedRequestType = this.requestTypeInStore;
-      this.spinner.show();
-      this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
-        if (res.message) {
-          this.dataSource = new MatTableDataSource<PeriodicElement>(null);
-          this.showMessage = true;
-          this.profileService.showErrorToastr(res.message);
-          this.spinner.hide();
-        } else {
-          this.awaitingRequestsData = res.result;
-          AllAwaitingRequests.length = 0;
-          this.awaitingRequestsData.forEach(element => {
-            AllAwaitingRequests.push(element);
-            element.date = moment(element.updatedAt).format('LL');
-            element.price = element.totalFundAmount + ' SAR';
-            element.status = 'AWAITING FOR FUND';
-          });
-          this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
-          console.log('AllawaitingRequests:', AllAwaitingRequests);
-          this.spinner.hide();
-          if (this.dataSource.filteredData.length == 0) {
-          } else {
-            this.showMessage = false;
-          }
-        }
-      }, err => {
-        console.log(err);
-        this.spinner.hide();
-      });
+      this.getFundingLimitingMatchingRequest();
+    } else if (selectedFunderRequestType == 'My Requests') {
+      this.selectedRequestType = selectedFunderRequestType;
+      this.GetFunderAllRequests();
+    } else if (selectedFunderRequestType == this.selectedRequestType) {
+      this.dataSource.filter = selectedFunderRequestType;
     } else {
       this.GetFunderAllRequests();
     }
-
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
@@ -218,51 +239,24 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.selectedRequestType = deviceValue;
     localStorage.setItem('selectedFunderRequestType', this.selectedRequestType);
     if (deviceValue == 'My Requests') {
+      this.dataSource = new MatTableDataSource<PeriodicElement>(null);
       this.GetFunderAllRequests();
       this.dataSource.filter = '';
       this.selectedRequestType = 'My Requests';
     }
-    if (deviceValue == 'Ongoing') {
+    if (deviceValue == 'Ongoing Requests') {
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
       this.dataSource.filter = deviceValue;
     }
-    if (deviceValue == 'Closed') {
+    if (deviceValue == 'Closed Requests') {
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
       this.dataSource.filter = deviceValue;
     }
-    if (deviceValue == 'Awaiting Fund') {
-      this.spinner.show();
-      this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
-        if (res.message) {
-          this.dataSource = new MatTableDataSource<PeriodicElement>(null);
-          this.showMessage = true;
-          this.profileService.showErrorToastr(res.message);
-          this.spinner.hide();
-        } else {
-          this.awaitingRequestsData = res.result;
-          AllAwaitingRequests.length = 0;
-          this.awaitingRequestsData.forEach(element => {
-            AllAwaitingRequests.push(element);
-            element.date = moment(element.updatedAt).format('LL');
-            element.price = element.totalFundAmount + ' SAR';
-            element.status = 'AWAITING FOR FUND';
-          });
-          this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
-          console.log('AllawaitingRequests:', AllAwaitingRequests);
-          this.spinner.hide();
-          if (this.dataSource.filteredData.length == 0) {
-          } else {
-            this.showMessage = false;
-          }
-        }
-      }, err => {
-        console.log(err);
-        this.spinner.hide();
-      });
+    if (deviceValue == 'AWAITING FOR FUND') {
+      this.dataSource = new MatTableDataSource<PeriodicElement>(null);
+      this.getFundingLimitingMatchingRequest();
     }
-    if (this.dataSource.filteredData.length == 0) {
+    if (this.dataSource.filteredData && this.dataSource.filteredData.length == 0) {
       this.showMessage = true;
     } else {
       this.showMessage = false;
@@ -271,7 +265,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   openProductDetails(row) {
     this.reqID = row.id;
     if (row.type == 1) {
-      this.store.dispatch(new SaveRequestType('Awaiting Fund'));
+      this.store.dispatch(new SaveRequestType('AWAITING FOR FUND'));
       this.router.navigate(['requests-funder', this.reqID]);
     } else {
       this.spinner.show();
@@ -285,7 +279,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         this.totalPrice = res.result.fundedAmount;
         this.totalPriceWithProfit = res.result.totalPaybackAmount;
         this.totalProfit = this.totalPriceWithProfit - this.totalPrice;
-        this.totalProfit = Math.round((this.totalProfit * 80) / 100) ;
+        this.totalProfit = Math.round((this.totalProfit * 80) / 100);
         this.monthlyInstallment = Math.round((this.totalPrice + this.totalProfit) / (res.result.paybackPeriod * 3));
         this.installmentPeriod_ENUM = res.result.paybackPeriod;
         if (this.installmentPeriod_ENUM === 1) {
@@ -321,7 +315,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
               InstallmentDetails.push(element);
               element.month = i;
               element.date = moment(element.dueDate).format('LL');
-              element.price = Math.round((element.amount - element.intimeMonthlyProfit) ) + ' SAR';
+              element.price = Math.round((element.amount - element.intimeMonthlyProfit)) + ' SAR';
               element.status = this.amountStatus[element.status].type;
               i++;
             });

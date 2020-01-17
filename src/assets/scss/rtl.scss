@@ -14,6 +14,7 @@
     }
     th.mat-header-cell {
         text-align: right;
+        direction: rtl;
     }
     body , .navbar-expand-lg .navbar-collapse{
         direction: rtl !important;
@@ -79,6 +80,10 @@
     .bottom-sidebar {
         right: 0.4em;
     }
+    .dropdown-menu.lang-selector-dropdown.show .dropdown-item {
+        padding-right: 15px;
+        text-align: right;
+    }
     .page-wraper-right.row.arabic-full {
         margin-left: 0 !important;
     }
@@ -89,6 +94,14 @@
     img.antim-img-header {
         height: 88%;
         top: -20px;
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+    .welcome-card img {
+        position: relative;
+        left: 1em;
+        top: -0.6em;
+        height: 95px;
         -webkit-transform: scaleX(-1);
         transform: scaleX(-1);
     }
@@ -198,6 +211,68 @@
     span.fa.fa-search.form-control-feedback {
         left: 29px;
         right: auto;
+    }
+    .font-size-13 {
+        direction: rtl;
+    }
+    a.sidebar-link:nth-child(3) span.hide-menu.ml-3 {
+        margin-right: 0 !important;
+    }
+    .mat-horizontal-stepper-header-container {
+        direction: rtl;
+    }
+    .welcome-card.inner .col-lg-2.px-0{
+        margin-right: -2.5em;
+        margin-left: 0;
+    }
+    .headingh3 , .mat-horizontal-stepper-content h3{
+        letter-spacing: 0;
+    }
+    .col-lg-11.row.justify-content-end.mt-5.dashbored-info {
+        max-width: 100%;
+    }
+    tr.mat-row:after {
+        position: absolute;
+        width: .52em;
+        left: 3.6em;
+        top: 3.6em;
+        transform: rotate(224deg);
+    }
+    .checkmark1[_ngcontent-qte-c2] {
+        right: 8px;
+        left:auto
+    }
+    .container1[_ngcontent-qte-c2] {
+        padding-left: 0;
+        padding-right: 43px;
+    }
+    td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+        padding-right: 24px;
+        padding-left: 0;
+    }
+    form .mat-form-field label {
+        text-align: right;
+        direction: rtl;
+    }
+    .mat-input-element {
+        text-align: right !important;
+    }
+    .more-item-button svg {
+        left: 4px;
+    }
+    .mt-3.row .col-lg-7 p {
+        direction: rtl;
+    }
+    a.close-icon {
+        position: absolute;
+        left: 2em;
+        right: auto;
+    }
+    .antim-form  .col-lg-12.mt-5 .col-lg-8{
+        float: right;
+    }
+    .antim-form label {
+        direction: rtl;
     }
     .ml-3 {
         margin-right: 1rem !important;

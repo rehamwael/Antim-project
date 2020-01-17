@@ -13,12 +13,12 @@ import { Store } from '@ngrx/store';
 import { AuthService } from '../../auth/auth.service';
 import {
   AuthenticationActionTypes,
-  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile, AccountDeActivate
+  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile, AccountDeActivate, EditUserProfileSuccess
 } from '../actions/auth.actions';
 import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
 import {
-  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, GetRequestsCountSuccess,
+  CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, DeleteDraftRequest, GetRequestsCountSuccess,
   DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess, GetAllRequestsFailure, RemoveRequestsFromStore
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -150,6 +150,7 @@ export class AuthenticationEffects {
       // console.log('huhuh',payload);
       return this.userDataService.editUser(payload).pipe(
         map((res) => {
+          this.store.dispatch(new EditUserProfileSuccess(payload));
           this.userLang = this.translate.currentLang;
           console.log('User Info edited:', res);
           this.spinner.hide();
@@ -168,15 +169,16 @@ export class AuthenticationEffects {
     tap(() => {
       this.spinner.show();
       return this.customerService.customerAllRequests().subscribe(res => {
+        this.store.dispatch(new IsApiCallTrue());
         console.log(res);
+        this.spinner.hide();
         if (res.result) {
           this.store.dispatch(new SaveAllCustomerRequests(res.result));
         }
         if (res.message) {
+          // this.userDataService.showErrorToastr(res.message);
           this.store.dispatch(new GetAllRequestsFailure());
-          this.userDataService.showErrorToastr(res.message);
         }
-        this.spinner.hide();
       }, err => {
         this.spinner.hide();
         console.log('Error:', err.error);
@@ -232,7 +234,7 @@ export class AuthenticationEffects {
     map((action: DeleteCustomerRequests) => action.payload),
     switchMap(payload => {
       this.spinner.show();
-      return this.customerService.deleteCustomerRequest(payload.id).pipe(
+      return this.customerService.cancelCustomerRequest(payload.id).pipe(
         map((res) => {
           console.log(' Deleted:', res);
           this.spinner.hide();
@@ -249,5 +251,27 @@ export class AuthenticationEffects {
         }));
     }));
 
+    @Effect({ dispatch: false })
+    DeleteDraftRequest: Observable<any> = this.actions.pipe(
+      ofType(CustomerActionTypes.DELETE_DRAFT_REQUEST),
+      map((action: DeleteDraftRequest) => action.payload),
+      switchMap(payload => {
+        this.spinner.show();
+        return this.customerService.DeleteDraftRequest(payload.id).pipe(
+          map((res) => {
+            console.log(' Deleted:', res);
+            this.spinner.hide();
+            this.modalService.dismissAll();
+            this.router.navigate(['/requests-customer']);
+            this.userDataService.showSuccessToastr(res);
+            this.store.dispatch(new DeleteRequestSuccess(payload));
+          }),
+          catchError(error => {
+            console.log(' ERROR:', error);
+            this.modalService.dismissAll();
+            this.spinner.hide();
+            return of(this.userDataService.showErrorToastr(error.error.message));
+          }));
+      }));
 
 }

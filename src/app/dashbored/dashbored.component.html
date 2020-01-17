@@ -24,9 +24,10 @@
                 <div class="row" *ngIf="currentUser">
                   <div class="col-lg-1"></div>
                   <div class="col-lg-10 mt-3 alert alert-warning " *ngIf="!currentUser?.emailConfirmed">
-                    <p> <i class="mr-1 fa fa-exclamation-circle"></i>
+                    <p class= "mb-0"> <i class="mr-1 fa fa-exclamation-circle"></i>
                       {{ 'Dashbored.EmailnoTverified' | translate }} 
                         <u><a (click)="resendEmail()"> {{ 'Dashbored.ResendVerificationLink' | translate }}   </a></u>
+
                       </p>
                   </div>
                 </div>

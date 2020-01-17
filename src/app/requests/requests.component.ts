@@ -40,7 +40,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'price', 'type'];
   dataSourceAll = new MatTableDataSource<any>(allCustomerRequestData);
   selection = new SelectionModel<any>(true, []);
-  CustomerRequestType = 'All Requests';
+  CustomerRequestType = '';
   productStatus: any;
   index: any;
   allRequestData: any;
@@ -83,16 +83,15 @@ export class RequestsComponent implements OnInit, OnDestroy {
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
       this.getState.subscribe((state) => {
-        if (state.requestsArrayIsEmpty == true) {
-          this.isDatainArray = false;
+        console.log('in requests', state);
+        if (state.requestsArrayIsEmpty == false) {
+          this.isDatainArray = true;
           resolve();
         }
         if (state.isApiCall == false && state.customerRequestsData.length == 0) {
           this.store.dispatch(new GetAllCustomerRequests());
         } else {
-          if (state.requestsArrayIsEmpty == false) {
-            this.isDatainArray = true;
-          }
+          this.isDatainArray = true;
           this.allRequestData = state.customerRequestsData;
           this.showMessage = false;
           resolve(state.customerRequestsData);
@@ -102,8 +101,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const customerRequestType = localStorage.getItem('customerRequestType');
-    const selectedtype = localStorage.getItem('selectedCustomerRequestType');
+    let customerRequestType = localStorage.getItem('customerRequestType');
+    let selectedtype = localStorage.getItem('selectedCustomerRequestType');
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
@@ -120,10 +119,10 @@ export class RequestsComponent implements OnInit, OnDestroy {
           allCustomerRequestData.push(element);
           // element.date = moment(element.createdAt).format('LL');
           element.date = moment(element.updatedAt).format('LL');
-          element.price = element.totalPaybackAmount + ' SAR';
+          element.price = element.totalPaybackAmount + element.delieveryFees + ' SAR';
           element.status = this.requestTypes[element.type].type;
         });
-        this.CustomerRequestType = 'All Requests';
+        // this.CustomerRequestType = 'All Requests';
         this.dataSourceAll = new MatTableDataSource<any>(allCustomerRequestData);
         // console.log('customerAllRequests:', allCustomerRequestData);
         this.dataSourceAll.paginator = this.paginator;
@@ -136,7 +135,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
       if (customerRequestType == selectedtype && customerRequestType != null && selectedtype != null ) {
         this.CustomerRequestType = customerRequestType;
         this.dataSourceAll.filter = customerRequestType;
-      }  else {
+      }  else if (customerRequestType != selectedtype) {
         this.CustomerRequestType = 'All Requests';
         this.dataSourceAll.filter = '';
       }

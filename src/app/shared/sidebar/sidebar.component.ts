@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { User } from './../../store/models/users';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { Logout, UserProfile, SaveTotalNotifications } from './../../store/actions/auth.actions';
 import { NotificationsService } from '../../services/notifications.service';
@@ -57,6 +56,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.translate.onLangChange.subscribe((event) => {
       this.userLang=event.lang;
     });
+    translate.setDefaultLang(this.userLang);
+
   }
 
   // End open close
@@ -69,7 +70,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       }
       this.currentUser = state.userProfile;
       this.notificationsCount = state.totalUnReadNotifications;
-      if (this.notificationsCount == 0) {
+      if (state.totalUnReadNotifications == 0) {
         this.showCount = false;
       }
       if (this.currentUser) {
