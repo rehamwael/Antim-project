@@ -55,6 +55,23 @@ export class FunderRequestsDetailsComponent implements OnInit {
     productUrl: '',
     amount: null
   }];
+  installmentMonths: any[] = [
+    {
+      type: 'Null'
+    },
+    {
+      type: '3 Months'
+    },
+    {
+      type: '6 Months'
+    },
+    {
+      type: '9 Months'
+    },
+    {
+      type: '12 Months'
+    }
+  ];
 
 
   constructor(private modalService: NgbModal,
@@ -100,18 +117,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
       this.totalProfit = this.totalPriceWithProfit - this.totalPrice;
       this.totalProfit = Math.round((this.totalProfit * 80) / 100);
       this.installmentPeriod_ENUM = res.result.paybackPeriod;
-      if (this.installmentPeriod_ENUM === 1) {
-        this.installmentPeriod = '3-Months';
-      }
-      if (this.installmentPeriod_ENUM === 2) {
-        this.installmentPeriod = '6-Months';
-      }
-      if (this.installmentPeriod_ENUM === 3) {
-        this.installmentPeriod = '9-Months';
-      }
-      if (this.installmentPeriod_ENUM === 4) {
-        this.installmentPeriod = '12-Months';
-      }
+      this.installmentPeriod = this.installmentMonths[res.result.paybackPeriod].type;
       this.monthlyInstallment = Math.round((this.totalProfit + this.totalPrice) / (res.result.paybackPeriod * 3));
       this.requestType_ENUM = res.result.type;
       if (this.requestType_ENUM == 1) {
@@ -129,12 +135,12 @@ export class FunderRequestsDetailsComponent implements OnInit {
     this.funderRequestService.addFunderRequest({
       'CustomerRequestId': this.requestID
     }).subscribe(res => {
-      this.spinner.hide();
-      console.log(res);
       localStorage.setItem('selectedFunderRequestType', 'My Requests');
       this.modalService.dismissAll();
+      this.spinner.hide();
       this.profileService.showSuccessToastr(res);
       this.router.navigateByUrl('/requests-funder');
+      console.log(res);
     }, err => {
       this.spinner.hide();
       console.log(err);

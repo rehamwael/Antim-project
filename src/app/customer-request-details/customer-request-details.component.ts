@@ -178,18 +178,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.totalPrice = res.result.totalFundAmount;
         this.totalPriceWithProfit = res.result.totalPaybackAmount;
         this.installmentPeriod_ENUM = res.result.paybackPeriod;
-        // if (this.installmentPeriod_ENUM === 1) {
-        //   this.installmentPeriod = '3-Months';
-        // }
-        // if (this.installmentPeriod_ENUM === 2) {
-        //   this.installmentPeriod = '6-Months';
-        // }
-        // if (this.installmentPeriod_ENUM === 3) {
-        //   this.installmentPeriod = '9-Months';
-        // }
-        // if (this.installmentPeriod_ENUM === 4) {
-        //   this.installmentPeriod = '12-Months';
-        // }
         this.installmentPeriod = this.installmentTypes[res.result.paybackPeriod].type;
         this.requestType_ENUM = res.result.type;
         this.requestType = this.requestTypes[res.result.type].type;
