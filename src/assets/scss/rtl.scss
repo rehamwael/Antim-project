@@ -12,6 +12,9 @@
     ul.navbar-nav.mr-auto.mt-2 {
         margin-top: 0.25rem !important;
     }
+    th.mat-header-cell {
+        text-align: right;
+    }
     body , .navbar-expand-lg .navbar-collapse{
         direction: rtl !important;
     }
@@ -63,6 +66,21 @@
     }
     .header-inner h1 , .grey-text-color , .form-antim label{
         letter-spacing: 0;
+        direction: rtl;
+    }
+    .page-wraper-right.row.arabic-full .col-lg-11 {
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+    .profile .user-info .material-icons svg {
+        right: 0;
+        left: 9px;
+    }
+    .bottom-sidebar {
+        right: 0.4em;
+    }
+    .page-wraper-right.row.arabic-full {
+        margin-left: 0 !important;
     }
     .d-flex{
         text-align: right;
@@ -151,6 +169,20 @@
     }
     .dashbored-nav .dropdown-item{
         direction: inherit;
+        direction: rtl;
+       text-align: right;
+    }
+    .setting-dropdown-hide-small.dropdown {
+        direction: rtl;
+        i svg{
+            transform: scale(0.65);
+            position: relative;
+            top: 8px;
+        }
+    }
+    .modal-header .close {
+        padding: 1rem;
+        margin: -1rem -1rem -1rem 0;
     }
     .dropdown-menu.show {
         top: 14px !important;
@@ -167,8 +199,8 @@
         left: 29px;
         right: auto;
     }
-    .sidebar-nav ul .sidebar-item .sidebar-link span {
-        margin-right: 1em;
+    .ml-3 {
+        margin-right: 1rem !important;
     }
     .left-sidebar{
         border-radius: 23px 0px 0px 23px;
@@ -189,6 +221,12 @@
         padding: 20px 36px 13px 0px;
         flex-direction: row-reverse;
 
+    }
+    .welcome-card.inner img {
+        right: -2.3em;
+        left: auto;
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
     }
     .dashbored-home .home span {
         margin-right: 1em !important;

@@ -8,6 +8,7 @@ import { FunderRequestService } from '../services/funder-requests.service';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProfileService } from '../services/userProfile.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashbored-lender',
@@ -21,6 +22,8 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
   funderDashboardData: any;
   email: any;
   error = false;
+  userLang: any;
+
 
   constructor(
     private emailService: UserEmailPasswordService,
@@ -29,8 +32,17 @@ export class DashboredLenderComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private spinner: NgxSpinnerService,
     private profileService: ProfileService,
+    public translate: TranslateService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+    translate.addLangs([ 'english' , 'arabic']);
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
+    this.userLang = "english";
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang=event.lang;
+    });
+    translate.setDefaultLang(this.userLang);
   }
 
   ngOnInit(): void {

@@ -857,7 +857,7 @@ ol {
 }
 .dropdown-menu.show{
     top: 14px !important;
-    left: 50px !important;
+    left: -72% !important;
     border: none;
     box-shadow: 0px 0px 10px 0px #eee;
     padding: 20px 0;
@@ -929,6 +929,27 @@ body.notification{
         svg path{
             fill : #5c1fd2;
         }
+    }
+}
+.page-wraper-right{
+    .dropdown-menu.lang-selector-dropdown.show{
+        top: 84% !important;
+        left: -72% !important;
+        box-shadow: auto !important;
+    }
+    .lang-selector{
+        color: #000;
+        position: relative;
+        top: -1px;
+        left: -4px;
+        svg{
+            position: relative;
+            top: -1px;
+            path{
+                stroke: #000;
+            }
+        } 
+
     }
 }
 div.modal-dialog-centered{

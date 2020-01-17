@@ -1,6 +1,6 @@
 <nav class="sidebar-nav">
     <a [routerLink]="[ '/' ]">
-        <img src="assets/images/logo-white.svg" alt="antim" class="logo">
+        <img src="assets/images/logo-white.svg" class="logo" alt="antim">
     </a>
 
     <ul class="user-info pt-4">
@@ -9,7 +9,7 @@
           <!-- <img src="assets/images/IMG_4216.JPG" alt="Avatar" class="avatar"> -->
             <div class="col-lg-8 ml-1">
             <p class="white-text mt-1" *ngIf="currentUser">
-                Hi {{currentUser?.firstName}}<br/>
+                {{ 'Dashbored.Hi' | translate }} {{currentUser?.firstName}}<br/>
                 <span>   {{role}}</span>
             </p>
         </div>
@@ -34,7 +34,7 @@
                             <path d="M8.68359 15.5537V13.5537H6.68359V15.5537H8.68359ZM14.3162 15.5537H16.3162V13.5537H14.3162V15.5537ZM10.6836 23.9109V15.5537H6.68359V23.9109H10.6836ZM8.68359 17.5537H14.3162V13.5537H8.68359V17.5537ZM12.3162 15.5537V23.9109H16.3162V15.5537H12.3162Z" fill="#707070" mask="url(#path-2-inside-1)"/>
                         </svg>
                     </i>
-                    <span class="hide-menu ml-3">Home</span>
+                    <span class="hide-menu ml-3">{{ 'HOME.home' | translate }}</span>
              </a>
 
 
@@ -49,7 +49,7 @@
                             </svg>
 
                 </i>
-                    <span class="hide-menu ml-3">My Requests</span>
+                    <span class="hide-menu ml-3">{{ 'Dashbored.MyRequest' | translate }}</span>
              </a>
 
 
@@ -63,7 +63,7 @@
                         </svg>
                 </i>
               </span>
-                    <span class="hide-menu ml-3">Notifications</span>
+                    <span class="hide-menu ml-3">{{ 'Notifications.Notifications' | translate }}</span>
                     <div class="notification-count ml-5 mr-2 " *ngIf="!showCount">
                     </div>
                     <div class="bg-white notification-count ml-5 mr-2 row" *ngIf="showCount">
@@ -83,10 +83,10 @@
                     <path d="M15.1108 15.0725L18.6664 11.526L15.1108 7.97955" stroke="#707070" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M18.6667 11.526H8" stroke="#707070" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                </i><span>Log out</span> </button>
+                </i><span>{{ 'Dashbored.LogOut' | translate }} </span> </button>
     </div>
     <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
     color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-    <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+    <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
     </ngx-spinner>
 </nav>

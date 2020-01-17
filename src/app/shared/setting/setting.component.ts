@@ -7,6 +7,8 @@ import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { ProfileService } from './../../services/userProfile.service';
 import { Logout, UserProfile } from './../../store/actions/auth.actions';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -19,16 +21,32 @@ export class SettingComponent implements OnInit, OnDestroy {
   currentUser: any;
   userId: any;
 
+  options: IndividualConfig;
+  userLang: "english";
+
   constructor(
     public router: Router,
     private modalService: NgbModal,
     private store: Store<AppState>,
     private spinner: NgxSpinnerService,
     private userProfileService: ProfileService,
+    private toastr: ToastrService, public translate: TranslateService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-top-right';
+    this.options.timeOut = 5000;
+    translate.addLangs([ 'english' , 'arabic']);
+    translate.setDefaultLang('english');
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
+    this.userLang = "english";
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang=event.lang;
+    });
   }
 
+  
   ngOnInit(): void {
     this.getState.subscribe((state) => {
       this.currentUser = state.userProfile;
@@ -46,6 +64,9 @@ export class SettingComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('dashbored');
     this.currentUser = null;
+  }
+  changeLanguage(lang: string) {
+    this.translate.use(lang);
   }
   deleteAccount() {
     this.userId = this.currentUser.id;

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material';
 import { ProfileService } from '../services/userProfile.service';
+import { TranslateService } from '@ngx-translate/core';
 
 let InstallmentDetails: any[] = [];
 
