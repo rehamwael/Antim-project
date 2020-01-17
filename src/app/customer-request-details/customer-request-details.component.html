@@ -28,11 +28,11 @@
 
           <div class="justify-content-center col-lg-11 mat-card mt-4 p-0 mb-5">
               <div class="mat-card row p-4 m-0">
-                  <div class="header col-lg-9">
+                  <div class="header col-lg-11">
                     <span class="icon-close" [routerLink]="['/requests-customer']"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
-                    <h1 class="ml-5">Request Details</h1>
+                    <h1 class="ml-5">{{ 'Requests.RequestDetails' | translate }}</h1>
                   </div>
-                  <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-3" *ngIf="requestType == 'Ongoing Requests'" (click)="openVerticallyCentered(content1)">Request reschedule</button>
+                  <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-3" *ngIf="requestType == 'Ongoing Requests'" (click)="openVerticallyCentered(content1)">{{ 'Requests.Requestreschedule' | translate }} </button>
 
                 </div>
                 <form class="col-lg-10 row antim-form p-5 mt-2 mb-5 m-auto" [formGroup]="editRequestForm">
@@ -52,17 +52,17 @@
                                 <path d="M8 11V17" stroke="#C5003E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 11V17" stroke="#C5003E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                               <span class="px-3">Delete</span>
+                               <span class="px-3">{{ 'Requests.Delete' | translate }}</span>
                            </button>
                         </div>
                       </div>
                     <div class="row" style="width: 100%;">
                       <div class="col-lg-8">
-                          <label for="Name" class="font-bold mt-2">Request Name: </label>
-                          <input formControlName="ProductName" class="form-control form-control-lg" value="{{requestName}}" readonly placeholder="Product Name"  [attr.disabled]="true">
+                          <label for="Name" class="font-bold mt-2">{{ 'Requests.RequestName' | translate }}: </label>
+                          <input formControlName="ProductName" class="form-control form-control-lg" value="{{requestName}}" readonly placeholder="{{ 'Requests.ProductName' | translate }}"  [attr.disabled]="true">
                       </div>
                       <div class="col-lg-4">
-                        <label  class="font-bold mt-2">Request Number: </label>
+                        <label  class="font-bold mt-2">{{ 'Requests.RequestNumber' | translate }}: </label>
                         <input  class="form-control form-control-lg" value="{{requestDetails?.requestNumber}}" readonly   [attr.disabled]="true">
                     </div>
                     </div>
@@ -70,53 +70,53 @@
 
                     <div class="row" style="width: 100%;" *ngFor="let product of productList; let i = index;" >
                         <div class="form-group text-left col-lg-9"   >
-                            <label  class="font-bold mt-2">Product Link</label>
-                            <input  class="form-control form-control-lg" placeholder="Enter product link here …" type="text" readonly value="{{product.productUrl}}">
+                            <label  class="font-bold mt-2">{{ 'Requests.ProductLink' | translate }}</label>
+                            <input  class="form-control form-control-lg" placeholder="{{ 'CreateOrder.ProductLink' | translate }}" type="text" readonly value="{{product.productUrl}}">
                         </div>
                         <div class="form-group text-left col-lg-3"   >
-                            <label  class="font-bold mt-2">Product Price:</label>
-                            <input  class="form-control form-control-lg" placeholder="Enter price here..."  type="number" readonly value="{{product.amount}}">
+                            <label  class="font-bold mt-2">{{ 'Requests.ProductPrice' | translate }}:</label>
+                            <input  class="form-control form-control-lg" placeholder="{{ 'CreateOrder.Enterpricehere' | translate }}"  type="number" readonly value="{{product.amount}}">
                           </div>
                       </div>
 
                     <div class="row" style="width: 100%;">
                         <div class="col-lg-4">
-                          <label for="RequestDate" class="font-bold mt-2">Request Date</label>
-                          <input formControlName="RequestDate" class="form-control form-control-lg" value="{{requestDate}}" placeholder="Request Date" readonly [attr.disabled]="true">
+                          <label for="RequestDate" class="font-bold mt-2">{{ 'Requests.RequestDate' | translate }}</label>
+                          <input formControlName="RequestDate" class="form-control form-control-lg" value="{{requestDate}}" placeholder="{{ 'Requests.RequestDate' | translate }}" readonly [attr.disabled]="true">
                       </div>
                       <div class="col-lg-4">
-                          <label for="Amount" class="font-bold mt-2">Total price</label>
-                          <input formControlName="FundingAmount" class="form-control form-control-lg" value="{{totalPrice}}" type="number" placeholder="Amount of funding"  [attr.disabled]="true" readonly>
+                          <label for="Amount" class="font-bold mt-2">{{ 'Requests.TotalPrice' | translate }}</label>
+                          <input formControlName="FundingAmount" class="form-control form-control-lg" value="{{totalPrice}}" type="number" placeholder="{{ 'Requests.Amountoffunding' | translate }}"  [attr.disabled]="true" readonly>
                       </div>
                       <div class="col-lg-4">
-                        <label for="totalAmount" class="font-bold mt-2">Total Payable Amount</label>
-                        <input formControlName="TotalAmount" class="form-control form-control-lg" value="{{totalPriceWithProfit}}" type="number" placeholder="Installment amount per month" [attr.disabled]="true" readonly>
+                        <label for="totalAmount" class="font-bold mt-2">{{ 'Requests.TotalPayableAmount' | translate }}</label>
+                        <input formControlName="TotalAmount" class="form-control form-control-lg" value="{{totalPriceWithProfit}}" type="number" placeholder="{{ 'CreateOrder.InstallmentAmountperMonth' | translate }}" [attr.disabled]="true" readonly>
                     </div>
                   </div>
 
                    <div class="row" style="width: 100%;">
                    <div class="col-lg-4" >
-                      <label for="Installment" class="font-bold mt-2">Installment Period</label>
-                      <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{installmentPeriod}}" placeholder="Installment Period" readonly [attr.disabled]="true">
+                      <label for="Installment" class="font-bold mt-2">{{ 'Requests.InstallmentPeriod' | translate }}</label>
+                      <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{installmentPeriod}}" placeholder="{{ 'Requests.InstallmentPeriod' | translate }}" readonly [attr.disabled]="true">
                   </div>
 
                       <div class="col-lg-4">
-                          <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
-                          <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}"   readonly placeholder="Installment amount per month" [attr.disabled]="true">
+                          <label for="InstallmentAmount" class="font-bold mt-2">{{ 'Requests.MonthlyInstallment' | translate }}</label>
+                          <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}"   readonly placeholder="{{ 'CreateOrder.InstallmentAmountperMonth' | translate }}" [attr.disabled]="true">
                       </div>
                       <div class="col-lg-4" *ngIf="isdeliveryFees">
-                        <label  class="font-bold mt-2">Delivery Fees</label>
+                        <label  class="font-bold mt-2">{{ 'CreateOrder.InstallmentAmountperMonth' | translate }}</label>
                         <input formControlName="DelieveryFees" class="form-control form-control-lg" value="{{deliveryFees}}"   readonly  [attr.disabled]="true">
                     </div>
                   </div>
                   <div class="row" style="width: 100%;">
                       <div class="col-lg-6">
-                        <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
+                        <label for="RequestStatus" class="font-bold mt-2">{{ 'Requests.RequestStatus' | translate }}</label>
                         <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{requestType}}" readonly [attr.disabled]="true">
                       </div>
 
                       <div class="col-lg-6" *ngIf="requestType == 'Ongoing Requests'">
-                        <label  class="font-bold mt-2">Product Status</label>
+                        <label  class="font-bold mt-2">{{ 'Requests.ProductStatus' | translate }}</label>
                         <input  class="form-control form-control-lg " value="{{productStatus}}" readonly [attr.disabled]="true" >
                       </div>
                       </div>
@@ -126,27 +126,27 @@
                         <div class="justify-content-center col-lg-12" >
 
                           <div class="row my-3 justify-content-center" style="width: 100%;" *ngIf="showTable">
-                              <h3  class="font-bold">Installment Details</h3>
+                              <h3  class="font-bold">{{ 'Requests.InstallmentDetails' | translate }}</h3>
                            </div>
 
                             <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8 my-2" cellpadding="20" *ngIf="showTable" >
 
                                 <ng-container matColumnDef="months">
-                                    <th mat-header-cell *matHeaderCellDef >No. </th>
+                                    <th mat-header-cell *matHeaderCellDef >{{ 'Requests.No' | translate }} </th>
                                     <td mat-cell *matCellDef="let element"> {{element.month}} </td>
                                   </ng-container>
                                   <ng-container matColumnDef="dueDate">
-                                            <th mat-header-cell *matHeaderCellDef >Due Date </th>
+                                            <th mat-header-cell *matHeaderCellDef >{{ 'Requests.DueDate' | translate }}</th>
                                             <td mat-cell *matCellDef="let element"> {{element.date}} </td>
                                           </ng-container>
 
                                           <ng-container matColumnDef="price">
-                                            <th mat-header-cell *matHeaderCellDef > Monthly Installment </th>
+                                            <th mat-header-cell *matHeaderCellDef >{{ 'Requests.MonthlyInstallment' | translate }}  </th>
                                             <td mat-cell *matCellDef="let element"> {{element.price}} </td>
                                           </ng-container>
 
                                           <ng-container matColumnDef="status">
-                                            <th mat-header-cell *matHeaderCellDef >Status</th>
+                                            <th mat-header-cell *matHeaderCellDef >{{ 'Requests.Status' | translate }}</th>
                                             <td mat-cell *matCellDef="let element" class="mat-cell {{element.status}}"> {{element.status}} </td>
                                           </ng-container>
 
@@ -168,7 +168,7 @@
                                     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <span class="px-3">Edit</span>
+                                    <span class="px-3">{{ 'Profile.Edit' | translate }}</span>
                                 </button>
                             </div>
 
@@ -176,7 +176,7 @@
                 </div>
                 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                 color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+                <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
                 </ngx-spinner>
                       </form>
             <br/>
@@ -184,57 +184,61 @@
             </div>
             <ng-template #content1 let-modal>
                 <div class="modal-header">
-                    <h4 class="modal-title">Reschedule the Request!</h4>
+                    <h4 class="modal-title">{{ 'Requests.RescheduletheRequest' | translate }}!</h4>
                     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
               <div class="modal-body py-3">
                 <h3 class=" px-2">
-                  Are you sure you want to Reschedule this Request?
+                    {{ 'Requests.RescheduletheRequestSure' | translate }}
+                  
                 </h3>
                 <div class="row py-2" style="width: 100%;">
                   <div class="col-lg-6"></div>
-                  <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="rescheduleRequest()">Yes</button></div>
-                  <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">No</button></div>
+                  <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="rescheduleRequest()">{{ 'Requests.Yes' | translate }}</button></div>
+                  <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Requests.Noo' | translate }}</button></div>
                </div>
               </div>
             </ng-template>
             <ng-template #contentDel let-modal>
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Request</h4>
+                    <h4 class="modal-title">{{ 'Requests.DeleteRequest' | translate }}</h4>
                     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                 <div class="modal-body py-4">
                   <p class="my-3 mx-3" style="text-align: center; font-size: 15px;">
-                        Do you really Want To Delete this Request Name : {{requestName}}?
+                      {{ 'Requests.DeleteRequestSure' | translate }}
+                       {{requestName}}?
                   </p>
                   <div class="row py-1" style="width: 100%;">
                   <div class="col-lg-3"></div>
-                  <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">No</button></div>
-                  <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteRequest()">Yes</button></div>
+                  <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')"> {{ 'Requests.Noo' | translate }}</button></div>
+                  <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteRequest()">{{ 'Requests.Yes' | translate }}</button></div>
 
                   </div>
                 </div>
               </ng-template>
               <ng-template #contentCancel let-modal>
                   <div class="modal-header">
-                      <h4 class="modal-title">Cancel Request</h4>
+                      <h4 class="modal-title">{{ 'Requests.CancelRequest' | translate }}</h4>
                       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body py-4">
                         <p class="my-3 mx-3" style="text-align: center; font-size: 15px;">
-                          Do you really Want To Cancel this Request Name : {{requestName}}?
-                          If you cancel this Request, it would be permanently deleted.
+                            {{ 'Requests.CancelRequestSure1' | translate }}
+                             {{requestName}}?
+                             {{ 'Requests.CancelRequestSure2' | translate }}
+                          
                     </p>
                     <div class="row py-2" style="width: 100%;">
                         <div class="col-lg-3"></div>
-                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">No</button></div>
-                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="cancelRequest()">Yes</button></div>
+                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Requests.Noo' | translate }}</button></div>
+                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="cancelRequest()">{{ 'Requests.Yes' | translate }}</button></div>
 
                     </div>
                   </div>
@@ -247,7 +251,9 @@
             <div class="mat-card row welcome-card inner p-0 m-1">
                     <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
                     <div class="col-lg-10 col-8 px-0">
-                        <p class="grey-text-color mt-4">Well, it is very easy to edit your request, just follow the below steps!
+                        <p class="grey-text-color mt-4">
+                            {{ 'Requests.EditRequestAsk' | translate }}
+                          
                             </p>
                     </div>
             </div>
@@ -257,15 +263,15 @@
                 <form [formGroup]="firstFormGroup">
                           <ng-template matStepLabel>
                               <img src="assets/images/add-product.svg">
-                              <p class="font-size-13 mt-2">Edit Product</p>
+                              <p class="font-size-13 mt-2">{{ 'Requests.EditProduct' | translate }}</p>
                           </ng-template>
                           <div class="my-4">
-                            <h3 class="mb-4 mt-4">Enter product Detail(s)</h3>
+                            <h3 class="mb-4 mt-4">{{ 'Requests.EnterproductDetail(s)' | translate }}</h3>
                           </div>
                         <div class="row" style="width: 100%;">
                           <div class="form-group text-left col-lg-12  " >
-                            <label for="name" class="font-bold mt-2">Request Name</label>
-                            <input formControlName="Name" class="form-control form-control-lg" placeholder="Enter Request name here …"  type="text" value="{{requestName}}" [(ngModel)]="requestName">
+                            <label for="name" class="font-bold mt-2">{{ 'Requests.RequestName' | translate }}</label>
+                            <input formControlName="Name" class="form-control form-control-lg" placeholder="{{ 'CreateOrder.EnterRequestNamehere' | translate }}"  type="text" value="{{requestName}}" [(ngModel)]="requestName">
                             <div *ngIf="firstFormGroup.controls['Name'].touched && firstFormGroup.controls['Name'].hasError('required')" class="error-msg alert alert-danger text-left">Request Name is required.</div>
                           </div>
                         </div>
@@ -273,12 +279,12 @@
                         <div class="row" style="width: 100%;" *ngFor="let product of productList; let i = index;" >
                             <a class="close-icon" (click)="removeItems(i)"><img src="assets/images/close.svg"></a>
                             <div class="form-group text-left col-lg-9"   >
-                                <label  class="font-bold mt-2">Product Link</label>
-                                <input  class="form-control form-control-lg" placeholder="Enter product link here …" type="text"  value="{{product.productUrl}}" [(ngModel)]="product.productUrl" [ngModelOptions]="{standalone: true}">
+                                <label  class="font-bold mt-2">{{ 'Requests.ProductLink' | translate }}</label>
+                                <input  class="form-control form-control-lg" placeholder="{{ 'CreateOrder.Enterproductlinkhere' | translate }}" type="text"  value="{{product.productUrl}}" [(ngModel)]="product.productUrl" [ngModelOptions]="{standalone: true}">
                             </div>
                             <div class="form-group text-left col-lg-3"   >
-                                <label  class="font-bold mt-2">Product Price:</label>
-                                <input  class="form-control form-control-lg" placeholder="Enter price here..."  type="number" digitOnly value="{{product.amount}}" [(ngModel)]="product.amount" [ngModelOptions]="{standalone: true}" (focusout)="onFocusoutMethod()">
+                                <label  class="font-bold mt-2">{{ 'Requests.ProductPrice' | translate }}:</label>
+                                <input  class="form-control form-control-lg" placeholder="{{ 'CreateOrder.Enterpricehere' | translate }}"  type="number" digitOnly value="{{product.amount}}" [(ngModel)]="product.amount" [ngModelOptions]="{standalone: true}" (focusout)="onFocusoutMethod()">
                               </div>
                           </div>
 
@@ -291,28 +297,28 @@
                                     <path d="M10 6.91309V15.2609" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M6 11.0869H14" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                  </svg>
-
-                            More Item</button>
+                                 {{ 'CreateOrder.MoreItem' | translate }}
+                            </button>
                             </div>
                             </div>
 
                             <div class="mt-3 row ">
                                     <div class=" col-lg-7" >
-                                        <p style="font-weight: bold; font-size: 26px;" class="mt-3">Total Price Of Products : </p>
+                                        <p style="font-weight: bold; font-size: 26px;" class="mt-3"> {{ 'CreateOrder.TotalPriceOfProducts' | translate }} : </p>
                                         <input class="form-control form-control-lg"  value="{{totalPrice}}" readonly>
                                     </div>
                                   </div>
 
                                <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-3">
                                      <div class="form-group col-lg-3">
-                                        <button mat-button (click)="nextStep(matStep)" [disabled]="!firstFormGroup.valid" class="btn btn-info btn-lg btn-block btn-purple ">Next </button>
+                                        <button mat-button (click)="nextStep(matStep)" [disabled]="!firstFormGroup.valid" class="btn btn-info btn-lg btn-block btn-purple ">{{ 'CreateOrder.Next' | translate }} </button>
                                       </div>
                                  </div>
                             </form>
                             <div class="alert mt-3 alert-warning row" role="alert">
                               <p class= "mb-0">
                                 <i class="mr-1 fa fa-exclamation-circle"></i>
-                                 <b>  Note: </b>Please make sure that Total Price must be greater than <b>500 SAR</b> and less than <b>10000 SAR.</b>
+                                 <b> {{ 'CreateOrder.Note' | translate }} : </b>{{ 'CreateOrder.CreateOrderNote' | translate }}
                             </p>
                           </div>
                           </mat-step>
@@ -321,23 +327,23 @@
                               <form [formGroup]="secondFormGroup" class="Payment-Details-form">
                                 <ng-template matStepLabel>
                                     <img src="assets/images/Payment-Details.svg">
-                                    <p class="font-size-13 mt-2">Payment Details</p>
+                                    <p class="font-size-13 mt-2"></p>
                                 </ng-template>
                                 <div class="row mt-4">
                                 <div class="col-lg-6">
-                                    <label for="Installment" class="font-bold mt-2">Select Installment Peroid</label>
+                                    <label for="Installment" class="font-bold mt-2">{{ 'CreateOrder.SelectInstallmentPeroid' | translate }}</label>
                                     <select formControlName="firstCtrl" matNativeControl required class="form-control custom-select form-control-lg mt-3" (change)="onChange($event.target.value)">
-                                      <option value="" selected>Please Select Installment Period</option>
-                                      <option value="3-Months">3 Months</option>
-                                      <option value="6-Months">6 Months</option>
-                                      <option *ngIf="showOptions" value="9-Months">9 Months</option>
-                                      <option *ngIf="showOptions" value="12-Months">12 Months</option>
+                                      <option value="" selected>{{ 'CreateOrder.PleaseSelectInstallmentPeriod' | translate }}</option>
+                                      <option value="3-Months">{{ 'CreateOrder.3 Months' | translate }}</option>
+                                      <option value="6-Months">{{ 'CreateOrder.6 Months' | translate }}</option>
+                                      <option *ngIf="showOptions" value="9-Months">{{ 'CreateOrder.9 Months' | translate }}</option>
+                                      <option *ngIf="showOptions" value="12-Months">{{ 'CreateOrder.12 Months' | translate }}</option>
                                     </select>
                                     <svg class="arrow" style="top: 3.8em !important;" fill="none" height="14" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                                 </div>
 
                                 <div class="col-lg-6">
-                                    <label for="amount" class="font-bold mt-2">Installment Amount per Month </label>
+                                    <label for="amount" class="font-bold mt-2">{{ 'CreateOrder.InstallmentAmountperMonth' | translate }}</label>
                                     <input placeholder="E.g. 1200 SAR" class="form-control form-control-lg" formControlName="secondCtrl" type="number"  [(ngModel)]="monthlyInstallment" required readonly style="height: 53px;">
                                 </div>
                             </div>
@@ -348,16 +354,15 @@
                                             <path d="M7.5 11.1V8.5" stroke="#607AE6"/>
                                          </svg>
                                     </span> -->
-
-                                    The information selected at the top is subject to change based on your credit record and your premitted amount of SIMAH. We will call you if any change is made within a period not exceeding one hour.
+                                    {{ 'CreateOrder.Theinformationselected' | translate }}
                                     </p>
                                 <div>
                                 <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">
                                         <div class="form-group col-lg-4">
-                                                <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious >Back</button>
+                                                <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious >{{ 'SignUp.back' | translate }}</button>
                                         </div>
                                         <div class="form-group col-lg-3">
-                                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext [disabled]="!disabledSubmitButtonSecond">Next</button>
+                                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  mat-button matStepperNext [disabled]="!disabledSubmitButtonSecond">{{ 'SignUp.Next' | translate }}</button>
                                         </div>
                                 </div>
                                 </div>
@@ -366,7 +371,7 @@
                             <mat-step>
                                 <ng-template matStepLabel>
                                         <img src="assets/images/confirm.svg">
-                                        <p class="font-size-13 mt-2">Confirm</p>
+                                        <p class="font-size-13 mt-2">{{ 'CreateOrder.Confirm' | translate }}</p>
                                 </ng-template>
                                 <br/>
 
@@ -377,8 +382,9 @@
                                             <br/>and with the price showing in the request screen.
                                             </label>
                                     </div> -->
-                                    <label class="container col-lg-10 grey-text-color my-5">I agree on purchasing the request name : <b>{{requestName}} </b> showing in the request screen.
-                                      and with the price showing in the request screen.
+                                    <label class="container col-lg-10 grey-text-color my-5">
+                                        {{ 'CreateOrder.IagreeRequstName' | translate }}
+                                       <b>{{requestName}} </b>  {{ 'CreateOrder.showingRequestScreen' | translate }}
                                       <input type="checkbox" (change)="changeCheck($event)">
                                       <span class="checkmark"></span>
                                     </label>
@@ -388,11 +394,11 @@
 
                                     <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">
                                             <div class="form-group col-lg-3">
-                                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
+                                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>{{ 'SignUp.back' | translate }}</button>
                                             </div>
 
                                             <div class="form-group col-lg-3">
-                                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disabledAgreement" mat-button matStepperNext>Agree & Prceed
+                                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disabledAgreement" mat-button matStepperNext>{{ 'CreateOrder.AgreeProceed' | translate }}
                                                     </button>
                                             </div>
                                     </div>
@@ -400,7 +406,7 @@
                               <div class="alert mt-3 alert-warning" role="alert">
                                 <p class= "mb-0">
                                   <i class="mr-1 fa fa-exclamation-circle"></i>
-                                  <b>Note: </b>Dear {{currentUser?.firstName}} {{currentUser?.lastName}}, please note that, you can cancel the request while the status is "Under Review". However, if the request has been approved, then you will no longer be able to Cancel it.
+                                  <b>{{ 'CreateOrder.Note' | translate }}: </b>{{ 'CreateOrder.Dear' | translate }} {{currentUser?.firstName}} {{currentUser?.lastName}}, {{ 'CreateOrder.PleaseBoteCancel' | translate }}
                                 </p>
                               </div>
 
@@ -408,44 +414,44 @@
                             <mat-step [stepControl]="lastFormGroup">
                                 <ng-template matStepLabel>
                                         <img src="assets/images/summary.svg">
-                                        <p class="font-size-13 mt-2">Summary</p>
+                                        <p class="font-size-13 mt-2">{{ 'CreateOrder.Summary' | translate }}</p>
                                 </ng-template>
-                                <h3 class="mb-4 mt-5">Undertaking to Purchase</h3>
+                                <h3 class="mb-4 mt-5">{{ 'CreateOrder.UndertakingPurchase' | translate }}</h3>
                                 <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                         <mat-form-field>
-                                            <label for="numberOfProduct" class="font-bold mt-2">Number of product</label>
+                                            <label for="numberOfProduct" class="font-bold mt-2">{{ 'CreateOrder.Numberofproduct' | translate }}</label>
                                             <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} Product" readonly>
                                         </mat-form-field>
 
                                         <mat-form-field>
-                                            <label for="total" class="font-bold mt-2"> Total price of products:</label>
+                                            <label for="total" class="font-bold mt-2"> {{ 'CreateOrder.TotalPriceOfProduct' | translate }}:</label>
                                             <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="{{totalPrice}}" readonly>
                                         </mat-form-field>
 
                                         <mat-form-field>
-                                            <label for="InstallmentPeriod" class="font-bold mt-2">Installment Period</label>
+                                            <label for="InstallmentPeriod" class="font-bold mt-2">{{ 'CreateOrder.InstallmentPeriod' | translate }}</label>
                                             <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}" readonly>
                                         </mat-form-field>
 
                                         <mat-form-field>
-                                                <label for="InstallmentPerMonth" class="font-bold mt-2">Installment amount per month</label>
+                                                <label for="InstallmentPerMonth" class="font-bold mt-2">{{ 'CreateOrder.InstallmentAmountperMonth' | translate }}</label>
                                                 <input matInput class="form-control form-control-lg" formControlName="InstallmentPerMonth" value="{{monthlyInstallment}}" readonly>
                                         </mat-form-field>
 
                                         <mat-form-field>
-                                                <label for="FinalProduct" class="font-bold mt-2">Total Payable Product Price </label>
+                                                <label for="FinalProduct" class="font-bold mt-2">{{ 'CreateOrder.TotalPayableProductPrice' | translate }}</label>
                                                 <input matInput class="form-control form-control-lg" formControlName="FinalProduct" value="{{priceWithDelivery}}" [(ngModel)]="priceWithDelivery" readonly>
                                               </mat-form-field>
 
                                               <div class="row mt-5">
                                                 <div class="col-lg-6">
-                                                  <label class="container1">Deliver products to my Address
+                                                  <label class="container1">{{ 'CreateOrder.DeliverproductstoMyAddress' | translate }}
                                                   <input type="radio" name="gender" value="deliver" (click)="ShowAlert()" >
                                                   <span class="checkmark1"></span>
                                                   </label>
                                                  </div>
                                                   <div class="col-lg-6">
-                                                  <label class="container1">Pick up the products from Antim offices by myself
+                                                  <label class="container1">{{ 'CreateOrder.PickUptheProducts' | translate }}
                                                     <input type="radio" name="gender" value="self" (click)="HideAlert()" >
                                                     <span class="checkmark1"></span>
                                                     </label>
@@ -455,24 +461,25 @@
                                               <div class="alert mt-5 mb-2 alert-warning" role="alert" *ngIf="showAlert">
                                                 <p class="mb-0 grey-text-color">
                                                 <i class="fa fa-exclamation-circle"></i>
-                                                Selecting this option will require you to pay additional delivery fees of {{deliveryFee}} SAR.
+                                                {{ 'CreateOrder.SelectingadditionalDelivery' | translate }}{{deliveryFee}}{{ 'Dashbored.SAR' | translate }}
+
                                               </p>
                                             </div>
                                         <div>
                                         <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">
-                                                <div class="form-group col-lg-3">
-                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>Back</button>
-                                                </div>
-                                                <div class="form-group col-lg-4">
-                                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2" [disabled]="!disableButton" (click)="saveAsDraft(content)">Update as Draft</button>
-                                            </div>
-                                                <div class="form-group col-lg-3">
-                                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!disableButton" mat-button matStepperNext (click)="saveRequest(content3)">Submit Request</button>
+                                            <div class="form-group col-lg-3">
+                                                <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious> {{ 'SignUp.back' | translate }}</button>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <button class="btn btn-info btn-lg btn-block btn-black mt-2" [disabled]="!disableButton" (click)="saveAsDraft(content)"> {{ 'CreateOrder.SaveasDraft' | translate }}</button>
+                                    </div>
+                                        <div class="form-group col-lg-3">
+                                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!disableButton" mat-button matStepperNext (click)="saveRequest(content3)">{{ 'CreateOrder.SendRequest' | translate }}</button>
 
                                                 </div>
                                                 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                                                 color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                                <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+                                                <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
                                                 </ngx-spinner>
                                         </div>
                                         </div>
@@ -481,35 +488,39 @@
                           </mat-horizontal-stepper>
                           <ng-template #content3 let-modal>
                               <div class="modal-header">
-                                  <h4 class="modal-title">Request Sent!</h4>
+                                  <h4 class="modal-title">{{ 'CreateOrder.RequestSent' | translate }} </h4>
                                   <button type="button" class="close" aria-label="Close" (click)="closeModal()">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="modal-body">
                                   <p>
-                                        Thank you !<br/>
-                                         Your request has been Successfully sent, and will be verified if you are qualified for funding and will be responded to within 30 minutes.
+                                      {{ 'CreateOrder.Thankyou' | translate }}
+                                         {{currentUser?.firstName}},<br/>
+                                         {{ 'CreateOrder.ThankyourequestSuccessfully' | translate }}
+                                         
 
                                   </p>
-                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">OK</button></div>
+                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">{{ 'CreateOrder.OK' | translate }}</button></div>
 
                                 </div>
                               </ng-template>
                               <ng-template #content let-modal>
                                   <div class="modal-header">
-                                      <h4 class="modal-title">Request Updated</h4>
+                                      <h4 class="modal-title">{{ 'CreateOrder.RequestUpdated' | translate }}</h4>
                                       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                 <div class="modal-body">
                                   <p>
-                                      Thank you !<br/>
-                                      Your request has been Updated as Draft.
+                                      {{ 'CreateOrder.Thankyou' | translate }} !<br/>
+                                      {{ 'Requests.RequestUpdatedAsDraft' | translate }}
+                                      
+                                      
 
                                   </p>
-                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">OK</button></div>
+                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()"> {{ 'CreateOrder.OK' | translate }}</button></div>
 
                                 </div>
                               </ng-template>
