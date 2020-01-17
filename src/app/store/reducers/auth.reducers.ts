@@ -42,12 +42,12 @@ export function reducer(state = initialState, action: AuthenticationActions): St
         isAuthenticated: true
       };
     }
-    case AuthenticationActionTypes.EDIT_USER_PROFILE: {
+    case AuthenticationActionTypes.EDIT_USER_PROFILE_SUCCESS: {
       let data = action.payload;
       state.userProfile.firstName = data.FirstName;
-      // state.userProfile.email = data.Email;
-      // state.userProfile.phoneNumber = data.PhoneNumber;
-      // state.userProfile.nationalIdNumber = data.NationalIdNumber;
+      state.userProfile.lasstName = data.LastName;
+      state.userProfile.userName = data.UserName;
+      state.userProfile.nationalIdNumber = data.NationalIdNumber;
       let editedUser = state.userProfile;
       return {
             ...state,

@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { AuthService } from '../../auth/auth.service';
 import {
   AuthenticationActionTypes,
-  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile, AccountDeActivate
+  Login, LoginSuccess, LoginFailure, Logout, UserProfile, SaveUserProfile, EditUserProfile, AccountDeActivate, EditUserProfileSuccess
 } from '../actions/auth.actions';
 import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
@@ -150,6 +150,7 @@ export class AuthenticationEffects {
       // console.log('huhuh',payload);
       return this.userDataService.editUser(payload).pipe(
         map((res) => {
+          this.store.dispatch(new EditUserProfileSuccess(payload));
           this.userLang = this.translate.currentLang;
           console.log('User Info edited:', res);
           this.spinner.hide();

@@ -7,7 +7,8 @@ export enum AuthenticationActionTypes {
   LOGOUT = '[Authentication] Logout',
   USER_PROFILE = 'userProfile',
   SAVE_USER_PROFILE = 'saveUserProfile',
-  EDIT_USER_PROFILE = 'editUserProfile',
+  EDIT_USER_PROFILE = 'EditUserProfile',
+  EDIT_USER_PROFILE_SUCCESS = 'EditUserProfileSuccess',
   SAVE_TOTAL_NOTIFICATIONS = 'SaveTotalNotifications',
   READ_NOTIFICATION = 'ReadNotification',
   ACCOUNT_DEACTIVATE = 'AccountDeActivate',
@@ -43,6 +44,10 @@ export class EditUserProfile implements Action {
   readonly type = AuthenticationActionTypes.EDIT_USER_PROFILE;
   constructor(public payload: any) {}
 }
+export class EditUserProfileSuccess implements Action {
+  readonly type = AuthenticationActionTypes.EDIT_USER_PROFILE_SUCCESS;
+  constructor(public payload: any) {}
+}
 
 export class SaveTotalNotifications implements Action {
   readonly type = AuthenticationActionTypes.SAVE_TOTAL_NOTIFICATIONS;
@@ -65,6 +70,7 @@ export type AuthenticationActions =
   | UserProfile
   | SaveUserProfile
   | EditUserProfile
+  | EditUserProfileSuccess
   | SaveTotalNotifications
   | ReadNotification
   | AccountDeActivate;
