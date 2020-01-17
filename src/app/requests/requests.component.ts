@@ -101,8 +101,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const customerRequestType = localStorage.getItem('customerRequestType');
-    const selectedtype = localStorage.getItem('selectedCustomerRequestType');
+    let customerRequestType = localStorage.getItem('customerRequestType');
+    let selectedtype = localStorage.getItem('selectedCustomerRequestType');
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
@@ -119,7 +119,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
           allCustomerRequestData.push(element);
           // element.date = moment(element.createdAt).format('LL');
           element.date = moment(element.updatedAt).format('LL');
-          element.price = element.totalPaybackAmount + ' SAR';
+          element.price = element.totalPaybackAmount + element.delieveryFees + ' SAR';
           element.status = this.requestTypes[element.type].type;
         });
         // this.CustomerRequestType = 'All Requests';

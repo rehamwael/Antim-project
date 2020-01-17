@@ -220,6 +220,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     } else if (selectedFunderRequestType == 'My Requests') {
       this.selectedRequestType = selectedFunderRequestType;
       this.GetFunderAllRequests();
+    } else if (selectedFunderRequestType == this.selectedRequestType) {
+      this.dataSource.filter = selectedFunderRequestType;
     } else {
       this.GetFunderAllRequests();
     }
@@ -242,11 +244,11 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.dataSource.filter = '';
       this.selectedRequestType = 'My Requests';
     }
-    if (deviceValue == 'Ongoing') {
+    if (deviceValue == 'Ongoing Requests') {
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
       this.dataSource.filter = deviceValue;
     }
-    if (deviceValue == 'Closed') {
+    if (deviceValue == 'Closed Requests') {
       this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
       this.dataSource.filter = deviceValue;
     }
@@ -263,7 +265,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   openProductDetails(row) {
     this.reqID = row.id;
     if (row.type == 1) {
-      this.store.dispatch(new SaveRequestType('Awaiting Fund'));
+      this.store.dispatch(new SaveRequestType('AWAITING FOR FUND'));
       this.router.navigate(['requests-funder', this.reqID]);
     } else {
       this.spinner.show();
