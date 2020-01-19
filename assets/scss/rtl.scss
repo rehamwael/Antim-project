@@ -6,15 +6,8 @@
         font-family: 'Cairo', sans-serif !important;
         text-align: right;
     }
-    .row-arabic-revrese {
-        flex-direction: row !important;
-    }
     ul.navbar-nav.mr-auto.mt-2 {
         margin-top: 0.25rem !important;
-    }
-    th.mat-header-cell {
-        text-align: right;
-        direction: rtl;
     }
     body , .navbar-expand-lg .navbar-collapse{
         direction: rtl !important;
@@ -33,10 +26,9 @@
         right: auto;
     }
     header.bg-image ul.navbar-nav.ml-auto li a.nav-link.purple-btn{
-        padding: 10px 0 12px;
+        padding: 8px 0 11px;
         position: relative;
-        top: -1px;
-        font-weight: 500 !important;
+        top: -4px;
     }
     #langSelctor{
         margin: 5px 0 10px;
@@ -67,25 +59,6 @@
     }
     .header-inner h1 , .grey-text-color , .form-antim label{
         letter-spacing: 0;
-        direction: rtl;
-    }
-    .page-wraper-right.row.arabic-full .col-lg-11 {
-        max-width: 100%;
-        flex: 0 0 100%;
-    }
-    .profile .user-info .material-icons svg {
-        right: 0;
-        left: 9px;
-    }
-    .bottom-sidebar {
-        right: 0.4em;
-    }
-    .dropdown-menu.lang-selector-dropdown.show .dropdown-item {
-        padding-right: 15px;
-        text-align: right;
-    }
-    .page-wraper-right.row.arabic-full {
-        margin-left: 0 !important;
     }
     .d-flex{
         text-align: right;
@@ -94,14 +67,6 @@
     img.antim-img-header {
         height: 88%;
         top: -20px;
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
-    }
-    .welcome-card img {
-        position: relative;
-        left: 1em;
-        top: -0.6em;
-        height: 95px;
         -webkit-transform: scaleX(-1);
         transform: scaleX(-1);
     }
@@ -173,29 +138,11 @@
             display: none;
         }
     }
-    .dropdown-toggle svg {
-        right: 8px;
-        left: auto;
-    }
     .select-options-radio{
         text-align: center;
     }
     .dashbored-nav .dropdown-item{
         direction: inherit;
-        direction: rtl;
-       text-align: right;
-    }
-    .setting-dropdown-hide-small.dropdown {
-        direction: rtl;
-        i svg{
-            transform: scale(0.65);
-            position: relative;
-            top: 8px;
-        }
-    }
-    .modal-header .close {
-        padding: 1rem;
-        margin: -1rem -1rem -1rem 0;
     }
     .dropdown-menu.show {
         top: 14px !important;
@@ -212,70 +159,8 @@
         left: 29px;
         right: auto;
     }
-    .font-size-13 {
-        direction: rtl;
-    }
-    a.sidebar-link:nth-child(3) span.hide-menu.ml-3 {
-        margin-right: 0 !important;
-    }
-    .mat-horizontal-stepper-header-container {
-        direction: rtl;
-    }
-    .welcome-card.inner .col-lg-2.px-0{
-        margin-right: -2.5em;
-        margin-left: 0;
-    }
-    .headingh3 , .mat-horizontal-stepper-content h3{
-        letter-spacing: 0;
-    }
-    .col-lg-11.row.justify-content-end.mt-5.dashbored-info {
-        max-width: 100%;
-    }
-    tr.mat-row:after {
-        position: absolute;
-        width: .52em;
-        left: 3.6em;
-        top: 3.6em;
-        transform: rotate(224deg);
-    }
-    .checkmark1[_ngcontent-qte-c2] {
-        right: 8px;
-        left:auto
-    }
-    .container1[_ngcontent-qte-c2] {
-        padding-left: 0;
-        padding-right: 43px;
-    }
-    td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
-        padding-right: 24px;
-        padding-left: 0;
-    }
-    form .mat-form-field label {
-        text-align: right;
-        direction: rtl;
-    }
-    .mat-input-element {
-        text-align: right !important;
-    }
-    .more-item-button svg {
-        left: 4px;
-    }
-    .mt-3.row .col-lg-7 p {
-        direction: rtl;
-    }
-    a.close-icon {
-        position: absolute;
-        left: 2em;
-        right: auto;
-    }
-    .antim-form  .col-lg-12.mt-5 .col-lg-8{
-        float: right;
-    }
-    .antim-form label {
-        direction: rtl;
-    }
-    .ml-3 {
-        margin-right: 1rem !important;
+    .sidebar-nav ul .sidebar-item .sidebar-link span {
+        margin-right: 1em;
     }
     .left-sidebar{
         border-radius: 23px 0px 0px 23px;
@@ -296,12 +181,6 @@
         padding: 20px 36px 13px 0px;
         flex-direction: row-reverse;
 
-    }
-    .welcome-card.inner img {
-        right: -2.3em;
-        left: auto;
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
     }
     .dashbored-home .home span {
         margin-right: 1em !important;
