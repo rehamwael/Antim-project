@@ -37,13 +37,11 @@ export class SettingComponent implements OnInit, OnDestroy {
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
     translate.addLangs([ 'english' , 'arabic']);
-    translate.setDefaultLang('english');
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
     this.userLang = "english";
     this.translate.onLangChange.subscribe((event) => {
       this.userLang=event.lang;
     });
+
   }
 
   

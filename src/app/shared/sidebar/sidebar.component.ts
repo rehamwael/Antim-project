@@ -48,15 +48,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     public translate: TranslateService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
-    translate.addLangs([ 'english' , 'arabic']);
-    translate.setDefaultLang('english');
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/english|arabic/)? browserLang : 'english');
-    this.userLang = "english";
-    this.translate.onLangChange.subscribe((event) => {
-      this.userLang=event.lang;
-    });
-    translate.setDefaultLang(this.userLang);
 
   }
 
