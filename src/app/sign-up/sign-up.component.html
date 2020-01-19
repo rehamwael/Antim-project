@@ -74,61 +74,60 @@
       
                                 </div>
                                 <div class="form-group text-left col-lg-12">
-                                        <div class="form-group text-left col-lg-12">
-                                                <label for="email">{{ 'SignUp.Email' | translate }}<span class="red-color"> *</span></label>
-                                                <input formControlName="email" class="form-control form-control-lg" placeholder="{{ 'SignUp.TypeEmail' | translate }}" type="email" value="signupEmail" [(ngModel)]="signupEmail">
-                                                <div *ngIf="SigUpForm.controls['email'].touched && SigUpForm.controls['email'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.EmailRequired' | translate }}</div>
-                                                <div *ngIf="SigUpForm.controls['email'].touched && SigUpForm.controls['email'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.EmailValidate' | translate }}</div>
-                                         </div>
-                                         <div class="form-group text-left col-lg-12">
-                                            <label for="password">{{ 'SignUp.Password' | translate }}<span class="red-color"> *</span></label>
-                                            <input formControlName="password" class="form-control  form-control-lg" placeholder="************" type="password" [(ngModel)]="signupPassword">
-                                            <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.PasswordRequired' | translate }}</div>
-                                            <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.PasswordValidate' | translate }}</div>
-              
-                                        </div>
-                                        <div class="form-group text-left col-lg-12">
-                                          <label for="confirmPassword">{{ 'SignUp.ConfirmPassword' | translate }}<span class="red-color"> *</span></label>
-                                          <input formControlName="confirmPassword" class="form-control form-control-lg" placeholder="************" type="password"  [(ngModel)]="signupCPassword">
-                                          <div *ngIf="SigUpForm.controls['confirmPassword'].touched && SigUpForm.controls['confirmPassword'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.ConfirmPasswordrequired' | translate }}</div>
-                                          <div *ngIf="SigUpForm.controls['confirmPassword'].touched && SigUpForm.value.password != SigUpForm.value.confirmPassword" class="error-msg alert alert-danger text-left">{{ 'SignUp.ConfirmPasswordValidate' | translate }}</div>
-                                          <!-- <span id="message"></span> -->
-                                        </div>
+                                        <label for="email">{{ 'SignUp.Email' | translate }}<span class="red-color"> *</span></label>
+                                        <input formControlName="email" class="form-control form-control-lg" placeholder="{{ 'SignUp.TypeEmail' | translate }}" type="email" value="signupEmail" [(ngModel)]="signupEmail">
+                                        <div *ngIf="SigUpForm.controls['email'].touched && SigUpForm.controls['email'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.EmailRequired' | translate }}</div>
+                                        <div *ngIf="SigUpForm.controls['email'].touched && SigUpForm.controls['email'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.EmailValidate' | translate }}</div>
+                                 </div>
+                                 <div class="form-group text-left col-lg-12">
+                                    <label for="password">{{ 'SignUp.Password' | translate }}<span class="red-color"> *</span></label>
+                                    <input formControlName="password" class="form-control  form-control-lg" placeholder="************" type="password" [(ngModel)]="signupPassword">
+                                    <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.PasswordRequired' | translate }}</div>
+                                    <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.PasswordValidate' | translate }}</div>
+      
+                                </div>
+                                <div class="form-group text-left col-lg-12">
+                                  <label for="confirmPassword">{{ 'SignUp.ConfirmPassword' | translate }}<span class="red-color"> *</span></label>
+                                  <input formControlName="confirmPassword" class="form-control form-control-lg" placeholder="************" type="password"  [(ngModel)]="signupCPassword">
+                                  <div *ngIf="SigUpForm.controls['confirmPassword'].touched && SigUpForm.controls['confirmPassword'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.ConfirmPasswordrequired' | translate }}</div>
+                                  <div *ngIf="SigUpForm.controls['confirmPassword'].touched && SigUpForm.value.password != SigUpForm.value.confirmPassword" class="error-msg alert alert-danger text-left">{{ 'SignUp.ConfirmPasswordValidate' | translate }}</div>
+                                  <!-- <span id="message"></span> -->
+                                </div>
                                 <div class="form-group text-left col-lg-4">
-                                        <label for="countrycode">{{ 'SignUp.CountryCode' | translate }} <span class="red-color"> *</span></label>
-                                        <input formControlName="countrycode" class="form-control form-control-lg" placeholder="+966" type="number" [(ngModel)]="signupCountrycode">
-                                        <div *ngIf="SigUpForm.controls['countrycode'].touched && !SigUpForm.controls['countrycode'].valid" class="error-msg alert alert-danger text-left">{{ 'SignUp.CountryCodeValidate' | translate }}</div>
+                                    <label for="countrycode">{{ 'SignUp.CountryCode' | translate }}<span class="red-color"> *</span></label>
+                                    <input formControlName="countrycode" class="form-control form-control-lg" value="{{signupCountrycode}}" [(ngModel)]="signupCountrycode" readonly>
+                                    <div *ngIf="SigUpForm.controls['countrycode'].touched && !SigUpForm.controls['countrycode'].valid" class="error-msg alert alert-danger text-left">{{ 'SignUp.CountryCodeValidate' | translate }}</div>
                                  </div>
                                  <div class="form-group text-left col-lg-8">
                                     <label for="phone">{{ 'SignUp.MobileNo' | translate }}<span class="red-color"> *</span></label>
                                     <input  formControlName="phone" class="form-control form-control-lg" placeholder="323 4099635" type="number" (keyup)="inputNumber($event)" digitOnly
                                     oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                                     else { document.getElementById('phonenumber').style.visibility = 'visible'; }" [(ngModel)]="signupPhone">
-                                <div *ngIf="SigUpForm.controls['phone'].touched && SigUpForm.controls['phone'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.MobileNoRequired' | translate }}</div>
-                                <span class="redColor" id="phonenumber">{{ 'SignUp.MobileNoValidate' | translate }} </span>
+                                    <div *ngIf="SigUpForm.controls['phone'].touched && SigUpForm.controls['phone'].hasError('required')" class="error-msg alert alert-danger text-left">Phone Number is required</div>
+                                    <span class="redColor" id="phonenumber">{{ 'SignUp.MobileNoValidate' | translate }} </span>
                                  </div>
                                  <div class="row mb-4 justify-content-center align-items-center">
                                   <div class="col-lg-8 col-11 text-center">
                                       <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
                                       <label for="box-1">{{ 'SignUp.IAgreeOnMy' | translate }} <a [routerLink]="['/terms-conditions']" target="blank">{{ 'SignUp.TermsCondtions' | translate }}</a></label>
-                                    </div>
+                                  </div>
                                   <div class="col-lg-8 col-11 mt-4 text-center">
                                       <input type="checkbox" id="box-2"  (change)="changeCheck2($event)">
                                       <label for="box-2">{{ 'SignUp.IAgreeOnMy' | translate }} <a [routerLink]="['/terms-conditions']" target="blank">{{ 'SignUp.TermsCondtions' | translate }}</a></label>
-                                    </div>
+                                  </div>
                                  </div>
                                  <div class="col-lg-12 mt-2 row justify-content-center align-items-center pb-4">
                                  <div class="form-group col-lg-1"></div>
                                     <div class="form-group col-lg-4">
-                                            <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="PrevStep()">{{ 'SignUp.back' | translate }}</button>
-                                        </div>
+                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="PrevStep()">{{ 'SignUp.back' | translate }}</button>
+                                </div>
                                 <div class="form-group col-lg-4">
                                   <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="thirdStep()"
                                   [disabled]="!isButtonDisabled || !SigUpForm.valid">{{ 'SignUp.SignUp' | translate }}</button>
                                 </div>
                                 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                                 color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
+                                <p style="color: white; margin-top:50px;font-size: 26px;" >{{ 'SignUp.Loading' | translate }} </p>
                                 </ngx-spinner>
                                 </div>
                             <!-- </div> -->
@@ -156,17 +155,17 @@
                                 <input formControlName="Four" class="form-control form-control-lg" #four placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="Fourth" (keyup)="keytab($event, 4)">
                             </div>
                             <!-- <p class="mt-3 col-lg-12">The code will expire : 4:36</p> -->
-                            <p class="mt-3 col-lg-12">{{ 'SignUp.TheCodeWillExpire' | translate }}   <countdown [config]="{ leftTime: 300, format: 'm:s' }"></countdown></p>
+                            <p class="mt-3 col-lg-12">{{ 'SignUp.TheCodeWillExpire' | translate }}  <countdown [config]="{ leftTime: 300, format: 'm:s' }"></countdown></p>
                              <div class="col-lg-11 mt-3 row justify-content-center align-items-center">
                              <div class="form-group col-lg-6">
                                 <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="resendOTP()" >{{ 'SignUp.Resend' | translate }}</button>
                                 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                               color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                              <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
+                              <p style="color: white; margin-top:50px;font-size: 26px;" >{{ 'SignUp.Loading' | translate }} </p>
                               </ngx-spinner>
                             </div>
                             <div class="form-group col-lg-4">
-                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="goToLastStep()"  [disabled]="(!first && first!=0) || (!second && second!=0) ||(!third && third!=0) ||(!Fourth && Fourth!=0)">Verify</button>
+                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="goToLastStep()"  [disabled]="(!first && first!=0) || (!second && second!=0) ||(!third && third!=0) ||(!Fourth && Fourth!=0)">{{ 'SignUp.Verify' | translate }}</button>
                                 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                               color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
                               <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
@@ -197,7 +196,6 @@
                      </div>
                      </div>
             </div> -->
-        </div>
       
                 </form>
             </div>
