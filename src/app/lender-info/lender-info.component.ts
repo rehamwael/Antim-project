@@ -13,7 +13,7 @@ export class LenderInfoComponent implements OnInit , OnDestroy {
   constructor(public translate: TranslateService) {
     translate.addLangs([ 'english' , 'arabic']);
       this.translate.onLangChange.subscribe((event) => {
-        this.userLang=event.lang;
+        this.userLang = event.lang;
       });
   }
 

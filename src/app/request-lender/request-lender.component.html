@@ -32,16 +32,13 @@
                 <form class="col-lg-4">
                 <div class="form-group">
                   <label for="Type" class="font-size-13">{{ 'Requests.SelectRequestType' | translate }}</label>
-                  <select class="form-control form-control-lg mb-2§ custom-select" [(ngModel)]="CustomerRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
+                  <select class="form-control form-control-lg mb-2§ custom-select" [(ngModel)]="selectedRequestType" [ngModelOptions]="{standalone: true}" (change)="onChange($event.target.value)">
                     <!-- <option *ngFor="let options of requestTypes" >{{options.type}}</option> -->
                     <option value=""  selected disabled>{{ 'Requests.SelectRequestType' | translate }}</option>
                     <option value="{{ 'Requests.AllRequests' | translate }}">{{ 'Requests.AllRequests' | translate }} </option>
-                    <option value="{{ 'Requests.AwaitingforFundRequests' | translate }}">{{ 'Requests.AwaitingforFundRequests' | translate }}</option>
-                    <option value="{{ 'Requests.ClosedRequests' | translate }}">{{ 'Requests.ClosedRequests' | translate }} </option>
-                    <option value="{{ 'Requests.RejectedRequests' | translate }}">{{ 'Requests.RejectedRequests' | translate }} </option>
                     <option value="{{ 'Requests.OngoingRequests' | translate }} ">{{ 'Requests.OngoingRequests' | translate }} </option>
-                    <option value="{{ 'Requests.DraftRequests' | translate }} ">{{ 'Requests.DraftRequests' | translate }}  </option>
-                    <option value="{{ 'Requests.UnderReviewRequests' | translate }}">{{ 'Requests.UnderReviewRequests' | translate }}  </option>
+                    <option value="{{ 'Requests.ClosedRequests' | translate }}">{{ 'Requests.ClosedRequests' | translate }} </option>
+                    <option value="{{ 'Requests.AwaitingforFundRequests' | translate }}">{{ 'Requests.AwaitingforFundRequests' | translate }}</option>
                  </select>
                 </div>
                 </form>

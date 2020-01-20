@@ -40,12 +40,9 @@ export class DashboredComponent implements OnInit, OnDestroy {
   ) {
     this.getState = this.store.select(selectAuthenticationState);
     this.getCustomerState = this.store.select(customerState);
-    let currentLanguage  =  this.translate.getBrowserLang();
-    if(currentLanguage == "en"){
-       currentLanguage = "english";
-    }else{
-      currentLanguage = "arabic";
-    }
+
+    this.translate.setDefaultLang(this.translate.currentLang);
+    this.translate.use(this.translate.currentLang);
   }
 
   ngOnInit(): void {

@@ -7,12 +7,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./borrower-info.component.css']
 })
 export class BorrowerInfoComponent implements OnInit , OnDestroy {
-  userLang: "english";
+  userLang: 'english';
 
   constructor(public translate: TranslateService) {
     translate.addLangs([ 'english' , 'arabic']);
       this.translate.onLangChange.subscribe((event) => {
-        this.userLang=event.lang;
+        this.userLang = event.lang;
       });
   }
   ngOnInit(): void {

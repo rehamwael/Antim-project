@@ -33,15 +33,20 @@ export class SettingComponent implements OnInit, OnDestroy {
     private toastr: ToastrService, public translate: TranslateService
   ) {
     let language = localStorage.getItem('language');
-    console.log(language);
-    this.translate.use(language);
+    // console.log(language);
+    if (language != null) {
+      this.translate.use(language);
+      this.userLang = language;
+    } else {
+      this.userLang = 'english';
+    }
+    console.log(this.userLang);
 
     this.getState = this.store.select(selectAuthenticationState);
     this.options = this.toastr.toastrConfig;
     this.options.positionClass = 'toast-top-right';
     this.options.timeOut = 5000;
     translate.addLangs([ 'english' , 'arabic']);
-    this.userLang = language;
     this.translate.onLangChange.subscribe((event) => {
       this.userLang = event.lang;
       localStorage.setItem('language', this.userLang);
@@ -99,7 +104,6 @@ export class SettingComponent implements OnInit, OnDestroy {
       this.spinner.hide();
       this.logOut();
       this.userProfileService.showSuccessToastr(res);
-      console.log(res);
     }, err => {
       console.log(err);
       this.spinner.hide();

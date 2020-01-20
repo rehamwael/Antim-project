@@ -22,13 +22,11 @@ import {
   DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess, GetAllRequestsFailure, RemoveRequestsFromStore
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
 export class AuthenticationEffects {
   userRole: string;
-  userLang: any;
 
   constructor(private modalService: NgbModal,
     private actions: Actions,
@@ -38,7 +36,6 @@ export class AuthenticationEffects {
     private userDataService: ProfileService,
     private store: Store<AppState>,
     private customerService: CustomerRequestService,
-    public translate: TranslateService,
     private spinner: NgxSpinnerService,
   ) {
   }
@@ -151,7 +148,6 @@ export class AuthenticationEffects {
       return this.userDataService.editUser(payload).pipe(
         map((res) => {
           this.store.dispatch(new EditUserProfileSuccess(payload));
-          this.userLang = this.translate.currentLang;
           console.log('User Info edited:', res);
           this.spinner.hide();
           this.userDataService.showSuccessToastr(res);

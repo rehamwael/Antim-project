@@ -26,8 +26,14 @@ export class FullComponent implements OnInit {
 
   constructor(public router: Router,  private store: Store<AppState>, public translate: TranslateService) {
     let language = localStorage.getItem('language');
-    console.log(language);
-    this.translate.use(language);
+    // console.log(language);
+    if (language != null) {
+      this.translate.use(language);
+      this.userLang = language;
+    } else {
+      this.userLang = 'english';
+    }
+    console.log(this.userLang);
 
     this.getState = this.store.select(selectAuthenticationState);
       this.getState.subscribe((state) => {
@@ -41,7 +47,6 @@ export class FullComponent implements OnInit {
       translate.addLangs([ 'english' , 'arabic']);
       const browserLang = translate.getBrowserLang();
       translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
-      this.userLang = language;
       this.translate.onLangChange.subscribe((event) => {
         this.userLang = event.lang;
         localStorage.setItem('language', this.userLang);

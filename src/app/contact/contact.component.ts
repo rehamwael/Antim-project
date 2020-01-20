@@ -38,7 +38,7 @@ export class ContactComponent implements OnInit, OnDestroy {
       this.disabledSubmitButton = false;
     }
   }
-  
+
 
 
   constructor(
@@ -67,10 +67,10 @@ export class ContactComponent implements OnInit, OnDestroy {
         'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         { })];
       this.mapCenter = latLng(24.8085046, 46.6711241);
-      this.zoomLevel=10;
+      this.zoomLevel = 10;
       translate.addLangs([ 'english' , 'arabic']);
       this.translate.onLangChange.subscribe((event) => {
-        this.userLang=event.lang;
+        this.userLang = event.lang;
       });
 
   }

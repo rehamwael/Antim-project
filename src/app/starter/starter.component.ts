@@ -9,8 +9,8 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class StarterComponent implements OnInit {
 
-  userLang: "english";
-  
+  userLang: 'english';
+
     constructor( public router: Router , public translate: TranslateService) {
       translate.addLangs([ 'english' , 'arabic']);
         this.translate.onLangChange.subscribe((event) => {
