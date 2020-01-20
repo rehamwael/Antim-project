@@ -14,16 +14,9 @@ import { ProfileService } from '../services/userProfile.service';
 
 let InstallmentDetails: any[] = [];
 
-export interface PeriodicElement {
-  position?: number;
-  name: string;
-  date: string;
-  price: string;
-  status: string;
-}
 
-let AllAwaitingRequests: PeriodicElement[] = [];
-let AllFunderRequests: PeriodicElement[] = [];
+let AllAwaitingRequests: any[] = [];
+let AllFunderRequests: any[] = [];
 
 @Component({
   selector: 'app-request-lender',
@@ -38,8 +31,8 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
 
 
   displayedColumns: string[] = ['name', 'date', 'price', 'status'];
-  dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  dataSource = new MatTableDataSource<any>(AllFunderRequests);
+  selection = new SelectionModel<any>(true, []);
 
   selectedRequestType = '';
   selectedProduct = false;
@@ -107,7 +100,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       type: 'Paid'
     },
   ];
-  InstallmentDetailsTable = new MatTableDataSource<PeriodicElement>(InstallmentDetails);
+  InstallmentDetailsTable = new MatTableDataSource<any>(InstallmentDetails);
   displayColumns: string[] = ['months', 'dueDate', 'price', 'status'];
   monthlyInstallmentsData: any;
   showTable = false;
@@ -149,10 +142,10 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
             AllFunderRequests.push(element);
             element.date = moment(element.updatedAt).format('LL');
             element.price = element.totalFundAmount + ' SAR';
-            element.status = 'AWAITING FOR FUND';
+            element.status = 'Awaiting For Fund Requests';
           });
         }
-        this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
+        this.dataSource = new MatTableDataSource<any>(AllFunderRequests);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.showMessage = false;
@@ -170,7 +163,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     this.funderRequestService.fundingLimitMatchingRequests().subscribe(res => {
       console.log(res);
       if (res.message) {
-        this.dataSource = new MatTableDataSource<PeriodicElement>(null);
+        this.dataSource = new MatTableDataSource<any>(null);
         this.showMessage = true;
         // this.profileService.showErrorToastr(res.message);
         this.spinner.hide();
@@ -181,9 +174,9 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           AllAwaitingRequests.push(element);
           element.date = moment(element.updatedAt).format('LL');
           element.price = element.totalFundAmount + ' SAR';
-          element.status = 'AWAITING FOR FUND';
+          element.status = 'Awaiting For Fund Requests';
         });
-        this.dataSource = new MatTableDataSource<PeriodicElement>(AllAwaitingRequests);
+        this.dataSource = new MatTableDataSource<any>(AllAwaitingRequests);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         console.log('AllawaitingRequests:', AllAwaitingRequests);
@@ -202,7 +195,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<PeriodicElement>(null);
+    this.dataSource = new MatTableDataSource<any>(null);
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
     body.classList.add('requests');
@@ -211,12 +204,11 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.requestTypeInStore = state.requestType;
     });
 
-    // this.selectedRequestType = 'My Requests';
     let selectedFunderRequestType = localStorage.getItem('selectedFunderRequestType');
     if (this.requestTypeInStore == selectedFunderRequestType && selectedFunderRequestType != null) {
       this.selectedRequestType = this.requestTypeInStore;
       this.getFundingLimitingMatchingRequest();
-    } else if (selectedFunderRequestType == 'My Requests') {
+    } else if (selectedFunderRequestType == 'All Requests') {
       this.selectedRequestType = selectedFunderRequestType;
       this.GetFunderAllRequests();
     } else if (selectedFunderRequestType == this.selectedRequestType) {
@@ -236,23 +228,20 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
 
   onChange(deviceValue) {
     this.selectedRequestType = deviceValue;
+    if (deviceValue != 'Awaiting For Fund Requests') {
+      this.dataSource = new MatTableDataSource<any>(AllFunderRequests);
+      this.dataSource.filter = deviceValue;
+    }
     localStorage.setItem('selectedFunderRequestType', this.selectedRequestType);
-    if (deviceValue == 'My Requests') {
-      this.dataSource = new MatTableDataSource<PeriodicElement>(null);
+    if (deviceValue == 'All Requests') {
+      this.dataSource = new MatTableDataSource<any>(null);
       this.GetFunderAllRequests();
       this.dataSource.filter = '';
-      this.selectedRequestType = 'My Requests';
+      this.selectedRequestType = 'All Requests';
     }
-    if (deviceValue == 'Ongoing Requests') {
-      this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
-      this.dataSource.filter = deviceValue;
-    }
-    if (deviceValue == 'Closed Requests') {
-      this.dataSource = new MatTableDataSource<PeriodicElement>(AllFunderRequests);
-      this.dataSource.filter = deviceValue;
-    }
-    if (deviceValue == 'AWAITING FOR FUND') {
-      this.dataSource = new MatTableDataSource<PeriodicElement>(null);
+
+    if (deviceValue == 'Awaiting For Fund Requests') {
+      this.dataSource = new MatTableDataSource<any>(null);
       this.getFundingLimitingMatchingRequest();
     }
     if (this.dataSource.filteredData && this.dataSource.filteredData.length == 0) {
@@ -264,7 +253,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   openProductDetails(row) {
     this.reqID = row.id;
     if (row.type == 1) {
-      this.store.dispatch(new SaveRequestType('AWAITING FOR FUND'));
+      this.store.dispatch(new SaveRequestType('Awaiting For Fund Requests'));
       this.router.navigate(['requests-funder', this.reqID]);
     } else {
       this.spinner.show();
@@ -333,7 +322,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     }
   }
   closeProductDetails() {
-    if (this.selectedRequestType != 'My Requests') {
+    if (this.selectedRequestType != 'All Requests') {
       this.selectedRequestType = this.RequestType;
     }
     this.selectedProduct = false;

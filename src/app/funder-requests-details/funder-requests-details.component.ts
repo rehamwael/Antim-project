@@ -121,7 +121,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
       this.monthlyInstallment = Math.round((this.totalProfit + this.totalPrice) / (res.result.paybackPeriod * 3));
       this.requestType_ENUM = res.result.type;
       if (this.requestType_ENUM == 1) {
-        this.requestType = 'Awaiting for Fund';
+        this.requestType = 'Awaiting For Fund Requests';
       }
       this.spinner.hide();
     });
@@ -135,7 +135,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
     this.funderRequestService.addFunderRequest({
       'CustomerRequestId': this.requestID
     }).subscribe(res => {
-      localStorage.setItem('selectedFunderRequestType', 'My Requests');
+      localStorage.setItem('selectedFunderRequestType', 'All Requests');
       this.modalService.dismissAll();
       this.spinner.hide();
       this.profileService.showSuccessToastr(res);
