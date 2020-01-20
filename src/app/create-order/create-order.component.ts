@@ -10,7 +10,6 @@ import { AddCustomerRequest, IsUpdatedFalse } from '../store/actions/customer.ac
 import { ProfileService } from '../services/userProfile.service';
 import { CustomerRequestService } from '../services/customer-request.service';
 
-
 @Component({
   selector: 'app-create-order',
   templateUrl: './create-order.component.html',

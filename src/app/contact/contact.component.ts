@@ -38,6 +38,8 @@ export class ContactComponent implements OnInit, OnDestroy {
       this.disabledSubmitButton = false;
     }
   }
+  
+
 
   constructor(
     private fb: FormBuilder,
@@ -58,20 +60,19 @@ export class ContactComponent implements OnInit, OnDestroy {
       ])],
       'contactFormSubjects': ['', Validators.required],
       'contactFormMessage': ['', Validators.required],
-      // 'contactFormPhone': [null, Validators.compose([
-      //   Validators.required,
-      //   Validators.minLength(11)
-      // ])]
-    });
-    this.leafletLayers = [tileLayer(
-      'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {})];
-    this.mapCenter = latLng(24.8085046, 46.6711241);
-    this.zoomLevel = 10;
-    this.translate.onLangChange.subscribe((event) => {
-      this.userLang = event.lang;
-      console.log(this.userLang);
-    });
+      'contactFormCopy': [''],
+      'contactFormPhone': ['', Validators.required]
+      });
+      this.leafletLayers = [tileLayer(
+        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        { })];
+      this.mapCenter = latLng(24.8085046, 46.6711241);
+      this.zoomLevel=10;
+      translate.addLangs([ 'english' , 'arabic']);
+      this.translate.onLangChange.subscribe((event) => {
+        this.userLang=event.lang;
+      });
+
   }
 
   public beforeChange($event: NgbTabChangeEvent) {
@@ -79,7 +80,7 @@ export class ContactComponent implements OnInit, OnDestroy {
       $event.preventDefault();
     }
   }
-  ngOnInit(): void {
+  ngOnInit() {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
@@ -90,6 +91,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     body.classList.add('contact');
     window.dispatchEvent(new Event('resize'));
   }
+
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('contact');

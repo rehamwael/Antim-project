@@ -1,411 +1,177 @@
 <div>
-        <div class="row">
-                <nav id="navbar-app" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav" ngStickyNav stickyClass="sticky-fixed-header">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
-                                <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <a class="navbar-brand" [routerLink]="[ '/' ]">
-                                <img src="assets/images/logo-white.svg" alt="antim">
+    <div class="row">
+            <nav id="navbar-app" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav" ngStickyNav stickyClass="sticky-fixed-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+                            <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" [routerLink]="[ '/' ]">
+                        <img src="assets/images/logo-white.svg" class="logo" alt="antim">
 
-                        </a>
-                </nav>
-            <aside class="left-sidebar col-lg-4">
-                <!-- Sidebar scroll-->
-                <div class="scroll-sidebar">
-                    <app-sidebar></app-sidebar>
-                </div>
-                <!-- End Sidebar scroll-->
-            </aside>
-            <div class="page-wraper-right row">
-                <app-setting></app-setting>
+                    </a>
+            </nav>
+        <aside class="left-sidebar col-lg-4">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <app-sidebar></app-sidebar>
             </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <div class="page-wraper-right row">
+            <app-setting></app-setting>
+        </div>
 
 
 
-        <div class="page-wraper-right">
-                <div class="mat-card col-lg-11 mt-5 px-0 py-0 m-0 mb-5">
-                        <div class="mat-card col-lg-12 row welcome-card inner p-2 m-0 align-items-center">
-                            <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
-                            <div class="col-lg-7 px-0 col-8">
-                                <p class="grey-text-color">My Profile</p>
-                            </div>
-                            <form class="col-lg-3">
-                            <div class="form-group">
-                                <label for="profileInformation" class="font-size-13">Select profile infomation </label>
-                                <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
-                                        <option value="Personal" selected>Personal Information</option>
-                                        <option value="Bank">Bank Information</option>
-                                        <option value="TotalProfit">Total profits</option>
-                                        <option value="funderAddress">Address Information</option>
-                                </select>
-                                <!-- <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg> -->
-                            </div>
-                            </form>
+    <div class="page-wraper-right">
+            <div class="mat-card col-lg-11 mt-5 px-0 py-0 m-0 mb-5">
+                    <div class="mat-card col-lg-12 row welcome-card inner p-2 m-0 align-items-center">
+                        <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
+                        <div class="col-lg-7 px-0 col-8">
+                            <p class="grey-text-color">{{ 'Profile.MyProfile' | translate }}</p>
                         </div>
+                        <form class="col-lg-3">
+                        <div class="form-group">
+                            <label for="profileInformation" class="font-size-13">{{ 'Profile.SelectProfileInfomation' | translate }}</label>
+                            <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
+                                <option value="Personal" selected>{{ 'Profile.PersonalInformation' | translate }} </option>
+                                <option value="Bank">{{ 'Profile.BankInformation' | translate }} </option>
+                                <option value="address">{{ 'Profile.AddressInformation' | translate }}  </option>
+                            </select>
+                            <!-- <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg> -->
+                        </div>
+                        </form>
+                    </div>
 
 
 
-                        <div class="col-lg-12 row justify-content-around mt-5 dashbored-info">
-                            <div class="justify-content-center col-lg-9">
-                              <form class="row antim-form" [formGroup]="EditForm" *ngIf="!showAddress && !showBank && showUser && !showProfit">
-                                  <div class="col-lg-12 mb-3"><h3 class="headingh3">Personal Information</h3></div>
-                                  <div class="col-lg-6">
-                                    <label class="font-bold mt-2"> First Name :</label>
-                                    <input matInput formControlName="FirstName" type="text" class="form-control form-control-lg" value= "{{firstName}}" [(ngModel)]="firstName" placeholder="First name" >
-                                    <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">First Name is required</div>
-                                    <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">First Name must contains only characters.</div>
-                                </div>
-                                <div class="col-lg-6">
-                                  <label class="font-bold mt-2">Last Name :</label>
-                                  <input matInput formControlName="LastName" type="text" class="form-control form-control-lg" value= "{{lastName}}" [(ngModel)]="lastName" placeholder="Last name" >
-                                  <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">Last Name is required</div>
-                                  <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">Last Name must contains only characters.</div>
-                              </div>
+                    <div class="col-lg-12 row justify-content-around mt-5 dashbored-info">
+                        <div class="justify-content-center col-lg-9">
+                          <form class="row antim-form" [formGroup]="EditForm" *ngIf="!showAddress && !showBank && showUser && !showProfit">
+                              <div class="col-lg-12 mb-3"><h3 class="headingh3">{{ 'Profile.PersonalInformation' | translate }}</h3></div>
                               <div class="col-lg-6">
-                                <label class="font-bold mt-2">User Name :</label>
-                                <input matInput formControlName="UserName" type="text" class="form-control form-control-lg" value= "{{userName}}" [(ngModel)]="userName" placeholder="User name" >
-                                <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('required')" class="error-msg alert alert-danger text-left"> UserName is required</div>
-                                <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('minlength')" class="error-msg alert alert-danger text-left">User Name must be at least 6 characters long.</div>
-                            </div>
-                                  <div class="col-lg-6">
-                                      <label for="NID" class="font-bold mt-2">National ID / Iqama :</label>
-                                      <input matInput formControlName="NID" type="text" class="form-control form-control-lg" value= "{{NID}}" [(ngModel)]="NID" placeholder="National ID">
-                                      <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">National ID is required</div>
-                                      <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('minlength')" class="error-msg alert alert-danger text-left">National ID number must be at least 10 characters long.</div>
-                                  </div>
+                                <label class="font-bold mt-2">{{ 'SignUp.FirstName' | translate }} :</label>
+                                <input matInput formControlName="FirstName" type="text" class="form-control form-control-lg" value= "{{firstName}}" [(ngModel)]="firstName" placeholder="{{ 'SignUp.FirstName' | translate }}" >
+                                <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNamerequired' | translate }}</div>
+                                <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNameValidate' | translate }}</div>
 
-                                  <div class="col-lg-12 row justify-content-end py-4 mt-4" >
-                                      <div class="form-group col-lg-3">
-                                             <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditInfo()">
-                                                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                  </svg>
-                                                  <span class="px-3">Edit</span>
-                                              </button>
-                                          </div>
-                                     <div class="form-group col-lg-3">
-                                         <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableprofileButton" (click)="SaveInfo()">Save</button>
-                                     </div>
-                                     <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
-                                     color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                     <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
-                                     </ngx-spinner>
+                            </div>
+                            <div class="col-lg-6">
+                              <label class="font-bold mt-2">{{ 'SignUp.LastName' | translate }} :</label>
+                              <input matInput formControlName="LastName" type="text" class="form-control form-control-lg" value= "{{lastName}}" [(ngModel)]="lastName" placeholder="{{ 'SignUp.LastName' | translate }}" >
+                              <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNamerequired' | translate }}</div>
+                              <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNameValidate' | translate }}</div>
+
+                          </div>
+                          <div class="col-lg-6">
+                            <label class="font-bold mt-2">{{ 'SignUp.Username' | translate }} :</label>
+                            <input matInput formControlName="UserName" type="text" class="form-control form-control-lg" value= "{{userName}}" [(ngModel)]="userName" placeholder="{{ 'SignUp.Username' | translate }}" >
+                            <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('required')" class="error-msg alert alert-danger text-left"> {{ 'SignUp.UsernameRequired' | translate }}</div>
+                            <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'SignUp.UsernameValidate' | translate }}</div>
+
+                        </div>
+                           <div class="col-lg-6">
+                                  <label for="NID" class="font-bold mt-2">{{ 'SignUp.NationalID' | translate }} :</label>
+                                  <input matInput formControlName="NID" type="text" class="form-control form-control-lg" value= "{{NID}}" [(ngModel)]="NID" placeholder="{{ 'SignUp.NationalID' | translate }}">
+                                  <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.NationalIDrequired' | translate }}</div>
+                                  <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'SignUp.NationalIDValidate' | translate }}</div>
                               </div>
 
-                                      <div class=" col-lg-8">
-                                          <label for="Email" class="font-bold mt-2">Email :</label>
-                                          <input matInput formControlName="Email" type="email" class="form-control form-control-lg" value= "{{email}}" [(ngModel)]="email" placeholder="email">
-                                          <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('required')" class="error-msg alert alert-danger text-left">Email is required</div>
-                                          <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter proper Email.</div>
+                              <div class="col-lg-12 row justify-content-end py-4 mt-4" >
+                                  <div class="form-group col-lg-3">
+                                         <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditInfo()">
+                                              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                              <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                              </svg>
+                                              <span class="px-3">{{ 'Profile.Edit' | translate }}</span>
+                                          </button>
+                                      </div>
+                                 <div class="form-group col-lg-3">
+                                     <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableprofileButton" (click)="SaveInfo()">Save</button>
+                                 </div>
+                                 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+                                 color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
+                                 <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
+                                 </ngx-spinner>
+                          </div>
 
-                                      </div>
-                                      <div class="col-lg-1"></div>
-                                      <div class="col-lg-3 p-0 mt-5">
-                                          <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!emailButton"  (click)="editEmail()">Change Email</button>
-                                      </div>
+                                  <div class=" col-lg-8">
+                                      <label for="Email" class="font-bold mt-2">{{ 'contact.Email' | translate }} :</label>
+                                      <input matInput formControlName="Email" type="email" class="form-control form-control-lg" value= "{{email}}" [(ngModel)]="email" placeholder="{{ 'contact.Email' | translate }}">
+                                      <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'contact.Emailrequired' | translate }}</div>
+                                      <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.EmailValidate' | translate }}</div>
 
-                                      <div class="col-lg-2">
-                                          <label for="countrycode" class="font-bold mt-2">Country Code :</label>
-                                          <input matInput formControlName="CountryCode" type="text" class="form-control form-control-lg" value="{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" >
-                                          <div *ngIf="EditForm.controls['CountryCode'].touched && EditForm.controls['CountryCode'].hasError('required')" class="error-msg alert alert-danger text-left"> Country Code is required</div>
-                                      </div>
-                                  <div class="col-lg-6">
-                                      <label for="mobile" class="font-bold mt-2">Mobile No:</label>
-                                      <input matInput formControlName="MobileNo" type="text" class="form-control form-control-lg" value= "{{phone}}" [(ngModel)]="phone" placeholder="Mobile No." (keyup)="inputNumber($event)" digitOnly
-                                      oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
-                                      else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
-                                       <div *ngIf="EditForm.controls['MobileNo'].touched && EditForm.controls['MobileNo'].hasError('required')" class="error-msg alert alert-danger text-left">Mobile Number is required</div>
-                                       <span class="redColor" id="phonenumber"> Phone number must be at least 9 characters long.</span>
                                   </div>
                                   <div class="col-lg-1"></div>
-                                          <div class=" col-lg-3 p-0 mt-5">
-                                              <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!phoneButton"  (click)="editMobileNo()">Change Mobile</button>
-                                          </div>
-
-
-                                <div *ngIf="showUser && showOTPstep">
-                                    <!-- <a class="close-icon" (click)="closeBack()"><img src="assets/images/close.svg"></a>
-                                    <img src="assets/images/mobile.svg" alt="antim" class="mb-2 mt-5"> -->
-                                    <p style="font-size: 16px; font-weight: bold; color: #5c20d2" class="mt-5 mb-5 d-flex justify-content-center">Well !!
-                                            just to be sure, Please enter your verification code to verify your <br/>
-                                            mobile number.</p>
-                                    <div class="row mt-3 justify-content-center align-items-center phone-number-code">
-                                        <div class="form-group text-left col-lg-2 col-3 text-center">
-                                            <input formControlName="One"  class="form-control form-control-lg" #one placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="first" (keyup)="keytab($event, 1)">
-                                        </div>
-                                        <div class="form-group text-left col-lg-2 col-3 text-center">
-                                            <input formControlName="Two"  class="form-control form-control-lg" #two placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="second" (keyup)="keytab($event, 2)">
-                                        </div>
-                                        <div class="form-group text-left col-lg-2 col-3 text-center">
-                                            <input formControlName="Three" class="form-control form-control-lg" #three placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="third" (keyup)="keytab($event, 3)">
-                                        </div>
-                                        <div class="form-group text-left col-lg-2 col-3 text-center">
-                                            <input formControlName="Four" class="form-control form-control-lg" #four placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="Fourth" (keyup)="keytab($event, 4)">
-                                        </div>
-                                        <!-- <p class="mt-3 col-lg-12">The code will expire : 4:36</p> -->
-                                         <div class="col-lg-11 mt-3 row justify-content-center align-items-center">
-                                         <div class="form-group col-lg-6">
-                                            <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="ResendOTP()" >Resend</button>
-
-                                        </div>
-                                        <div class="form-group col-lg-4">
-                                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="verifyOTP()"  [disabled]="(!first && first!=0) || (!second && second!=0) ||(!third && third!=0) ||(!Fourth && Fourth!=0)">Verify</button>
-                                            <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
-                                          color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                          <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
-                                          </ngx-spinner>
-                                        </div>
-                                    </div>
-                                    </div>
-                           </div>
-
-
-                           <!-- BALANCE-->
-                         <!--  <form class="row antim-form mt-3 mb-3" [formGroup]="UserBalance" >
-                              <div class="col-lg-12 mb-2"><h3 class="headingh3">My Antime Balance</h3></div>
-                            <div class="col-lg-8">
-                              <label for="balance" class="font-bold mt-2">My Balance</label>
-                              <input matInput formControlName="MyBalance" class="form-control form-control-lg" value="{{userBalance}}" digitOnly [(ngModel)]="userBalance" >
-                              <div *ngIf="UserBalance.controls['MyBalance'].touched && UserBalance.controls['MyBalance'].hasError('required')" class="error-msg alert alert-danger text-left">Balance is required</div>
-                            </div>
-                          </form>
-                           <div class="col-lg-12 mt-2 row justify-content-end py-4 mt-4" >
-                              <div class="form-group col-lg-3">
-                                     <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBalanceInfo()">
-                                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          </svg>
-                                          <span class="px-3">Edit</span>
-                                      </button>
-                                  </div>
-                                  <div class="form-group col-lg-3">
-                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableBalanceButton" (click)="SaveBalanceInfo()">Save</button>
-                                </div>
-                      </div> -->
-
-
-
-                                <!-- <div class="col-lg-12">
-                                        <label for="Address" class="font-bold mt-2">Address</label>
-                                        <input matInput formControlName="Address" class="form-control form-control-lg" value="Saudi Arabia" placeholder="Address">
-                                    </div>
-                                    <div class="container">
-                                    <div class="mt-4">
-                                            <div class="col-lg-12" id="map-inner" leaflet
-                                            style="height:100px;"
-                                            [leafletCenter]="mapCenter"
-                                            [leafletZoom]="zoomLevel"
-                                            [leafletLayers]="leafletLayers">
-                                        </div>
-                                        </div>
-                                    </div> -->
-
-                                    <div class="col-lg-12 mt-5"><h3 class="headingh3">Change Your Password</h3>
-                                      <div class="col-lg-8">
-                                        <label for="Name" class="font-bold mt-2">Old Password :</label>
-                                        <input matInput formControlName="OldPassword" type="password" class="form-control form-control-lg" [(ngModel)]="oldPassword" placeholder="Type Old Password" >
-                                        <div *ngIf="EditForm.controls['OldPassword'].touched && EditForm.controls['OldPassword'].hasError('pattern')" class="error-msg alert alert-danger text-left">Old Password must contain Upper Cases Letter, Lower Cases Letter, Numbers, Special Characters (!, @, _, #, $ ..etc.) and at least 9 characters long.</div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                      <label for="Name" class="font-bold mt-2">New Password :</label>
-                                      <input matInput formControlName="NewPassword" type="password" class="form-control form-control-lg" [(ngModel)]="newPassword" placeholder="Type New Password" >
-                                      <div *ngIf="EditForm.controls['NewPassword'].touched && EditForm.controls['NewPassword'].hasError('pattern')" class="error-msg alert alert-danger text-left">New Password must contain Upper Cases Letter, Lower Cases Letter, Numbers, Special Characters (!, @, _, #, $ ..etc.) and at least 9 characters long.</div>
-                                    </div>
-                                  <div class="col-lg-8">
-                                    <label for="Name" class="font-bold mt-2">Confirm Password :</label>
-                                    <input matInput formControlName="ConfirmPassword" type="password" class="form-control form-control-lg"  [(ngModel)]="confirmPassword" placeholder="Type Confirm Password" >
-                                    <div *ngIf="EditForm.controls['ConfirmPassword'].touched && EditForm.value.NewPassword != EditForm.value.ConfirmPassword" class="error-msg alert alert-danger text-left">Passwords must be same.</div>
-                                </div>
-                                </div>
-                                <div class="col-lg-12 row justify-content-end py-4 mt-4" >
-                                  <div class="form-group col-lg-4">
-                                    <button class="btn btn-lg btn-block btn-blue mt-2" (click)="editPassword()">Change Password</button>
-                                </div>
-                                 <div class="form-group col-lg-3">
-                                     <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disablePasswordButton" (click)="changeCurrentPassword()">Save</button>
-                                 </div>
-                          </div>
-                        </form>
-
-
-
-
-                            <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="!showAddress && showBank && !showUser && !showProfit">
-                                    <div class="col-lg-12 mb-3"><h3 class="headingh3">Bank Information</h3></div>
-                                    <!-- <div class="col-lg-12">
-                                        <label for="MaximunLimit" class="font-bold mt-2">Maximun limit funding</label>
-                                        <mat-slider
-                                        thumbLabel
-                                        [displayWith]="formatLabel"
-                                        tickInterval="100"
-                                        min="500"
-                                        max="10000"></mat-slider>
-                                    </div> -->
-                                    <div class="col-lg-6">
-                                        <label for="bankName" class="font-bold mt-2">Bank Name</label>
-                                        <select formControlName="BankName" class="form-control custom-select form-control-lg" value="{{bankName}}" [(ngModel)]="bankName" (change)="SelectBank($event.target.value)">
-                                            <option value="select" selected>Select your Bank</option>
-                                            <option value="AlBilad Bank" selected>AlBilad Bank</option>
-                                            <option value="AlRajhi Bank" >AlRajhi Bank</option>
-                                            <option value="AlFransi Bank" >AlFransi Bank</option>
-                                            <option value="Samba Bank" >Samba Bank</option>
-                                            <option value="Alriyadh Bank" >Alriyadh Bank</option>
-                                            <option value="Alawwal Bank" >Alawwal Bank</option>
-                                            <option value="SAIB Bank" >SAIB Bank</option>
-                                            <option value="AlJazeera Bank" >AlJazeera Bank</option>
-                                            <option value="SAB Bank" >SAB Bank</option>
-                                            <option value="AlAhli Bank" >AlAhli Bank</option>
-                                            <option value="Muscat Bank" >Muscat Bank</option>
-                                            <option value="National Bank of Kuwait" >National Bank of Kuwait</option>
-                                            <option value="NBB Bank" >NBB</option>
-                                            <option value="ANB Bank" >ANB</option>
-                                            <option value="Emirates NBD" > Emirates NBD</option>
-                                            <option value="Alinma Bank" >Alinma Bank</option>
-                                            <option value="GIB Bank" >GIB</option>
-                                            <option value="Deutsche Bank" >Deutsche Bank</option>
-
-                                    </select>
-                                        <!-- <input matInput formControlName="BankName" class="form-control form-control-lg" value="{{bankName}}" [(ngModel)]="bankName" placeholder="Bank Name...">
-                                        <div *ngIf="BankInfoForm.controls['BankName'].touched && BankInfoForm.controls['BankName'].hasError('required')" class="error-msg alert alert-danger text-left">Bank Name is required</div>
-                                        <div *ngIf="BankInfoForm.controls['BankName'].touched && BankInfoForm.controls['BankName'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank Name must be at least 4 characters long.</div> -->
-                                      </div>
-                                    <div class="col-lg-6">
-                                        <label for="bankAccountNo" class="font-bold mt-2">Bank Account Number</label>
-                                        <input matInput formControlName="BankAccountNo" class="form-control form-control-lg" value="{{bankAccountNo}}" maxlength="24" [(ngModel)]="bankAccountNo" placeholder="Bank Account Number...">
-                                        <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('required')" class="error-msg alert alert-danger text-left">Bank AccountNo is required</div>
-                                        <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank AccountNo length must be greater than 10  and less than 25.</div>
-                                    </div>
-
-                                    <!-- <div class="col-lg-6">
-                                        <label for="accountTitle" class="font-bold mt-2">Account Title </label>
-                                        <input matInput formControlName="AccountTitle" class="form-control form-control-lg" value="{{accountTitle}}" [(ngModel)]="accountTitle" placeholder="Account Title...">
-                                        <div *ngIf="BankInfoForm.controls['AccountTitle'].touched && BankInfoForm.controls['AccountTitle'].hasError('required')" class="error-msg alert alert-danger text-left">Account Title is required</div>
-                                        <div *ngIf="BankInfoForm.controls['AccountTitle'].touched && BankInfoForm.controls['AccountTitle'].hasError('minlength')" class="error-msg alert alert-danger text-left">Account Title must be at least 6 characters long.</div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label for="bankAddress" class="font-bold mt-2">Bank Address</label>
-                                        <input matInput formControlName="BankAddress" class="form-control form-control-lg" value="{{bankAddress}}"[(ngModel)]="bankAddress"  placeholder="Bank Address(Branch Address)...">
-                                        <div *ngIf="BankInfoForm.controls['BankAddress'].touched && BankInfoForm.controls['BankAddress'].hasError('required')" class="error-msg alert alert-danger text-left">Bank Address is required</div>
-                                        <div *ngIf="BankInfoForm.controls['BankAddress'].touched && BankInfoForm.controls['BankAddress'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank Address must be at least 10 characters long.</div>
-                                    </div> -->
-                                    <!-- <div class="col-lg-6">
-                                        <label for="investmentPerYear" class="font-bold mt-2">Expected capital investment per year</label>
-                                        <input matInput formControlName="investmentPerYear" class="form-control form-control-lg" value="250,000" placeholder="Expected capital investment per year">
-                                        <div *ngIf="BankInfoForm.controls['investmentPerYear'].touched && BankInfoForm.controls['investmentPerYear'].hasError('required')" class="error-msg alert alert-danger text-left">Expected capital investment is required</div>
-                                    </div> -->
-                                    <div class="col-lg-6">
-                                        <label for="IBAN" class="font-bold mt-2">IBAN Number</label>
-                                        <input matInput formControlName="IBAN" class="form-control form-control-lg" value="{{IBAN}}"[(ngModel)]="IBAN" maxlength="26"  placeholder="SA 0000XXXXXXXXX">
-                                        <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('required')" class="error-msg alert alert-danger text-left">IBAN Number is required</div>
-                                        <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('pattern')" class="error-msg alert alert-danger text-left">IBAN Number must start with "SA" + 24 digits.</div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                      <label for="fundingLimit" class="font-bold mt-2">Maximun Funding Limit  (500 SAR - 10,000 SAR)</label>
-                                      <input matInput formControlName="FundingLimit" class="form-control form-control-lg" type="number" value="{{fundingLimit}}" [(ngModel)]="fundingLimit" placeholder="Maximun Funding Limit (500 SAR - 10,000 SAR)" [(ngModel)]="fundingLimit"
-                                      oninput="javascript: if (this.value >= 500 && this.value <= 10000) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
-                                      else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
-                                      <div *ngIf="BankInfoForm.controls['FundingLimit'].touched && BankInfoForm.controls['FundingLimit'].hasError('required')" class="error-msg alert alert-danger text-left">Funding Limit is required</div>
-                                      <span class="redColor" id="phonenumber">Funding Limit must be between 500 SAR to 10000 SAR.</span>
+                                  <div class="col-lg-3 p-0 mt-5">
+                                      <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!emailButton"  (click)="editEmail()">{{ 'Profile.ChangeEmail' | translate }}</button>
                                   </div>
 
-                                  <div class="col-lg-12 mt-3 row justify-content-end py-4 mt-2" >
-                                    <div class="form-group col-lg-3">
-                                           <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBankInfo()">
-                                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                <span class="px-3">Edit</span>
-                                            </button>
-                                        </div>
-                                        <div class="form-group col-lg-3">
-                                          <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!disableBankButton || !BankInfoForm.valid " (click)="SaveBankInfo()">Save</button>
+                                  <div class="col-lg-2">
+                                      <label for="countrycode" class="font-bold mt-2">{{ 'SignUp.CountryCode' | translate }} :</label>
+                                      <input matInput formControlName="CountryCode" type="text" class="form-control form-control-lg" value="{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" >
+                                      <div *ngIf="EditForm.controls['CountryCode'].touched && EditForm.controls['CountryCode'].hasError('required')" class="error-msg alert alert-danger text-left"> {{ 'SignUp.CountryCodeValidate' | translate }}</div>
+                                  </div>
+                              <div class="col-lg-6">
+                                  <label for="mobile" class="font-bold mt-2">{{ 'SignUp.MobileNo' | translate }} :</label>
+                                  <input matInput formControlName="MobileNo" type="text" class="form-control form-control-lg" value= "{{phone}}" [(ngModel)]="phone" placeholder="{{ 'SignUp.MobileNo' | translate }}" (keyup)="inputNumber($event)" digitOnly
+                                  oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
+                                  else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
+                                   <div *ngIf="EditForm.controls['MobileNo'].touched && EditForm.controls['MobileNo'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.MobileNoRequired' | translate }}</div>
+                                   <span class="redColor" id="phonenumber">{{ 'SignUp.MobileNoValidate' | translate }}</span>
+                              </div>
+                              <div class="col-lg-1"></div>
+                                      <div class=" col-lg-3 p-0 mt-5">
+                                          <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!phoneButton"  (click)="editMobileNo()">{{ 'Profile.ChangeMobile' | translate }}</button>
                                       </div>
-                                      <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+
+
+                            <div *ngIf="showUser && showOTPstep">
+                                <!-- <a class="close-icon" (click)="closeBack()"><img src="assets/images/close.svg"></a>
+                                <img src="assets/images/mobile.svg" alt="antim" class="mb-2 mt-5"> -->
+                                <p style="font-size: 16px; font-weight: bold; color: #5c20d2" class="mt-5 mb-5 d-flex justify-content-center">{{ 'Profile.ProfileDescription' | translate }}</p>
+                                <div class="row mt-3 justify-content-center align-items-center phone-number-code">
+                                    <div class="form-group text-left col-lg-2 col-3 text-center">
+                                        <input formControlName="One"  class="form-control form-control-lg" #one placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="first" (keyup)="keytab($event, 1)">
+                                    </div>
+                                    <div class="form-group text-left col-lg-2 col-3 text-center">
+                                        <input formControlName="Two"  class="form-control form-control-lg" #two placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="second" (keyup)="keytab($event, 2)">
+                                    </div>
+                                    <div class="form-group text-left col-lg-2 col-3 text-center">
+                                        <input formControlName="Three" class="form-control form-control-lg" #three placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="third" (keyup)="keytab($event, 3)">
+                                    </div>
+                                    <div class="form-group text-left col-lg-2 col-3 text-center">
+                                        <input formControlName="Four" class="form-control form-control-lg" #four placeholder="0" type="number"  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);" [(ngModel)]="Fourth" (keyup)="keytab($event, 4)">
+                                    </div>
+                                    <!-- <p class="mt-3 col-lg-12">The code will expire : 4:36</p> -->
+                                     <div class="col-lg-11 mt-3 row justify-content-center align-items-center">
+                                     <div class="form-group col-lg-6">
+                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="ResendOTP()" >{{ 'SignUp.Resend' | translate }}</button>
+
+                                    </div>
+                                    <div class="form-group col-lg-4">
+                                        <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="verifyOTP()"  [disabled]="(!first && first!=0) || (!second && second!=0) ||(!third && third!=0) ||(!Fourth && Fourth!=0)">Verify</button>
+                                        <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                                       color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                      <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+                                      <p style="color: white; margin-top:50px;font-size: 26px;"> {{ 'SignUp.Loading' | translate }} </p>
                                       </ngx-spinner>
-                            </div>
-                            <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
-                              <label for="AccountStatement" class=" my-3" style="font-size: 15px; font-weight: bold;">Account Statement (for last 3 months) </label>
-                              <div class="row w-100" *ngIf="!showAccountUploadImg">
-                                <div class="col-lg-10 mx-auto" *ngFor="let file of AccountDocs; let i = index;">
-                                 <img src="assets/images/doc.png" width="60px" height="60px">
-                                 <a class="close-icon" (click)="closeAccountDetails(i)"><img src="assets/images/close.svg"></a>
-                                 <p class="mt-2">{{ file.name }}</p>
-                                </div>
-                               </div>
-                               <div class="row w-100" *ngIf="showNewAccountUploadImg">
-                                <div class="col-lg-10 mx-auto" *ngFor="let file of NewUploadedAccountDocs; let i = index;">
-                                 <img src="assets/images/doc.png" width="60px" height="60px">
-                                 <a class="close-icon" (click)="closeNewAccountDetails(i)"><img src="assets/images/close.svg"></a>
-                                 <p class="mt-2">{{ file.name }}</p>
-                                </div>
-                               </div>
-                                  <div class="mt-3 h-70" >
-                                    <input type="file"  name="AccountStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadAccoutFile($event)" multiple>
-                                    <div class="file-input">
-                                      <p class="text-center">
-                                            <span class="px-3">
-                                                <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.68117 2.2677L1.96299 4.4627C1.06069 4.80906 0.610006 5.82131 0.956368 6.72361L5.97352 19.7937C6.31988 20.696 7.33212 21.1467 8.23443 20.8004L18.037 17.0375C18.9393 16.6911 19.39 15.6789 19.0436 14.7766L15.5944 5.79087L7.68117 2.2677Z" fill="#F9F9F9" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M7.68115 2.26758L9.87616 7.98576L15.5943 5.79075" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20.2069 2.62589L14.3816 0.733163C13.4624 0.434498 12.4752 0.937537 12.1765 1.85673L7.85027 15.1715C7.5516 16.0907 8.05464 17.078 8.97384 17.3767L18.9599 20.6213C19.8791 20.92 20.8664 20.417 21.1651 19.4978L24.1393 10.3438L20.2069 2.62589Z" fill="#FEFCF8" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                </span>
-                                            Upload Account Statements</p>
                                     </div>
-                                  </div>
+                                </div>
+                                </div>
+                       </div>
 
-                                    <div class="col-lg-12 row justify-content-end py-4 " >
-                                    <div class="form-group col-lg-3">
-                                      <button type="submit" class="btn btn-info btn-lg btn-block btn-purple " [disabled]="!disableAccountButton">Save</button>
-                                    </div>
-                                  </div>
-                              </form>
-                          </form>
 
-                                     <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser && !showProfit">
-                                      <div class="col-lg-12 mb-3"><h3 class="headingh3">Address Information.</h3></div>
-                                      <div class="col-lg-12">
-                                          <label for="address" class="font-bold mt-2">Complete Address</label>
-                                          <input matInput formControlName="Address" type="text" class="form-control form-control-lg" value="{{address}}" placeholder="enter your Address here" [(ngModel)]="address">
-                                          <div *ngIf="AddressForm.controls['Address'].touched && AddressForm.controls['Address'].hasError('required')" class="error-msg alert alert-danger text-left">Address is required</div>
-                                          <div *ngIf="AddressForm.controls['Address'].touched && AddressForm.controls['Address'].hasError('minlength')" class="error-msg alert alert-danger text-left">Address must be at least 6 characters long.</div>
-                                      </div>
-                                      <div class="col-lg-6">
-                                        <label for="city" class="font-bold mt-2">City </label>
-                                        <input matInput formControlName="City" type="text" class="form-control form-control-lg"  value="{{city}}" placeholder="enter your city here" [(ngModel)]="city">
-                                        <!-- <div *ngIf="AddressForm.controls['City'].touched && AddressForm.controls['City'].hasError('required')" class="error-msg alert alert-danger text-left">city is required</div> -->
-                                        <div *ngIf="AddressForm.controls['City'].touched && AddressForm.controls['City'].hasError('minlength')" class="error-msg alert alert-danger text-left">city must be at least 4 characters long.</div>
-                                  </div>
-                                    <div class="col-lg-6">
-                                      <label for="country" class="font-bold mt-2">Country</label>
-                                      <input matInput formControlName="Country" type="text" class="form-control form-control-lg" value="{{country}}"  placeholder="enter your country here" [(ngModel)]="country">
-                                      <!-- <div *ngIf="AddressForm.controls['Country'].touched && AddressForm.controls['Country'].hasError('required')" class="error-msg alert alert-danger text-left">country is required</div> -->
-                                      <div *ngIf="AddressForm.controls['Country'].touched && AddressForm.controls['Country'].hasError('minlength')" class="error-msg alert alert-danger text-left">country must be at least 4 characters long.</div>
-                              </div>
-                                  <div class="col-lg-6">
-                                    <label for="state" class="font-bold mt-2">State</label>
-                                    <input matInput formControlName="State" type="text" class="form-control form-control-lg" value="{{state}}"  placeholder="enter your State here" [(ngModel)]="state">
-                                    <!-- <div *ngIf="AddressForm.controls['State'].touched && AddressForm.controls['State'].hasError('required')" class="error-msg alert alert-danger text-left">state is required</div> -->
-                                    <div *ngIf="AddressForm.controls['State'].touched && AddressForm.controls['State'].hasError('minlength')" class="error-msg alert alert-danger text-left">state must be at least 4 characters long.</div>
-                          </div>
-                                <div class="col-lg-6">
-                                  <label for="zip" class="font-bold mt-2">ZIP code</label>
-                                  <input matInput formControlName="Zip" type="number" class="form-control form-control-lg"  value="{{zip}}" placeholder="enter your Zip here" [(ngModel)]="zip">
-                                  <!-- <div *ngIf="AddressForm.controls['Zip'].touched && AddressForm.controls['Zip'].hasError('required')" class="error-msg alert alert-danger text-left">Zip is required</div> -->
-                              </div>
-
-                          </form>
+                       <!-- BALANCE-->
+                     <!--  <form class="row antim-form mt-3 mb-3" [formGroup]="UserBalance" >
+                          <div class="col-lg-12 mb-2"><h3 class="headingh3">My Antime Balance</h3></div>
+                        <div class="col-lg-8">
+                          <label for="balance" class="font-bold mt-2">My Balance</label>
+                          <input matInput formControlName="MyBalance" class="form-control form-control-lg" value="{{userBalance}}" digitOnly [(ngModel)]="userBalance" >
+                          <div *ngIf="UserBalance.controls['MyBalance'].touched && UserBalance.controls['MyBalance'].hasError('required')" class="error-msg alert alert-danger text-left">Balance is required</div>
                         </div>
-                        </div>
-
-
-
-                        <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" *ngIf="showAddress && !showBank && !showUser && !showProfit">
+                      </form>
+                       <div class="col-lg-12 mt-2 row justify-content-end py-4 mt-4" >
                           <div class="form-group col-lg-3">
-                                 <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditAddressInfo()">
+                                 <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBalanceInfo()">
                                       <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                       <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                       </svg>
@@ -413,19 +179,277 @@
                                   </button>
                               </div>
                               <div class="form-group col-lg-3">
-                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableAddressButton" (click)="SaveAddressInfo()">Save</button>
+                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableBalanceButton" (click)="SaveBalanceInfo()">Save</button>
                             </div>
-                            <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
-                            color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                            <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
-                            </ngx-spinner>
-                  </div>
+                  </div> -->
+
+
+
+                            <!-- <div class="col-lg-12">
+                                    <label for="Address" class="font-bold mt-2">Address</label>
+                                    <input matInput formControlName="Address" class="form-control form-control-lg" value="Saudi Arabia" placeholder="Address">
+                                </div>
+                                <div class="container">
+                                <div class="mt-4">
+                                        <div class="col-lg-12" id="map-inner" leaflet
+                                        style="height:100px;"
+                                        [leafletCenter]="mapCenter"
+                                        [leafletZoom]="zoomLevel"
+                                        [leafletLayers]="leafletLayers">
+                                    </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col-lg-12 mt-5"><h3 class="headingh3">{{ 'Profile.ChangeYourPassword' | translate }}</h3>
+                                  <div class="col-lg-8">
+                                    <label for="Name" class="font-bold mt-2">{{ 'Profile.OldPassword' | translate }} :</label>
+                                    <input matInput formControlName="OldPassword" type="password" class="form-control form-control-lg" [(ngModel)]="oldPassword" placeholder="{{ 'Profile.TypeOldPassword' | translate }}" >
+                                    <div *ngIf="EditForm.controls['OldPassword'].touched && EditForm.controls['OldPassword'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'Profile.TypeOldPasswordValidation' | translate }}</div>
+                                </div>
+                                <div class="col-lg-8">
+                                  <label for="Name" class="font-bold mt-2">{{ 'Profile.NewPassword' | translate }} :</label>
+                                  <input matInput formControlName="NewPassword" type="password" class="form-control form-control-lg" [(ngModel)]="newPassword" placeholder="{{ 'Profile.TypeNewPassword' | translate }}" >
+                                  <div *ngIf="EditForm.controls['NewPassword'].touched && EditForm.controls['NewPassword'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'Profile.TypeNewPasswordValidation' | translate }}</div>
+                                </div>
+                              <div class="col-lg-8">
+                                <label for="Name" class="font-bold mt-2">{{ 'Profile.ConfirmPassword' | translate }} :</label>
+                                <input matInput formControlName="ConfirmPassword" type="password" class="form-control form-control-lg"  [(ngModel)]="confirmPassword" placeholder="{{ 'Profile.TypeConfirmPassword' | translate }}" >
+                                <div *ngIf="EditForm.controls['ConfirmPassword'].touched && EditForm.value.NewPassword != EditForm.value.ConfirmPassword" class="error-msg alert alert-danger text-left">{{ 'Profile.TypeConfirmPasswordValidation' | translate }}</div>
+                            </div>
+                            </div>
+                            <div class="col-lg-12 row justify-content-end py-4 mt-4" >
+                              <div class="form-group col-lg-4">
+                                <button class="btn btn-lg btn-block btn-blue mt-2" (click)="editPassword()">{{ 'Profile.ChangePassword' | translate }}</button>
+                            </div>
+                             <div class="form-group col-lg-3">
+                                 <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disablePasswordButton" (click)="changeCurrentPassword()">{{ 'Profile.Save' | translate }}</button>
+                             </div>
+                      </div>
+                    </form>
 
 
 
 
-                        <div class="col-lg-12 row justify-content-around" *ngIf="!showAddress && !showBank && !showUser && showProfit">
-                            <div class="col-lg-5 row bank-info-card card-purple">
+                        <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="!showAddress && showBank && !showUser && !showProfit">
+                                <div class="col-lg-12 mb-3"><h3 class="headingh3">{{ 'Profile.BankInformation' | translate }}</h3></div>
+                                <!-- <div class="col-lg-12">
+                                    <label for="MaximunLimit" class="font-bold mt-2">Maximun limit funding</label>
+                                    <mat-slider
+                                    thumbLabel
+                                    [displayWith]="formatLabel"
+                                    tickInterval="100"
+                                    min="500"
+                                    max="10000"></mat-slider>
+                                </div> -->
+                                <div class="col-lg-6">
+                                    <label for="bankName" class="font-bold mt-2">{{ 'Profile.BankName' | translate }} </label>
+                                    <select formControlName="BankName" class="form-control form-control-lg custom-select" value="{{bankName}}" [(ngModel)]="bankName" (change)="onSelectChange($event.target.value)">
+                                      <option value="select" selected>{{ 'Profile.SelectyourBank' | translate }}</option>
+                                      <option value="AlBilad Bank">{{ 'Profile.AlBiladBank' | translate }} </option>
+                                        <option value="AlRajhi Bank">{{ 'Profile.AlRajhiBank' | translate }}  </option>
+                                        <option value="AlFransi Bank">{{ 'Profile.AlFransiBank' | translate }}</option>
+                                        <option value="Samba Bank">{{ 'Profile.SambaBank' | translate }}</option>
+                                        <option value="Alriyadh Bank" >{{ 'Profile.AlriyadhBank' | translate }}</option>
+                                        <option value="Alawwal Bank" >{{ 'Profile.AlawwalBank' | translate }}</option>
+                                        <option value="SAIB Bank" >{{ 'Profile.SAIB' | translate }} </option>
+                                        <option value="AlJazeera Bank" >{{ 'Profile.AlJazeeraBank' | translate }} </option>
+                                        <option value="SAB Bank" >{{ 'Profile.SABBank' | translate }}</option>
+                                        <option value="AlAhli Bank" >{{ 'Profile.AlAhliBank' | translate }}</option>
+                                        <option value="Muscat Bank" >{{ 'Profile.MuscatBank' | translate }}</option>
+                                        <option value="National Bank of Kuwait" >{{ 'Profile.NationalBankofKuwait' | translate }}</option>
+                                        <option value="NBB Bank" >{{ 'Profile.NBB' | translate }}</option>
+                                        <option value="ANB Bank" >{{ 'Profile.ANB' | translate }}</option>
+                                        <option value="Emirates NBD" >{{ 'Profile.EmiratesNBD' | translate }} </option>
+                                        <option value="Alinma Bank" >{{ 'Profile.AlinmaBank' | translate }} </option>
+                                        <option value="GIB Bank" >{{ 'Profile.GIB' | translate }}</option>
+                                        <option value="Deutsche Bank" >{{ 'Profile.DeutscheBank' | translate }} </option>
+
+                                </select>
+                                    <!-- <input matInput formControlName="BankName" class="form-control form-control-lg" value="{{bankName}}" [(ngModel)]="bankName" placeholder="Bank Name...">
+                                    <div *ngIf="BankInfoForm.controls['BankName'].touched && BankInfoForm.controls['BankName'].hasError('required')" class="error-msg alert alert-danger text-left">Bank Name is required</div>
+                                    <div *ngIf="BankInfoForm.controls['BankName'].touched && BankInfoForm.controls['BankName'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank Name must be at least 4 characters long.</div> -->
+                                  </div>
+                                <div class="col-lg-6">
+                                    <label for="bankAccountNo" class="font-bold mt-2">{{ 'Profile.BankAccountNumber' | translate }}</label>
+                                    <input matInput formControlName="BankAccountNo" class="form-control form-control-lg" value="{{bankAccountNo}}" maxlength="24" [(ngModel)]="bankAccountNo" placeholder="{{ 'Profile.BankAccountNumber' | translate }}...">
+                                    <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'Profile.BankAccountNumberValidation1' | translate }}</div>
+                                    <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'Profile.BankAccountNumberValidation2' | translate }}</div>
+                                </div>
+
+                                <!-- <div class="col-lg-6">
+                                    <label for="accountTitle" class="font-bold mt-2">Account Title </label>
+                                    <input matInput formControlName="AccountTitle" class="form-control form-control-lg" value="{{accountTitle}}" [(ngModel)]="accountTitle" placeholder="Account Title...">
+                                    <div *ngIf="BankInfoForm.controls['AccountTitle'].touched && BankInfoForm.controls['AccountTitle'].hasError('required')" class="error-msg alert alert-danger text-left">Account Title is required</div>
+                                    <div *ngIf="BankInfoForm.controls['AccountTitle'].touched && BankInfoForm.controls['AccountTitle'].hasError('minlength')" class="error-msg alert alert-danger text-left">Account Title must be at least 6 characters long.</div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="bankAddress" class="font-bold mt-2">Bank Address</label>
+                                    <input matInput formControlName="BankAddress" class="form-control form-control-lg" value="{{bankAddress}}"[(ngModel)]="bankAddress"  placeholder="Bank Address(Branch Address)...">
+                                    <div *ngIf="BankInfoForm.controls['BankAddress'].touched && BankInfoForm.controls['BankAddress'].hasError('required')" class="error-msg alert alert-danger text-left">Bank Address is required</div>
+                                    <div *ngIf="BankInfoForm.controls['BankAddress'].touched && BankInfoForm.controls['BankAddress'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank Address must be at least 10 characters long.</div>
+                                </div> -->
+                                <!-- <div class="col-lg-6">
+                                    <label for="investmentPerYear" class="font-bold mt-2">Expected capital investment per year</label>
+                                    <input matInput formControlName="investmentPerYear" class="form-control form-control-lg" value="250,000" placeholder="Expected capital investment per year">
+                                    <div *ngIf="BankInfoForm.controls['investmentPerYear'].touched && BankInfoForm.controls['investmentPerYear'].hasError('required')" class="error-msg alert alert-danger text-left">Expected capital investment is required</div>
+                                </div> -->
+                                <div class="col-lg-6">
+                                    <label for="IBAN" class="font-bold mt-2">{{ 'Profile.IBANNumber' | translate }}</label>
+                                    <input matInput formControlName="IBAN" class="form-control form-control-lg" value="{{IBAN}}"[(ngModel)]="IBAN" maxlength="26"  placeholder="SA 0000XXXXXXXXX">
+                                    <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'Profile.IBANNumberRequired' | translate }}</div>
+                                    <div *ngIf="BankInfoForm.controls['IBAN'].touched && BankInfoForm.controls['IBAN'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'Profile.IBANNumberValidation' | translate }}</div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <label for="fundingLimit" class="font-bold mt-2">{{ 'Profile.MaximunFundingLimit' | translate }}</label>
+                                  <input matInput formControlName="FundingLimit" class="form-control form-control-lg" type="number" value="{{fundingLimit}}" [(ngModel)]="fundingLimit" placeholder="{{ 'Profile.MaximunFundingLimit' | translate }}" [(ngModel)]="fundingLimit"
+                                  oninput="javascript: if (this.value >= 500 && this.value <= 10000) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
+                                  else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
+                                  <div *ngIf="BankInfoForm.controls['FundingLimit'].touched && BankInfoForm.controls['FundingLimit'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'Profile.FundingLimitRequired' | translate }}</div>
+                                  <span class="redColor" id="phonenumber">{{ 'Profile.FundingLimitValidation' | translate }}</span>
+                              </div>
+
+                              <div class="col-lg-12 mt-3 row justify-content-end py-4 mt-2" >
+                                <div class="form-group col-lg-3">
+                                       <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditBankInfo()">
+                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="px-3">{{ 'Profile.Edit' | translate }}</span>
+                                        </button>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                      <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!disableBankButton || !BankInfoForm.valid " (click)="SaveBankInfo()">{{ 'Profile.Save' | translate }}</button>
+                                  </div>
+                                  <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+                                  color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
+                                  <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
+                                  </ngx-spinner>
+                        </div>
+                        <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
+                            <label for="AccountStatement" class=" my-3" style="font-size: 15px; font-weight: bold;">{{ 'Profile.AccountStatement' | translate }}</label>
+                            <div class="row w-100" *ngIf="!showAccountUploadImg">
+                              <div class="col-lg-10 mx-auto" *ngFor="let file of AccountDocs; let i = index;">
+                               <img src="assets/images/doc.png" width="60px" height="60px">
+                               <a class="close-icon" (click)="closeAccountDetails(i)"><img src="assets/images/close.svg"></a>
+                               <p class="mt-2">{{ file.name }}</p>
+                              </div>
+                             </div>
+                             <div class="row w-100" *ngIf="showNewAccountUploadImg">
+                              <div class="col-lg-10 mx-auto" *ngFor="let file of NewUploadedAccountDocs; let i = index;">
+                               <img src="assets/images/doc.png" width="60px" height="60px">
+                               <a class="close-icon" (click)="closeNewAccountDetails(i)"><img src="assets/images/close.svg"></a>
+                               <p class="mt-2">{{ file.name }}</p>
+                              </div>
+                             </div>
+                                <div class="mt-3 h-70" >
+                                  <input type="file"  name="AccountStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadAccoutFile($event)" multiple>
+                                  <div class="file-input">
+                                    <p class="text-center">
+                                          <span class="px-3">
+                                              <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.68117 2.2677L1.96299 4.4627C1.06069 4.80906 0.610006 5.82131 0.956368 6.72361L5.97352 19.7937C6.31988 20.696 7.33212 21.1467 8.23443 20.8004L18.037 17.0375C18.9393 16.6911 19.39 15.6789 19.0436 14.7766L15.5944 5.79087L7.68117 2.2677Z" fill="#F9F9F9" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                  <path d="M7.68115 2.26758L9.87616 7.98576L15.5943 5.79075" stroke="#D8D8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M20.2069 2.62589L14.3816 0.733163C13.4624 0.434498 12.4752 0.937537 12.1765 1.85673L7.85027 15.1715C7.5516 16.0907 8.05464 17.078 8.97384 17.3767L18.9599 20.6213C19.8791 20.92 20.8664 20.417 21.1651 19.4978L24.1393 10.3438L20.2069 2.62589Z" fill="#FEFCF8" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                  <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                              </svg>
+                                              </span>
+                                              {{ 'Profile.UploadAccountStatement' | translate }}</p>
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-12 row justify-content-end py-4 " >
+                                <div class="form-group col-lg-3">
+                                  <button type="submit" class="btn btn-info btn-lg btn-block btn-purple " [disabled]="!disableAccountButton">{{ 'Profile.Save' | translate }}</button>
+                                </div>
+                              </div>
+                          </form>
+                      </form>
+
+                                 <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser && !showProfit">
+                                  <div class="col-lg-12 mb-3"><h3 class="headingh3">{{ 'Profile.AddressInformation' | translate }}</h3></div>
+                                  <div class="col-lg-12">
+                                      <label for="address" class="font-bold mt-2">{{ 'Profile.CompleteAddress' | translate }}</label>
+                                      <input matInput formControlName="Address" type="text" class="form-control form-control-lg" value="{{address}}" placeholder="{{ 'Profile.enterYourAdresshere' | translate }}" [(ngModel)]="address">
+                                      <div *ngIf="AddressForm.controls['Address'].touched && AddressForm.controls['Address'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'Profile.Addressisrequired' | translate }}</div>
+                                      <div *ngIf="AddressForm.controls['Address'].touched && AddressForm.controls['Address'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'Profile.AddressVlidation' | translate }}</div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                    <label for="city" class="font-bold mt-2">{{ 'Profile.City' | translate }} </label>
+                                    <input matInput formControlName="City" type="text" class="form-control form-control-lg"  value="{{city}}" placeholder="{{ 'Profile.enterYourCity' | translate }}" [(ngModel)]="city">
+                                    <!-- <div *ngIf="AddressForm.controls['City'].touched && AddressForm.controls['City'].hasError('required')" class="error-msg alert alert-danger text-left">city is required</div> -->
+                                    <div *ngIf="AddressForm.controls['City'].touched && AddressForm.controls['City'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'Profile.cityValidations' | translate }}</div>
+                              </div>
+                                <div class="col-lg-6">
+                                  <label for="country" class="font-bold mt-2">{{ 'Profile.Country' | translate }}</label>
+                                  <input matInput formControlName="Country" type="text" class="form-control form-control-lg" value="{{country}}"  placeholder="{{ 'Profile.enterYourCountry' | translate }}" [(ngModel)]="country">
+                                  <!-- <div *ngIf="AddressForm.controls['Country'].touched && AddressForm.controls['Country'].hasError('required')" class="error-msg alert alert-danger text-left">country is required</div> -->
+                                  <div *ngIf="AddressForm.controls['Country'].touched && AddressForm.controls['Country'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'Profile.CountryValidation' | translate }}</div>
+                          </div>
+                              <div class="col-lg-6">
+                                <label for="state" class="font-bold mt-2">{{ 'Profile.State' | translate }}</label>
+                                <input matInput formControlName="State" type="text" class="form-control form-control-lg" value="{{state}}"  placeholder="{{ 'Profile.enterYourState' | translate }}" [(ngModel)]="state">
+                                <!-- <div *ngIf="AddressForm.controls['State'].touched && AddressForm.controls['State'].hasError('required')" class="error-msg alert alert-danger text-left">state is required</div> -->
+                                <div *ngIf="AddressForm.controls['State'].touched && AddressForm.controls['State'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'Profile.YourStateValidations' | translate }}</div>
+                      </div>
+                            <div class="col-lg-6">
+                              <label for="zip" class="font-bold mt-2">{{ 'Profile.ZIPCode' | translate }}</label>
+                              <input matInput formControlName="Zip" type="number" class="form-control form-control-lg"  value="{{zip}}" placeholder="{{ 'Profile.enteryourZiphere' | translate }}" [(ngModel)]="zip">
+                              <!-- <div *ngIf="AddressForm.controls['Zip'].touched && AddressForm.controls['Zip'].hasError('required')" class="error-msg alert alert-danger text-left">Zip is required</div> -->
+                          </div>
+
+                      </form>
+                    </div>
+                    </div>
+
+
+
+                    <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" *ngIf="showAddress && !showBank && !showUser && !showProfit">
+                      <div class="form-group col-lg-3">
+                             <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="EditAddressInfo()">
+                                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                  <span class="px-3">{{ 'Profile.Edit' | translate }}</span>
+                              </button>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disableAddressButton" (click)="SaveAddressInfo()">Save</button>
+                        </div>
+                        <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
+                        color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
+                        <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
+                        </ngx-spinner>
+              </div>
+
+
+
+
+                    <div class="col-lg-12 row justify-content-around" *ngIf="!showAddress && !showBank && !showUser && showProfit">
+                        <div class="col-lg-5 row bank-info-card card-purple">
+                            <div class="col-lg-2 mt-4 px-3 col-3">
+                                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.312802" fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#F9F9F9"/>
+                                        <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="white"/>
+                                        </mask>
+                                        <g mask="url(#mask0)">
+                                        <path d="M19.6792 46.0236C19.7342 48.7756 22.0032 50.9656 24.7555 50.9231L82.4811 50.0308C85.2498 49.988 87.4565 47.7032 87.4029 44.9347L86.8428 15.9796C86.7895 13.2263 84.5199 11.0344 81.7664 11.0769L24.0221 11.9691C21.2522 12.0119 19.045 14.2987 19.1004 17.0685L19.6792 46.0236Z" fill="black"/>
+                                        <path d="M17.6792 48.5236C17.7342 51.2756 20.0032 53.4656 22.7555 53.4231L80.4811 52.5308C83.2498 52.488 85.4565 50.2032 85.4029 47.4347L84.8428 18.4796C84.7895 15.7263 82.5199 13.5344 79.7664 13.5769L22.0221 14.4691C19.2522 14.5119 17.045 16.7987 17.1004 19.5685L17.6792 48.5236Z" fill="#C7C7C7"/>
+                                        <path d="M17.7299 49.4746C17.7568 51.6938 19.5852 53.4669 21.8042 53.4255L80.5318 52.3305C80.5318 52.3305 68.7353 31.1838 56.4759 24.9084C44.2165 18.6329 17.3733 20.0006 17.3733 20.0006L17.7299 49.4746Z" fill="black" fill-opacity="0.0962358"/>
+                                        <rect x="38.5" y="42" width="40" height="3" rx="1.5" fill="#441997"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M27 47C28.933 47 30.5 45.433 30.5 43.5C30.5 41.567 28.933 40 27 40C25.067 40 23.5 41.567 23.5 43.5C23.5 45.433 25.067 47 27 47Z" fill="black"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M30.5 47C32.433 47 34 45.433 34 43.5C34 41.567 32.433 40 30.5 40C28.567 40 27 41.567 27 43.5C27 45.433 28.567 47 30.5 47Z" fill="#39A4E9"/>
+                                        </g>
+                                        </svg>
+
+                             </div>
+                             <div class="card-info col-lg-8 mt-4 px-5 col-8">
+                                 <p>Converted profits</p>
+                                 <h4>12,400 SAR</h4>
+                             </div>
+
+                        </div>
+                        <div class="col-lg-5 row bank-info-card card-dark">
                                 <div class="col-lg-2 mt-4 px-3 col-3">
                                         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path opacity="0.312802" fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#F9F9F9"/>
@@ -444,79 +468,55 @@
 
                                  </div>
                                  <div class="card-info col-lg-8 mt-4 px-5 col-8">
-                                     <p>Converted profits</p>
-                                     <h4>12,400 SAR</h4>
+                                     <p>Current profits</p>
+                                     <h4>122,400 SAR</h4>
                                  </div>
-
-                            </div>
-                            <div class="col-lg-5 row bank-info-card card-dark">
-                                    <div class="col-lg-2 mt-4 px-3 col-3">
-                                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path opacity="0.312802" fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#F9F9F9"/>
-                                                <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="white"/>
-                                                </mask>
-                                                <g mask="url(#mask0)">
-                                                <path d="M19.6792 46.0236C19.7342 48.7756 22.0032 50.9656 24.7555 50.9231L82.4811 50.0308C85.2498 49.988 87.4565 47.7032 87.4029 44.9347L86.8428 15.9796C86.7895 13.2263 84.5199 11.0344 81.7664 11.0769L24.0221 11.9691C21.2522 12.0119 19.045 14.2987 19.1004 17.0685L19.6792 46.0236Z" fill="black"/>
-                                                <path d="M17.6792 48.5236C17.7342 51.2756 20.0032 53.4656 22.7555 53.4231L80.4811 52.5308C83.2498 52.488 85.4565 50.2032 85.4029 47.4347L84.8428 18.4796C84.7895 15.7263 82.5199 13.5344 79.7664 13.5769L22.0221 14.4691C19.2522 14.5119 17.045 16.7987 17.1004 19.5685L17.6792 48.5236Z" fill="#C7C7C7"/>
-                                                <path d="M17.7299 49.4746C17.7568 51.6938 19.5852 53.4669 21.8042 53.4255L80.5318 52.3305C80.5318 52.3305 68.7353 31.1838 56.4759 24.9084C44.2165 18.6329 17.3733 20.0006 17.3733 20.0006L17.7299 49.4746Z" fill="black" fill-opacity="0.0962358"/>
-                                                <rect x="38.5" y="42" width="40" height="3" rx="1.5" fill="#441997"/>
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M27 47C28.933 47 30.5 45.433 30.5 43.5C30.5 41.567 28.933 40 27 40C25.067 40 23.5 41.567 23.5 43.5C23.5 45.433 25.067 47 27 47Z" fill="black"/>
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M30.5 47C32.433 47 34 45.433 34 43.5C34 41.567 32.433 40 30.5 40C28.567 40 27 41.567 27 43.5C27 45.433 28.567 47 30.5 47Z" fill="#39A4E9"/>
-                                                </g>
-                                                </svg>
-
-                                     </div>
-                                     <div class="card-info col-lg-8 mt-4 px-5 col-8">
-                                         <p>Current profits</p>
-                                         <h4>122,400 SAR</h4>
-                                     </div>
-                                     <div class="col-lg-12 mt-3 row d-flex align-items-end py-4 mt-m-5 col-12">
-                                            <div class="form-group col-lg-8 transfer-btn">
-                                                   <button class="btn btn-info btn-lg btn-block btn-black" (click)="openVerticallyCentered(content3)">Transfer to my bank account</button>
-                                           </div>
-                                    </div>
-
+                                 <div class="col-lg-12 mt-3 row d-flex align-items-end py-4 mt-m-5 col-12">
+                                        <div class="form-group col-lg-8 transfer-btn">
+                                               <button class="btn btn-info btn-lg btn-block btn-black" (click)="openVerticallyCentered(content3)">Transfer to my bank account</button>
+                                       </div>
                                 </div>
-                                <div class="col-lg-11 mt-5 mb-5 chart-container">
-                                    <p class="font-bold">Financial analysis of your operations</p>
-                                <canvas baseChart
-                                [datasets]="barChartData"
-                                [labels]="barChartLabels"
-                                [options]="barChartOptions"
-                                [plugins]="barChartPlugins"
-                                [colors]="barChartColors"
-                                [legend]="barChartLegend"
-                                [chartType]="barChartType">
-                              </canvas>
+
                             </div>
-
+                            <div class="col-lg-11 mt-5 mb-5 chart-container">
+                                <p class="font-bold">Financial analysis of your operations</p>
+                            <canvas baseChart
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [plugins]="barChartPlugins"
+                            [colors]="barChartColors"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType">
+                          </canvas>
                         </div>
-                    </div>
-            </div>
-        </div>
 
-        <ng-template #content3 let-modal>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <ng-template #content3 let-modal>
+            <div class="modal-body">
+              <p>
+                    Why would you like to refund?
+              </p>
+              <div class="d-flex justify-content-end pb-3 mt-4">
+                    <button class="btn btn-info btn-lg btn-block btn-black mt-2 col-lg-4 mr-3" (click)="modal.close('Close click')">Cancellation</button>
+                  <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" (click)="openVerticallyCentered(content4)">Exception</button>
+               </div>
+
+            </div>
+          </ng-template>
+
+          <ng-template #content4 let-modal>
                 <div class="modal-body">
                   <p>
-                        Why would you like to refund?
+                        Your savings have been transferred to your bank account
                   </p>
                   <div class="d-flex justify-content-end pb-3 mt-4">
-                        <button class="btn btn-info btn-lg btn-block btn-black mt-2 col-lg-4 mr-3" (click)="modal.close('Close click')">Cancellation</button>
-                      <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" (click)="openVerticallyCentered(content4)">Exception</button>
+                      <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" (click)="modal.close('Close click')">OK</button>
                    </div>
 
                 </div>
               </ng-template>
-
-              <ng-template #content4 let-modal>
-                    <div class="modal-body">
-                      <p>
-                            Your savings have been transferred to your bank account
-                      </p>
-                      <div class="d-flex justify-content-end pb-3 mt-4">
-                          <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" (click)="modal.close('Close click')">OK</button>
-                       </div>
-
-                    </div>
-                  </ng-template>

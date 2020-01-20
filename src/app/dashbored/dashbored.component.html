@@ -5,7 +5,7 @@
                                 <span class="navbar-toggler-icon"></span>
                         </button>
                         <a class="navbar-brand" [routerLink]="[ '/' ]">
-                                <img src="assets/images/logo-white.svg" alt="antim">
+                          <img src="assets/images/logo-white.svg" class="logo" alt="antim">
 
                         </a>
                 </nav>
@@ -24,9 +24,10 @@
                 <div class="row" *ngIf="currentUser">
                   <div class="col-lg-1"></div>
                   <div class="col-lg-10 mt-3 alert alert-warning " *ngIf="!currentUser?.emailConfirmed">
-                    <p class= "mb-0">
-                      <i class="mr-1 fa fa-exclamation-circle"></i>
-                      Your email is not verified. please verify your email to get the most benefits from ANTIM.  <u><a (click)="resendEmail()"> Resend Verification Link</a></u>
+                    <p class= "mb-0"> <i class="mr-1 fa fa-exclamation-circle"></i>
+                      {{ 'Dashbored.EmailnoTverified' | translate }} 
+                        <u><a (click)="resendEmail()"> {{ 'Dashbored.ResendVerificationLink' | translate }}   </a></u>
+
                       </p>
                   </div>
                 </div>
@@ -34,7 +35,7 @@
                 <div class="mat-card col-lg-11 mt-5 row welcome-card p-2 align-items-center">
                   <img class="col-lg-2" src="assets/images/bookWithMen.svg">
                   <div class="col-lg-8 px-0" *ngIf="currentUser">
-                    <p class="grey-text-color">Oh! Welcome Home {{currentUser?.firstName}}! We've prepared some useful information below ;)</p>
+                    <p class="grey-text-color">{{ 'Dashbored.WelcomeMsg1' | translate }} {{currentUser?.firstName}}! {{ 'Dashbored.WelcomeMsg2' | translate }}</p>
                   </div>
                   <!-- <form class="col-lg-3">
                   <div class="form-group">
@@ -48,29 +49,29 @@
               </div>
               <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
               color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-              <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
+              <p style="color: white; margin-top:50px;font-size: 26px;" >{{ 'SignUp.Loading' | translate }} </p>
               </ngx-spinner>
 
                 <div class="col-lg-11 row justify-content-around mt-5 dashbored-info">
                     <!-- <div class="col-lg-2 blue-bg cursor-pointer" [routerLink]="[ '/requests-customer' , 'Ongoing']"> -->
                     <div class="col-lg-2 blue-bg  " >
                         <div class="dashbored-info-content">
-                            <p class="color-white">Total Submitted requests</p>
+                            <p class="color-white">{{ 'Dashbored.TotalSubmittedrequests' | translate }}  </p>
                             <div style="text-align: center;">{{customerRequests?.submitted}}</div>
                         </div>
                     </div>
                 <!-- <div class="col-lg-2 purple-bg cursor-pointer" [routerLink]="[ '/requests-customer' ,'Waiting for approval']"> -->
                 <div class="col-lg-2 purple-bg  " >
                     <div class="dashbored-info-content">
-                        <p class="color-white">Ongoing Requests</p >
+                        <p class="color-white">{{ 'Dashbored.OngoingRequests' | translate }}  </p >
                         <div style="text-align: center;">{{customerRequests?.ongoing}}</div>
                     </div>
                 </div>
                     <!-- <div class="col-lg-2 black-bg cursor-pointer" [routerLink]="[ '/requests-customer' ,'Rejected']"> -->
                     <div class="col-lg-2 black-bg  " >
                         <div class="dashbored-info-content">
-                          <p class="color-white">Total Installment Paid</p>
-                          <div style="text-align: center;" *ngIf="customerRequests">{{customerRequests?.paidInstallmentsAmount}} SAR</div>
+                          <p class="color-white">{{ 'Dashbored.TotalInstallmentPaid' | translate }}   </p>
+                          <div style="text-align: center;" *ngIf="customerRequests">{{customerRequests?.paidInstallmentsAmount}} {{ 'Dashbored.SAR' | translate }}  </div>
                         </div>
                       </div>
 
@@ -78,7 +79,7 @@
                     <!-- <div class="col-lg-2 purple-bg-2 cursor-pointer" [routerLink]="[ '/requests-customer' ,'Closed']"> -->
                     <div class="col-lg-2 purple-bg-2  " >
                         <div class="dashbored-info-content">
-                            <p class="color-white">UnderReview requests</p>
+                            <p class="color-white">{{ 'Dashbored.UnderReviewrequests' | translate }}  </p>
                             <div style="text-align: center;">{{customerRequests?.underReview}}</div>
                         </div>
                     </div>
@@ -86,7 +87,7 @@
                     <div class="col-lg-2 blue-bg-2  " >
 
                       <div class="dashbored-info-content">
-                        <p class="color-white">Awaiting for Fund Requests</p>
+                        <p class="color-white">{{ 'Dashbored.AwaitingforFundRequests' | translate }}</p>
                         <div style="text-align: center;">{{customerRequests?.awaiting}}</div>
                     </div>
                   </div>
@@ -95,10 +96,10 @@
                 <div class="col-lg-11 mt-3 row justify-content-center align-items-center py-4 mt-5 align-fixed-mobile">
                         <div class="form-group col-lg-2 col-6">
                                <!-- <button class="btn btn-info btn-lg btn-block btn-black mt-2 btn-lowecase" [routerLink]="[ '/requests-customer', '' ]">All Request</button> -->
-                               <button class="btn btn-info btn-lg btn-block btn-black mt-2 btn-lowecase" [routerLink]="[ '/requests-customer' ]">All Request</button>
+                               <button class="btn btn-info btn-lg btn-block btn-black mt-2 btn-lowecase" [routerLink]="[ '/requests-customer' ]">{{ 'Dashbored.AllRequest' | translate }} </button>
                        </div>
                        <div class="form-group col-lg-3 col-6">
-                           <button class="btn btn-info btn-lg btn-block btn-purple mt-2 btn-lowecase" [routerLink]="[ '/createorder-customer' ]">Make New Request</button>
+                           <button class="btn btn-info btn-lg btn-block btn-purple mt-2 btn-lowecase" [routerLink]="[ '/createorder-customer' ]">{{ 'Dashbored.MakeNewRequest' | translate }} </button>
                        </div>
                 </div>
     </div>

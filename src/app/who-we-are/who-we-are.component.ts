@@ -13,9 +13,9 @@ export class WhoWeAreComponent implements OnInit , OnDestroy {
   userLang: any;
 
     constructor(public router: Router, public translate: TranslateService) {
+      translate.addLangs([ 'english' , 'arabic']);
         this.translate.onLangChange.subscribe((event) => {
-          this.userLang = event.lang;
-          console.log(this.userLang);
+          this.userLang=event.lang;
         });
     }
 

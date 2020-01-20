@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { Logout, UserProfile, SaveTotalNotifications } from './../../store/actions/auth.actions';
 import { NotificationsService } from '../../services/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   role: any;
   notificationsCount: any;
   showCount = false;
-
+  userLang: "english";
   showMenu = '';
   showSubMenu = '';
   public sidebarnavItems: any[];
@@ -44,8 +45,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private router: Router,
     private store: Store<AppState>,
     private notificationService: NotificationsService,
+    public translate: TranslateService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+
   }
 
   // End open close

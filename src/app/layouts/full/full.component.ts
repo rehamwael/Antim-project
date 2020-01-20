@@ -25,7 +25,11 @@ export class FullComponent implements OnInit {
 	public config: PerfectScrollbarConfigInterface = {};
 
   constructor(public router: Router,  private store: Store<AppState>, public translate: TranslateService) {
-      this.getState = this.store.select(selectAuthenticationState);
+    let language = localStorage.getItem('language');
+    console.log(language);
+    this.translate.use(language);
+
+    this.getState = this.store.select(selectAuthenticationState);
       this.getState.subscribe((state) => {
         const token = localStorage.getItem('token');
         if (state.loggedIn == true || token) {
@@ -36,12 +40,11 @@ export class FullComponent implements OnInit {
       });
       translate.addLangs([ 'english' , 'arabic']);
       const browserLang = translate.getBrowserLang();
-      console.log(browserLang);
       translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
+      this.userLang = language;
       this.translate.onLangChange.subscribe((event) => {
         this.userLang = event.lang;
         localStorage.setItem('language', this.userLang);
-        console.log(this.userLang);
       });
       translate.setDefaultLang(this.userLang);
 
@@ -79,6 +82,10 @@ export class FullComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.handleSidebar();
+  }
+  changeLanguage(lang: string) {
+    this.translate.use(lang);
+
   }
 
   handleSidebar() {

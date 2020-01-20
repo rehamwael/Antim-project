@@ -5,7 +5,7 @@
                                 <span class="navbar-toggler-icon"></span>
                         </button>
                         <a class="navbar-brand" [routerLink]="[ '/' ]">
-                                <img src="assets/images/logo-white.svg" alt="antim">
+                            <img src="assets/images/logo-white.svg" class="logo" alt="antim">
 
                         </a>
                 </nav>
@@ -26,13 +26,13 @@
                 <div class="col-lg-3 ">
                   <div class="row">
                     <img  src="assets/images/bookWithMen 2.svg">
-                    <p class="grey-text-color ml-2 mt-5">Notifications </p>
-                    </div>
+                    <p class="grey-text-color ml-2 mt-5">{{ 'Notifications.Notifications' | translate }} </p>
+                  </div>
                   </div>
                         <form class="col-lg-3">
                     <div class="form-group">
-                        <label for="Filter" class="font-size-13"> From Date</label>
-                        <div class="input-group">
+                      <label for="Filter" class="font-size-13">{{ 'Notifications.FromDate' | translate }}</label>
+                      <div class="input-group">
                         <input (click)="dp.toggle()" (dateSelect) = "selectFromDate($event)" [value]="fromDate" class="form-control date-picker" ngbDatepicker #dp="ngbDatepicker">
 
                         <i style="color: rgb(99, 94, 94) !important;" class="fa fa-calendar"></i>
@@ -41,8 +41,8 @@
            </form>
            <form class="col-lg-3">
               <div class="form-group">
-                  <label for="Filter" class="font-size-13"> To Date</label>
-                  <div class="input-group">
+                <label for="Filter" class="font-size-13">{{ 'Notifications.ToDate' | translate }}</label>
+                <div class="input-group">
                       <input (click)="d.toggle()" (dateSelect) = "selectToDate($event)" [value]="toDate" class="form-control date-picker"  ngbDatepicker #d="ngbDatepicker">
 
                    <i style="color: rgb(99, 94, 94) !important;" class="fa fa-calendar"></i>
@@ -51,9 +51,9 @@
           </form>
           <!-- <div class="col-lg-1" ></div> -->
           <div class="col-lg-3 ">
-             <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableSearch" (click)="filterRequests()">search</button>
-          <!-- </div> -->
-              <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableReset" (click)="resetPage()">Reset</button>
+            <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableSearch" (click)="filterRequests()">{{ 'Notifications.search' | translate }}</button>
+            <!-- </div> -->
+                <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableReset" (click)="resetPage()">{{ 'Notifications.Reset' | translate }}</button>
            </div>
 
                   <!-- <div class="form-group has-search col-lg-4">
@@ -90,18 +90,18 @@
 
                           <div class="col-lg-12  row d-flex flex-row-reverse" *ngIf="notification.status == 2">
                             <div class="form-group col-lg-3">
-                                <button class="btn btn-info btn-lg btn-block btn-purple" (click)="markAsReadNotification(notification.id)">Mark as Read                            </button>
+                              <button class="btn btn-info btn-lg btn-block btn-purple" (click)="markAsReadNotification(notification.id)">{{ 'Notifications.MarkasRead' | translate }} </button>
                             </div>
                       </div>
                      </div>
                         </div>
                         <div *ngIf="!getNotifications">
-                          <h3 class="notificationError">No Notifications Found!</h3>
+                          <h3 class="notificationError">{{ 'Notifications.NoNotificationsFound' | translate }}</h3>
                         </div>
                           <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                           color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                          <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
-                          </ngx-spinner>
+                          <p style="color: white; margin-top:50px;font-size: 26px;" >{{ 'SignUp.Loading' | translate }}</p>
+                        </ngx-spinner>
 
             </div>
         </div>

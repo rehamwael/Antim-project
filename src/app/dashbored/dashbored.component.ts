@@ -9,6 +9,8 @@ import { CustomerRequestService } from '../services/customer-request.service';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProfileService } from '../services/userProfile.service';
+import { IndividualConfig, ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashbored',
@@ -23,6 +25,8 @@ export class DashboredComponent implements OnInit, OnDestroy {
   getCustomerState: Observable<any>;
   isAuthenticated: boolean;
   email: any;
+  options: IndividualConfig;
+  userLang: any;
 
   constructor(
     private emailService: UserEmailPasswordService,
@@ -31,9 +35,17 @@ export class DashboredComponent implements OnInit, OnDestroy {
     private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
     private profileService: ProfileService,
+    private toastr: ToastrService,
+    public translate: TranslateService
   ) {
     this.getState = this.store.select(selectAuthenticationState);
     this.getCustomerState = this.store.select(customerState);
+    let currentLanguage  =  this.translate.getBrowserLang();
+    if(currentLanguage == "en"){
+       currentLanguage = "english";
+    }else{
+      currentLanguage = "arabic";
+    }
   }
 
   ngOnInit(): void {
