@@ -243,7 +243,7 @@
                                 </div> -->
                                 <div class="col-lg-6">
                                     <label for="bankName" class="font-bold mt-2">{{ 'Profile.BankName' | translate }} </label>
-                                    <select formControlName="BankName" class="form-control form-control-lg custom-select" value="{{bankName}}" [(ngModel)]="bankName" (change)="onSelectChange($event.target.value)">
+                                    <select formControlName="BankName" class="form-control form-control-lg custom-select" value="{{bankName}}" [(ngModel)]="bankName" (change)="SelectBank($event.target.value)">
                                       <option value="select" selected>{{ 'Profile.SelectyourBank' | translate }}</option>
                                       <option value="AlBilad Bank">{{ 'Profile.AlBiladBank' | translate }} </option>
                                         <option value="AlRajhi Bank">{{ 'Profile.AlRajhiBank' | translate }}  </option>
