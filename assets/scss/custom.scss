@@ -242,7 +242,7 @@ div.card-header button:hover {
         cursor: pointer !important;
         text-align: left;
     }
-    
+
 }
 .dropdown-menu.lang-selector-dropdown.show:after{
     top: -6px;
@@ -266,7 +266,7 @@ select#langSelctor{
 .sticky-fixed-header #langSelctor , .sticky-fixed-header .dropdown-toggle ,.contact .dropdown-toggle , .log-in .dropdown-toggle{
     color: #000;
 }
-.sticky-fixed-header svg path, .contact header svg path, .log-in header svg path{ 
+.sticky-fixed-header svg path, .contact header svg path, .log-in header svg path{
     stroke: #000;
 }
 .profile{
@@ -951,7 +951,7 @@ body.notification{
             path{
                 stroke: #000;
             }
-        } 
+        }
 
     }
 }
@@ -1524,7 +1524,7 @@ nav#navbar-app {
     .dropdown-menu.lang-selector-dropdown.show .dropdown-item {
         font-size: 12px !important;
     }
-    ///rtl mobile 
+    ///rtl mobile
     [lang="arabic"]{
         button.btn.lang-selector.dropdown-toggle {
             color: #000;
@@ -1566,7 +1566,7 @@ nav#navbar-app {
         .footer .copy-right {
             text-align: center !important;
         }
-        
+
         .easy-for-you .col-lg-10 {
             position: relative;
             top: -34px;
@@ -1579,7 +1579,7 @@ nav#navbar-app {
             margin-left: 0 !important;
             margin-right: 0 !important;
         }
-        
+
     }
 }
 nav#navbar{
@@ -1715,20 +1715,9 @@ div.mat-checkbox-inner-container{
     color: #fb9e58 !important;
     text-transform: uppercase;
 }
-td.mat-cell.Awaiting ,td.mat-cell.Awaiting {
-    color: #b1ec7a !important;
-    text-transform: uppercase;
-}
-td.mat-cell.Ongoing  {
-    color: #38d147 !important;
-    text-transform: uppercase;
-}
-td.mat-cell.AWAITING  {
-  color: #d64532 !important;
-  text-transform: uppercase;
-}
+
 td.mat-cell.Paid  {
-  color: #38d147 !important;
+  color: #21ac2f !important;
   text-transform: uppercase;
 }
 td.mat-cell.Unpaid  {
@@ -1744,22 +1733,24 @@ td.mat-cell.Closed {
   color: grey !important;
   text-transform: uppercase;
 }
-td.mat-cell.Accepted {
-  color: #2184f7 !important;
+td.mat-cell.Rejected {
+    color: rgb(211, 17, 17) !important;
+    text-transform: uppercase;
+}
+td.mat-cell.Awaiting ,td.mat-cell.Awaiting {
+  color: #1d79e2 !important;
   text-transform: uppercase;
 }
-td.mat-cell.Rejected {
-    color: #c5003e !important;
-    text-transform: uppercase;
+td.mat-cell.Ongoing  {
+  color: green !important;
+  text-transform: uppercase;
 }
+
 td.mat-cell.Under {
-    color: #cc742c !important;
+    color: #d66c15 !important;
     text-transform: uppercase;
 }
-td.mat-cell.Wating{
-    color: #fb9e58 !important;
-    text-transform: uppercase;
-}
+
 .mat-checkbox-checkmark-path {
     stroke: #5c20d2;
 }
