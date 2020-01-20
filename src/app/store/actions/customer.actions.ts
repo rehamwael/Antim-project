@@ -4,8 +4,10 @@ export enum CustomerActionTypes {
   GET_ALL_REQUESTS = 'GetAllCustomerRequests',
   SAVE_GET_ALL_REQUESTS = 'SaveAllCustomerRequests',
   GET_ALL_REQUESTS_FAILURE = 'GetAllRequestsFailure',
-  ADD_REQUEST = 'AddRequest',
-  ADD_REQUEST_SUCCESS = 'AddRequestSuccess',
+
+  ADD_REQUEST = 'AddCustomerRequest',
+  // ADD_REQUEST_SUCCESS = 'AddCustomerRequestSuccess',
+
   EDIT_REQUEST = 'EditRequest',
   DELETE_REQUEST = 'DeleteRequest',
   DELETE_SUCCESS = 'DeleteRequestSuccess',
@@ -51,10 +53,10 @@ export class AddCustomerRequest implements Action {
   readonly type = CustomerActionTypes.ADD_REQUEST;
   constructor(public payload: any) { }
 }
-export class AddCustomerRequestSuccess implements Action {
-  readonly type = CustomerActionTypes.ADD_REQUEST_SUCCESS;
-  constructor(public payload: any) {}
-}
+// export class AddCustomerRequestSuccess implements Action {
+//   readonly type = CustomerActionTypes.ADD_REQUEST_SUCCESS;
+//   constructor(public payload: any) {}
+// }
 
 export class EditCustomerRequest implements Action {
   readonly type = CustomerActionTypes.EDIT_REQUEST;
@@ -91,7 +93,7 @@ export type CustomerRequests =
   | SaveAllCustomerRequests
   | GetAllRequestsFailure
   | AddCustomerRequest
-  | AddCustomerRequestSuccess
+  // | AddCustomerRequestSuccess
   | EditCustomerRequest
   | DeleteCustomerRequests
   | DeleteRequestSuccess

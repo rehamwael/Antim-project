@@ -192,7 +192,7 @@
               <div class="modal-body py-3">
                 <h3 class=" px-2">
                     {{ 'Requests.RescheduletheRequestSure' | translate }}
-                  
+
                 </h3>
                 <div class="row py-2" style="width: 100%;">
                   <div class="col-lg-6"></div>
@@ -214,10 +214,9 @@
                        {{requestName}}?
                   </p>
                   <div class="row py-1" style="width: 100%;">
-                  <div class="col-lg-3"></div>
-                  <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')"> {{ 'Requests.Noo' | translate }}</button></div>
-                  <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteRequest()">{{ 'Requests.Yes' | translate }}</button></div>
-
+                  <div class="col-lg-6"></div>
+                  <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteRequest()">{{ 'Requests.Yes' | translate }}</button></div>
+                  <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')"> {{ 'Requests.Noo' | translate }}</button></div>
                   </div>
                 </div>
               </ng-template>
@@ -233,13 +232,12 @@
                             {{ 'Requests.CancelRequestSure1' | translate }}
                              {{requestName}}?
                              {{ 'Requests.CancelRequestSure2' | translate }}
-                          
+
                     </p>
                     <div class="row py-2" style="width: 100%;">
-                        <div class="col-lg-3"></div>
-                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Requests.Noo' | translate }}</button></div>
-                    <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="cancelRequest()">{{ 'Requests.Yes' | translate }}</button></div>
-
+                        <div class="col-lg-6"></div>
+                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="cancelRequest()">{{ 'Requests.Yes' | translate }}</button></div>
+                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Requests.Noo' | translate }}</button></div>
                     </div>
                   </div>
                 </ng-template>
@@ -253,7 +251,6 @@
                     <div class="col-lg-10 col-8 px-0">
                         <p class="grey-text-color mt-4">
                             {{ 'Requests.EditRequestAsk' | translate }}
-                          
                             </p>
                     </div>
             </div>
@@ -498,10 +495,11 @@
                                       {{ 'CreateOrder.Thankyou' | translate }}
                                          {{currentUser?.firstName}},<br/>
                                          {{ 'CreateOrder.ThankyourequestSuccessfully' | translate }}
-                                         
+
 
                                   </p>
-                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">{{ 'CreateOrder.OK' | translate }}</button></div>
+                                  <div class="col-lg-9 "></div>
+                                  <div class="col-lg-3 "><button class="btn btn-info btn-lg btn-block btn-purple mt-2" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">{{ 'CreateOrder.OK' | translate }}</button></div>
 
                                 </div>
                               </ng-template>
@@ -516,11 +514,9 @@
                                   <p>
                                       {{ 'CreateOrder.Thankyou' | translate }} !<br/>
                                       {{ 'Requests.RequestUpdatedAsDraft' | translate }}
-                                      
-                                      
-
                                   </p>
-                                  <div class="d-flex justify-content-end"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-5" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()"> {{ 'CreateOrder.OK' | translate }}</button></div>
+                                  <div class="col-lg-9 "></div>
+                                  <div class="col-lg-3 "><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " [routerLink]="[ '/requests-customer' ]" (click)="closeModal()"> {{ 'CreateOrder.OK' | translate }}</button></div>
 
                                 </div>
                               </ng-template>

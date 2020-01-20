@@ -51,7 +51,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
       type: 'All Requests'
     },
     {
-      type: 'Awaiting for Fund Requests'
+      type: 'Awaiting For Fund Requests'
     },
     {
       type: 'Closed Requests'
@@ -96,6 +96,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
           this.showMessage = false;
           resolve(state.customerRequestsData);
         }
+        // if (state.isUpdated == true && state.customerRequestsData.length == 0) {
+        //   this.store.dispatch(new GetAllCustomerRequests());
+        // }
       });
     });
   }

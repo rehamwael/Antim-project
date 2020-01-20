@@ -74,7 +74,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.currentUser = state.userProfile;
     });
     this.getCustomerState.subscribe((state) => {
-      console.log('check store', state);
+      // console.log('check store', state);
       this.checkIsUpdated = state.isUpdated;
       if (this.checkIsUpdated == true) {
         this.modalService.open(this.content, { centered: false });

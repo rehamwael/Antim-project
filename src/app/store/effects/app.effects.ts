@@ -19,7 +19,7 @@ import { AppState } from '../app.states';
 import { CustomerRequestService } from 'src/app/services/customer-request.service';
 import {
   CustomerActionTypes, SaveAllCustomerRequests, EditCustomerRequest, DeleteCustomerRequests, DeleteDraftRequest, GetRequestsCountSuccess,
-  DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, AddCustomerRequestSuccess, GetAllRequestsFailure, RemoveRequestsFromStore
+  DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, GetAllRequestsFailure, RemoveRequestsFromStore, GetAllCustomerRequests
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -190,7 +190,8 @@ export class AuthenticationEffects {
       return this.customerService.AddCustomerRequest(payload).pipe(
         map((res) => {
           console.log(' Added:', res);
-          this.store.dispatch(new AddCustomerRequestSuccess(res.result));
+          this.store.dispatch(new GetAllCustomerRequests());
+          // this.store.dispatch(new AddCustomerRequestSuccess(res.result));
           this.spinner.hide();
           this.store.dispatch(new IsUpdatedTrue());
           this.userDataService.showSuccessToastr(res);

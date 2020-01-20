@@ -51,14 +51,14 @@ export function reducer(state = initialState, action: CustomerRequests): State {
       };
     }
 
-    case CustomerActionTypes.ADD_REQUEST_SUCCESS: {
-      let data = action.payload;
-      let AddcustomerRequestsData = [data, ...state.customerRequestsData ];
-      return {
-        ...state,
-        customerRequestsData: AddcustomerRequestsData,
-      };
-    }
+    // case CustomerActionTypes.ADD_REQUEST_SUCCESS: {
+    //   let data = action.payload;
+    //   let AddcustomerRequestsData = [data, ...state.customerRequestsData ];
+    //   return {
+    //     ...state,
+    //     customerRequestsData: AddcustomerRequestsData,
+    //   };
+    // }
     case CustomerActionTypes.GET_REQUESTS_COUNT_SUCCESS: {
       return {
         ...state,
