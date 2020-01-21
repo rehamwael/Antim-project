@@ -61,11 +61,11 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.SigUpForm = fb.group({
       'FirstName': [null, Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$')
+        // Validators.pattern('^[a-zA-Z ]*$')
       ])],
       'LastName': [null, Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$')
+        // Validators.pattern('^[a-zA-Z ]*$')
       ])],
       'username': [null, Validators.compose([
         Validators.required,

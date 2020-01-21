@@ -40,7 +40,7 @@
                         <button class="btn btn-lg btn-block btn-grey mt-3 mb-4 col-lg-3 col-12 " [ngClass]="(disabledNextButton)?' ':'purple'"  [disabled]="disabledNextButton" (click)="Nextstep()">{{ 'SignUp.Next' | translate }}</button>
                     </div>
                     </div>
-      
+
                     <div *ngIf="firstStep  && !secondStep && !chooseRole" class="px-4">
                             <img src="assets/images/borrower.svg" alt="antim" class="mb-2">
                             <p class="grey-text-color mt-2 mb-4">{{ 'SignUp.Alright' | translate }} {{userType}}, {{ 'SignUp.FillBelow' | translate }}</p>
@@ -49,29 +49,29 @@
                                     <label for="name">{{ 'SignUp.FirstName' | translate }} <span class="red-color"> *</span></label>
                                     <input formControlName="FirstName" class="form-control form-control-lg" placeholder="{{ 'SignUp.TypeFirstName' | translate }}" type="text" [(ngModel)]="signupFirstName">
                                     <div *ngIf="SigUpForm.controls['FirstName'].touched && SigUpForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNamerequired' | translate }}</div>
-                                    <div *ngIf="SigUpForm.controls['FirstName'].touched && SigUpForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNameValidate' | translate }}</div>
+                                    <!-- <div *ngIf="SigUpForm.controls['FirstName'].touched && SigUpForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNameValidate' | translate }}</div> -->
                                 </div>
                                 <div class="form-group text-left col-lg-6">
                                   <label for="name">{{ 'SignUp.LastName' | translate }} <span class="red-color"> *</span></label>
                                   <input formControlName="LastName" class="form-control form-control-lg" placeholder="{{ 'SignUp.TypeLastName' | translate }}" type="text" [(ngModel)]="signupLastName">
                                   <div *ngIf="SigUpForm.controls['LastName'].touched && SigUpForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNamerequired' | translate }} </div>
-                                  <div *ngIf="SigUpForm.controls['LastName'].touched && SigUpForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNameValidate' | translate }} </div>
+                                  <!-- <div *ngIf="SigUpForm.controls['LastName'].touched && SigUpForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNameValidate' | translate }} </div> -->
                               </div>
-      
+
                                 <div class="form-group text-left col-lg-6">
                                     <label for="username">{{ 'SignUp.Username' | translate }}<span class="red-color"> *</span></label>
                                     <input formControlName="username" class="form-control form-control-lg" placeholder="{{ 'SignUp.TypeUsername' | translate }}" type="text" [(ngModel)]="signupUserName">
                                     <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.UsernameRequired' | translate }}</div>
                                     <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'SignUp.UsernameValidate' | translate }}</div>
-      
+
                                 </div>
                                 <div class="form-group text-left col-lg-6">
                                     <label for="NID">{{ 'SignUp.NationalID' | translate }}<span class="red-color"> *</span></label>
                                     <input formControlName="NID" class="form-control form-control-lg" placeholder="Ex : 0000" type="text" [(ngModel)]="signupIdNum" digitOnly>
                                     <div *ngIf="SigUpForm.controls['NID'].touched && SigUpForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.NationalIDrequired' | translate }}</div>
                                     <div *ngIf="SigUpForm.controls['NID'].touched && SigUpForm.controls['NID'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'SignUp.NationalIDValidate' | translate }}</div>
-      
-      
+
+
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                         <label for="email">{{ 'SignUp.Email' | translate }}<span class="red-color"> *</span></label>
@@ -84,7 +84,7 @@
                                     <input formControlName="password" class="form-control  form-control-lg" placeholder="************" type="password" [(ngModel)]="signupPassword">
                                     <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.PasswordRequired' | translate }}</div>
                                     <div *ngIf="SigUpForm.controls['password'].touched && SigUpForm.controls['password'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.PasswordValidate' | translate }}</div>
-      
+
                                 </div>
                                 <div class="form-group text-left col-lg-12">
                                   <label for="confirmPassword">{{ 'SignUp.ConfirmPassword' | translate }}<span class="red-color"> *</span></label>
@@ -133,8 +133,8 @@
                             <!-- </div> -->
                             </div>
                    </div>
-      
-      
+
+
                    <div *ngIf="!firstStep  && secondStep && !chooseRole">
                        <a class="close-icon" (click)="closeBack()"><img src="assets/images/close.svg"></a>
                         <img src="assets/images/mobile.svg" alt="antim" class="mb-2 mt-5">
@@ -174,8 +174,8 @@
                         </div>
                         </div>
                </div>
-      
-      
+
+
                <!-- <div *ngIf="!firstStep  && !secondStep  && lastStep && !chooseRole">
                     <a class="close-icon" (click)="closeBackLast()"><img src="assets/images/close.svg"></a>
                      <img src="assets/images/borrower-lg.svg" alt="antim" class="mb-2 mt-5">
@@ -196,7 +196,7 @@
                      </div>
                      </div>
             </div> -->
-      
+
                 </form>
             </div>
         </div>

@@ -53,13 +53,13 @@
                             <label class="font-bold mt-2">{{ 'SignUp.FirstName' | translate }}</label>
                             <input matInput formControlName="FirstName" type="text" class="form-control form-control-lg" value= "{{firstName}}" [(ngModel)]="firstName" placeholder="{{ 'SignUp.FirstName' | translate }}" >
                             <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNamerequired' | translate }}</div>
-                            <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNameValidate' | translate }}</div>
+                            <!-- <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNameValidate' | translate }}</div> -->
                         </div>
                         <div class="col-lg-6">
                           <label class="font-bold mt-2">{{ 'SignUp.LastName' | translate }} :</label>
                           <input matInput formControlName="LastName" type="text" class="form-control form-control-lg" value= "{{lastName}}" [(ngModel)]="lastName" placeholder="{{ 'SignUp.LastName' | translate }} " >
                           <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNamerequired' | translate }} </div>
-                          <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNameValidate' | translate }}</div>
+                          <!-- <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNameValidate' | translate }}</div> -->
                       </div>
                       <div class="col-lg-6">
                         <label class="font-bold mt-2">{{ 'SignUp.Username' | translate }} :</label>
@@ -313,7 +313,7 @@
                                                       <path d="M20.2069 2.62598L18.3142 8.4512L24.1394 10.3439" stroke="#F6CF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                   </svg>
                                                   </span>
-                                                  {{ 'Profile.UploadSalaryStatement' | translate }} 
+                                                  {{ 'Profile.UploadSalaryStatement' | translate }}
                                                   </p>
                                                 </div>
 

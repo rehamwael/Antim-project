@@ -143,11 +143,11 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     this.EditForm = fb.group({
       'FirstName': [{ value: this.firstName, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$')
+        // Validators.pattern('^[a-zA-Z ]*$')
       ])],
       'LastName': [{ value: this.lastName, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$')
+        // Validators.pattern('^[a-zA-Z ]*$')
       ])],
       'UserName': [{ value: this.userName, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
