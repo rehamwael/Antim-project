@@ -310,5 +310,9 @@ export class SignUpComponent implements OnInit , OnDestroy {
     this.third = null;
     this.Fourth = null;
    }
+   next() {
+     this.secondStep = true;
+     this.firstStep = false;
+   }
 
 }

@@ -3,3 +3,9 @@
   font-size: 10px;
   visibility: hidden;
 }
+#direction{
+  flex-direction: row !important;
+}
+#code {
+  direction: ltr !important;
+}
