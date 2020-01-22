@@ -215,7 +215,7 @@ export class AuthenticationEffects {
           if (this.translate.currentLang == 'arabic') {
             this.titleService.setTitle( ' انتيم | طلباتي ' );
           } else {
-            this.titleService.setTitle( 'Antim | My-Requests' );
+            this.titleService.setTitle( 'Antim | My Requests' );
           }
         }),
         catchError(error => {

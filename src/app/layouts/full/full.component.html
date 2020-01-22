@@ -44,7 +44,7 @@
                   <a class="nav-link" [routerLink]="[ '/' ]" routerLinkActive="active-link" (click)="closeMenuAndSetTitle('Antim | Home', ' انتيم | الصفحة الرئيسية')"> {{ 'HOME.home' | translate }}</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/who-we-are' ]" (click)="closeMenuAndSetTitle('Antim | Who-we-are', ' انتيم | من نحن')">{{ 'HOME.who' | translate }}</a>
+                  <a class="nav-link" [routerLink]="[ '/who-we-are' ]" (click)="closeMenuAndSetTitle('Antim | Who We Are', ' انتيم | من نحن')">{{ 'HOME.who' | translate }}</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
                   <a class="nav-link" [routerLink]="[ '/lender-info' ]" (click)="closeMenuAndSetTitle('Antim | Lender', ' انتيم | المقرض')">{{ 'HOME.Lender' | translate }}</a>
@@ -54,7 +54,7 @@
                 </li>
 
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/contact' ]" (click)="closeMenuAndSetTitle('Antim | Contact-Us', ' انتيم | اتصل بنا')">{{ 'HOME.contact' | translate }}</a>
+                  <a class="nav-link" [routerLink]="[ '/contact' ]" (click)="closeMenuAndSetTitle('Antim | Contact Us', ' انتيم | اتصل بنا')">{{ 'HOME.contact' | translate }}</a>
                 </li>
 
               </ul>
@@ -66,7 +66,7 @@
                     <a class="nav-link purple-btn" [routerLink]="[ '/signup' ]" (click)="closeMenuAndSetTitle('Antim | SignUp', ' انتيم | تسجيل')">{{ 'HOME.SignUp' | translate }}</a>
                 </li>
                 <li class="nav-item" *ngIf="islogin">
-                    <a class="nav-link purple-btn btn-style" [routerLink]="['/', dashboredUrl]" (click)="closeMenuAndSetTitle('Antim', ' انتيم ')">{{ 'HOME.Dashboard' | translate }}</a>
+                    <a class="nav-link purple-btn btn-style" [routerLink]="['/', dashboredUrl]" (click)="closeMenuAndSetTitle('Antim | Dashboard', ' انتيم | لوحة القيادة ')">{{ 'HOME.Dashboard' | translate }}</a>
                 </li>
                 <li class="nav-item mt-1 d-none d-md-block">
                     <div

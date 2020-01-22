@@ -8,7 +8,7 @@ import { ProfileService } from '../services/userProfile.service';
   styleUrls: ['./borrower-info.component.css']
 })
 export class BorrowerInfoComponent implements OnInit , OnDestroy {
-  userLang: 'english';
+  userLang: any;
   BorrowerPage: any = {
     page_name: 'Borrower Page',
     Section1: {

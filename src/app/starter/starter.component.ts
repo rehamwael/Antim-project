@@ -10,7 +10,7 @@ import { ProfileService } from '../services/userProfile.service';
 })
 export class StarterComponent implements OnInit {
 
-  userLang: 'english';
+  userLang: any;
   HomePage: any = {
     page_name: 'Home Page',
     Section1: {

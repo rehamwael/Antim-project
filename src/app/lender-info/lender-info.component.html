@@ -23,60 +23,34 @@
          </div>
 
      </div>
-     <dl class="row" *ngIf="userLang == 'english'">
-        <div class="col-md-4 my-lg-2">
-            <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-                <h5>{{ LenderPage.Section1.TitleEn }}</h5>
-                {{ LenderPage.Section1.ContentEn }}</dt>
-        </div>
-        <div class="col-md-4 my-lg-2">
-            <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-              <h5>{{ LenderPage.Section2.TitleEn }}</h5>
-              {{ LenderPage.Section2.ContentEn }}</dt>
-      </div>
-        <div class="col-md-4 my-lg-2">
-            <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-              <h5>{{ LenderPage.Section3.TitleEn }}</h5>
-              {{ LenderPage.Section3.ContentEn }}</dt>
-      </div>
-        <div class="col-md-4 my-lg-2">
-            <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-              <h5>{{ LenderPage.Section4.TitleEn }}</h5>
-              {{ LenderPage.Section4.ContentEn }}</dt>
-      </div>
-        <div class="col-md-4 my-lg-2">
-            <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-              <h5>{{ LenderPage.Section5.TitleEn }}</h5>
-              {{ LenderPage.Section5.ContentEn }}</dt>
-        </div>
-    </dl>
-    <dl class="row" *ngIf="userLang == 'arabic'">
+     <dl class="row" >
       <div class="col-md-4 my-lg-2">
           <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-            <h5>{{ LenderPage.Section1.TitleAr }}</h5>
-            {{ LenderPage.Section1.ContentAr }}</dt>
+              <h5>{{ userLang == 'arabic' ? LenderPage.Section1.TitleAr : LenderPage.Section1.TitleEn }}</h5>
+              {{ userLang == 'arabic' ? LenderPage.Section1.ContentAr : LenderPage.Section1.ContentEn }}</dt>
       </div>
       <div class="col-md-4 my-lg-2">
           <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-            <h5>{{ LenderPage.Section2.TitleAr }}</h5>
-            {{ LenderPage.Section2.ContentAr }}</dt>
-      </div>
-      <div class="col-md-4 my-lg-2">
-          <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-            <h5>{{ LenderPage.Section3.TitleAr }}</h5>
-            {{ LenderPage.Section3.ContentAr }}</dt>
-      </div>
-      <div class="col-md-4 my-lg-2">
-          <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-            <h5>{{ LenderPage.Section4.TitleAr }}</h5>
-            {{ LenderPage.Section4.ContentAr }}</dt>
-      </div>
-      <div class="col-md-4 my-lg-2">
-          <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-            <h5>{{ LenderPage.Section5.TitleAr }}</h5>
-            {{ LenderPage.Section5.ContentAr }}</dt>
+            <h5>{{ userLang == 'arabic' ? LenderPage.Section2.TitleAr : LenderPage.Section2.TitleEn }}</h5>
+            {{ userLang == 'arabic' ? LenderPage.Section2.ContentAr : LenderPage.Section2.ContentEn }}</dt>
     </div>
-  </dl>
+      <div class="col-md-4 my-lg-2">
+          <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
+            <h5>{{ userLang == 'arabic' ? LenderPage.Section3.TitleAr : LenderPage.Section3.TitleEn }}</h5>
+            {{ userLang == 'arabic' ? LenderPage.Section3.ContentAr : LenderPage.Section3.ContentEn }}</dt>
+    </div>
+      <div class="col-md-4 my-lg-2">
+          <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
+            <h5>{{ userLang == 'arabic' ? LenderPage.Section4.TitleAr : LenderPage.Section4.TitleEn }}</h5>
+            {{ userLang == 'arabic' ? LenderPage.Section4.ContentAr : LenderPage.Section4.ContentEn }}</dt>
+    </div>
+      <div class="col-md-4 my-lg-2">
+          <dt class="box-content wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
+            <h5>{{ userLang == 'arabic' ? LenderPage.Section5.TitleAr : LenderPage.Section5.TitleEn }}</h5>
+            {{ userLang == 'arabic' ? LenderPage.Section5.ContentAr : LenderPage.Section5.ContentEn }}</dt>
+    </div>
+    </dl>
+
 
     </div>
 
@@ -92,55 +66,33 @@
                             <div class="item"><img alt="Repayment" src="assets/images/tab1.png" width="516" height="416"></div>
                         </div>
                     </div>
-                    <div class="col-lg-6" *ngIf="userLang == 'english'">
-                    <ul class="quick-steps-carousel-nav">
-                      <li class="quick-steps-navitem media active-item" data-slide-to="0" data-target="#quick-steps-carousel">
-                            <div class="pull-left"><div class="media-object quick-step-num">1</div></div>
-                            <div class="media-body"><div class="h4 quick-step-header line-height-lg">{{ LenderPage.Section6.TitleEn }}</div>
-                            <p> {{ LenderPage.Section6.ContentEn }}</p>
-                          </div>
-                    </li>
-                        <li class="quick-steps-navitem media" data-slide-to="1" data-target="#quick-steps-carousel">
-                            <div class="pull-left"><div class="media-object quick-step-num">2</div></div>
-                            <div class="media-body"><div class="h4 quick-step-header line-height-lg">{{ LenderPage.Section7.TitleEn }}</div>
-                            <p> {{ LenderPage.Section7.ContentEn }}</p>
-                          </div>
-                        </li>
-                         <li class="quick-steps-navitem media" data-slide-to="2" data-target="#quick-steps-carousel">
-                             <div class="pull-left"><div class="media-object quick-step-num">3</div></div>
-                             <div class="media-body"><div class="h4 quick-step-header line-height-lg">{{ LenderPage.Section8.TitleEn }}</div>
-                             <p> {{ LenderPage.Section8.ContentEn }}</p>
+
+                    <div class="col-lg-6" >
+                      <ul class="quick-steps-carousel-nav">
+                        <li class="quick-steps-navitem media active-item" data-slide-to="0" data-target="#quick-steps-carousel">
+                              <div class="pull-left"><div class="media-object quick-step-num">1</div></div>
+                              <div class="media-body"><div class="h4 quick-step-header line-height-lg">{{ userLang == 'arabic' ? LenderPage.Section6.TitleAr : LenderPage.Section6.TitleEn }}</div>
+                              <p>{{ userLang == 'arabic' ? LenderPage.Section6.ContentAr : LenderPage.Section6.ContentEn }}</p>
                             </div>
-                         </li>
+                      </li>
+                          <li class="quick-steps-navitem media" data-slide-to="1" data-target="#quick-steps-carousel">
+                              <div class="pull-left"><div class="media-object quick-step-num">2</div></div>
+                              <div class="media-body"><div class="h4 quick-step-header line-height-lg">{{ userLang == 'arabic' ? LenderPage.Section7.TitleAr : LenderPage.Section7.TitleEn }}</div>
+                              <p>{{ userLang == 'arabic' ? LenderPage.Section7.ContentAr : LenderPage.Section7.ContentEn }}</p>
+                            </div>
+                          </li>
+                            <li class="quick-steps-navitem media" data-slide-to="2" data-target="#quick-steps-carousel">
+                                <div class="pull-left"><div class="media-object quick-step-num">3</div></div>
+                                <div class="media-body"><div class="h4 quick-step-header line-height-lg">{{ userLang == 'arabic' ? LenderPage.Section8.TitleAr : LenderPage.Section8.TitleEn }}</div>
+                                <p>{{ userLang == 'arabic' ? LenderPage.Section8.ContentAr : LenderPage.Section8.ContentEn }}</p>
+                              </div>
+                          </li>
                         </ul>
-                            </div>
-                            <div class="col-lg-6" *ngIf="userLang == 'arabic'">
-                              <ul class="quick-steps-carousel-nav">
-                                <li class="quick-steps-navitem media active-item" data-slide-to="0" data-target="#quick-steps-carousel">
-                                      <div class="pull-left"><div class="media-object quick-step-num">1</div>
-                                      </div>
-                                      <div class="media-body"><div class="h4 quick-step-header line-height-lg">{{ LenderPage.Section6.TitleAr }}</div>
-                                      <p> {{ LenderPage.Section6.ContentAr }}</p>
-                                    </div>
-                              </li>
-                                  <li class="quick-steps-navitem media" data-slide-to="1" data-target="#quick-steps-carousel">
-                                      <div class="pull-left"><div class="media-object quick-step-num">2</div></div>
-                                      <div class="media-body"><div class="h4 quick-step-header line-height-lg">{{ LenderPage.Section7.TitleAr }}</div>
-                                      <p> {{ LenderPage.Section7.ContentAr }}</p>
-                                    </div>
-                                  </li>
-                                   <li class="quick-steps-navitem media" data-slide-to="2" data-target="#quick-steps-carousel">
-                                       <div class="pull-left"><div class="media-object quick-step-num">3</div></div>
-                                       <div class="media-body"><div class="h4 quick-step-header line-height-lg">{{ LenderPage.Section8.TitleAr }}</div>
-                                       <p> {{ LenderPage.Section8.ContentAr }}</p>
-                                      </div>
-                                   </li>
-                                  </ul>
-                                      </div>
-                        </div>
+                      </div>
                     </div>
-                </div>
-            </div>
+              </div>
+          </div>
+      </div>
 
             <div class="container mt-5 d-flex justify-content-center flex-column text-center">
                     <div class="row justify-content-center row-arabic-revrese">
@@ -150,25 +102,16 @@
                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M50.3996 18.2053C62.6559 27.3185 98.6326 73.1854 35.508 90.6697C-27.6165 108.154 38.1433 9.09213 50.3996 18.2053Z" fill="#5C20D2"/>
                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M27.7635 31.5357C41.3393 24.5311 98.3964 12.3499 86.4624 76.6666C74.5284 140.983 14.1877 38.5403 27.7635 31.5357Z" fill="black"/>
                                </svg>
-                               <h3 class="col-lg-12 text-center font-purple font-bold mb-4" *ngIf="userLang == 'english'">{{ LenderPage.Section9.TitleEn }}</h3>
-                               <h3 class="col-lg-12 text-center font-purple font-bold mb-4" *ngIf="userLang == 'arabic'">{{ LenderPage.Section9.TitleAr }}</h3>
-                            </div>
-                            <div class="col-lg-5 text-center mt-5 box-content-2"  *ngIf="userLang == 'english'">
-                              <ol class="text-left">
-                                <li>{{ LenderPage.Section9.Content1En }}</li>
-                                <li>{{ LenderPage.Section9.Content2En }}</li>
-                                <li>{{ LenderPage.Section9.Content3En }}</li>
-                                <li>{{ LenderPage.Section9.Content4En }}</li>
-                              </ol>
-                            </div>
-                            <div class="col-lg-5 text-center mt-5 box-content-2"  *ngIf="userLang == 'arabic'">
-                              <ol class="text-left">
-                                <li>{{ LenderPage.Section9.Content1Ar }}</li>
-                                <li>{{ LenderPage.Section9.Content2Ar }}</li>
-                                <li>{{ LenderPage.Section9.Content3Ar }}</li>
-                                <li>{{ LenderPage.Section9.Content4Ar }}</li>
-                            </ol>
-                           </div>
+                               <h3 class="col-lg-12 text-center font-purple font-bold mb-4">{{ userLang == 'arabic' ? LenderPage.Section9.TitleAr : LenderPage.Section9.TitleEn }}</h3>
+                              </div>
+                              <div class="col-lg-5 text-center mt-5 box-content-2">
+                                <ol class="text-left">
+                                  <li>{{ userLang == 'arabic' ? LenderPage.Section9.Content1Ar : LenderPage.Section9.Content1En }}</li>
+                                  <li>{{ userLang == 'arabic' ? LenderPage.Section9.Content2Ar : LenderPage.Section9.Content2En }}</li>
+                                  <li>{{ userLang == 'arabic' ? LenderPage.Section9.Content3Ar : LenderPage.Section9.Content3En }}</li>
+                                  <li>{{ userLang == 'arabic' ? LenderPage.Section9.Content4Ar : LenderPage.Section9.Content4En }}</li>
+                                </ol>
+                              </div>
 
                         </div>
                         <div class="row justify-content-center row-arabic-revrese">
@@ -178,25 +121,15 @@
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M50.3996 18.2053C62.6559 27.3185 98.6326 73.1854 35.508 90.6697C-27.6165 108.154 38.1433 9.09213 50.3996 18.2053Z" fill="#5C20D2"/>
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M27.7635 31.5357C41.3393 24.5311 98.3964 12.3499 86.4624 76.6666C74.5284 140.983 14.1877 38.5403 27.7635 31.5357Z" fill="black"/>
                                         </svg>
-                                        <h3 class="col-lg-12 text-center font-purple font-bold mb-4" *ngIf="userLang == 'english'">{{ LenderPage.Section10.TitleEn }}</h3>
-                                        <h3 class="col-lg-12 text-center font-purple font-bold mb-4" *ngIf="userLang == 'arabic'">{{ LenderPage.Section10.TitleAr }}</h3>
-                                     </div>
-                                     <div class="col-lg-5 text-center mt-5 box-content-2"  *ngIf="userLang == 'english'">
+                                        <h3 class="col-lg-12 text-center font-purple font-bold mb-4"  >{{ userLang == 'arabic' ? LenderPage.Section10.TitleAr : LenderPage.Section10.TitleEn }}</h3>
+                                      </div>
+                                     <div class="col-lg-5 text-center mt-5 box-content-2"   >
                                       <ol class="text-left">
-                                        <li>{{ LenderPage.Section10.Content1En }}</li>
-                                        <li>{{ LenderPage.Section10.Content2En }}</li>
-                                        <li>{{ LenderPage.Section10.Content3En }}</li>
+                                        <li>{{ userLang == 'arabic' ? LenderPage.Section10.Content1Ar : LenderPage.Section10.Content1En }}</li>
+                                        <li>{{ userLang == 'arabic' ? LenderPage.Section10.Content2Ar : LenderPage.Section10.Content2En }}</li>
+                                        <li>{{ userLang == 'arabic' ? LenderPage.Section10.Content3Ar : LenderPage.Section10.Content3En }}</li>
                                       </ol>
                                     </div>
-                                    <div class="col-lg-5 text-center mt-5 box-content-2"  *ngIf="userLang == 'arabic'">
-                                      <ol class="text-left">
-                                        <li>{{ LenderPage.Section10.Content1Ar }}</li>
-                                        <li>{{ LenderPage.Section10.Content2Ar }}</li>
-                                        <li>{{ LenderPage.Section10.Content3Ar }}</li>
-                                    </ol>
-                                   </div>
-
-
 
                             </div>
 
@@ -208,27 +141,17 @@
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M50.3996 18.2053C62.6559 27.3185 98.6326 73.1854 35.508 90.6697C-27.6165 108.154 38.1433 9.09213 50.3996 18.2053Z" fill="#5C20D2"/>
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M27.7635 31.5357C41.3393 24.5311 98.3964 12.3499 86.4624 76.6666C74.5284 140.983 14.1877 38.5403 27.7635 31.5357Z" fill="black"/>
                                 </svg>
-                                <h3 class="col-lg-12 text-center font-purple font-bold mb-4" *ngIf="userLang == 'english'">{{ LenderPage.Section11.TitleEn }}</h3>
-                                <h3 class="col-lg-12 text-center font-purple font-bold mb-4" *ngIf="userLang == 'arabic'">{{ LenderPage.Section11.TitleAr }}</h3>
-                            </div>
-                            <div class="col-lg-5 text-center mt-5 box-content-2"  *ngIf="userLang == 'english'">
-                              <ol class="text-left">
-                                <li>{{ LenderPage.Section11.Content1En }}</li>
-                                <li>{{ LenderPage.Section11.Content2En }}</li>
-                                <li>{{ LenderPage.Section11.Content3En }}</li>
-                                <li>{{ LenderPage.Section11.Content4En }}</li>
-                                <li>{{ LenderPage.Section11.Content5En }}</li>
-                              </ol>
-                            </div>
-                            <div class="col-lg-5 text-center mt-5 box-content-2"  *ngIf="userLang == 'arabic'">
-                              <ol class="text-left">
-                                <li>{{ LenderPage.Section11.Content1Ar }}</li>
-                                <li>{{ LenderPage.Section11.Content2Ar }}</li>
-                                <li>{{ LenderPage.Section11.Content3Ar }}</li>
-                                <li>{{ LenderPage.Section11.Content4Ar }}</li>
-                                <li>{{ LenderPage.Section11.Content5Ar }}</li>
-                            </ol>
-                           </div>
+                                <h3 class="col-lg-12 text-center font-purple font-bold mb-4"  >{{ userLang == 'arabic' ? LenderPage.Section11.TitleAr : LenderPage.Section11.TitleEn }}</h3>
+                              </div>
+                              <div class="col-lg-5 text-center mt-5 box-content-2"   >
+                                <ol class="text-left">
+                                  <li>{{ userLang == 'arabic' ? LenderPage.Section11.Content1Ar : LenderPage.Section11.Content1En }}</li>
+                                  <li>{{ userLang == 'arabic' ? LenderPage.Section11.Content2Ar : LenderPage.Section11.Content2En }}</li>
+                                  <li>{{ userLang == 'arabic' ? LenderPage.Section11.Content3Ar : LenderPage.Section11.Content3En }}</li>
+                                  <li>{{ userLang == 'arabic' ? LenderPage.Section11.Content4Ar : LenderPage.Section11.Content4En }}</li>
+                                  <li>{{ userLang == 'arabic' ? LenderPage.Section11.Content5Ar : LenderPage.Section11.Content5En }}</li>
+                                    </ol>
+                              </div>
 
                         </div>
             </div>
