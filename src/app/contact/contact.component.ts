@@ -32,6 +32,16 @@ export class ContactComponent implements OnInit, OnDestroy {
   mobile: any;
   messageType = 0;
   message: any;
+  ContactUsPage: any = {
+    page_name: 'Contact Us Page',
+    Section1: {
+      section_name: 'Contact Us',
+      TitleEn: '',
+      TitleAr: '',
+      ContentEn: '',
+      ContentAr: ''
+    },
+  };
 
   @HostListener('input') oninput() {
     if (this.contactForm.valid) {
@@ -52,7 +62,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.contactForm = fb.group({
       'contactFormName': [null, Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$')
+        // Validators.pattern('^[a-zA-Z ]*$')
       ])],
       'contactFormEmail': [null, Validators.compose([
         Validators.required,
@@ -90,6 +100,14 @@ export class ContactComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('contact');
     window.dispatchEvent(new Event('resize'));
+    this.profileService.getStaticPageByKey('ContactUsPage').subscribe(res => {
+      // console.log(res);
+      this.ContactUsPage = JSON.parse(res.result.sections);
+      console.log(this.ContactUsPage);
+    }, err => {
+      console.log(err);
+    });
+
   }
 
   ngOnDestroy(): void {

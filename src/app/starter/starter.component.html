@@ -8,20 +8,26 @@
             <div class="row my-4">
                    <div class="col-lg-4 col-12 text-center">
                        <img src="assets/images/approval.svg" alt="antim" class="wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="0.5s">
-                       <h6 class="my-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.7s">{{ 'HOME.FastaApproval' | translate }}</h6>
-                       <p class="wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.8s">{{ 'HOME.FastaApprovalDesc' | translate }}</p>
+                       <h6 class="my-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.7s" *ngIf="userLang == 'english'">{{ HomePage.Section1.TitleEn }}</h6>
+                       <h6 class="my-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.7s" *ngIf="userLang == 'arabic'">{{ HomePage.Section1.TitleAr }}</h6>
+                       <p class="wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.8s" *ngIf="userLang == 'english'">{{ HomePage.Section1.ContentEn }}</p>
+                       <p class="wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.8s" *ngIf="userLang == 'arabic'">{{ HomePage.Section1.ContentAr }}</p>
                        <!-- <a href="#" class="font-purple text-uppercase read-more wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="0.8s">{{ 'HOME.readMore' | translate }}</a> -->
                     </div>
                     <div class="col-lg-4 text-center">
                         <img src="assets/images/purchase.svg" alt="antim" class="wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="0.6s">
-                        <h6 class="my-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s">{{ 'HOME.OpenPurchases' | translate }}</h6>
-                        <p class="wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.9s">{{ 'HOME.OpenPurchasesDesc' | translate }}</p>
+                        <h6 class="my-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s" *ngIf="userLang == 'english'">{{ HomePage.Section2.TitleEn }}</h6>
+                        <h6 class="my-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s" *ngIf="userLang == 'arabic'">{{ HomePage.Section2.TitleAr }}</h6>
+                        <p class="wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.9s" *ngIf="userLang == 'english'">{{ HomePage.Section2.ContentEn }}</p>
+                        <p class="wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.9s" *ngIf="userLang == 'arabic'">{{ HomePage.Section2.ContentAr }}</p>
                         <!-- <a href="#" class="font-purple text-uppercase read-more wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="0.9s">{{ 'HOME.readMore' | translate }}</a> -->
                     </div>
                     <div class="col-lg-4 text-center">
                         <img src="assets/images/fund.svg" alt="antim" class="wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="0.7s">
-                        <h6 class="my-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.9s">{{ 'HOME.ImmediantFund' | translate }}</h6>
-                        <p class="wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="1s">{{ 'HOME.ImmediantFundDesc' | translate }}</p>
+                        <h6 class="my-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.9s" *ngIf="userLang == 'english'">{{ HomePage.Section3.TitleEn }}</h6>
+                        <h6 class="my-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.9s" *ngIf="userLang == 'arabic'">{{ HomePage.Section3.TitleAr }}</h6>
+                        <p class="wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="1s" *ngIf="userLang == 'english'">{{ HomePage.Section3.ContentEn }}</p>
+                        <p class="wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="1s" *ngIf="userLang == 'arabic'">{{ HomePage.Section3.ContentAr }}</p>
                         <!-- <a href="#" class="font-purple text-uppercase read-more wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="1s">{{ 'HOME.readMore' | translate }}</a> -->
                     </div>
             </div>
@@ -71,12 +77,11 @@
                     <div class="container">
                         <div class="row my-4">
                             <div class="col-lg-10 py-4 mb-5 row">
-                                    <h2 class="font-purple font-bold mb-4 col-lg-5 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.8s">{{ 'HOME.WeMadeItEasyForYou' | translate }}</h2>
-                                    <p class="col-lg-9 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.9s">{{ 'HOME.AutomatedFlowsAndidentityChecks' | translate }} </p>
+                                    <h2 class="font-purple font-bold mb-5 col-lg-5 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.8s" *ngIf="userLang == 'english'">{{ HomePage.Section4.TitleEn }}</h2>
+                                    <h2 class="font-purple font-bold mb-5 col-lg-5 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.8s" *ngIf="userLang == 'arabic'">{{ HomePage.Section4.TitleAr }}</h2>
                                     <br/>
-                                    <p class="mb-5 col-lg-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">{{ 'HOME.WeMadeItEasyForYouDesc' | translate }}
-
-                                        </p>
+                                    <p class="mt-5 col-lg-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" *ngIf="userLang == 'english'">{{ HomePage.Section4.ContentEn }}</p>
+                                    <p class="mt-5 col-lg-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" *ngIf="userLang == 'arabic'">{{ HomePage.Section4.ContentAr }}</p>
                             </div>
                             <div class="col-lg-2">
                                     <img src="assets/images/women.png" class="img-responsive women-image wow fadeInRight" data-wow-duration="1.2s" data-wow-delay="0.8s" alt="antim">
@@ -93,9 +98,10 @@
 
                     </div>
                     <div class="col-lg-6 py-4 mb-5">
-                            <h2 class="font-purple font-bold mb-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.8s">{{ 'HOME.Responsivelayout' | translate }} </h2>
-                            <p class="wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="1s">{{ 'HOME.ResponsivelayoutDesc' | translate }}
-                                </p>
+                            <h2 class="font-purple font-bold mb-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.8s" *ngIf="userLang == 'english'">{{ HomePage.Section5.TitleEn }} </h2>
+                            <h2 class="font-purple font-bold mb-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.8s" *ngIf="userLang == 'arabic'">{{ HomePage.Section5.TitleAr }} </h2>
+                            <p class="wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="1s" *ngIf="userLang == 'english'">{{ HomePage.Section5.ContentEn }}</p>
+                            <p class="wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="1s" *ngIf="userLang == 'arabic'">{{ HomePage.Section5.ContentAr }}</p>
 
                     </div>
                 </div>
