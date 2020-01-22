@@ -237,4 +237,12 @@ export class ProfileService {
     this.toastr.show(message, title, this.option, 'toast-' + type);
   }
 
+  getStaticPageByKey(pageKey: any) {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}StaticPage/GetStaticPageByKey?pageKey=${pageKey}`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
 }
