@@ -6,6 +6,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAuthenticationState } from './../../store/app.states';
+import { Title } from '@angular/platform-browser';
 
 declare var $: any;
 
@@ -24,7 +25,12 @@ export class FullComponent implements OnInit {
 // tslint:disable-next-line: indent
 	public config: PerfectScrollbarConfigInterface = {};
 
-  constructor(public router: Router,  private store: Store<AppState>, public translate: TranslateService) {
+  constructor(
+    public router: Router,
+    private store: Store<AppState>,
+    public translate: TranslateService,
+    private titleService: Title
+    ) {
     let language = localStorage.getItem('language');
     // console.log(language);
     if (language != null) {
@@ -90,7 +96,11 @@ export class FullComponent implements OnInit {
   }
   changeLanguage(lang: string) {
     this.translate.use(lang);
-
+    if (lang == 'arabic') {
+      this.titleService.setTitle( 'انتيم' );
+    } else {
+      this.titleService.setTitle( 'Antim' );
+    }
   }
 
   handleSidebar() {
@@ -121,11 +131,24 @@ export class FullComponent implements OnInit {
     btnClick = function () {
       this.router.navigateByUrl('/signup');
     };
-    closeMenu() {
+    closeMenuAndSetTitle(enTitle, arTitle) {
+      if (this.userLang == 'arabic') {
+        this.titleService.setTitle( arTitle );
+      } else {
+        this.titleService.setTitle( enTitle );
+      }
       const isMobile = /iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|Android/i.test(navigator.userAgent);
       if (isMobile) {
         this.navbarOpen = !this.navbarOpen;
       }
+    }
+    setTitle(enTitle, arTitle) {
+      if (this.userLang == 'arabic') {
+        this.titleService.setTitle( arTitle );
+      } else {
+        this.titleService.setTitle( enTitle );
+      }
+      this.router.navigateByUrl('/home');
     }
 
 }

@@ -9,6 +9,7 @@ import { Logout, UserProfile } from './../../store/actions/auth.actions';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -30,7 +31,9 @@ export class SettingComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private spinner: NgxSpinnerService,
     private userProfileService: ProfileService,
-    private toastr: ToastrService, public translate: TranslateService
+    private toastr: ToastrService,
+    public translate: TranslateService,
+    private titleService: Title,
   ) {
     let language = localStorage.getItem('language');
     // console.log(language);
@@ -76,6 +79,11 @@ export class SettingComponent implements OnInit, OnDestroy {
   }
   changeLanguage(lang: string) {
     this.translate.use(lang);
+    if (lang == 'arabic') {
+      this.titleService.setTitle( 'انتيم' );
+    } else {
+      this.titleService.setTitle( 'Antim' );
+    }
   }
   deleteAccount() {
     this.userId = this.currentUser.id;

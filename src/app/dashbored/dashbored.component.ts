@@ -11,6 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ProfileService } from '../services/userProfile.service';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashbored',
@@ -32,11 +33,11 @@ export class DashboredComponent implements OnInit, OnDestroy {
     private emailService: UserEmailPasswordService,
     public router: Router,
     private store: Store<AppState>,
-    private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
     private profileService: ProfileService,
-    private toastr: ToastrService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private titleService: Title
+
   ) {
     this.getState = this.store.select(selectAuthenticationState);
     this.getCustomerState = this.store.select(customerState);
@@ -106,5 +107,13 @@ export class DashboredComponent implements OnInit, OnDestroy {
       this.profileService.showErrorToastr(err.error.message);
     });
   }
+  SetTitle(enTitle, arTitle) {
+    if (this.translate.currentLang == 'arabic') {
+      this.titleService.setTitle( arTitle );
+    } else {
+      this.titleService.setTitle( enTitle );
+    }
+  }
+
 
 }

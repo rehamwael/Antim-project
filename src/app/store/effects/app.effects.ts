@@ -22,6 +22,8 @@ import {
   DeleteRequestSuccess, AddCustomerRequest, IsUpdatedTrue, IsApiCallTrue, GetAllRequestsFailure, RemoveRequestsFromStore, GetAllCustomerRequests
 } from '../actions/customer.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 
 @Injectable()
@@ -37,6 +39,8 @@ export class AuthenticationEffects {
     private store: Store<AppState>,
     private customerService: CustomerRequestService,
     private spinner: NgxSpinnerService,
+    private titleService: Title,
+    public translate: TranslateService,
   ) {
   }
 
@@ -69,10 +73,15 @@ export class AuthenticationEffects {
   LoginSuccess: Observable<any> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN_SUCCESS),
     tap((user) => {
-      // localStorage.setItem('token', user.payload.token);
-      // localStorage.setItem('role', user.payload.role);
+
       this.store.dispatch(new UserProfile());
-      this.router.navigateByUrl('/dashbored-' + this.userRole);
+
+      if (this.translate.currentLang == 'arabic') {
+        this.titleService.setTitle( ' انتيم | لوحة القيادة ' );
+      } else {
+        this.titleService.setTitle( 'Antim | Dashboard' );
+      }
+        this.router.navigateByUrl('/dashbored-' + this.userRole);
     })
   );
 
@@ -189,13 +198,25 @@ export class AuthenticationEffects {
       this.spinner.show();
       return this.customerService.AddCustomerRequest(payload).pipe(
         map((res) => {
+          this.customerService.customerAllRequests().subscribe(result => {
+            console.log(result);
+            if (result.result) {
+              this.store.dispatch(new SaveAllCustomerRequests(result.result));
+              this.router.navigate(['/requests-customer']);
+            }
+          }, err => {
+            console.log('Error:', err.error);
+          });
           console.log(' Added:', res);
-          this.store.dispatch(new GetAllCustomerRequests());
-          // this.store.dispatch(new AddCustomerRequestSuccess(res.result));
+
           this.spinner.hide();
           this.store.dispatch(new IsUpdatedTrue());
           this.userDataService.showSuccessToastr(res);
-          this.router.navigate(['/requests-customer']);
+          if (this.translate.currentLang == 'arabic') {
+            this.titleService.setTitle( ' انتيم | طلباتي ' );
+          } else {
+            this.titleService.setTitle( 'Antim | My-Requests' );
+          }
         }),
         catchError(error => {
           console.log(' ERROR:', error);
@@ -203,6 +224,7 @@ export class AuthenticationEffects {
           return of(this.userDataService.showErrorToastr(error.error.message));
         }));
     }));
+
 
   @Effect({ dispatch: false })
   EditCustomerRequests: Observable<any> = this.actions.pipe(

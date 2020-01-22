@@ -283,10 +283,12 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.spinner.show();
     this.showUser = true;
     this.getUserINFO().then(e => {
+      this.spinner.hide();
       if (this.AddressArray.length > 0) {
-        this.spinner.show();
+        // this.spinner.show();
         this.profileService.getUserAddress().subscribe(res => {
           this.userAddress = res.result;
           this.address = res.result.address;
@@ -296,14 +298,14 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
           this.state = res.result.state;
           this.addressID = res.result.id;
           console.log('userAddressINFO:', res.result);
-          this.spinner.hide();
+          // this.spinner.hide();
         }, err => {
-          this.spinner.hide();
+          // this.spinner.hide();
           console.log('ERROR:', err);
         });
       }
       if (this.BankArray.length > 0) {
-        this.spinner.show();
+        // this.spinner.show();
         this.profileService.getUserBankInfo().subscribe(res => {
           this.userBankInfo = res.result;
           this.bankName = res.result.bankName;
@@ -318,9 +320,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
             this.showAccountUploadImg = false;
           }
           console.log('userBankInfo:', this.userBankInfo);
-          this.spinner.hide();
+          // this.spinner.hide();
         }, err => {
-          this.spinner.hide();
+          // this.spinner.hide();
           console.log('ERROR:', err);
         });
       }

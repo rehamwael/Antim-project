@@ -27,7 +27,7 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-10 mt-3 alert alert-warning " *ngIf="!currentUser?.emailConfirmed">
                 <p  class= "mb-0"> <i class="mr-1 fa fa-exclamation-circle"></i>
-                    {{ 'Dashbored.EmailnoTverified' | translate }} 
+                    {{ 'Dashbored.EmailnoTverified' | translate }}
                       <u><a (click)="resendEmail()"> {{ 'Dashbored.ResendVerificationLink' | translate }}   </a></u>
                     </p>
         </div>
@@ -89,9 +89,9 @@
                     </div>
 
                     <div class="col-lg-11 mt-3 row justify-content-center align-items-center py-4 mt-5 align-fixed-mobile">
-                            <div class="form-group col-lg-2 col-6">
+                            <!-- <div class="form-group col-lg-2 col-6">
                                    <button class="btn btn-info btn-lg btn-block btn-black mt-2 btn-lowecase" [routerLink]="[ '/requests-funder']">{{ 'Dashbored.MyRequest' | translate }} </button>
-                           </div>
+                           </div> -->
                            <!-- <div class="form-group col-lg-3 col-6">
                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2 btn-lowecase">Make New Request</button>
                            </div> -->

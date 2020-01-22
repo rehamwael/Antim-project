@@ -1,12 +1,11 @@
 <nav class="sidebar-nav">
-    <a [routerLink]="[ '/' ]">
+    <a (click)="SetTitle('Antim | Home', ' انتيم | الصفحة الرئيسية')" [routerLink]="[ '/' ]">
         <img src="assets/images/logo-white.svg" class="logo" alt="antim">
     </a>
 
     <ul class="user-info pt-4">
-        <li class="row p-4 cursor-pointer" [routerLink]="['/', profileUrl]">
+        <li class="row p-4 cursor-pointer"  (click)="SetTitle('Antim | My-Profile', ' انتيم | معلومات شخصية')" [routerLink]="['/', profileUrl]">
           <img src="assets/images/user.svg" class="col-lg-3 p-0">
-          <!-- <img src="assets/images/IMG_4216.JPG" alt="Avatar" class="avatar"> -->
             <div class="col-lg-8 ml-1">
             <p class="white-text mt-1" *ngIf="currentUser">
                 {{ 'Dashbored.Hi' | translate }} {{currentUser?.firstName}}<br/>
@@ -24,7 +23,7 @@
     <ul id="sidebarnav" class="mt-3">
             <li class="sidebar-item">
 
-              <a class="sidebar-link waves-effect waves-dark home" [routerLink]="['/', dashboredUrl]">
+              <a class="sidebar-link waves-effect waves-dark home"  (click)="SetTitle('Antim | Dashboard', ' انتيم | لوحة القيادة ')" [routerLink]="['/', dashboredUrl]">
                 <i class="mdi">
                         <svg width="23" height="26" viewBox="0 0 23 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.64282 21.6821V9.90891L11.5 2.90021L20.3571 9.90891V21.6821C20.3571 22.377 19.8079 22.9107 19.1666 22.9107H3.8333C3.192 22.9107 2.64282 22.377 2.64282 21.6821Z" stroke="#707070" stroke-width="2"/>
@@ -38,8 +37,7 @@
              </a>
 
 
-             <!-- <a class="sidebar-link waves-effect waves-dark my-request" [routerLink]="['/', requestUrl, '']"> -->
-             <a class="sidebar-link waves-effect waves-dark my-request" [routerLink]="['/', requestUrl]">
+             <a class="sidebar-link waves-effect waves-dark my-request"  (click)="SetTitle('Antim | My-Requests', ' انتيم | طلباتي ')" [routerLink]="['/', requestUrl]">
                 <i class="mdi">
                         <svg width="25" height="28" viewBox="0 0 25 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.4242 22.4597V20.5132C17.4242 18.3631 15.6605 16.6201 13.4848 16.6201H5.60602C3.43035 16.6201 1.66663 18.3631 1.66663 20.5132V22.4597" stroke="#707070" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -54,7 +52,7 @@
 
 
 
-             <a class="sidebar-link waves-effect waves-dark Notification" [routerLink]="['/', notificationUrl]">
+             <a class="sidebar-link waves-effect waves-dark Notification"  (click)="SetTitle('Antim | Notifications', ' انتيم | إشعارات ')" [routerLink]="['/', notificationUrl]">
             <div class="d-flex justify-content-between w-100">
               <span>
               <i class="mdi">
@@ -75,8 +73,7 @@
     </ul>
 
     <div class="bottom-sidebar row">
-            <!-- <button class="btn btn-grey mt-2 col-lg-10 m-4" [routerLink]="[ '/login' ]"> -->
-            <button class="btn btn-grey mt-2 col-lg-10 m-4" (click)="logout()">
+            <button class="btn btn-grey mt-2 col-lg-10 m-4" (click)="logout('Antim | Login', ' انتيم | تسجيل الدخول')">
               <i>
                 <svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.88873 20.3922H4.44428C3.46244 20.3922 2.6665 19.5983 2.6665 18.6189V4.43308C2.6665 3.45375 3.46244 2.65985 4.44428 2.65985H8.88873" stroke="#707070" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

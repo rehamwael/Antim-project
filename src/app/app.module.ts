@@ -1,5 +1,5 @@
 // import * as $ from 'jquery';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {TranslateModule , TranslateLoader } from '@ngx-translate/core';
@@ -153,6 +153,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatSelectModule
   ],
   providers: [
+    Title,
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy

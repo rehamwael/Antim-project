@@ -8,6 +8,7 @@ import { AppState, selectAuthenticationState } from './../../store/app.states';
 import { Logout, UserProfile, SaveTotalNotifications } from './../../store/actions/auth.actions';
 import { NotificationsService } from '../../services/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   role: any;
   notificationsCount: any;
   showCount = false;
-  userLang: "english";
+  userLang: 'english';
   showMenu = '';
   showSubMenu = '';
   public sidebarnavItems: any[];
@@ -45,7 +46,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private router: Router,
     private store: Store<AppState>,
     private notificationService: NotificationsService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private titleService: Title
   ) {
     this.getState = this.store.select(selectAuthenticationState);
 
@@ -101,11 +103,25 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.currentUser = null;
   }
-  logout() {
+
+  SetTitle(enTitle, arTitle) {
+    if (this.translate.currentLang == 'arabic') {
+      this.titleService.setTitle( arTitle );
+    } else {
+      this.titleService.setTitle( enTitle );
+    }
+  }
+
+  logout(enTitle, arTitle) {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.clear();
     this.store.dispatch(new Logout());
+    if (this.translate.currentLang == 'arabic') {
+      this.titleService.setTitle( arTitle );
+    } else {
+      this.titleService.setTitle( enTitle );
+    }
   }
 }
 
