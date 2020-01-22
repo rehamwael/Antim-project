@@ -65,6 +65,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
 import { StarterComponent } from './starter/starter.component';
 import {MatSelectModule} from '@angular/material/select';
+import { FooterComponent } from './footer/footer.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
@@ -109,7 +110,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CustomerRequestDetailsComponent,
     ConfirmEmailComponent,
     FunderRequestsDetailsComponent,
-    StarterComponent
+    StarterComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
