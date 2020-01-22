@@ -103,7 +103,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.profileService.getStaticPageByKey('ContactUsPage').subscribe(res => {
       // console.log(res);
       this.ContactUsPage = JSON.parse(res.result.sections);
-      console.log(this.ContactUsPage);
+      // console.log(this.ContactUsPage);
     }, err => {
       console.log(err);
     });

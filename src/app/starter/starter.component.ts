@@ -72,7 +72,7 @@ export class StarterComponent implements OnInit {
     this.profileService.getStaticPageByKey('HomePage').subscribe(res => {
       // console.log(res);
       this.HomePage = JSON.parse(res.result.sections);
-      console.log(this.HomePage);
+      // console.log(this.HomePage);
     }, err => {
       console.log(err);
     });

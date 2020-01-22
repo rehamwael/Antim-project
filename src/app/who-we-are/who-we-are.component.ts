@@ -70,7 +70,7 @@ export class WhoWeAreComponent implements OnInit , OnDestroy {
     this.profileService.getStaticPageByKey('WhoWeArePage').subscribe(res => {
       // console.log(res);
       this.Who_We_Are = JSON.parse(res.result.sections);
-      console.log(this.Who_We_Are);
+      // console.log(this.Who_We_Are);
     }, err => {
       console.log(err);
     });
