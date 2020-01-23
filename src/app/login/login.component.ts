@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.spinner.hide();
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('log-in');
     this.getState.subscribe((state) => {
