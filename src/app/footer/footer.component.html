@@ -75,9 +75,15 @@
               </ul>
           </div>
           <div class="col col-lg-4 col-12">
-              <form class="subscribtion-form">
-                  <input type="email" placeholder="{{ 'HOME.TypeEmail' | translate }}">
-                  <button type="submit" class="btn btn-block btn-antim btn-subscribe">{{ 'HOME.Subscribe' | translate }}</button>
+              <form class="subscribtion-form" [formGroup]="SubscribeForm">
+                <div class="form-group text-left">
+                  <input formControlName="email" type="email" placeholder="{{ 'HOME.TypeEmail' | translate }}" [(ngModel)]="email" style="color: white;">
+                  <!-- Enter proper Email -->
+                  <button type="submit" [disabled]="!SubscribeForm.valid" class="btn btn-block btn-antim btn-subscribe" (click)="Subscribe()">{{ 'HOME.Subscribe' | translate }}</button>
+                 </div>
+                 <div class="ml-5">
+                  <div *ngIf="SubscribeForm.controls['email'].touched && SubscribeForm.controls['email'].hasError('pattern')" class="error ">Enter proper Email.</div>
+                 </div>
               </form>
           </div>
       </div>

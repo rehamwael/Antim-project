@@ -53,5 +53,12 @@ export class NotificationsService {
       })
     );
   }
+  SubscribeUser( email: any) {
+    return this.httpClient.post(`${this.Url}Subscription/Subscribe?email=${email}`, null).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
 
 }
