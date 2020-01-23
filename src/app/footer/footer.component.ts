@@ -37,6 +37,7 @@ export class FooterComponent implements OnInit {
   Subscribe() {
     this.notificationsService.SubscribeUser(this.email).subscribe(res => {
       this.profileService.showSuccessToastr(res);
+      this.email = '';
     }, err => {
       this.profileService.showErrorToastr(err.error.message);
       console.log(err);

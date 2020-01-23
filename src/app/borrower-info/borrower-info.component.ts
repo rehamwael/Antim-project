@@ -125,6 +125,7 @@ export class BorrowerInfoComponent implements OnInit , OnDestroy {
       // console.log(this.BorrowerPage);
     }, err => {
       console.log(err);
+      this.profileService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
     });
 
 

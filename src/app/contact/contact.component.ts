@@ -106,6 +106,7 @@ export class ContactComponent implements OnInit, OnDestroy {
       // console.log(this.ContactUsPage);
     }, err => {
       console.log(err);
+      this.profileService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
     });
 
   }

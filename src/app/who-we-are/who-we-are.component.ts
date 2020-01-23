@@ -73,6 +73,7 @@ export class WhoWeAreComponent implements OnInit , OnDestroy {
       // console.log(this.Who_We_Are);
     }, err => {
       console.log(err);
+      this.profileService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
     });
 
   }

@@ -129,6 +129,7 @@ export class LenderInfoComponent implements OnInit , OnDestroy {
       // console.log(this.LenderPage);
     }, err => {
       console.log(err);
+      this.profileService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
     });
 
   }

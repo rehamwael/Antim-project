@@ -75,6 +75,7 @@ export class StarterComponent implements OnInit {
       // console.log(this.HomePage);
     }, err => {
       console.log(err);
+      this.profileService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
     });
 
   }
