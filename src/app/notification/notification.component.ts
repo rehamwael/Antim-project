@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NotificationsService } from '../services/notifications.service';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthenticationState } from './../store/app.states';
 import { ReadNotification } from './../store/actions/auth.actions';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-notification',
@@ -15,6 +16,9 @@ import { ReadNotification } from './../store/actions/auth.actions';
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent implements OnInit, OnDestroy {
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  obs: Observable<any>;
+
   allNotifications: any;
   filterNotifications: any;
   customerNotifications: any = [];
@@ -27,6 +31,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   disableSearch: boolean;
   userLang: any;
   DisableButton = false;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>(this.customerNotifications);
 
   constructor(
     private notificationService: NotificationsService,
@@ -34,6 +39,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     private profileService: ProfileService,
     public translate: TranslateService,
     private store: Store<AppState>,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.getState = this.store.select(selectAuthenticationState);
     this.userLang = this.translate.currentLang;
@@ -48,7 +54,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.notificationService.getUserNotifications().subscribe(res => {
       this.spinner.hide();
-      console.log(res.result);
+      console.log(res);
       this.allNotifications = res.result;
       if (this.allNotifications.length > 0) {
         this.customerNotifications.length = 0;
@@ -58,8 +64,17 @@ export class NotificationComponent implements OnInit, OnDestroy {
           element.date = moment(element.createdAt).format('LL');
           element.arDate = moment(element.createdAt).locale('ar-sa').format('LL');
         });
+        // this.dataSource = new MatTableDataSource<any>(this.customerNotifications);
+        // this.changeDetectorRef.detectChanges();
+        // this.dataSource.paginator = this.paginator;
+        // this.obs = this.dataSource.connect();
       } else {
         this.getNotifications = false;
+        // this.customerNotifications.length = 0;
+        // this.dataSource = new MatTableDataSource<any>(this.customerNotifications);
+        // this.changeDetectorRef.detectChanges();
+        // this.dataSource.paginator = this.paginator;
+        // this.obs = this.dataSource.connect();
       }
     }, err => {
       this.spinner.hide();
@@ -100,6 +115,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.disableReset = true;
         this.disableSearch = false;
         this.profileService.showErrorToastr(res.message);
+        // this.customerNotifications.length = 0;
+        // this.dataSource = new MatTableDataSource<any>(this.customerNotifications);
+        // this.changeDetectorRef.detectChanges();
+        // this.dataSource.paginator = this.paginator;
+        // this.obs = this.dataSource.connect();
+
       } else {
         this.filterNotifications = res.result;
         this.allNotifications = null;
@@ -112,6 +133,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
           this.customerNotifications.push(element);
           element.date = moment(element.createdAt).format('LL');
         });
+        // this.dataSource = new MatTableDataSource<any>(this.customerNotifications);
+        // this.changeDetectorRef.detectChanges();
+        // this.dataSource.paginator = this.paginator;
+        // this.obs = this.dataSource.connect();
+
       }
     }, err => {
       this.spinner.hide();

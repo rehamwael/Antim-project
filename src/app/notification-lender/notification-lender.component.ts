@@ -46,7 +46,7 @@ export class NotificationLenderComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.notificationService.getUserNotifications().subscribe(res => {
       this.spinner.hide();
-      console.log(res.result);
+      console.log(res);
       this.allNotifications = res.result;
       if (this.allNotifications.length > 0) {
         this.funderNotifications.length = 0;
