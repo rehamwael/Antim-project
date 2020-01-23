@@ -70,7 +70,7 @@
                                         <label class="text-left font-bold">{{ 'contact.Message' | translate }}</label>
                                         <textarea formControlName="contactFormMessage" class="form-control rounded-0" mdbInput [(ngModel)]="message" id="exampleFormControlTextarea2"
                                             rows="4" placeholder="{{ 'contact.MessageType' | translate }}"></textarea>
-                                       <div *ngIf="contactForm.controls['contactFormMessage'].touched && !contactForm.controls['contactFormMessage'].valid" class="error-msg alert alert-danger text-left">{{ 'contact.MessageRequired' | translate }}Message required</div>
+                                       <div *ngIf="contactForm.controls['contactFormMessage'].touched && !contactForm.controls['contactFormMessage'].valid" class="error-msg alert alert-danger text-left">{{ 'contact.MessageRequired' | translate }}</div>
 
                                         </div>
 
@@ -83,10 +83,6 @@
                                     <div class="pattern-up pattern-form"></div>
 
                                     <!-- Default form contact -->
-                                    <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
-                                    color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                    <p style="color: white; margin-top:50px;font-size: 26px;" > Loading... </p>
-                                    </ngx-spinner>
 
                                 </ng-template>
                               </ngb-tab>

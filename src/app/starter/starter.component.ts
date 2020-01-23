@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { ProfileService } from '../services/userProfile.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState, staticPagesState } from './../store/app.states';
+import { GetHomePage } from './../store/actions/static-pages.actions';
 
 @Component({
   selector: 'app-starter',
@@ -49,38 +52,38 @@ export class StarterComponent implements OnInit {
       ContentAr: ''
     }
   };
+  getState: Observable<any>;
 
-    constructor(
-      public router: Router,
-      private profileService: ProfileService,
-      public translate: TranslateService
-      ) {
-      translate.addLangs([ 'english' , 'arabic']);
-        this.translate.onLangChange.subscribe((event) => {
-          this.userLang = event.lang;
-        });
-    }
+  constructor(
+    public router: Router,
+    public translate: TranslateService,
+    private store: Store<AppState>,
+  ) {
+    this.getState = this.store.select(staticPagesState);
+    translate.addLangs(['english', 'arabic']);
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
+  }
 
-    ngOnInit(): void {
-      this.router.events.subscribe((evt) => {
-        if (!(evt instanceof NavigationEnd)) {
-            return;
-        }
-        window.scrollTo(0, 0);
+  ngOnInit(): void {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
 
     });
-    this.profileService.getStaticPageByKey('HomePage').subscribe(res => {
-      // console.log(res);
-      this.HomePage = JSON.parse(res.result.sections);
-      // console.log(this.HomePage);
-    }, err => {
-      console.log(err);
-      this.profileService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
+
+    this.getState.subscribe((state) => {
+      if (state.HomePage == null) {
+        this.store.dispatch(new GetHomePage());
+      } else {
+        this.HomePage = state.HomePage;
+      }
     });
 
   }
-  // tslint:disable-next-line: use-life-cycle-interface
-  ngAfterViewInit() {}
   btnClick = function () {
     this.router.navigateByUrl('/signup');
   };

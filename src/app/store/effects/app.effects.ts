@@ -24,6 +24,7 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
+import { StaticPagesActionTypes, SaveHomePage, SaveWhoWeArePage, SaveBorrowerPage, SaveContactUsPage, SaveLenderPage } from '../actions/static-pages.actions';
 
 
 @Injectable()
@@ -77,11 +78,11 @@ export class AuthenticationEffects {
       this.store.dispatch(new UserProfile());
 
       if (this.translate.currentLang == 'arabic') {
-        this.titleService.setTitle( ' انتيم | لوحة القيادة ' );
+        this.titleService.setTitle(' انتيم | لوحة القيادة ');
       } else {
-        this.titleService.setTitle( 'Antim | Dashboard' );
+        this.titleService.setTitle('Antim | Dashboard');
       }
-        this.router.navigateByUrl('/dashbored-' + this.userRole);
+      this.router.navigateByUrl('/dashbored-' + this.userRole);
     })
   );
 
@@ -213,9 +214,9 @@ export class AuthenticationEffects {
           this.store.dispatch(new IsUpdatedTrue());
           this.userDataService.showSuccessToastr(res);
           if (this.translate.currentLang == 'arabic') {
-            this.titleService.setTitle( ' انتيم | طلباتي ' );
+            this.titleService.setTitle(' انتيم | طلباتي ');
           } else {
-            this.titleService.setTitle( 'Antim | My Requests' );
+            this.titleService.setTitle('Antim | My Requests');
           }
         }),
         catchError(error => {
@@ -270,27 +271,99 @@ export class AuthenticationEffects {
         }));
     }));
 
-    @Effect({ dispatch: false })
-    DeleteDraftRequest: Observable<any> = this.actions.pipe(
-      ofType(CustomerActionTypes.DELETE_DRAFT_REQUEST),
-      map((action: DeleteDraftRequest) => action.payload),
-      switchMap(payload => {
+  @Effect({ dispatch: false })
+  DeleteDraftRequest: Observable<any> = this.actions.pipe(
+    ofType(CustomerActionTypes.DELETE_DRAFT_REQUEST),
+    map((action: DeleteDraftRequest) => action.payload),
+    switchMap(payload => {
+      this.spinner.show();
+      return this.customerService.DeleteDraftRequest(payload.id).pipe(
+        map((res) => {
+          console.log(' Deleted:', res);
+          this.spinner.hide();
+          this.modalService.dismissAll();
+          this.router.navigate(['/requests-customer']);
+          this.userDataService.showSuccessToastr(res);
+          this.store.dispatch(new DeleteRequestSuccess(payload));
+        }),
+        catchError(error => {
+          console.log(' ERROR:', error);
+          this.modalService.dismissAll();
+          this.spinner.hide();
+          return of(this.userDataService.showErrorToastr(error.error.message));
+        }));
+    }));
+
+  @Effect({ dispatch: false })
+  GetHomePage: Observable<any> = this.actions
+    .pipe(
+      ofType(StaticPagesActionTypes.GET_HOME_PAGE),
+      tap(() => {
         this.spinner.show();
-        return this.customerService.DeleteDraftRequest(payload.id).pipe(
-          map((res) => {
-            console.log(' Deleted:', res);
-            this.spinner.hide();
-            this.modalService.dismissAll();
-            this.router.navigate(['/requests-customer']);
-            this.userDataService.showSuccessToastr(res);
-            this.store.dispatch(new DeleteRequestSuccess(payload));
-          }),
-          catchError(error => {
-            console.log(' ERROR:', error);
-            this.modalService.dismissAll();
-            this.spinner.hide();
-            return of(this.userDataService.showErrorToastr(error.error.message));
-          }));
+        return this.userDataService.getStaticPageByKey('HomePage').subscribe(res => {
+          this.store.dispatch(new SaveHomePage(JSON.parse(res.result.sections)));
+        }, err => {
+          console.log(err);
+          this.userDataService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
+        });
+      }));
+
+  @Effect({ dispatch: false })
+  GetWhoWeArePage: Observable<any> = this.actions
+    .pipe(
+      ofType(StaticPagesActionTypes.GET_WHO_WE_ARE_PAGE),
+      tap(() => {
+        this.spinner.show();
+        return this.userDataService.getStaticPageByKey('WhoWeArePage').subscribe(res => {
+          this.store.dispatch(new SaveWhoWeArePage(JSON.parse(res.result.sections)));
+        }, err => {
+          console.log(err);
+          this.userDataService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
+        });
+      }));
+
+  @Effect({ dispatch: false })
+  GetLenderPage: Observable<any> = this.actions
+    .pipe(
+      ofType(StaticPagesActionTypes.GET_LENDER_PAGE),
+      tap(() => {
+        this.spinner.show();
+        return this.userDataService.getStaticPageByKey('LenderPage').subscribe(res => {
+          this.store.dispatch(new SaveLenderPage(JSON.parse(res.result.sections)));
+        }, err => {
+          console.log(err);
+          this.userDataService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
+        });
+      }));
+
+
+  @Effect({ dispatch: false })
+  GetBorrowerPage: Observable<any> = this.actions
+    .pipe(
+      ofType(StaticPagesActionTypes.GET_BORROWER_PAGE),
+      tap(() => {
+        this.spinner.show();
+        return this.userDataService.getStaticPageByKey('BorrowerPage').subscribe(res => {
+          this.store.dispatch(new SaveBorrowerPage(JSON.parse(res.result.sections)));
+        }, err => {
+          console.log(err);
+          this.userDataService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
+        });
+      }));
+
+
+  @Effect({ dispatch: false })
+  GetContactUsPage: Observable<any> = this.actions
+    .pipe(
+      ofType(StaticPagesActionTypes.GET_CONTACT_US_PAGE),
+      tap(() => {
+        this.spinner.show();
+        return this.userDataService.getStaticPageByKey('ContactUsPage').subscribe(res => {
+          this.store.dispatch(new SaveContactUsPage(JSON.parse(res.result.sections)));
+        }, err => {
+          console.log(err);
+          this.userDataService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
+        });
       }));
 
 }

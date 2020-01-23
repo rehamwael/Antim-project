@@ -1,13 +1,16 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ProfileService } from '../services/userProfile.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState, staticPagesState } from './../store/app.states';
+import { GetLenderPage } from './../store/actions/static-pages.actions';
 
 @Component({
   selector: 'app-lender-info',
   templateUrl: './lender-info.component.html',
   styleUrls: ['./lender-info.component.css']
 })
-export class LenderInfoComponent implements OnInit , OnDestroy {
+export class LenderInfoComponent implements OnInit, OnDestroy {
 
   userLang: any;
   LenderPage: any = {
@@ -108,14 +111,17 @@ export class LenderInfoComponent implements OnInit , OnDestroy {
       Content5Ar: ''
     }
   };
+  getState: Observable<any>;
 
-
-
-  constructor(public translate: TranslateService, private profileService: ProfileService) {
-    translate.addLangs([ 'english' , 'arabic']);
-      this.translate.onLangChange.subscribe((event) => {
-        this.userLang = event.lang;
-      });
+  constructor(
+    public translate: TranslateService,
+    private store: Store<AppState>,
+  ) {
+    this.getState = this.store.select(staticPagesState);
+    translate.addLangs(['english', 'arabic']);
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
   }
 
   ngOnInit(): void {
@@ -123,13 +129,12 @@ export class LenderInfoComponent implements OnInit , OnDestroy {
     body.classList.add('contact');
     body.classList.add('who-we-are');
 
-    this.profileService.getStaticPageByKey('LenderPage').subscribe(res => {
-      // console.log(res);
-      this.LenderPage = JSON.parse(res.result.sections);
-      // console.log(this.LenderPage);
-    }, err => {
-      console.log(err);
-      this.profileService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
+    this.getState.subscribe((state) => {
+      if (state.LenderPage == null) {
+        this.store.dispatch(new GetLenderPage());
+      } else {
+        this.LenderPage = state.LenderPage;
+      }
     });
 
   }

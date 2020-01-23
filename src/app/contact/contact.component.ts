@@ -4,8 +4,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { latLng, tileLayer } from 'leaflet';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ProfileService } from '../services/userProfile.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState, staticPagesState } from './../store/app.states';
+import { GetContactUsPage } from './../store/actions/static-pages.actions';
 
 @Component({
   selector: 'app-contact',
@@ -42,6 +45,7 @@ export class ContactComponent implements OnInit, OnDestroy {
       ContentAr: ''
     },
   };
+  getState: Observable<any>;
 
   @HostListener('input') oninput() {
     if (this.contactForm.valid) {
@@ -49,15 +53,14 @@ export class ContactComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
     public translate: TranslateService,
     private profileService: ProfileService,
-    private spinner: NgxSpinnerService,
+    private store: Store<AppState>,
   ) {
+    this.getState = this.store.select(staticPagesState);
 
     this.contactForm = fb.group({
       'contactFormName': [null, Validators.compose([
@@ -72,16 +75,16 @@ export class ContactComponent implements OnInit, OnDestroy {
       'contactFormMessage': ['', Validators.required],
       'contactFormCopy': [''],
       'contactFormPhone': ['', Validators.required]
-      });
-      this.leafletLayers = [tileLayer(
-        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        { })];
-      this.mapCenter = latLng(24.8085046, 46.6711241);
-      this.zoomLevel = 10;
-      translate.addLangs([ 'english' , 'arabic']);
-      this.translate.onLangChange.subscribe((event) => {
-        this.userLang = event.lang;
-      });
+    });
+    this.leafletLayers = [tileLayer(
+      'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {})];
+    this.mapCenter = latLng(24.8085046, 46.6711241);
+    this.zoomLevel = 10;
+    translate.addLangs(['english', 'arabic']);
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
 
   }
 
@@ -100,13 +103,13 @@ export class ContactComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('contact');
     window.dispatchEvent(new Event('resize'));
-    this.profileService.getStaticPageByKey('ContactUsPage').subscribe(res => {
-      // console.log(res);
-      this.ContactUsPage = JSON.parse(res.result.sections);
-      // console.log(this.ContactUsPage);
-    }, err => {
-      console.log(err);
-      this.profileService.showErrorToastr(' Some Error Occurred. | حدث بعض الخطأ ');
+
+    this.getState.subscribe((state) => {
+      if (state.ContactUsPage == null) {
+        this.store.dispatch(new GetContactUsPage());
+      } else {
+        this.ContactUsPage = state.ContactUsPage;
+      }
     });
 
   }
@@ -115,12 +118,8 @@ export class ContactComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('contact');
   }
-  // onSubmit() {
-  //     this.contactForm.reset();
-  //     this.disabledSubmitButton = true;
-  // }
+
   sendMessage() {
-    this.spinner.show();
     this.profileService.contactUs({
       'Name': this.name,
       'Email': this.email,
@@ -129,12 +128,10 @@ export class ContactComponent implements OnInit, OnDestroy {
       'Message': this.message
     }).subscribe((res) => {
       console.log(res);
-      this.spinner.hide();
       this.contactForm.reset();
       this.profileService.showSuccessToastr(res);
       this.disabledSubmitButton = true;
     }, err => {
-      this.spinner.hide();
       this.profileService.showErrorToastr(err.error.message);
     });
   }
