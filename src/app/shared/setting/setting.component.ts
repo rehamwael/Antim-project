@@ -86,9 +86,8 @@ export class SettingComponent implements OnInit, OnDestroy {
     }
   }
   deleteAccount() {
-    this.userId = this.currentUser.id;
     this.spinner.show();
-    this.userProfileService.deleteUser(this.userId).subscribe(res => {
+    this.userProfileService.deleteUser().subscribe(res => {
       localStorage.removeItem('token');
       this.modalService.dismissAll();
       this.logOut();
@@ -103,9 +102,8 @@ export class SettingComponent implements OnInit, OnDestroy {
     });
   }
   deActivateAccount() {
-    this.userId = this.currentUser.id;
     this.spinner.show();
-    this.userProfileService.deActivateUser(this.userId).subscribe(res => {
+    this.userProfileService.deActivateUser().subscribe(res => {
       localStorage.removeItem('token');
       this.modalService.dismissAll();
       console.log(res);

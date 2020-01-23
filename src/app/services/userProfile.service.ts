@@ -98,20 +98,20 @@ export class ProfileService {
   }
 
   // DELETE User
-  deleteUser(id: any): Observable<any> {
+  deleteUser(): Observable<any> {
     this.getTokenAndHeaders();
     console.log('authorization', this.httpOptions);
-    return this.httpClient.delete(`${this.Url}User/DeleteUser?id=${id}`, this.httpOptions).pipe(
+    return this.httpClient.delete(`${this.Url}User/DeleteUser`, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
   }
 
   // Deactivate User
-  deActivateUser(id: any): Observable<any> {
+  deActivateUser(): Observable<any> {
     this.getTokenAndHeaders();
 
-    return this.httpClient.patch(`${this.Url}User/DeactivateUser?id=${id}`, null, this.httpOptions).pipe(
+    return this.httpClient.patch(`${this.Url}User/DeactivateUser`, null, this.httpOptions).pipe(
       tap((res: any) => {
       })
     );
