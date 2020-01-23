@@ -310,12 +310,16 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
             this.InstallmentDetailsTable = new MatTableDataSource<any>(InstallmentDetails);
             console.log('InstallmentDetails:', InstallmentDetails);
             this.spinner.hide();
+          }, err => {
+            this.spinner.hide();
+            console.log(err);
           });
         } else {
           this.showTable = false;
         }
         this.spinner.hide();
       }, err => {
+        this.spinner.hide();
         console.log(err);
       });
       this.selectedProduct = true;

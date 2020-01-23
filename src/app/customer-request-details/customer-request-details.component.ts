@@ -199,6 +199,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
         localStorage.setItem('customerRequestType', this.requestType);
 
         resolve(res);
+      }, err => {
+        this.spinner.hide();
+        console.log(err);
       });
     });
   }
@@ -234,6 +237,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
           this.dataSource = new MatTableDataSource<any>(InstallmentDetails);
           console.log('InstallmentDetails:', InstallmentDetails);
           this.spinner.hide();
+        }, err => {
+          this.spinner.hide();
+          console.log(err);
         });
       } else {
         this.showTable = false;

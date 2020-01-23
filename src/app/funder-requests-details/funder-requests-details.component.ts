@@ -124,6 +124,9 @@ export class FunderRequestsDetailsComponent implements OnInit {
         this.requestType = 'Awaiting For Fund Requests';
       }
       this.spinner.hide();
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
     });
 
   }
