@@ -22,10 +22,9 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
-    const url: string = state.url;
-    const roles = route.data;
-    const expectedRole = roles.userRole[0];
-    const role = localStorage.getItem('role');
+    let roles = route.data;
+    let expectedRole = roles.userRole[0];
+    let role = localStorage.getItem('role');
 
     return this.authService.User.pipe(
       take(1),

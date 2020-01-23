@@ -295,7 +295,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   }
 
   deleteRequest() {
-    const actionPayload = {
+    let actionPayload = {
       id: this.requestID
     };
     this.store.dispatch(new DeleteDraftRequest(actionPayload));
@@ -383,7 +383,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
   saveAsDraft(content) {
     this.content = content;
-    const actionPayload = {
+    let actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
@@ -399,7 +399,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
   saveRequest(content3) {
     this.content = content3;
-    const actionPayload = {
+    let actionPayload = {
       'Id': this.requestID,
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
@@ -430,7 +430,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
     }
   }
   cancelRequest() {
-    const actionPayload = {
+    let actionPayload = {
       id: this.requestID
     };
     this.store.dispatch(new DeleteCustomerRequests(actionPayload));

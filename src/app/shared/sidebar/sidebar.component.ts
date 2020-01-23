@@ -57,7 +57,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getState.subscribe((state) => {
       // console.log( 'state:' , state);
-      const token = localStorage.getItem('token');
+      let token = localStorage.getItem('token');
       if (state.userProfile == null && token) {
         this.store.dispatch(new UserProfile());
       }
@@ -79,7 +79,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     // console.log( 'USER:' ,  this.currentUser);
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
     this.href = this.router.url;
-    const x = this.href.split('/')[1].split('-');
+    let x = this.href.split('/')[1].split('-');
     this.userType = x[1];
     this.requestUrl = 'requests-' + this.userType;
     this.dashboredUrl = 'dashbored-' + this.userType;

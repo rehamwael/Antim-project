@@ -49,8 +49,8 @@ export class DashboredComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getState.subscribe((state) => {
       // console.log('state', state);
-      const token = localStorage.getItem('token');
-      const role = localStorage.getItem('role');
+      let token = localStorage.getItem('token');
+      let role = localStorage.getItem('role');
       if (state.userProfile == null && token && state.isAuthenticated == true && role == 'customer') {
         this.store.dispatch(new UserProfile());
       }
@@ -80,7 +80,7 @@ export class DashboredComponent implements OnInit, OnDestroy {
     this.customerRequests = null;
   }
   getCount() {
-    const role = localStorage.getItem('role');
+    let role = localStorage.getItem('role');
     this.getCustomerState.subscribe((state) => {
       this.customerRequests = state.customerRequestCount;
       if (state.customerRequestCount == null && role == 'customer') {

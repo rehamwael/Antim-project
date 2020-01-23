@@ -16,23 +16,25 @@ declare var $: any;
   styleUrls: ['./full.component.scss']
 })
 export class FullComponent implements OnInit {
-  userRole: any;
   islogin = false;
   getState: Observable<any>;
   dashboredUrl: any;
   userLang: any;
   token: any;
-// tslint:disable-next-line: indent
-	public config: PerfectScrollbarConfigInterface = {};
+  // tslint:disable-next-line: indent
+  public config: PerfectScrollbarConfigInterface = {};
 
   constructor(
     public router: Router,
     private store: Store<AppState>,
     public translate: TranslateService,
     private titleService: Title
-    ) {
+  ) {
+    this.getState = this.store.select(selectAuthenticationState);
     let language = localStorage.getItem('language');
-    // console.log(language);
+    let role = localStorage.getItem('role');
+    this.dashboredUrl = 'dashbored-' + role;
+
     if (language != null) {
       this.translate.use(language);
       this.userLang = language;
@@ -41,23 +43,22 @@ export class FullComponent implements OnInit {
     }
     console.log(this.userLang);
 
-    this.getState = this.store.select(selectAuthenticationState);
-      this.getState.subscribe((state) => {
-        const token = localStorage.getItem('token');
-        if (state.loggedIn == true || token) {
-          this.islogin = true;
-        } else {
-          this.islogin = false;
-        }
-      });
-      translate.addLangs([ 'english' , 'arabic']);
-      const browserLang = translate.getBrowserLang();
-      translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
-      this.translate.onLangChange.subscribe((event) => {
-        this.userLang = event.lang;
-        localStorage.setItem('language', this.userLang);
-      });
-      translate.setDefaultLang(this.userLang);
+    this.getState.subscribe((state) => {
+      let token = localStorage.getItem('token');
+      if (state.loggedIn == true || token) {
+        this.islogin = true;
+      } else {
+        this.islogin = false;
+      }
+    });
+    translate.addLangs(['english', 'arabic']);
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+      localStorage.setItem('language', this.userLang);
+    });
+    translate.setDefaultLang(this.userLang);
 
   }
 
@@ -76,12 +77,7 @@ export class FullComponent implements OnInit {
   }
 
   ngOnInit() {
-    const role = localStorage.getItem('role');
-    this.userRole = role;
-    this.dashboredUrl = 'dashbored-' + role;
-    if (this.router.url === '/') {
-      this.router.navigate(['/home']);
-    }
+
     this.defaultSidebar = this.sidebartype;
     this.handleSidebar();
   }
@@ -97,9 +93,9 @@ export class FullComponent implements OnInit {
   changeLanguage(lang: string) {
     this.translate.use(lang);
     if (lang == 'arabic') {
-      this.titleService.setTitle( 'انتيم' );
+      this.titleService.setTitle('انتيم');
     } else {
-      this.titleService.setTitle( 'Antim' );
+      this.titleService.setTitle('Antim');
     }
   }
 
@@ -125,30 +121,30 @@ export class FullComponent implements OnInit {
       default:
     }
   }
-    toggleNavbar() {
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
+  btnClick = function () {
+    this.router.navigateByUrl('/signup');
+  };
+  closeMenuAndSetTitle(enTitle, arTitle) {
+    if (this.userLang == 'arabic') {
+      this.titleService.setTitle(arTitle);
+    } else {
+      this.titleService.setTitle(enTitle);
+    }
+    const isMobile = /iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|Android/i.test(navigator.userAgent);
+    if (isMobile) {
       this.navbarOpen = !this.navbarOpen;
     }
-    btnClick = function () {
-      this.router.navigateByUrl('/signup');
-    };
-    closeMenuAndSetTitle(enTitle, arTitle) {
-      if (this.userLang == 'arabic') {
-        this.titleService.setTitle( arTitle );
-      } else {
-        this.titleService.setTitle( enTitle );
-      }
-      const isMobile = /iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|Android/i.test(navigator.userAgent);
-      if (isMobile) {
-        this.navbarOpen = !this.navbarOpen;
-      }
+  }
+  setTitle(enTitle, arTitle) {
+    if (this.userLang == 'arabic') {
+      this.titleService.setTitle(arTitle);
+    } else {
+      this.titleService.setTitle(enTitle);
     }
-    setTitle(enTitle, arTitle) {
-      if (this.userLang == 'arabic') {
-        this.titleService.setTitle( arTitle );
-      } else {
-        this.titleService.setTitle( enTitle );
-      }
-      this.router.navigateByUrl('/home');
-    }
+    this.router.navigateByUrl('/home');
+  }
 
 }

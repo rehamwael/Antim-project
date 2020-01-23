@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   login(Content) {
     this.content = Content;
-    const actionPayload = {
+    let actionPayload = {
       username: this.loginUsername,
       password: this.loginPassword
     };

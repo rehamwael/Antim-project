@@ -86,8 +86,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       console.log(err);
     });
 
-    const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
-    const regex = new RegExp(expression);
 
     this.firstFormGroup = this._formBuilder.group({
       Name: [null, Validators.compose([
@@ -185,7 +183,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   }
   saveAsDraft(content) {
     this.content = content;
-    const actionPayload = {
+    let actionPayload = {
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,
@@ -206,7 +204,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
 
   saveRequest(content3) {
     this.content = content3;
-    const actionPayload = {
+    let actionPayload = {
       'Name': this.requestName,
       'TotalFundAmount': this.totalPrice,
       'PaybackPeriod': this.installmentPeriod_ENUM,

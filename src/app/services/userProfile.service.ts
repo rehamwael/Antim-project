@@ -33,9 +33,9 @@ export class ProfileService {
 
   // GET USER PERSONAL INFORMATION
   getUserData(): Observable<any> {
-    const Token = localStorage.getItem('token');
+    let Token = localStorage.getItem('token');
     // console.log('TOKEN', Token);
-    const HttpOptions = {
+    let HttpOptions = {
       headers: new HttpHeaders({
         authorization: `Bearer ${Token}`
       })

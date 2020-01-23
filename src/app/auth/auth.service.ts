@@ -20,8 +20,7 @@ export class AuthService {
   }
 
   loadUser() {
-    const token = localStorage.getItem('token');
-    const role = localStorage.getItem('role');
+    let token = localStorage.getItem('token');
      if (token) {
       this.authState.next(token);
     } else {
@@ -30,7 +29,7 @@ export class AuthService {
   }
 
   login(user: any): Observable<any> {
-    const data = 'username=' + user.username + '&password=' + user.password + '&grant_type=password';
+    let data = 'username=' + user.username + '&password=' + user.password + '&grant_type=password';
     return this.httpClient.post(`${this.Url}login`, data).pipe(
       tap((res: any ) => {
         localStorage.setItem('token', res.access_token);

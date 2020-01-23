@@ -57,7 +57,7 @@ export class AuthenticationEffects {
             map((user) => {
               this.spinner.hide();
               // console.log('in ngrx effects :', user);
-              const decoded = jwt_decode(user.access_token);
+              let decoded = jwt_decode(user.access_token);
               this.userRole = decoded.role;
               localStorage.setItem('token', user.access_token);
               localStorage.setItem('role', this.userRole);

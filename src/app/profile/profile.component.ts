@@ -415,7 +415,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   SaveInfo() {
-    const actionPayload = {
+    let actionPayload = {
       'FirstName': this.firstName,
       'LastName': this.lastName,
       'UserName': this.userName,
