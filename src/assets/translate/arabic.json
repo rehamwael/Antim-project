@@ -406,7 +406,7 @@
         "Enterpricehere" : "أدخل السعر هنا ..." ,
         "Enterproductlinkhere" : "أدخل رابط المنتج هنا ...",
         "MoreItem" : "المزيد من المنتجات ",
-        "TotalPriceOfProducts" : "إجمالي سعر المنتجات",
+        "TotalPriceOfProducts" : ":إجمالي سعر المنتجات",
         "Next" : "التالى",
         "Note" : "ملحوظة" ,
         "CreateOrderNote" : "يرجى التأكد من أن السعر الإجمالي يجب أن يكون أكبر من 500 ريال سعودي وأقل من 10000 ريال سعودي." ,
