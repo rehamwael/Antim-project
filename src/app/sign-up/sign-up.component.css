@@ -6,6 +6,9 @@
 #direction{
   flex-direction: row !important;
 }
+#direction1{
+  flex-direction: row !important;
+}
 #code {
   direction: ltr !important;
 }

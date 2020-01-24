@@ -209,6 +209,7 @@
         "EmailValidate" : "Enter proper Email.",
         "Password" : "Password" ,
         "PasswordRequired" : "Password required",
+        "PhoneRequired" : "Phone Number is required",
         "PasswordValidate" : "Password must contain Upper Cases Letter, Lower Cases Letter, Numbers, Special Characters (!, @, _, #, $ ..etc.) and at least 9 characters long." ,
         "ConfirmPassword" : "Confirm Password" ,
         "ConfirmPasswordrequired" : "Confirm Password is required",
