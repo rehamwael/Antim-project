@@ -67,10 +67,10 @@
                 </div>
 
             </div>
-            <div class="easy-for-you py-4 h-100">
+            <div class="easy-for-you py-4" style="height: 90vh;">
                     <div class="container">
-                        <div class="row my-4">
-                            <div class="col-lg-10 py-4 mb-5 row">
+                        <div class="row ">
+                            <div class="col-lg-10 py-4 mb-2 row">
                                     <h2 class="font-purple font-bold mb-5 col-lg-5 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.8s">{{ userLang == 'arabic' ? HomePage.Section4.TitleAr : HomePage.Section4.TitleEn }} </h2>
                                     <br/>
                                     <p class="mt-5 col-lg-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">{{ userLang == 'arabic' ? HomePage.Section4.ContentAr : HomePage.Section4.ContentEn }}</p>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-        <div class="responsive-layout py-4">
+        <div class="responsive-layout py-3">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6  order-small-2">
@@ -99,9 +99,9 @@
         </div>
 
         <section class="start-journey">
-        <div class="container">
+        <div class="container py-5 mt-3">
             <div class="row mb-3">
-                <div class="col-lg-12 h-100 d-flex justify-content-center flex-column text-center">
+                <div class="col-lg-12 d-flex justify-content-center flex-column text-center">
                     <h2 class="mt-5 pt-4 wow fadeInUp" data-wow-duration="0.6s" data-wow-delay="0.4s">{{ 'HOME.StartYourJourneyNow' | translate }}</h2>
                     <p class="wow fadeInUp" data-wow-duration=".8s" data-wow-delay="0.5s">{{ 'HOME.StartYourJourneyNowDesc' | translate }}</p>
                     <button type="button" (click)="btnClick();" class="btn btn-block btn-antim btn-rounded mx-auto py-3 wow fadeInUp" data-wow-duration=".9s" data-wow-delay="0.6s" >{{ 'HOME.GetStarted' | translate }} </button>
