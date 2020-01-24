@@ -138,11 +138,11 @@ export class FunderRequestsDetailsComponent implements OnInit {
     this.funderRequestService.addFunderRequest({
       'CustomerRequestId': this.requestID
     }).subscribe(res => {
-      localStorage.setItem('selectedFunderRequestType', 'All Requests');
       this.modalService.dismissAll();
-      this.spinner.hide();
+      localStorage.setItem('selectedFunderRequestType', 'All Requests');
       this.profileService.showSuccessToastr(res);
       this.router.navigateByUrl('/requests-funder');
+      this.spinner.hide();
       console.log(res);
     }, err => {
       this.spinner.hide();
