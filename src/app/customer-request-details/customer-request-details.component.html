@@ -161,18 +161,16 @@
 
                         </div>
                       </div>
-                      <div class="row" style="width: 100%;" *ngIf="showEditButton">
-                      <div class="col-lg-10 mt-3 row justify-content-end py-4 mt-4" >
+                      <div class="row py-3 mt-3" style="width: 100%;" *ngIf="showEditButton">
+                        <div class="form-group col-lg-8" ></div>
                         <div class="form-group col-lg-4" >
                                <button class="btn btn-info btn-lg btn-block btn-black mt-2"  (click)="editRequestInfo()">
                                     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3632 4.32641L4.05556 11.5H1V8.72222L8.94444 1.5L11.3632 4.32641Z" stroke="#694F70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <span class="px-3">{{ 'Profile.Edit' | translate }}</span>
+                                    <span class="px-3">{{ 'Requests.EditRequest' | translate }}</span>
                                 </button>
                             </div>
-
-                    </div>
                 </div>
                 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                 color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
@@ -413,7 +411,7 @@
                                         <img src="assets/images/summary.svg">
                                         <p class="font-size-13 mt-2">{{ 'CreateOrder.Summary' | translate }}</p>
                                 </ng-template>
-                                <h3 class="mb-4 mt-5">{{ 'CreateOrder.UndertakingPurchase' | translate }}</h3>
+                                <h3 class="mb-4  pr-4 mt-5">{{ 'CreateOrder.UndertakingPurchase' | translate }}</h3>
                                 <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                         <mat-form-field>
                                             <label for="numberOfProduct" class="font-bold mt-2">{{ 'CreateOrder.Numberofproduct' | translate }}</label>
@@ -426,7 +424,7 @@
                                         </mat-form-field>
 
                                         <mat-form-field>
-                                            <label for="InstallmentPeriod" class="font-bold mt-2">{{ 'CreateOrder.InstallmentPeriod' | translate }}</label>
+                                            <label for="InstallmentPeriod" class="font-bold mt-2">{{ 'Requests.InstallmentPeriod' | translate }}</label>
                                             <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}" readonly>
                                         </mat-form-field>
 
@@ -442,12 +440,12 @@
 
                                               <div class="row mt-5">
                                                 <div class="col-lg-6">
-                                                  <label class="container1">{{ 'CreateOrder.DeliverproductstoMyAddress' | translate }}
+                                                  <label class="container1 pr-4">{{ 'CreateOrder.DeliverproductstoMyAddress' | translate }}
                                                   <input type="radio" name="gender" value="deliver" (click)="ShowAlert()" >
                                                   <span class="checkmark1"></span>
                                                   </label>
                                                  </div>
-                                                  <div class="col-lg-6">
+                                                  <div class="col-lg-6 pr-4">
                                                   <label class="container1">{{ 'CreateOrder.PickUptheProducts' | translate }}
                                                     <input type="radio" name="gender" value="self" (click)="HideAlert()" >
                                                     <span class="checkmark1"></span>

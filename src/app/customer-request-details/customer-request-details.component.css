@@ -118,7 +118,7 @@ table td.mat-cell:last-child {
   font-weight: bold;
   padding-top: 3px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -135,7 +135,7 @@ table td.mat-cell:last-child {
 /* Create a custom radio button */
 .checkmark1 {
   position: absolute;
-  top: 5px;
+  top: 3px;
   left: -4px;
   height: 25px;
   width: 25px;

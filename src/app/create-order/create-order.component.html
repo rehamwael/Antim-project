@@ -183,7 +183,7 @@
                                             <img src="assets/images/summary.svg">
                                             <p class="font-size-13 mt-2">{{ 'CreateOrder.Summary' | translate }}</p>
                                     </ng-template>
-                                    <h3 class="mb-4 mt-5">{{ 'CreateOrder.UndertakingPurchase' | translate }}</h3>
+                                    <h3 class="mb-4 pr-4 mt-5">{{ 'CreateOrder.UndertakingPurchase' | translate }}</h3>
                                     <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                             <mat-form-field>
                                                 <label for="numberOfProduct" class="font-bold mt-2">{{ 'CreateOrder.Numberofproduct' | translate }}  </label>
@@ -214,13 +214,13 @@
                                                 Selecting this option will require you to pay additional delivery fees of 30 SR.
                                             </p> -->
                                             <div class="row mt-5">
-                                              <div class="col-lg-6">
+                                              <div class="col-lg-6 pr-4">
                                                 <label class="container1">{{ 'CreateOrder.DeliverproductstoMyAddress' | translate }}
                                                 <input type="radio" name="gender" value="deliver" (click)="ShowAlert()" >
                                                 <span class="checkmark1"></span>
                                                 </label>
                                                </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-6 pr-4">
                                                 <label class="container1">{{ 'CreateOrder.PickUptheProducts' | translate }}
                                                   <input type="radio" name="gender" value="self" (click)="HideAlert()" >
                                                   <span class="checkmark1"></span>

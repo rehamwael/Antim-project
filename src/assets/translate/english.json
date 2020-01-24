@@ -394,7 +394,8 @@
         "EditRequestAsk" : "Well, it is very easy to edit your request, just follow the below steps!",
         "EditProduct" : "Edit Product",
         "RequestUpdated" : "Request Updated",
-        "RequestUpdatedAsDraft" : "Your request has been Updated as Draft."
+        "RequestUpdatedAsDraft" : "Your request has been Updated as Draft.",
+        "EditRequest" : "Edit Request"
     },
     "CreateOrder" : {
         "CreateOrderDesc" : "Well, it is very easy to make a request, just follow the below step and we will take care of it!",
