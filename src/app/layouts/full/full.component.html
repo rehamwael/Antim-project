@@ -22,14 +22,14 @@
                 aria-label="Button group with nested dropdown"
               >
                 <button class="btn lang-selector mt-1" ngbDropdownToggle>
-                    {{ userLang }}
+                    {{ userLang == 'arabic' ? 'العربية' : userLang }}
                     <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 1L7 7L13 1" stroke="#F9F9F9" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                   </button>
                 <div class="dropdown-menu lang-selector-dropdown" ngbDropdownMenu>
-                  <button  class="dropdown-item" (click)="changeLanguage('english')"> English </button>
-                  <button  class="dropdown-item" (click)="changeLanguage('arabic')" >  Arabic     </button>
+                  <button  class="dropdown-item" (click)="changeLanguage('english')">English</button>
+                  <button  class="dropdown-item" (click)="changeLanguage('arabic')" >العربية</button>
 
                 </div>
               </div>

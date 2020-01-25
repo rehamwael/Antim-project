@@ -428,7 +428,7 @@
         "showingRequestScreen" : "showing in the request screen. and with the price showing in the request screen.",
         "AgreeProceed" : "Agree & Prceed",
         "Dear" : "Dear",
-        "PleaseBoteCancel" : "please note that, you can cancel the request while the status is 'Under Review'. However, if the request has been approved, then you will no longer be able to Cancel it.",
+        "PleaseBoteCancel" : ", please note that, you can cancel the request while the status is 'Under Review'. However, if the request has been approved, then you will no longer be able to Cancel it.",
         "Summary" : "Summary",
         "UndertakingPurchase" : "Undertaking to Purchase",
         "Numberofproduct" : "Number of product",

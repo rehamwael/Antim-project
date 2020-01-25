@@ -200,6 +200,7 @@ export class AuthenticationEffects {
       return this.customerService.AddCustomerRequest(payload).pipe(
         map((res) => {
           this.customerService.customerAllRequests().subscribe(result => {
+            this.spinner.hide();
             console.log(result);
             if (result.result) {
               this.store.dispatch(new SaveAllCustomerRequests(result.result));
@@ -210,7 +211,6 @@ export class AuthenticationEffects {
           });
           console.log(' Added:', res);
 
-          this.spinner.hide();
           this.store.dispatch(new IsUpdatedTrue());
           this.userDataService.showSuccessToastr(res);
           if (this.translate.currentLang == 'arabic') {

@@ -321,6 +321,10 @@
     #move-icon {
       direction: rtl !important;
     }
+    #confirm-icon {
+      direction: rtl !important;
+      flex-direction: row-reverse !important;
+    }
     #move-dashboredC-icon {
       direction: rtl !important;
     }

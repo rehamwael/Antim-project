@@ -247,7 +247,7 @@
             <div class="mat-card row welcome-card inner p-0 m-1">
                     <img class="col-lg-2 col-4" src="assets/images/bookWithMen 2.svg">
                     <div class="col-lg-10 col-8 px-0">
-                        <p class="grey-text-color mt-4">
+                        <p class="grey-text-color pt-3 mt-4">
                             {{ 'Requests.EditRequestAsk' | translate }}
                             </p>
                     </div>
@@ -377,7 +377,7 @@
                                             <br/>and with the price showing in the request screen.
                                             </label>
                                     </div> -->
-                                    <label class="container col-lg-10 grey-text-color my-5">
+                                    <label class="container col-lg-10 pt-2 grey-text-color my-5">
                                         {{ 'CreateOrder.IagreeRequstName' | translate }}
                                        <b>{{requestName}} </b>  {{ 'CreateOrder.showingRequestScreen' | translate }}
                                       <input type="checkbox" (change)="changeCheck($event)">
@@ -398,10 +398,10 @@
                                             </div>
                                     </div>
                               </div>
-                              <div class="alert mt-3 alert-warning" role="alert">
+                              <div class="alert mt-3 alert-warning row" id="confirm-icon" role="alert">
                                 <p class= "mb-0">
-                                  <i class="mr-1 fa fa-exclamation-circle"></i>
-                                  <b>{{ 'CreateOrder.Note' | translate }}: </b>{{ 'CreateOrder.Dear' | translate }} {{currentUser?.firstName}} {{currentUser?.lastName}}, {{ 'CreateOrder.PleaseBoteCancel' | translate }}
+                                  <i class="mx-1 fa fa-exclamation-circle"></i>
+                                  <b>{{ 'CreateOrder.Note' | translate }}  : </b>{{ 'CreateOrder.Dear' | translate }} {{currentUser?.firstName}} {{currentUser?.lastName}} {{ 'CreateOrder.PleaseBoteCancel' | translate }}
                                 </p>
                               </div>
 
