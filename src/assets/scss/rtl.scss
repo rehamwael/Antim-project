@@ -334,6 +334,13 @@
     #table-req{
       direction: rtl !important;
     }
+    #InstallmentDetailsTable{
+      direction: rtl !important;
+    }
+    #paginator{
+        display: flex !important;
+        justify-content: flex-start !important;
+    }
 
 }
 .logo-img{

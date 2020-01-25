@@ -28,9 +28,9 @@
 
           <div class="justify-content-center col-lg-11 mat-card mt-4 p-0 mb-5">
               <div class="mat-card row p-4 m-0">
-                  <div class="header col-lg-11">
+                  <div class="header col-lg-8" >
                     <span class="icon-close" [routerLink]="['/requests-customer']"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
-                    <h1 class="ml-5">{{ 'Requests.RequestDetails' | translate }}</h1>
+                    <h1 class="mx-5">{{ 'Requests.RequestDetails' | translate }}</h1>
                   </div>
                   <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-3" *ngIf="requestType == 'Ongoing Requests'" (click)="openVerticallyCentered(content1)">{{ 'Requests.Requestreschedule' | translate }} </button>
 
@@ -129,7 +129,7 @@
                               <h3  class="font-bold">{{ 'Requests.InstallmentDetails' | translate }}</h3>
                            </div>
 
-                            <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8 my-2" cellpadding="20" *ngIf="showTable" >
+                            <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8 my-2" cellpadding="20" *ngIf="showTable"  id="InstallmentDetailsTable">
 
                                 <ng-container matColumnDef="months">
                                     <th mat-header-cell *matHeaderCellDef >{{ 'Requests.No' | translate }} </th>

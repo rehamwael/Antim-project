@@ -50,7 +50,7 @@
             </div>
             <div class="col-lg-11 row justify-content-end mt-5 dashbored-info">
               <div class="justify-content-center col-lg-12">
-                      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mb-5" cellpadding="20">
+                      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mb-5" cellpadding="20" id="table-req">
 
                               <ng-container matColumnDef="name">
                                 <th mat-header-cell *matHeaderCellDef>{{ 'Requests.RequestName' | translate }} </th>
@@ -80,7 +80,7 @@
                             <div *ngIf="showMessage">
                               <h3 class="error">{{ 'Requests.NoRequestsFound' | translate }}</h3>
                             </div>
-                                   <div style="margin-top: 15px;">
+                                   <div style="margin-top: 20px;" id="paginator">
                                   <mat-paginator [pageSizeOptions]="[10]" ></mat-paginator>
                               </div>
              </div>
@@ -96,9 +96,9 @@
 
             <div class="justify-content-center col-lg-11 mat-card mt-4 p-0 mb-5">
                 <div class="mat-card row p-4 m-0">
-                    <div class="header col-lg-9">
+                    <div class="header row col-lg-9">
                       <span class="icon-close" (click)="closeProductDetails()"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
-                      <h1 class="ml-5">{{ 'Requests.RequestDetails' | translate }} </h1>
+                      <h1 class="mx-5">{{ 'Requests.RequestDetails' | translate }} </h1>
                     </div>
 
                   </div>
