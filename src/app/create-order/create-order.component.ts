@@ -13,7 +13,7 @@ import { CustomerRequestService } from '../services/customer-request.service';
 @Component({
   selector: 'app-create-order',
   templateUrl: './create-order.component.html',
-  styleUrls: ['./create-order.component.css']
+  styleUrls: ['./create-order.component.scss']
 })
 
 

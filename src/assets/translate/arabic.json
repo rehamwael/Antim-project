@@ -161,7 +161,9 @@
         "ContactInformation" : "معلومات الاتصال",
         "customersService" : "خدمة العملاء" ,
         "OurLocation" : "موقعنا" ,
-        "MarketingSales" : "التسويق والمبيعات"
+        "MarketingSales" : "التسويق والمبيعات",
+        "OutsideSA" : "من خارج المملكة العربية السعودية",
+        "InsideSA" : "من داخل المملكة العربية السعودية"
 
     },
     "login" : {

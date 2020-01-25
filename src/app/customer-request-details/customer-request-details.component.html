@@ -260,8 +260,8 @@
                               <img src="assets/images/add-product.svg">
                               <p class="font-size-13 mt-2">{{ 'Requests.EditProduct' | translate }}</p>
                           </ng-template>
-                          <div class="my-4">
-                            <h3 class="mb-4 mt-4">{{ 'Requests.EnterproductDetail(s)' | translate }}</h3>
+                          <div class="row " style="width: 100%;">
+                            <h3 class="mb-4 pl-2 pr-2 mt-4">{{ 'CreateOrder.EnterproductDetail(s)' | translate }}</h3>
                           </div>
                         <div class="row" style="width: 100%;">
                           <div class="form-group text-left col-lg-12  " >
@@ -287,7 +287,7 @@
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
                               <button class=" btn btn-block btn-outline-primary more-item-button mt-4" (click)="addMoreItems()" >
-                                <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="21" height="22" class="mx-2" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10 21.5217C15.5228 21.5217 20 16.8499 20 11.0869C20 5.32391 15.5228 0.6521 10 0.6521C4.47715 0.6521 0 5.32391 0 11.0869C0 16.8499 4.47715 21.5217 10 21.5217Z" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M10 6.91309V15.2609" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M6 11.0869H14" stroke="#5C20D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -299,7 +299,7 @@
 
                             <div class="mt-3 row ">
                                     <div class=" col-lg-7" >
-                                        <p style="font-weight: bold; font-size: 26px;" class="mt-3"> {{ 'CreateOrder.TotalPriceOfProducts' | translate }} : </p>
+                                        <h3 class="mt-3"> {{ 'CreateOrder.TotalPriceOfProducts' | translate }} </h3>
                                         <input class="form-control form-control-lg"  value="{{totalPrice}}" readonly>
                                     </div>
                                   </div>
@@ -310,9 +310,9 @@
                                       </div>
                                  </div>
                             </form>
-                            <div class="alert mt-3 alert-warning row" role="alert">
+                            <div class="alert mt-3 alert-warning row" id="move-icon" role="alert">
                               <p class= "mb-0">
-                                <i class="mr-1 fa fa-exclamation-circle"></i>
+                                <i class="mx-1 fa fa-exclamation-circle"></i>
                                  <b> {{ 'CreateOrder.Note' | translate }} : </b>{{ 'CreateOrder.CreateOrderNote' | translate }}
                             </p>
                           </div>

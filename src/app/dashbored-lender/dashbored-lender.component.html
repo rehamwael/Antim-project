@@ -25,11 +25,12 @@
     <div class="page-wraper-right">
       <div class="row" *ngIf="currentUser">
         <div class="col-lg-1"></div>
-        <div class="col-lg-10 mt-3 alert alert-warning " *ngIf="!currentUser?.emailConfirmed">
+        <div class="col-lg-10 mt-3 alert alert-warning " id="move-dashboredF-icon" *ngIf="!currentUser?.emailConfirmed">
                 <p  class= "mb-0"> <i class="mr-1 fa fa-exclamation-circle"></i>
                     {{ 'Dashbored.EmailnoTverified' | translate }}
-                      <u><a (click)="resendEmail()"> {{ 'Dashbored.ResendVerificationLink' | translate }}   </a></u>
-                    </p>
+                    <span class="ml-2 mr-3">  <u><a (click)="resendEmail()"> {{ 'Dashbored.ResendVerificationLink' | translate }}   </a></u>
+                    </span>
+                  </p>
         </div>
       </div>
 

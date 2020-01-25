@@ -164,7 +164,9 @@
         "ContactInformation" : "Contact Information",
         "customersService" : "customers service",
         "OurLocation" : "Our Location",
-        "MarketingSales" : "Marketing & Sales"
+        "MarketingSales" : "Marketing & Sales",
+        "OutsideSA" : "From outside the Kingdom of Saudia Arabia",
+        "InsideSA" : "From within Kingdom of Saudia Arabia"
     },
     "login" : {
         "loginDesc1" : "Hello sir, nice to see you again!",
@@ -411,7 +413,7 @@
         "TotalPriceOfProducts" : "Total Price Of Products:",
         "Next" : "Next",
         "Note" : "Note" ,
-        "CreateOrderNote" : "Please make sure that Total Price must be greater than 500 SAR and less than10000 SAR." ,
+        "CreateOrderNote" : "Please make sure that Total Price must be greater than 500 SAR and less than 10000 SAR." ,
         "PaymentDetails" : "Payment Details",
         "SelectInstallmentPeroid" : "Select Installment Peroid",
         "PleaseSelectInstallmentPeriod" : "Please Select Installment Period",
