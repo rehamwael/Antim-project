@@ -256,7 +256,7 @@
         "InternalServerError" : "SORRY!! Dashboard Not Loaded Due to 500 Internal Server Error :(",
         "MyRequest" : "My Requests",
         "LogOut" : "Log out",
-        "Hi" : "Hi"
+        "Hi" : " Welcome!"
     },
     "Notifications" : {
         "Notifications" : "Notifications",

@@ -392,7 +392,7 @@
         "DeleteRequest" : "حذف الطلب",
         "DeleteRequestSure" : "هل تريد حقًا حذف اسم الطلب هذا:",
         "CancelRequest" : "إلغاء الطلب",
-        "CancelRequestSure1" : "هل تريد حقًا إلغاء هذا الطلب؟",
+        "CancelRequestSure1" : "هل تريد حقًا إلغاء هذا الطلب",
         "CancelRequestSure2" : "إذا قمت بإلغاء هذا الطلب ، فسيتم حذفه نهائيًا.",
         "EditRequestAsk" : "حسنًا ، من السهل جدًا تعديل طلبك ، فقط اتبع الخطوات التالية!",
         "EditProduct" : "تحرير المنتج",

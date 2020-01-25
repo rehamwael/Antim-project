@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   role: any;
   notificationsCount: any;
   showCount = false;
-  userLang: 'english';
+  userLang: any;
   showMenu = '';
   showSubMenu = '';
   public sidebarnavItems: any[];
@@ -50,6 +50,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private titleService: Title
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
 
   }
 

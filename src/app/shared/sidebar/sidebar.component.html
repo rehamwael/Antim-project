@@ -1,6 +1,7 @@
 <nav class="sidebar-nav">
     <a (click)="SetTitle('Antim | Home', ' انتيم | الصفحة الرئيسية')" [routerLink]="[ '/' ]">
-        <img src="assets/images/logo-white.svg" class="logo" alt="antim">
+        <!-- <img src="assets/images/logo-white.svg" class="logo" alt="antim"> -->
+        <img src="{{userLang == 'arabic' ?  'assets/images/antim-logo-arabic.svg' : 'assets/images/logo-white.svg'}}" class="logo-img mx-5" alt="antim">
     </a>
 
     <ul class="user-info pt-4">
@@ -8,7 +9,7 @@
           <img src="assets/images/user.svg" class="col-lg-3 p-0">
             <div class="col-lg-8 ml-1">
             <p class="white-text mt-1" *ngIf="currentUser">
-                {{ 'Dashbored.Hi' | translate }} {{currentUser?.firstName}}<br/>
+                {{currentUser?.firstName}}  {{ 'Dashbored.Hi' | translate }}<br/>
                 <span>   {{role}}</span>
             </p>
         </div>

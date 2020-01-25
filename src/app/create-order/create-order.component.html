@@ -124,16 +124,14 @@
                                         <input placeholder="E.g. 1200 SAR" class="form-control form-control-lg" formControlName="secondCtrl" type="number" digitOnly [(ngModel)]="monthlyPrice" value= "{{monthlyPrice}}" required readonly style="height: 53px;">
                                     </div>
                                 </div>
-                                    <p class="my-5 mb-0 grey-text-color">
-                                        <!-- <span class="mr-1">
-                                            <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.0899 15 14 12.0899 14 8.5C14 4.91015 11.0899 2 7.5 2C3.91015 2 1 4.91015 1 8.5C1 12.0899 3.91015 15 7.5 15Z" stroke="#607AE6"/>
-                                                <path d="M7.5 11.1V8.5" stroke="#607AE6"/>
-                                             </svg>
-                                        </span> -->
-                                        {{ 'CreateOrder.Theinformationselected' | translate }}
-
-                                        </p>
+                                <div class="alert mt-5 alert-warning row " id="move-icon" role="alert">
+                                  <p class= "mb-0">
+                                      <i class="mx-1 fa fa-exclamation-circle"></i>
+                                      {{ 'CreateOrder.Theinformationselected' | translate }}
+                                    </p>
+                              </div>
+                                    <!-- <p class="my-5 mb-0 grey-text-color">
+                                        </p> -->
                                     <div>
                                     <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">
                                             <div class="form-group col-lg-4">
