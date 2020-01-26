@@ -14,6 +14,7 @@ import { AppState, selectAuthenticationState } from './../store/app.states';
 import { EditUserProfile } from './../store/actions/auth.actions';
 import { Observable } from 'rxjs';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -22,6 +23,7 @@ import { UserEmailPasswordService } from '../services/user-EmailPassword.service
   styleUrls: ['./profile-lender.component.css']
 })
 export class ProfileLenderComponent implements OnInit, OnDestroy {
+  @ViewChild('one', { static: false }) oneElement: ElementRef;
   @ViewChild('two', { static: false }) twoElement: ElementRef;
   @ViewChild('three', { static: false }) threeElement: ElementRef;
   @ViewChild('four', { static: false }) fourElement: ElementRef;
@@ -128,6 +130,7 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     { data: [28, 48, 40, 19, 86], label: 'Total Profit' }
   ];
   getState: Observable<any>;
+  userLang: any;
 
   constructor(private store: Store<AppState>,
     private fb: FormBuilder,
@@ -135,8 +138,15 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     public router: Router,
     private profileService: ProfileService,
     private spinner: NgxSpinnerService,
-    private editUserService: UserEmailPasswordService
+    private editUserService: UserEmailPasswordService,
+    public translate: TranslateService,
+
   ) {
+    this.userLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
+
     this.getState = this.store.select(selectAuthenticationState);
     this.showUser = true;
 
@@ -411,18 +421,34 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     }
   }
   keytab(event, next) {
-    if (next === 1) {
-      setTimeout(() => {
-        this.twoElement.nativeElement.focus();
-      }, 0);
-    } else if (next === 2) {
-      setTimeout(() => {
-        this.threeElement.nativeElement.focus();
-      }, 0);
-    } else if (next === 3) {
-      setTimeout(() => {
-        this.fourElement.nativeElement.focus();
-      }, 0);
+    if (this.userLang == 'arabic') {
+      if (next == 4) {
+        setTimeout(() => {
+          this.threeElement.nativeElement.focus();
+        }, 0);
+      } else if (next == 3) {
+        setTimeout(() => {
+          this.twoElement.nativeElement.focus();
+        }, 0);
+      } else if (next == 2) {
+        setTimeout(() => {
+          this.oneElement.nativeElement.focus();
+        }, 0);
+      }
+    } else {
+      if (next === 1) {
+        setTimeout(() => {
+          this.twoElement.nativeElement.focus();
+        }, 0);
+      } else if (next === 2) {
+        setTimeout(() => {
+          this.threeElement.nativeElement.focus();
+        }, 0);
+      } else if (next === 3) {
+        setTimeout(() => {
+          this.fourElement.nativeElement.focus();
+        }, 0);
+      }
     }
   }
   verifyOTP() {

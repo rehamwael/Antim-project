@@ -31,7 +31,7 @@
                         </div>
                         <form class="col-lg-3">
                         <div class="form-group">
-                            <label for="profileInformation" class="font-size-13">{{ 'Profile.SelectProfileInfomation' | translate }}</label>
+                            <label for="profileInformation" style="font-size: 14px !important;">{{ 'Profile.SelectProfileInfomation' | translate }}</label>
                             <select class="form-control form-control-lg mb-2§ custom-select" (change)="onChange($event.target.value)">
                                     <option value="Personal" selected>{{ 'Profile.PersonalInformation' | translate }} </option>
                                     <option value="Bank">{{ 'Profile.BankInformation' | translate }} </option>
@@ -48,8 +48,11 @@
                         <div class="col-lg-1"></div>
                         <div class="justify-content-center col-lg-10">
                         <form class="row antim-form" [formGroup]="EditForm" *ngIf="!showAddress && !showBank && showUser">
-                        <div class="col-lg-12 mb-3"><h3 class="headingh3">{{ 'Profile.PersonalInformation' | translate }} </h3></div>
-                        <div class="col-lg-6">
+                          <div class="row form-group "  style="width: 100%;">
+                            <div class="col-lg-12 mb-3"><h2 class="headingh2">{{ 'Profile.PersonalInformation' | translate }} </h2></div>
+                       </div>
+                            <div class="row form-group "  style="width: 100%;">
+                          <div class="col-lg-6">
                             <label class="font-bold mt-2">{{ 'SignUp.FirstName' | translate }}</label>
                             <input matInput formControlName="FirstName" type="text" class="form-control form-control-lg" value= "{{firstName}}" [(ngModel)]="firstName" placeholder="{{ 'SignUp.FirstName' | translate }}" >
                             <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNamerequired' | translate }}</div>
@@ -61,6 +64,8 @@
                           <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNamerequired' | translate }} </div>
                           <!-- <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNameValidate' | translate }}</div> -->
                       </div>
+                      </div>
+                      <div class="row form-group "  style="width: 100%;">
                       <div class="col-lg-6">
                         <label class="font-bold mt-2">{{ 'SignUp.Username' | translate }} :</label>
                         <input matInput formControlName="UserName" type="text" class="form-control form-control-lg" value= "{{userName}}" [(ngModel)]="userName" placeholder="{{ 'SignUp.Username' | translate }}" >
@@ -72,6 +77,7 @@
                             <input matInput formControlName="NID" type="text" class="form-control form-control-lg" value= "{{NID}}" [(ngModel)]="NID" placeholder="{{ 'SignUp.NationalID' | translate }}">
                             <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.NationalIDrequired' | translate }}</div>
                             <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'SignUp.NationalIDValidate' | translate }}</div>
+                        </div>
                         </div>
 
                         <div class="col-lg-12 row justify-content-end py-4 mt-4" >
@@ -91,6 +97,7 @@
                            <p style="color: white; margin-top:50px;font-size: 26px;" >{{ 'SignUp.Loading' | translate }} </p>
                            </ngx-spinner>
                     </div>
+                    <div class="row form-group "  style="width: 100%;">
 
                             <div class=" col-lg-8">
                                 <label for="Email" class="font-bold mt-2">{{ 'contact.Email' | translate }} :</label>
@@ -101,15 +108,17 @@
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-3 p-0 mt-5">
-                                <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!emailButton"  (click)="editEmail()">{{ 'Profile.ChangeEmail' | translate }}</button>
+                                <button class="btn btn-info  btn-block btn-purple mt-3"  [disabled]="!emailButton"  (click)="editEmail()">{{ 'Profile.ChangeEmail' | translate }}</button>
                             </div>
+                            </div>
+                            <div class="row form-group " id="edit-moible" dir="ltr" style="width: 100%;">
 
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <label for="countrycode" class="font-bold mt-2">{{ 'SignUp.CountryCode' | translate }} :</label>
-                                <input matInput formControlName="CountryCode" type="text" class="form-control form-control-lg" value="{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" >
+                                <input matInput id="countrycode" formControlName="CountryCode" type="text" class="form-control form-control-lg" value="{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" readonly>
                                 <div *ngIf="EditForm.controls['CountryCode'].touched && EditForm.controls['CountryCode'].hasError('required')" class="error-msg alert alert-danger text-left"> {{ 'SignUp.CountryCodeValidate' | translate }}</div>
                             </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <label for="mobile" class="font-bold mt-2">{{ 'SignUp.MobileNo' | translate }} :</label>
                             <input matInput formControlName="MobileNo" type="text" class="form-control form-control-lg" value= "{{phone}}" [(ngModel)]="phone" placeholder="{{ 'SignUp.MobileNo' | translate }}" (keyup)="inputNumber($event)" digitOnly
                             oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
@@ -119,7 +128,8 @@
                         </div>
                         <div class="col-lg-1"></div>
                                 <div class=" col-lg-3 p-0 mt-5">
-                                    <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!phoneButton"  (click)="editMobileNo()">{{ 'Profile.ChangeMobile' | translate }} </button>
+                                    <button class="btn btn-info  btn-block btn-purple mt-3"  [disabled]="!phoneButton"  (click)="editMobileNo()">{{ 'Profile.ChangeMobile' | translate }} </button>
+                                </div>
                                 </div>
                         <!-- <div class="col-lg-12">
                                 <label for="Address" class="font-bold mt-2">Address</label>
@@ -156,34 +166,29 @@
                                       <div class="col-lg-11 mt-3 row justify-content-center align-items-center">
                                       <div class="form-group col-lg-6">
                                          <button class="btn btn-info btn-lg btn-block btn-black mt-2" (click)="ResendOTP()" >{{ 'SignUp.Resend' | translate }}</button>
-                                         <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
-                                       color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                       <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }</p>
-                                       </ngx-spinner>
+
                                      </div>
                                      <div class="form-group col-lg-4">
-                                         <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="verifyOTP()"  [disabled]="(!first && first!=0) || (!second && second!=0) ||(!third && third!=0) ||(!Fourth && Fourth!=0)">Verify</button>
-                                         <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
-                                       color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                       <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
-                                       </ngx-spinner>
+                                         <button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="verifyOTP()"  [disabled]="(!first && first!=0) || (!second && second!=0) ||(!third && third!=0) ||(!Fourth && Fourth!=0)">{{ 'SignUp.Verify' | translate }}</button>
                                      </div>
                                  </div>
                                  </div>
                         </div>
-                        <div class="col-lg-12 mt-5"><h3 class="headingh3">{{ 'Profile.ChangeYourPassword' | translate }}</h3>
+                        <div class="row my-2">
+                          <div class="col-lg-12 mt-3"><h2 class="headingh2">{{ 'Profile.ChangeYourPassword' | translate }}</h2>
+                        </div>
                         <div class="col-lg-8">
-                          <label for="Name" class="font-bold mt-2">{{ 'Profile.OldPassword' | translate }} :</label>
+                          <label class="font-bold mt-2">{{ 'Profile.OldPassword' | translate }} :</label>
                           <input matInput formControlName="OldPassword" type="password" class="form-control form-control-lg"  [(ngModel)]="oldPassword" placeholder="{{ 'Profile.TypeOldPassword' | translate }}" >
                           <div *ngIf="EditForm.controls['OldPassword'].touched && EditForm.controls['OldPassword'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'Profile.TypeOldPasswordValidation' | translate }}</div>
                       </div>
                       <div class="col-lg-8">
-                        <label for="Name" class="font-bold mt-2">{{ 'Profile.NewPassword' | translate }} :</label>
+                        <label class="font-bold mt-2">{{ 'Profile.NewPassword' | translate }} :</label>
                         <input matInput formControlName="NewPassword" type="password" class="form-control form-control-lg"  [(ngModel)]="newPassword" placeholder="{{ 'Profile.TypeNewPassword' | translate }}" >
                         <div *ngIf="EditForm.controls['NewPassword'].touched && EditForm.controls['NewPassword'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'Profile.TypeNewPasswordValidation' | translate }}</div>
                       </div>
                     <div class="col-lg-8">
-                      <label for="Name" class="font-bold mt-2">{{ 'Profile.ConfirmPassword' | translate }} :</label>
+                      <label class="font-bold mt-2">{{ 'Profile.ConfirmPassword' | translate }} :</label>
                       <input matInput formControlName="ConfirmPassword" type="password" class="form-control form-control-lg" [(ngModel)]="confirmPassword" placeholder="{{ 'Profile.TypeConfirmPassword' | translate }}" >
                       <div *ngIf="EditForm.controls['ConfirmPassword'].touched && EditForm.value.NewPassword != EditForm.value.ConfirmPassword" class="error-msg alert alert-danger text-left">{{ 'Profile.TypeConfirmPasswordValidation' | translate }}</div>
                   </div>
@@ -201,7 +206,7 @@
 
 
                         <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="!showAddress && showBank && !showUser">
-                                <div class="col-lg-12 mb-3"><h3 class="headingh3">{{ 'Profile.BankInformation' | translate }}</h3></div>
+                                <div class="col-lg-12 mb-3"><h2 class="headingh2">{{ 'Profile.BankInformation' | translate }}</h2></div>
                                 <div class="col-lg-6">
                                     <label for="bankName" class="font-bold mt-2">{{ 'Profile.BankName' | translate }} </label>
                                     <select formControlName="BankName" class="form-control form-control-lg custom-select" value="{{bankName}}" [(ngModel)]="bankName" (change)="onSelectChange($event.target.value)">
@@ -264,7 +269,7 @@
                                  </div>
                                  <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"size = "medium"
                                  color = "white" type = "ball-clip-rotate" [fullScreen] = "true">
-                                 <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }}... </p>
+                                 <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
                                  </ngx-spinner>
                           </div>
                             <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
@@ -348,7 +353,7 @@
                                 </form>
 
                                 <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser">
-                                  <div class="col-lg-12 mb-3"><h3 class="headingh3">{{ 'Profile.AddressInformation' | translate }} </h3></div>
+                                  <div class="col-lg-12 mb-3"><h2 class="headingh2">{{ 'Profile.AddressInformation' | translate }} </h2></div>
                                   <div class="col-lg-12">
                                       <label for="address" class="font-bold mt-2">{{ 'Profile.CompleteAddress' | translate }} </label>
                                       <input matInput formControlName="Address" type="text" class="form-control form-control-lg" value="{{address}}" placeholder="{{ 'Profile.enterYourAdresshere' | translate }}" [(ngModel)]="address">

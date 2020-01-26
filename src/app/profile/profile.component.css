@@ -11,3 +11,12 @@
   padding: 10px 1rem;
   font-size: 13px;
 }
+label{
+  font-size: 17px;
+}
+#edit-moible{
+  flex-direction: row !important;
+}
+#countrycode {
+  direction: ltr !important;
+}
