@@ -25,7 +25,7 @@
     svg.arrow {
         position: absolute;
         display: block;
-        top: 3.5em;
+        top: 5.0em;
         left: 2em;
     }
     .bg-dark-right{
@@ -317,6 +317,29 @@
         position: relative;
         right: -2em;
         left: auto;
+    }
+    #move-icon {
+      direction: rtl !important;
+    }
+    #confirm-icon {
+      direction: rtl !important;
+      flex-direction: row-reverse !important;
+    }
+    #move-dashboredC-icon {
+      direction: rtl !important;
+    }
+    #move-dashboredF-icon {
+      direction: rtl !important;
+    }
+    #table-req{
+      direction: rtl !important;
+    }
+    #InstallmentDetailsTable{
+      direction: rtl !important;
+    }
+    #paginator{
+        display: flex !important;
+        justify-content: flex-start !important;
     }
 
 }

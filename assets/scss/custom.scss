@@ -361,9 +361,10 @@ input[type=number] {
     display: block;
     width: 20px;
     height: 20px;
-    border:1px solid #dad9d9;
+    border:1px solid #a8a6a6;
     position: absolute;
     left: 0;
+    right: -40px;
     top: 0;
     opacity: .6;
     -webkit-transition: all .12s, border-color .08s;
@@ -493,7 +494,7 @@ textarea {resize: none}
 svg.arrow {
     position: absolute;
     display: block;
-    top: 3.5em;
+    top: 5.0em;
     right: 2em;
 }
 .custom-select{
@@ -1662,12 +1663,12 @@ nav#navbar.sticky-fixed-header {
     border-radius: 5px !important;
 }
 table td.mat-cell:first-child, td.mat-footer-cell, table th.mat-header-cell:first-child {
-    border-bottom-left-radius: 20px;
-    border-top-left-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
 }
 table td.mat-cell:last-child, td.mat-footer-cell, table th.mat-header-cell:last-child {
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
 }
 table td.mat-cell, td.mat-footer-cell, table th.mat-header-cell {
     padding: 13px;
@@ -1905,21 +1906,21 @@ span.icon-close {
         }
     }
 }
-tr.mat-row:after {
-    border-style: solid;
-    border-width: .1em .1em 0 0;
-    content: '';
-    display: inline-block;
-    height: .52em;
-    left: -2.95em;
-    position: relative;
-    top: 1.5em;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(45deg);
-    vertical-align: middle;
-    color: #d8d8d8;
-    width: .52em;
-}
+// tr.mat-row:after {
+//     border-style: solid;
+//     border-width: .1em .1em 0 0;
+//     content: '';
+//     display: inline-block;
+//     height: .52em;
+//     left: -2.95em;
+//     position: relative;
+//     top: 1.5em;
+//     -webkit-transform: rotate(-45deg);
+//     transform: rotate(45deg);
+//     vertical-align: middle;
+//     color: #d8d8d8;
+//     width: .52em;
+// }
 tr.mat-row.selected td {
     background: #efe9fb;
     color: #5c20d2;
@@ -2447,5 +2448,5 @@ ul.inline{
   margin: 60px 0;
   text-align: center;
   font-weight: bold;
-  color: #db3434
+  color: rgb(124, 117, 117)
 }

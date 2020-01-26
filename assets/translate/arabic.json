@@ -161,7 +161,9 @@
         "ContactInformation" : "معلومات الاتصال",
         "customersService" : "خدمة العملاء" ,
         "OurLocation" : "موقعنا" ,
-        "MarketingSales" : "التسويق والمبيعات"
+        "MarketingSales" : "التسويق والمبيعات",
+        "OutsideSA" : "من خارج المملكة العربية السعودية",
+        "InsideSA" : "من داخل المملكة العربية السعودية"
 
     },
     "login" : {
@@ -174,9 +176,9 @@
         "Passwordrequired" : "كلمة المرور مطلوبة",
         "PasswordValidation" : "يجب ألا يقل طول كلمة المرور عن 9 أحرف" ,
         "SignIn" : "تسجيل الدخول" ,
-        "newUser" : "هل انت مستخدم جديد?",
-        "SignUp" : "سجل",
-        "forgetPassword" : "هل نسيت كلمة المرور?"
+        "newUser" : " هل انت مستخدم جديد ؟  ",
+        "SignUp" : "تسجيل",
+        "forgetPassword" : " هل نسيت كلمة المرور ؟ "
     },
     "SignUp" : {
         "SignUp" : "سجل الأن",
@@ -207,6 +209,7 @@
         "EmailValidate" : "أدخل البريد الإلكتروني المناسب",
         "Password" : "كلمه السر" ,
         "PasswordRequired" : "كلمة المرور مطلوبة",
+        "PhoneRequired" : "رقم الهاتف مطلوب",
         "PasswordValidate" : "يجب أن تحتوي كلمة المرور على الأحرف العلوية والحرف السفلي والأحرف والأرقام والأحرف الخاصة (! ، @ ، _ ، # ، $ .. الخ) وطولها 9 أحرف على الأقل" ,
         "ConfirmPassword" : "تأكيد كلمة المرور" ,
         "ConfirmPasswordrequired" : "تأكيد كلمة المرور مطلوب",
@@ -217,7 +220,7 @@
         "MobileNoRequired" : "رقم الهاتف مطلوب",
         "MobileNoValidate" : "يجب أن يكون رقم الهاتف 9 أحرف على الأقل",
         "back" : "رجوع" ,
-        "Loading" : "جار التحميل...",
+        "Loading" : " ...جار التحميل",
         "Well" : "حسنا !" ,
         "SignUpNextstepDesc1" : "فقط للتأكد ، الرجاء إدخال رمز التحقق للتحقق من صحة" ,
         "SignUpNextstepDesc2" : "رقم الهاتف المحمول." ,
@@ -239,8 +242,8 @@
         "AwaitingforFundRequests" : "في انتظار طلبات الصندوق",
         "AllRequest" : "جميع الطلبات",
         "MakeNewRequest" : "تقديم طلب جديد",
-        "EmailnoTverified" : "لم يتم التحقق من البريد الإلكتروني الخاص بك. يرجى التحقق من بريدك الإلكتروني للحصول على أكبر قدر من الفوائد من ANTIM.",
-        "ResendVerificationLink" : "إعادة إرسال رابط التحقق ",
+        "EmailnoTverified" : " لم يتم التحقق من بريدك الإلكتروني. يرجى التحقق من بريدك الإلكتروني للحصول على أكبر قدر من الفوائد من انتيم ",
+        "ResendVerificationLink" : " إعادة إرسال رابط التحقق ",
         "SAR" : "ريال سعودي",
         "YourAntimBalance" : "رصيد أنتيم :",
         "FundedUsers" : "المستخدمين الممولين ",
@@ -389,12 +392,13 @@
         "DeleteRequest" : "حذف الطلب",
         "DeleteRequestSure" : "هل تريد حقًا حذف اسم الطلب هذا:",
         "CancelRequest" : "إلغاء الطلب",
-        "CancelRequestSure1" : "هل تريد حقًا إلغاء هذا الطلب؟",
+        "CancelRequestSure1" : "هل تريد حقًا إلغاء هذا الطلب",
         "CancelRequestSure2" : "إذا قمت بإلغاء هذا الطلب ، فسيتم حذفه نهائيًا.",
         "EditRequestAsk" : "حسنًا ، من السهل جدًا تعديل طلبك ، فقط اتبع الخطوات التالية!",
         "EditProduct" : "تحرير المنتج",
         "RequestUpdated" : "تم تحديث الطلب",
-        "RequestUpdatedAsDraft" : "تم تحديث طلبك كمسودة."
+        "RequestUpdatedAsDraft" : "تم تحديث طلبك كمسودة.",
+        "EditRequest" : "تحرير الطلب"
     },
     "CreateOrder" : {
         "CreateOrderDesc" : "حسنًا ، من السهل جدًا تقديم طلب ، ما عليك سوى اتباع الخطوة الموضحة أدناه وسنتولى هذا الأمر!",
@@ -406,7 +410,7 @@
         "Enterpricehere" : "أدخل السعر هنا ..." ,
         "Enterproductlinkhere" : "أدخل رابط المنتج هنا ...",
         "MoreItem" : "المزيد من المنتجات ",
-        "TotalPriceOfProducts" : "إجمالي سعر المنتجات",
+        "TotalPriceOfProducts" : ":إجمالي سعر المنتجات",
         "Next" : "التالى",
         "Note" : "ملحوظة" ,
         "CreateOrderNote" : "يرجى التأكد من أن السعر الإجمالي يجب أن يكون أكبر من 500 ريال سعودي وأقل من 10000 ريال سعودي." ,
@@ -431,7 +435,7 @@
         "TotalPriceOfProduct" : "السعر الإجمالي للمنتجات" ,
         "TotalPayableProductPrice" : "إجمالي سعر المنتج المستحق",
         "DeliverproductstoMyAddress" : "تسليم المنتجات إلى عنواني",
-        "PickUptheProducts" : "التقط المنتجات من مكاتب Antim بنفسي",
+        "PickUptheProducts" : "التقط المنتجات من مكاتب انتيم بنفسي",
         "SelectingadditionalDelivery" : "سيتطلب منك تحديد هذا الخيار دفع رسوم تسليم إضافية بقيمة",
         "SaveasDraft": "حفظ كمسودة",
         "SendRequest" : "ارسل طلب",

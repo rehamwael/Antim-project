@@ -164,7 +164,9 @@
         "ContactInformation" : "Contact Information",
         "customersService" : "customers service",
         "OurLocation" : "Our Location",
-        "MarketingSales" : "Marketing & Sales"
+        "MarketingSales" : "Marketing & Sales",
+        "OutsideSA" : "From outside the Kingdom of Saudia Arabia",
+        "InsideSA" : "From within Kingdom of Saudia Arabia"
     },
     "login" : {
         "loginDesc1" : "Hello sir, nice to see you again!",
@@ -209,6 +211,7 @@
         "EmailValidate" : "Enter proper Email.",
         "Password" : "Password" ,
         "PasswordRequired" : "Password required",
+        "PhoneRequired" : "Phone Number is required",
         "PasswordValidate" : "Password must contain Upper Cases Letter, Lower Cases Letter, Numbers, Special Characters (!, @, _, #, $ ..etc.) and at least 9 characters long." ,
         "ConfirmPassword" : "Confirm Password" ,
         "ConfirmPasswordrequired" : "Confirm Password is required",
@@ -253,7 +256,7 @@
         "InternalServerError" : "SORRY!! Dashboard Not Loaded Due to 500 Internal Server Error :(",
         "MyRequest" : "My Requests",
         "LogOut" : "Log out",
-        "Hi" : "Hi"
+        "Hi" : " Welcome!"
     },
     "Notifications" : {
         "Notifications" : "Notifications",
@@ -363,7 +366,7 @@
         "RequestDate" : "Request Date",
         "TotalPrice" : "Total Price",
         "RequestStatus" : "Request Status",
-        "NoRequestsFound" : "No Requests Found",
+        "NoRequestsFound" : "No Requests Found!",
         "RequestDetails" : "Request Details",
         "RequestNumber" : "Request Number",
         "ProductLink" : "Product Link",
@@ -394,7 +397,8 @@
         "EditRequestAsk" : "Well, it is very easy to edit your request, just follow the below steps!",
         "EditProduct" : "Edit Product",
         "RequestUpdated" : "Request Updated",
-        "RequestUpdatedAsDraft" : "Your request has been Updated as Draft."
+        "RequestUpdatedAsDraft" : "Your request has been Updated as Draft.",
+        "EditRequest" : "Edit Request"
     },
     "CreateOrder" : {
         "CreateOrderDesc" : "Well, it is very easy to make a request, just follow the below step and we will take care of it!",
@@ -406,10 +410,10 @@
         "Enterpricehere" : "Enter price here ..." ,
         "Enterproductlinkhere" : "Enter product link here ...",
         "MoreItem" : "More Item",
-        "TotalPriceOfProducts" : "Total Price Of Products",
+        "TotalPriceOfProducts" : "Total Price Of Products:",
         "Next" : "Next",
         "Note" : "Note" ,
-        "CreateOrderNote" : "Please make sure that Total Price must be greater than 500 SAR and less than10000 SAR." ,
+        "CreateOrderNote" : "Please make sure that Total Price must be greater than 500 SAR and less than 10000 SAR." ,
         "PaymentDetails" : "Payment Details",
         "SelectInstallmentPeroid" : "Select Installment Peroid",
         "PleaseSelectInstallmentPeriod" : "Please Select Installment Period",
@@ -424,7 +428,7 @@
         "showingRequestScreen" : "showing in the request screen. and with the price showing in the request screen.",
         "AgreeProceed" : "Agree & Prceed",
         "Dear" : "Dear",
-        "PleaseBoteCancel" : "please note that, you can cancel the request while the status is 'Under Review'. However, if the request has been approved, then you will no longer be able to Cancel it.",
+        "PleaseBoteCancel" : ", please note that, you can cancel the request while the status is 'Under Review'. However, if the request has been approved, then you will no longer be able to Cancel it.",
         "Summary" : "Summary",
         "UndertakingPurchase" : "Undertaking to Purchase",
         "Numberofproduct" : "Number of product",
