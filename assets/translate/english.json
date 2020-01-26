@@ -337,6 +337,7 @@
         "Addressisrequired" : "Address is required",
         "AddressVlidation" : "Address must be at least 6 characters long.",
         "City" : "City",
+        "Country" : "Country",
         "enterYourCity" : "enter your city here",
         "cityValidations" : "city must be at least 4 characters long.",
         "enterYourCountry" : "enter your country here",
