@@ -47,7 +47,7 @@
                                     <div class="form-group">
                                         <label for="Filter" class="font-size-13"> {{ 'Notifications.FromDate' | translate }} </label>
                                         <div class="input-group">
-                                        <input (click)="dp.toggle()" (dateSelect) = "selectFromDate($event)" [value]="fromDate" class="form-control date-picker" ngbDatepicker #dp="ngbDatepicker">
+                                        <input (click)="dp.toggle()" id="dateF" (dateSelect) = "selectFromDate($event)" [value]="fromDate" class="form-control date-picker" ngbDatepicker #dp="ngbDatepicker">
 
                                         <i style="color: rgb(99, 94, 94) !important;" class="fa fa-calendar"></i>
                                       </div>
@@ -57,17 +57,17 @@
                               <div class="form-group">
                                   <label for="Filter" class="font-size-13"> {{ 'Notifications.ToDate' | translate }}</label>
                                   <div class="input-group">
-                                      <input (click)="d.toggle()" (dateSelect) = "selectToDate($event)" [value]="toDate" class="form-control date-picker"  ngbDatepicker #d="ngbDatepicker">
+                                      <input (click)="d.toggle()" id="dateT" (dateSelect) = "selectToDate($event)" [value]="toDate" class="form-control date-picker"  ngbDatepicker #d="ngbDatepicker">
 
                                    <i style="color: rgb(99, 94, 94) !important;" class="fa fa-calendar"></i>
                                   </div>
                               </div>
                           </form>
-                          <div class="col-lg-1">
-                             <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableSearch" (click)="filterRequests()">{{ 'Notifications.search' | translate }}</button>
-                          </div>
-                          <div class="col-lg-1">
-                              <button class="btn btn-responsive btn-purple mt-2 " [disabled]="!disableReset" (click)="resetPage()">{{ 'Notifications.Reset' | translate }}</button>
+                          <div class="col-lg-3" id="button">
+                             <button class="btn btn-responsive btn-purple mx-1 mt-2 " [disabled]="!disableSearch" (click)="filterRequests()">{{ 'Notifications.search' | translate }}</button>
+                          <!-- </div>
+                          <div class="col-lg-1"> -->
+                              <button class="btn btn-responsive btn-purple mx-1 mt-2 " [disabled]="!disableReset" (click)="resetPage()">{{ 'Notifications.Reset' | translate }}</button>
                            </div>
 
                         </div>

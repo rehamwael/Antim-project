@@ -1,6 +1,6 @@
 .btn-responsive {
   padding: 10px;
-  width: 75px;
+  width: 80px;
 }
 
 @media (max-width: 992px){
@@ -14,3 +14,10 @@
   text-align: center;
   margin-bottom: 250px;
 }
+#dateT {
+  direction: ltr !important;
+}
+#dateF {
+  direction: ltr !important;
+}
+

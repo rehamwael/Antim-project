@@ -1,6 +1,6 @@
 .btn-responsive {
   padding: 10px;
-  width: 75px;
+  width: 82px;
   margin-right: 5px;
   margin-left: 5px;
 }
@@ -9,4 +9,10 @@
   .btn-responsive {
     width: 100px;
   }
+}
+#dateT {
+  direction: ltr !important;
+}
+#dateF {
+  direction: ltr !important;
 }
