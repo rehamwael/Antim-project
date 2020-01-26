@@ -157,10 +157,15 @@
         -ms-filter: "FlipV";
     }
     .page-wraper-right {
-        margin-right: 243px;
-        margin-left: 0;
-        margin-left: 3em !important;
+        margin-right: 220px;
+        margin-left: 2em !important;
 
+    }
+    @media (max-width: 692px){
+      .page-wraper-right {
+
+        margin-right: 20px;
+      }
     }
     p.grey-text.mt-3.text-left.col-lg-8.mr-4{
         margin-left: 5.5rem !important;
@@ -344,11 +349,15 @@
     #button{
       direction: rtl !important;
     }
-
+    .logo-img-mobile{
+      width: 110px;
+  }
 }
 .logo-img{
     width: 100px;
 }
+
+
 .contact .bg-image ul.navbar-nav.ml-auto li a.nav-link ,.contact header #langSelctor , .log-in header #langSelctor{
     color: #000 !important;
 }

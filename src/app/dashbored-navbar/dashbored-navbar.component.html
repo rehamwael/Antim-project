@@ -1,0 +1,105 @@
+<nav id="navbar-app" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav" ngStickyNav stickyClass="sticky-fixed-header">
+  <div class="row">
+        <button class="navbar-toggler col-2" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- <a class="navbar-brand col-3" [routerLink]="[ '/' ]">
+          <img src="assets/images/logo-white.svg" class="logo" alt="antim">
+
+        </a> -->
+        <a class="navbar-brand col-3" (click)="setTitle('Antim | Home', ' انتيم | الصفحة الرئيسية')">
+          <img src="{{userLang == 'english' ? 'assets/images/logo-white.svg' : 'assets/images/antim-logo-arabic.svg' }}" alt="antim" class="logo-img-mobile pr-4" >
+
+  </a>
+
+        <li class="nav-item mt-1 col-3 d-block d-md-none">
+          <div
+          class="btn-group"
+          ngbDropdown
+          role="group"
+          aria-label="Button group with nested dropdown"
+        >
+          <button class="btn lang-selector mt-1 mr-2 ml-2" ngbDropdownToggle style="color: white !important;">
+              {{ userLang == 'arabic' ? 'العربية' : userLang }}
+              <!-- <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L7 7L13 1" stroke="#F9F9F9" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg> -->
+                <i class="fa fa-angle-down mx-1" aria-hidden="true" style="color: white;"></i>
+            </button>
+          <div class="dropdown-menu lang-selector-dropdown" ngbDropdownMenu>
+            <button  class="dropdown-item" (click)="changeLanguage('english')">English</button>
+            <button  class="dropdown-item" (click)="changeLanguage('arabic')" >العربية</button>
+
+          </div>
+        </div>
+      </li>
+      <li class="nav-item mt-1 col-2 d-block d-md-none">
+        <div
+        class="btn-group"
+        ngbDropdown
+        role="group"
+        aria-label="Button group with nested dropdown"
+      >
+      <button class="btn lang-selector mt-1 mr-2 ml-2" ngbDropdownToggle style="color: white !important;">
+        <i class="fa fa-cog col-3" aria-hidden="true" style="color: white; font-size: 14px;"></i>
+      </button>
+
+        <div class="dropdown-menu lang-selector-dropdown" ngbDropdownMenu >
+          <button ngbDropdownItem (click)="openVerticallyCentered(content5)">
+            {{ 'Setting.DeactivateAccount' | translate }}
+            </button>
+          <button ngbDropdownItem (click)="openVerticallyCentered(content4)">
+                {{ 'Setting.DeleteAccount' | translate }}
+            </button>
+          <button ngbDropdownItem (click)="logOut()">
+                {{ 'Setting.SignOut' | translate }}</button>
+        </div>
+ </div>
+ </li>
+
+    </div>
+</nav>
+<ng-template #content4 let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title">{{ 'Setting.DeleteAccount' | translate }}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body py-3">
+        <p class="my-3 mx-3">
+            {{ 'Setting.DeleteAccountMsg' | translate }}
+
+
+    </p>
+    <div class="row py-2" style="width: 100%;">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="deleteAccount()">{{ 'Setting.CONFIRM' | translate }}</button></div>
+        <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Setting.CLOSE' | translate }}</button></div>
+  </div>
+  </div>
+</ng-template>
+
+
+<ng-template #content5 let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">{{ 'Setting.DeactivateAccount' | translate }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body py-3">
+        <p class="my-3 mx-3">
+              <!-- Sorry, you can't deactivate your account, because there are ongoing transactions. -->
+              {{ 'Setting.DeactivateAccountMsg' | translate }}
+        </p>
+        <!-- <div class="d-flex justify-content-end py-2"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" (click)="modal.close('Close click')">CLOSE</button></div> -->
+        <div class="row py-2" style="width: 100%;">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="deActivateAccount()">{{ 'Setting.CONFIRM' | translate }}</button></div>
+            <div class="col-lg-4"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Setting.CLOSE' | translate }}</button></div>
+
+      </div>
+      </div>
+    </ng-template>

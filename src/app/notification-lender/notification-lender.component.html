@@ -1,14 +1,7 @@
 <div>
         <div class="row">
-                <nav id="navbar-app" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav" ngStickyNav stickyClass="sticky-fixed-header">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
-                                <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <a class="navbar-brand" [routerLink]="[ '/' ]">
-                            <img src="assets/images/logo-white.svg" class="logo" alt="antim">
+          <app-dashbored-navbar></app-dashbored-navbar>
 
-                        </a>
-                </nav>
             <aside class="left-sidebar col-lg-4">
                 <!-- Sidebar scroll-->
                 <div class="scroll-sidebar">
@@ -79,14 +72,10 @@
                                   </svg>
                               </div>
                               <div class="col-lg-8">
-                                <h5 class="font-purple font-bold no-letter-spacing m-0" *ngIf="userLang == 'english'">{{notification.enNotificationTitle}}</h5>
-                                <h5 class="font-purple font-bold no-letter-spacing m-0" *ngIf="userLang == 'arabic'">{{notification.arNotificationTitle}}</h5>
-                                <div class="grey-text-color mb-2 mt-1" *ngIf="userLang == 'english'">{{notification.date}} </div>
-                                <div class="grey-text-color mb-2 mt-1" *ngIf="userLang == 'arabic'">{{notification.arDate}} </div>
-                              </div>
-                          <p class="dark-text-color col-lg-12"  *ngIf="userLang == 'english'">{{notification.enNotificationDescription}}</p>
-                          <p class="dark-text-color col-lg-12"  *ngIf="userLang == 'arabic'">{{notification.arNotificationDescription}}</p>
-
+                                <h5 class="font-purple font-bold no-letter-spacing m-0">{{ userLang == 'arabic' ? notification.arNotificationTitle : notification.enNotificationTitle }}</h5>
+                                <div class="grey-text-color mb-2 mt-1">{{ userLang == 'arabic' ? notification.arDate : notification.date }} </div>
+                            </div>
+                                <p class="dark-text-color col-lg-12" >{{ userLang == 'arabic' ? notification.arNotificationDescription : notification.enNotificationDescription }} {{notification.enNotificationDescription}}</p>
 
                           <div class="col-lg-12  row d-flex flex-row-reverse" *ngIf="notification.status == 2">
                             <div class="form-group col-lg-3">

@@ -37,6 +37,9 @@ export class NotificationLenderComponent implements OnInit, OnDestroy {
   ) {
     this.getState = this.store.select(selectAuthenticationState);
     this.userLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
   }
 
   ngOnInit(): void {

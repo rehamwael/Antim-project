@@ -1,14 +1,6 @@
  <div>
         <div class="row">
-                <nav id="navbar-app" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav" ngStickyNav stickyClass="sticky-fixed-header">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
-                                <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <a class="navbar-brand" [routerLink]="[ '/' ]">
-                          <img src="assets/images/logo-white.svg" class="logo" alt="antim">
-
-                        </a>
-                </nav>
+               <app-dashbored-navbar></app-dashbored-navbar>
                 <aside class="left-sidebar col-lg-4">
                   <!-- Sidebar scroll-->
                   <div class="scroll-sidebar">
@@ -77,14 +69,14 @@
 
 
                     <!-- <div class="col-lg-2 purple-bg-2 cursor-pointer" [routerLink]="[ '/requests-customer' ,'Closed']"> -->
-                    <div class="col-lg-2 purple-bg-2  " >
+                    <div class="col-lg-2 blue-bg-2 " >
                         <div class="dashbored-info-content">
                             <p class="color-white">{{ 'Dashbored.UnderReviewrequests' | translate }}  </p>
                             <div style="text-align: center;">{{customerRequests?.underReview}}</div>
                         </div>
                     </div>
                     <!-- <div class="col-lg-2 blue-bg-2 cursor-pointer" [routerLink]="[ '/requests-customer' ,'Draft']"> -->
-                    <div class="col-lg-2 blue-bg-2  " >
+                    <div class="col-lg-2 purple-bg-2  " >
 
                       <div class="dashbored-info-content">
                         <p class="color-white">{{ 'Dashbored.AwaitingforFundRequests' | translate }}</p>
@@ -102,5 +94,6 @@
                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2 btn-lowecase" (click)="SetTitle('Antim | Create New Request', ' انتيم | إنشاء طلب جديد')"  [routerLink]="[ '/createorder-customer' ]">{{ 'Dashbored.MakeNewRequest' | translate }} </button>
                        </div>
                 </div>
+    </div>
     </div>
 </div>

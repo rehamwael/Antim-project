@@ -1,22 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState, selectAuthenticationState } from './../../store/app.states';
-import { ProfileService } from './../../services/userProfile.service';
-import { Logout, UserProfile } from './../../store/actions/auth.actions';
+import { AppState, selectAuthenticationState } from './../store/app.states';
+import { ProfileService } from './../services/userProfile.service';
+import { Logout, UserProfile } from './../store/actions/auth.actions';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { TranslateService } from '@ngx-translate/core';
-import { Title } from '@angular/platform-browser';
-
 
 @Component({
-  selector: 'app-setting',
-  templateUrl: './setting.component.html',
-  styleUrls: ['./setting.component.css']
+  selector: 'app-dashbored-navbar',
+  templateUrl: './dashbored-navbar.component.html',
+  styleUrls: ['./dashbored-navbar.component.css']
 })
-export class SettingComponent implements OnInit, OnDestroy {
+
+export class DashboredNavbarComponent implements OnInit {
+
+
   getState: Observable<any>;
   currentUser: any;
   userId: any;
@@ -30,55 +32,25 @@ export class SettingComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private userProfileService: ProfileService,
     public translate: TranslateService,
-    private titleService: Title,
+    private titleService: Title
+
   ) {
-    let language = localStorage.getItem('language');
-    // console.log(language);
-    if (language != null) {
-      this.translate.use(language);
-      this.userLang = language;
-    } else {
-      this.userLang = 'english';
-    }
-    console.log(this.userLang);
-
-    this.getState = this.store.select(selectAuthenticationState);
-
-    translate.addLangs([ 'english' , 'arabic']);
+    this.userLang = this.translate.currentLang;
     this.translate.onLangChange.subscribe((event) => {
       this.userLang = event.lang;
-      localStorage.setItem('language', this.userLang);
-    });
-
-
-  }
-
-
-  ngOnInit(): void {
-    this.getState.subscribe((state) => {
-      this.currentUser = state.userProfile;
-    });
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.add('dashbored');
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0);
     });
   }
-  ngOnDestroy(): void {
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.remove('dashbored');
-    this.currentUser = null;
-  }
+
   changeLanguage(lang: string) {
     this.translate.use(lang);
     if (lang == 'arabic') {
-      this.titleService.setTitle( 'انتيم' );
+      this.titleService.setTitle('انتيم');
     } else {
-      this.titleService.setTitle( 'Antim' );
+      this.titleService.setTitle('Antim');
     }
+  }
+
+  ngOnInit() {
   }
   deleteAccount() {
     this.spinner.show();
@@ -125,7 +97,13 @@ export class SettingComponent implements OnInit, OnDestroy {
     localStorage.clear();
     this.store.dispatch(new Logout());
   }
+  setTitle(enTitle, arTitle) {
+    if (this.userLang == 'arabic') {
+      this.titleService.setTitle(arTitle);
+    } else {
+      this.titleService.setTitle(enTitle);
+    }
+    this.router.navigateByUrl('/home');
+  }
 
 }
-
-

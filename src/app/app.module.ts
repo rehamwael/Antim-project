@@ -66,6 +66,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { StarterComponent } from './starter/starter.component';
 import {MatSelectModule} from '@angular/material/select';
 import { FooterComponent } from './footer/footer.component';
+import { DashboredNavbarComponent } from './dashbored-navbar/dashbored-navbar.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
@@ -111,7 +112,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfirmEmailComponent,
     FunderRequestsDetailsComponent,
     StarterComponent,
-    FooterComponent
+    FooterComponent,
+    DashboredNavbarComponent
   ],
   imports: [
     CommonModule,

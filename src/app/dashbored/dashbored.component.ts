@@ -27,7 +27,6 @@ export class DashboredComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean;
   email: any;
   options: IndividualConfig;
-  userLang: any;
 
   constructor(
     private emailService: UserEmailPasswordService,
@@ -44,6 +43,7 @@ export class DashboredComponent implements OnInit, OnDestroy {
 
     this.translate.setDefaultLang(this.translate.currentLang);
     this.translate.use(this.translate.currentLang);
+
   }
 
   ngOnInit(): void {
@@ -78,6 +78,14 @@ export class DashboredComponent implements OnInit, OnDestroy {
     body.classList.remove('dashbored-home');
     this.currentUser = null;
     this.customerRequests = null;
+  }
+  changeLanguage(lang: string) {
+    this.translate.use(lang);
+    if (lang == 'arabic') {
+      this.titleService.setTitle('انتيم');
+    } else {
+      this.titleService.setTitle('Antim');
+    }
   }
   getCount() {
     let role = localStorage.getItem('role');
