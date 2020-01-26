@@ -164,7 +164,7 @@
     @media (max-width: 692px){
       .page-wraper-right {
 
-        margin-right: 20px;
+        margin-right: 2px;
       }
     }
     p.grey-text.mt-3.text-left.col-lg-8.mr-4{
@@ -270,8 +270,9 @@
     }
     a.close-icon {
         position: absolute;
-        left: 2em;
+        left: 1em;
         right: auto;
+        margin-top: -10px;
     }
     .antim-form  .col-lg-12.mt-5 .col-lg-8{
         float: right;
