@@ -156,6 +156,7 @@ export class SignUpComponent implements OnInit , OnDestroy {
     }
   }
   Nextstep() {
+    this.spinner.hide();
     this.firstStep = true;
     this.chooseRole = false;
     console.log(this.userType);

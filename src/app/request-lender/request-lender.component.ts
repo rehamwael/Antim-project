@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { SaveRequestType } from './../store/actions/funder.actions';
 import { ProfileService } from '../services/userProfile.service';
+import { TranslateService } from '@ngx-translate/core';
 
 let InstallmentDetails: any[] = [];
 
@@ -104,6 +105,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   displayColumns: string[] = ['months', 'dueDate', 'price', 'status'];
   monthlyInstallmentsData: any;
   showTable = false;
+  userLang: any;
 
   constructor(
     private modalService: NgbModal,
@@ -112,8 +114,15 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private store: Store<AppState>,
     private profileService: ProfileService,
+    public translate: TranslateService,
+
   ) {
     this.getState = this.store.select(funderState);
+    this.userLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
+
   }
 
   GetFunderAllRequests() {
@@ -325,7 +334,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.selectedProduct = true;
     }
   }
-  closeProductDetails() {
+  closeRequesttDetails() {
     if (this.selectedRequestType != 'All Requests') {
       this.selectedRequestType = this.RequestType;
     }

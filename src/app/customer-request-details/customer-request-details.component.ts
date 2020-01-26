@@ -141,6 +141,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   deliveryFees: number;
   isdeliveryFees: boolean;
   isdelivered = false;
+  userLang: any;
 
   constructor(private modalService: NgbModal,
     private _formBuilder: FormBuilder,
@@ -150,9 +151,14 @@ export class CustomerRequestDetailsComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private store: Store<AppState>,
     private profileService: ProfileService,
+    public translate: TranslateService,
   ) {
     this.getUserState = this.store.select(selectAuthenticationState);
     this.getState = this.store.select(customerState);
+    this.userLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
 
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');

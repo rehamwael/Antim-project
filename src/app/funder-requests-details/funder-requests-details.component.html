@@ -27,11 +27,20 @@
           <div class="page-wraper-right full-width" >
 
               <div class="justify-content-center col-lg-11 mat-card mt-4 p-0 mb-5">
-                  <div class="mat-card row p-4 m-0">
-                      <div class="header col-lg-9">
-                        <span class="icon-close" [routerLink]="['/requests-funder']"><i class="material-icons"><svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span>
-                        <h1 class="ml-5">Request Details</h1>
+                  <div class="mat-card p-4 m-0">
+                    <div class="header row" style="width: 100%;">
+                      <div class="col-lg-1" style="text-align: center;" *ngIf="userLang == 'english'">
+                        <i  [routerLink]="['/requests-funder']" class="fa fa-chevron-left pt-3 cursor-pointer " aria-hidden="true"></i>
+
                       </div>
+                      <div class="col-lg-1" style="text-align: center;" *ngIf="userLang == 'arabic'">
+                        <i  [routerLink]="['/requests-funder']" class="fa fa-chevron-right pt-3 cursor-pointer " aria-hidden="true"></i>
+
+                      </div>
+                      <div class=" col-lg-11 pr-0 pl-0 mr-0">
+                        <h1 class="mt-1">{{ 'Requests.RequestDetails' | translate }}</h1>
+                      </div>
+                  </div>
                     </div>
 
                 <form class="col-lg-10 row antim-form p-5 mt-2 mb-5 m-auto" [formGroup]="editRequestForm">

@@ -10,6 +10,7 @@ import { AppState } from './../store/app.states';
 import { Observable } from 'rxjs';
 import { CustomerRequestService } from '../services/customer-request.service';
 import { ProfileService } from '../services/userProfile.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-funder-requests-details',
@@ -72,6 +73,7 @@ export class FunderRequestsDetailsComponent implements OnInit {
       type: '12 Months'
     }
   ];
+  userLang: any;
 
 
   constructor(private modalService: NgbModal,
@@ -82,8 +84,13 @@ export class FunderRequestsDetailsComponent implements OnInit {
     private funderRequestService: FunderRequestService,
     private customerRequestService: CustomerRequestService,
     private spinner: NgxSpinnerService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    public translate: TranslateService,
   ) {
+    this.userLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
 
     this.route.paramMap.subscribe(params => {
       this.requestID = params.get('id');
