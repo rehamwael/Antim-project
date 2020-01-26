@@ -234,9 +234,15 @@ export class CustomerRequestDetailsComponent implements OnInit {
             InstallmentDetails.push(element);
             element.month = i;
             element.date = moment(element.dueDate).format('LL');
+            element.arDate = moment(element.dueDate).locale('ar-sa').format('LL');
             element.price = element.amount + ' SAR';
+            element.arPrice = element.amount + ' ريال سعودي ';
             element.status = this.amountStatus[element.status].type;
             if (element.status == 'Paid') {
+              element.arStatus = 'تم الدفع';
+            }
+            if (element.status == 'Unpaid') {
+              element.arStatus = 'غير مدفوع';
             }
             i++;
           });
