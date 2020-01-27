@@ -382,7 +382,7 @@
                                             <br/>and with the price showing in the request screen.
                                             </label>
                                     </div> -->
-                                    <label class="container col-lg-10 pt-2 grey-text-color my-5">
+                                    <label class="container col-lg-10 pt-2 pr-4 grey-text-color my-5">
                                         {{ 'CreateOrder.IagreeRequstName' | translate }}
                                        <b>{{requestName}} </b>  {{ 'CreateOrder.showingRequestScreen' | translate }}
                                       <input type="checkbox" (change)="changeCheck($event)">
@@ -444,21 +444,15 @@
                                               </mat-form-field>
 
                                               <div class="row mt-5">
-                                                <div class="col-lg-6">
-                                                  <label class="container1 pr-4">{{ 'CreateOrder.DeliverproductstoMyAddress' | translate }}
-                                                  <input type="radio" name="gender" value="deliver" (click)="ShowAlert()" >
-                                                  <span class="checkmark1"></span>
+                                                <input class="col-1 mt-1" type="radio" name="gender" id="radio-1" value="deliver" (click)="ShowAlert()" >
+                                                  <label for="radio-1" class="col-5 pl-0 pr-3 w-100">{{ 'CreateOrder.DeliverproductstoMyAddress' | translate }}
                                                   </label>
-                                                 </div>
-                                                  <div class="col-lg-6 pr-4">
-                                                  <label class="container1">{{ 'CreateOrder.PickUptheProducts' | translate }}
-                                                    <input type="radio" name="gender" value="self" (click)="HideAlert()" >
-                                                    <span class="checkmark1"></span>
-                                                    </label>
-                                                </div>
-                                                    <!-- <input type="radio" name="gender" value="self" (click)="HideAlert()" class="mr-2">Pick up the products from Antim offices by myself<br> -->
+
+                                                <input class="col-1 mt-1" type="radio" name="gender" id="radio-2" value="self" (click)="HideAlert()" >
+                                                  <label for="radio-2" class="col-5 pl-0 pr-3 w-100">{{ 'CreateOrder.PickUptheProducts' | translate }}
+                                                  </label>
                                               </div>
-                                              <div class="alert mt-5 mb-2 alert-warning" role="alert" *ngIf="showAlert">
+                                                                                            <div class="alert mt-5 mb-2 alert-warning" role="alert" *ngIf="showAlert">
                                                 <p class="mb-0 grey-text-color">
                                                 <i class="fa fa-exclamation-circle"></i>
                                                 {{ 'CreateOrder.SelectingadditionalDelivery' | translate }}{{deliveryFee}}{{ 'Dashbored.SAR' | translate }}

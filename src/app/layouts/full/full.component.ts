@@ -31,15 +31,18 @@ export class FullComponent implements OnInit {
     private titleService: Title
   ) {
     this.getState = this.store.select(selectAuthenticationState);
-    let language = localStorage.getItem('language');
+    let language =  localStorage.getItem('language');
     let role = localStorage.getItem('role');
     this.dashboredUrl = 'dashbored-' + role;
+    translate.addLangs(['english', 'arabic']);
+    const browserLang = translate.getBrowserLang();
 
     if (language != null) {
       this.translate.use(language);
       this.userLang = language;
     } else {
-      this.userLang = 'english';
+      translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
+      localStorage.setItem('language', browserLang.match(/english|arabic/) ? browserLang : 'english');
     }
     console.log(this.userLang);
 
@@ -51,14 +54,11 @@ export class FullComponent implements OnInit {
         this.islogin = false;
       }
     });
-    translate.addLangs(['english', 'arabic']);
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
+
     this.translate.onLangChange.subscribe((event) => {
       this.userLang = event.lang;
       localStorage.setItem('language', this.userLang);
     });
-    translate.setDefaultLang(this.userLang);
 
   }
 

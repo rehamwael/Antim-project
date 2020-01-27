@@ -34,11 +34,13 @@ export class SettingComponent implements OnInit, OnDestroy {
   ) {
     let language = localStorage.getItem('language');
     // console.log(language);
+    const browserLang = translate.getBrowserLang();
     if (language != null) {
       this.translate.use(language);
       this.userLang = language;
     } else {
-      this.userLang = 'english';
+      translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
+      localStorage.setItem('language', browserLang.match(/english|arabic/) ? browserLang : 'english');
     }
     console.log(this.userLang);
 

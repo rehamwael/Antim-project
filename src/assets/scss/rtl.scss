@@ -353,6 +353,12 @@
     .logo-img-mobile{
       width: 110px;
   }
+  #fc_frame{
+    position: relative !important;
+    float: left !important;
+    margin-left: 25px !important;
+  }
+
 }
 .logo-img{
     width: 100px;
@@ -372,4 +378,7 @@ body .btn-Red , body .btn-Red:hover{
 button:active , button:focus{
     outline:none !important;
  }
-
+ #fc_frame{
+  position: relative !important;
+  float: right !important;
+}
