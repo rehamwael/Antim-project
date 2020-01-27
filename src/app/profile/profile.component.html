@@ -64,6 +64,7 @@
                         <input matInput formControlName="UserName" type="text" class="form-control form-control-lg" value= "{{userName}}" [(ngModel)]="userName" placeholder="{{ 'SignUp.Username' | translate }}" >
                         <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('required')" class="error-msg alert alert-danger text-left"> {{ 'SignUp.UsernameRequired' | translate }}</div>
                         <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'SignUp.UsernameValidate' | translate }}</div>
+                        <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.ProperUsername' | translate }}</div>
                     </div>
                         <div class="col-lg-6">
                             <label for="NID" class="font-bold mt-2">{{ 'SignUp.NationalID' | translate }}  :</label>

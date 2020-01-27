@@ -203,6 +203,7 @@
         "TypeUsername" : "Type Username here...",
         "UsernameRequired" : "Username required",
         "UsernameValidate" : "User Name must be at least 5 characters long.",
+        "ProperUsername" : "The username must contains only the English alphabet, letters and special characters",
         "NationalID" : "National ID No/Iqama" ,
         "NationalIDrequired" : "National ID is required",
         "NationalIDValidate" : "National ID number must be at least 10 characters long.",

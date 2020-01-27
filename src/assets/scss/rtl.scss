@@ -359,6 +359,10 @@
     position: fixed !important;
     right: 93vw !important;
   }
+  #fc_frame.h-open-container {
+    position: fixed !important;
+    right: 70vw !important;
+  }
   .hide-menu {
     margin-left: 3em !important;
   }
@@ -366,6 +370,11 @@
     #fc_frame{
       position: fixed !important;
       right: 80vw !important;
+    }
+    #fc_frame.h-open-container {
+      position: fixed !important;
+      right: 1vw !important;
+      max-height: 60vh!important;
     }
 
   }

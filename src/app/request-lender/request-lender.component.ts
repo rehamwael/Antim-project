@@ -282,14 +282,18 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       this.dataSource.filter = deviceValue;
     }
     localStorage.setItem('selectedFunderRequestType', this.selectedRequestType);
-    if (deviceValue == 'All Requests') {
+    if (deviceValue == 'All Requests' || deviceValue == 'جميع الطلبات') {
       this.dataSource = new MatTableDataSource<any>(null);
       this.GetFunderAllRequests();
       this.dataSource.filter = '';
-      this.selectedRequestType = 'All Requests';
+      if (this.userLang == 'arabic') {
+        this.selectedRequestType = 'جميع الطلبات';
+      } else {
+        this.selectedRequestType = 'All Requests';
+      }
     }
 
-    if (deviceValue == 'Awaiting For Fund Requests') {
+    if (deviceValue == 'Awaiting For Fund Requests' || deviceValue == 'الطلبات بإنتظار تمويل') {
       this.dataSource = new MatTableDataSource<any>(null);
       this.getFundingLimitingMatchingRequest();
     }

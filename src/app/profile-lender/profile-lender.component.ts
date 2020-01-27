@@ -161,7 +161,8 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       ])],
       'UserName': [{ value: this.userName, disabled: this.disabledButton }, Validators.compose([
         Validators.required,
-        Validators.minLength(6)
+        Validators.minLength(6),
+        Validators.pattern('^[\x20-\x7E]*$')
       ])],
       'MobileNo': [{ value: this.phone, disabled: this.disabledButton }, Validators.compose([
         Validators.required,

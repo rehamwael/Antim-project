@@ -172,12 +172,17 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   onChange(deviceValue) {
+    console.log(deviceValue);
     this.dataSourceAll.filter = deviceValue;
     this.CustomerRequestType = deviceValue;
     localStorage.setItem('selectedCustomerRequestType', deviceValue);
-    if (deviceValue == 'All Requests') {
+    if (deviceValue == 'All Requests' || deviceValue == 'جميع الطلبات') {
       this.dataSourceAll.filter = '';
-      this.CustomerRequestType = 'All Requests';
+      if (this.userLang == 'arabic') {
+        this.CustomerRequestType = 'جميع الطلبات';
+      } else {
+        this.CustomerRequestType = 'All Requests';
+      }
     }
     if (this.dataSourceAll.filteredData.length > 0) {
       this.showMessage = false;
@@ -229,8 +234,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
           this.allFilterRequests.forEach(element => {
             filterRequestData.push(element);
             element.date = moment(element.createdAt).format('LL');
-            element.price = element.totalPaybackAmount + ' SAR';
-            element.status = this.requestTypes[element.type].type;
+            element.arDate = moment(element.createdAt).locale('ar-sa').format('LL');
+            element.price = element.totalPaybackAmount + element.delieveryFees + ' SAR';
+            element.arPrice = element.totalPaybackAmount + element.delieveryFees + ' ريال سعودي ';
+            element.enStatus = this.requestTypes[element.type].type;
+            element.arStatus = this.requestTypes[element.type].arType;
           });
           // if (this.dataSourceAll.filteredData.length == 0) {
           //   this.showMessage = true;

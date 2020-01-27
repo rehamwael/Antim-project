@@ -30,6 +30,7 @@ export class FullComponent implements OnInit {
     public translate: TranslateService,
     private titleService: Title
   ) {
+    this.userLang = this.translate.currentLang;
     this.getState = this.store.select(selectAuthenticationState);
     let language =  localStorage.getItem('language');
     let role = localStorage.getItem('role');
@@ -42,6 +43,7 @@ export class FullComponent implements OnInit {
       this.userLang = language;
     } else {
       translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
+      this.userLang = this.translate.currentLang;
       localStorage.setItem('language', browserLang.match(/english|arabic/) ? browserLang : 'english');
     }
     console.log(this.userLang);

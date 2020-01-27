@@ -32,6 +32,7 @@ export class SettingComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private titleService: Title,
   ) {
+    this.userLang = this.translate.currentLang;
     let language = localStorage.getItem('language');
     // console.log(language);
     const browserLang = translate.getBrowserLang();
@@ -39,6 +40,7 @@ export class SettingComponent implements OnInit, OnDestroy {
       this.translate.use(language);
       this.userLang = language;
     } else {
+      this.userLang = this.translate.currentLang;
       translate.use(browserLang.match(/english|arabic/) ? browserLang : 'english');
       localStorage.setItem('language', browserLang.match(/english|arabic/) ? browserLang : 'english');
     }

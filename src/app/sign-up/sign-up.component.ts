@@ -69,7 +69,8 @@ export class SignUpComponent implements OnInit , OnDestroy {
       ])],
       'username': [null, Validators.compose([
         Validators.required,
-        Validators.minLength(5)
+        Validators.minLength(6),
+        Validators.pattern('^[\x20-\x7E]*$')
       ])],
       'NID': [null, Validators.compose([
         Validators.required,

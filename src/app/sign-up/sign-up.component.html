@@ -63,6 +63,7 @@
                                     <input formControlName="username" class="form-control form-control-lg" placeholder="{{ 'SignUp.TypeUsername' | translate }}" type="text" [(ngModel)]="signupUserName">
                                     <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.UsernameRequired' | translate }}</div>
                                     <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'SignUp.UsernameValidate' | translate }}</div>
+                                    <div *ngIf="SigUpForm.controls['username'].touched && SigUpForm.controls['username'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.ProperUsername' | translate }}</div>
 
                                 </div>
                                 <div class="form-group text-left col-lg-6">
