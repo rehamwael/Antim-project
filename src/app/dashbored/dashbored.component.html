@@ -63,7 +63,7 @@
                     <div class="col-lg-2 black-bg  " >
                         <div class="dashbored-info-content">
                           <p class="color-white">{{ 'Dashbored.TotalInstallmentPaid' | translate }}   </p>
-                          <div style="text-align: center; font-size: 18px" *ngIf="customerRequests">{{customerRequests?.paidInstallmentsAmount}} <span style="font-size: 16px !important;">{{ 'Dashbored.SAR' | translate }} </span> </div>
+                          <div  style="text-align: center; " *ngIf="customerRequests"> {{customerRequests?.paidInstallmentsAmount}}  {{ 'Dashbored.SAR' | translate }} </div>
                         </div>
                       </div>
 

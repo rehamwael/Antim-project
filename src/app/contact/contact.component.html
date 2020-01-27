@@ -21,7 +21,7 @@
                                 <form class="text-center mat-card p-5 contact-form row justify-content-end" [formGroup]="contactForm" >
                                         <!-- Name -->
                                         <div class="form-group col-lg-12 mb-4">
-                                            <label class="text-left font-30 font-bold">{{ 'contact.Name' | translate }}</label>
+                                            <label class="text-left  contact-headings">{{ 'contact.Name' | translate }}</label>
                                             <input type="text" formControlName="contactFormName" id="defaultContactFormName" mdbInput [(ngModel)]="name"
                                             class="form-control" placeholder="{{ 'contact.NameType' | translate }}">
                                             <div *ngIf="contactForm.controls['contactFormName'].touched && contactForm.controls['contactFormName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'contact.Namerequired' | translate }}</div>
@@ -30,7 +30,7 @@
                                         </div>
                                         <!-- Email -->
                                         <div class="form-group col-lg-8 mb-4">
-                                            <label class="text-left font-30 font-bold">{{ 'contact.Email' | translate }}</label>
+                                            <label class="text-left  contact-headings">{{ 'contact.Email' | translate }}</label>
                                             <input type="email" formControlName="contactFormEmail" id="defaultContactFormEmail" mdbInput [(ngModel)]="email"
                                             class="form-control" placeholder="{{ 'contact.emailType' | translate }}">
                                             <div *ngIf="contactForm.controls['contactFormEmail'].touched && contactForm.controls['contactFormEmail'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'contact.Emailrequired' | translate }} </div>
@@ -49,7 +49,7 @@
                                        </div> -->
                                         <!-- Subject -->
                                         <div class="form-group col-lg-4 mb-4">
-                                            <label class="text-left font-30 font-bold">{{ 'contact.CommentType' | translate }}</label>
+                                            <label class="text-left  contact-headings">{{ 'contact.CommentType' | translate }}</label>
                                             <select formControlName="contactFormSubjects" class="browser-default custom-select" [(ngModel)]="messageType" >
                                                 <option value="0" selected>{{ 'contact.Chooseoption' | translate }}</option>
                                                 <option value="1" >{{ 'contact.Suggestion' | translate }}</option>
@@ -67,7 +67,7 @@
 
                                         <!-- Message -->
                                         <div class="form-group col-lg-12 mb-4">
-                                        <label class="text-left font-30 font-bold">{{ 'contact.Message' | translate }}</label>
+                                        <label class="text-left  contact-headings">{{ 'contact.Message' | translate }}</label>
                                         <textarea formControlName="contactFormMessage" class="form-control rounded-0" mdbInput [(ngModel)]="message" id="exampleFormControlTextarea2"
                                             rows="4" placeholder="{{ 'contact.MessageType' | translate }}"></textarea>
                                        <div *ngIf="contactForm.controls['contactFormMessage'].touched && !contactForm.controls['contactFormMessage'].valid" class="error-msg alert alert-danger text-left">{{ 'contact.MessageRequired' | translate }}</div>
@@ -101,17 +101,17 @@
                                                     </h4>
                                             </div>
                                             <div class="col-lg-4 col-12">
-                                                <div class="font-bold font-18" >Antim care</div>
-                                                <div><a href="mailto:sscare@antim.com" class="font-bold color-light">sscare@intime.com</a></div>
+                                                <div class="contact-headings" >Antim care</div>
+                                                <div><a href="mailto:sscare@antim.com" class="  color-light">sscare@intime.com</a></div>
                                             </div>
                                             <div class="col-lg-4 col-12">
-                                                    <div class="font-bold font-18">Antim care</div>
-                                                    <div><a href="mailto:sscare@antim.com" class="font-bold color-light">sscare@intime.com</a></div>
+                                                    <div class="contact-headings">Antim care</div>
+                                                    <div><a href="mailto:sscare@antim.com" class="  color-light">sscare@intime.com</a></div>
                                                 </div>
 
                                             <div class="col-lg-4 col-12">
-                                                <div class="font-bold font-18">{{ 'contact.customersService' | translate }}</div>
-                                                <div><a href="mailto:supportus@antim.com" class="font-bold color-light">supportus@Intime.com</a></div>
+                                                <div class="contact-headings">{{ 'contact.customersService' | translate }}</div>
+                                                <div><a href="mailto:supportus@antim.com" class="  color-light">supportus@Intime.com</a></div>
                                             </div>
                                         </div>
                                         <div class="row mat-card mt-5">
@@ -124,17 +124,17 @@
                                                                 {{ 'contact.customersService' | translate }}                                                        </h4>
                                                 </div>
                                                 <div class="col-lg-4 col-12">
-                                                    <div class="font-bold font-18">{{ 'contact.MobileNo' | translate }} </div>
-                                                    <div><a href="tel:920001230" class="font-bold color-light">920001230</a></div>
+                                                    <div class="contact-headings">{{ 'contact.MobileNo' | translate }} </div>
+                                                    <div><a href="tel:920001230" class="  color-light">920001230</a></div>
                                                 </div>
                                                 <div class="col-lg-4 col-12">
-                                                        <div class="font-bold font-18">{{ 'contact.InsideSA' | translate }} </div>
-                                                        <div><a href="tel:8005790000" class="font-bold color-light">8005790000</a></div>
+                                                        <div class="contact-headings">{{ 'contact.InsideSA' | translate }} </div>
+                                                        <div><a href="tel:8005790000" class="  color-light">8005790000</a></div>
                                                     </div>
 
                                                 <div class="col-lg-4 col-12">
-                                                    <div class="font-bold font-18">{{ 'contact.OutsideSA' | translate }} </div>
-                                                    <div><a href="tel:+966920001230" class="font-bold color-light">+966920001230</a></div>
+                                                    <div class="contact-headings">{{ 'contact.OutsideSA' | translate }} </div>
+                                                    <div><a href="tel:+966920001230" class="  color-light">+966920001230</a></div>
                                                 </div>
                                             </div>
                                             <div class="row mat-card mt-5">
@@ -150,8 +150,8 @@
                                                             </h4>
                                                     </div>
                                                     <div class="col-lg-4 col-12">
-                                                        <div class="font-bold font-18">{{ 'contact.MobileNo' | translate }} </div>
-                                                        <div><a href="tel:920001230" class="font-bold color-light">8001236321</a></div>
+                                                        <div class="contact-headings">{{ 'contact.MobileNo' | translate }} </div>
+                                                        <div><a href="tel:920001230" class="  color-light">8001236321</a></div>
                                                     </div>
                                                 </div>
                                         </div>

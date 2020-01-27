@@ -41,7 +41,7 @@
                         <div class="justify-content-center col-lg-9">
                           <form class="row antim-form" [formGroup]="EditForm" *ngIf="!showAddress && !showBank && showUser && !showProfit">
                             <div class="row form-group "  style="width: 100%;">
-                              <div class="col-lg-12 mb-3"><h2 class="headingh2">{{ 'Profile.PersonalInformation' | translate }}</h2></div>
+                              <div class="col-lg-12 mb-3"> <h3 class="headingh2">{{ 'Profile.PersonalInformation' | translate }} </h3></div>
                           </div>
                            <div class="row form-group "  style="width: 100%;">
                                 <div class="col-lg-6">
@@ -203,7 +203,7 @@
                                     </div>
                                 </div> -->
                                 <div class="row my-2">
-                                  <div class="col-lg-12 mt-5"><h2 class="headingh2">{{ 'Profile.ChangeYourPassword' | translate }}</h2>
+                                  <div class="col-lg-12 mt-5"> <h3 class="headingh2">{{ 'Profile.ChangeYourPassword' | translate }} </h3>
                                 </div>
 
                                   <div class="col-lg-8">
@@ -236,7 +236,7 @@
 
 
                         <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="!showAddress && showBank && !showUser && !showProfit">
-                                <div class="col-lg-12 mb-3"><h2 class="headingh2">{{ 'Profile.BankInformation' | translate }}</h2></div>
+                                <div class="col-lg-12 mb-3"> <h3 class="headingh2">{{ 'Profile.BankInformation' | translate }} </h3></div>
                                 <!-- <div class="col-lg-12">
                                     <label for="MaximunLimit" class="font-bold mt-2">Maximun limit funding</label>
                                     <mat-slider
@@ -371,7 +371,7 @@
                       </form>
 
                                  <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser && !showProfit">
-                                  <div class="col-lg-12 mb-3"><h2 class="headingh2">{{ 'Profile.AddressInformation' | translate }}</h2></div>
+                                  <div class="col-lg-12 mb-3"> <h3 class="headingh2">{{ 'Profile.AddressInformation' | translate }} </h3></div>
                                   <div class="col-lg-12">
                                       <label for="address" class="font-bold mt-2">{{ 'Profile.CompleteAddress' | translate }}</label>
                                       <input matInput formControlName="Address" type="text" class="form-control form-control-lg" value="{{address}}" placeholder="{{ 'Profile.enterYourAdresshere' | translate }}" [(ngModel)]="address">

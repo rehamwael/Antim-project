@@ -1,7 +1,7 @@
-.font-30{
-font-size: 30px !important;
-}
-.font-18{
+.contact-headings{
+  font-weight: 500 !important;
+  font-size: 18px !important;
+}.font-18{
   font-size: 18px !important;
   }
 .color-light{

@@ -162,8 +162,8 @@
         "customersService" : "خدمة العملاء" ,
         "OurLocation" : "موقعنا" ,
         "MarketingSales" : "التسويق والمبيعات",
-        "OutsideSA" : "من خارج المملكة العربية السعودية",
-        "InsideSA" : "من داخل المملكة العربية السعودية"
+        "OutsideSA" : "من خارج المملكة ",
+        "InsideSA" : "من داخل المملكة "
 
     },
     "login" : {
@@ -249,7 +249,7 @@
         "MakeNewRequest" : "تقديم طلب جديد",
         "EmailnoTverified" : " لم يتم التحقق من بريدك الإلكتروني. يرجى التحقق من بريدك الإلكتروني للحصول على أكبر قدر من الفوائد من انتيم ",
         "ResendVerificationLink" : " إعادة إرسال رابط التحقق ",
-        "SAR" : "ريال سعودي",
+        "SAR" : "ر س",
         "YourAntimBalance" : "رصيد أنتيم :",
         "FundedUsers" : "المستخدمين الممولين ",
         "TotalAmountofFund" : "إجمالي مبلغ الصندوق",
