@@ -61,19 +61,26 @@ export class FunderRequestsDetailsComponent implements OnInit {
       type: 'Null'
     },
     {
-      type: '3 Months'
+      type: '3 Months',
+      arType: '3 اشهر'
     },
     {
-      type: '6 Months'
+      type: '6 Months',
+      arType: '6 اشهر'
     },
     {
-      type: '9 Months'
+      type: '9 Months',
+      arType: '9 اشهر'
     },
     {
-      type: '12 Months'
+      type: '12 Months',
+      arType: '12 اشهر'
     }
   ];
   userLang: any;
+  arRequestType: any;
+  arInstallmentPeriod: any;
+  arRequestDate: any;
 
 
   constructor(private modalService: NgbModal,
@@ -113,11 +120,12 @@ export class FunderRequestsDetailsComponent implements OnInit {
 
     this.spinner.show();
     this.customerRequestService.getRequestDataById(this.requestID).subscribe(res => {
+      this.spinner.hide();
       this.productList = res.result.customerRequestProducts.slice();
       console.log('REQUEST DETAILS: ', res.result);
       this.requestDetails = res.result;
       this.requestDate = moment(res.result.createdAt).format('LL');
-      // this.monthlyInstallment = res.result.monthlyPaybackAmount;
+      this.arRequestDate =  moment(res.result.createdAt).locale('ar-sa').format('LL');
       this.requestName = res.result.name;
       this.totalPrice = res.result.totalFundAmount;
       this.totalPriceWithProfit = res.result.totalPaybackAmount;
@@ -125,12 +133,13 @@ export class FunderRequestsDetailsComponent implements OnInit {
       this.totalProfit = Math.round((this.totalProfit * 80) / 100);
       this.installmentPeriod_ENUM = res.result.paybackPeriod;
       this.installmentPeriod = this.installmentMonths[res.result.paybackPeriod].type;
+      this.arInstallmentPeriod = this.installmentMonths[res.result.paybackPeriod].arType;
       this.monthlyInstallment = Math.round((this.totalProfit + this.totalPrice) / (res.result.paybackPeriod * 3));
       this.requestType_ENUM = res.result.type;
       if (this.requestType_ENUM == 1) {
         this.requestType = 'Awaiting For Fund Requests';
+        this.arRequestType = 'الطلبات بإنتظار تمويل';
       }
-      this.spinner.hide();
     }, err => {
       this.spinner.hide();
       console.log(err);
@@ -145,11 +154,11 @@ export class FunderRequestsDetailsComponent implements OnInit {
     this.funderRequestService.addFunderRequest({
       'CustomerRequestId': this.requestID
     }).subscribe(res => {
+      this.spinner.hide();
       this.modalService.dismissAll();
       localStorage.setItem('selectedFunderRequestType', 'All Requests');
       this.profileService.showSuccessToastr(res);
       this.router.navigateByUrl('/requests-funder');
-      this.spinner.hide();
       console.log(res);
     }, err => {
       this.spinner.hide();
@@ -159,8 +168,5 @@ export class FunderRequestsDetailsComponent implements OnInit {
     });
   }
 
-  toggleNavbar() {
-    window.document.querySelector('.left-sidebar').classList.toggle('showmobile');
-  }
 
 }

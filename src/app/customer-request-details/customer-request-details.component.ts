@@ -75,22 +75,29 @@ export class CustomerRequestDetailsComponent implements OnInit {
       type: 'All Requests'
     },
     {
-      type: 'Awaiting For Fund Requests'
+      type: 'Awaiting For Fund Requests',
+      arType: 'الطلبات بإنتظار تمويل'
     },
     {
-      type: 'Closed Requests'
+      type: 'Closed Requests',
+      arType: 'الطلبات المغلقة'
     },
     {
-      type: 'Rejected Requests'
+      type: 'Rejected Requests',
+      arType: 'الطلبات المرفوضة'
     },
     {
-      type: 'Ongoing Requests'
+      type: 'Ongoing Requests',
+      arType: 'الطلبات الجارية'
     },
     {
-      type: 'Draft Requests'
+      type: 'Draft Requests',
+      arType: 'الطلبات المسودة'
+
     },
     {
-      type: 'Under Review Requests'
+      type: 'Under Review Requests',
+      arType: 'الطلبات تحت المراجعة'
     }
   ];
   installmentTypes: any[] = [
@@ -98,16 +105,20 @@ export class CustomerRequestDetailsComponent implements OnInit {
       type: 'Null'
     },
     {
-      type: '3 Months'
+      type: '3 Months',
+      arType: '3 اشهر'
     },
     {
-      type: '6 Months'
+      type: '6 Months',
+      arType: '6 اشهر'
     },
     {
-      type: '9 Months'
+      type: '9 Months',
+      arType: '9 اشهر'
     },
     {
-      type: '12 Months'
+      type: '12 Months',
+      arType: '12 اشهر'
     }
   ];
   ProductStatus: any[] = [
@@ -146,6 +157,10 @@ export class CustomerRequestDetailsComponent implements OnInit {
   isdeliveryFees: boolean;
   isdelivered = false;
   userLang: any;
+  arProductStatus: any;
+  arRequestType: any;
+  arInstallmentPeriod: any;
+  arRequestDate: any;
 
   constructor(private modalService: NgbModal,
     private _formBuilder: FormBuilder,
@@ -183,14 +198,17 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.isdeliveryFees = res.result.isDelieveryFees;
         this.deliveryFees = res.result.delieveryFees;
         this.requestDate = moment(res.result.createdAt).format('LL');
+        this.arRequestDate =  moment(res.result.createdAt).locale('ar-sa').format('LL');
         this.monthlyInstallment = res.result.monthlyPaybackAmount;
         this.requestName = res.result.name;
         this.totalPrice = res.result.totalFundAmount;
         this.totalPriceWithProfit = res.result.totalPaybackAmount;
         this.installmentPeriod_ENUM = res.result.paybackPeriod;
         this.installmentPeriod = this.installmentTypes[res.result.paybackPeriod].type;
+        this.arInstallmentPeriod = this.installmentTypes[res.result.paybackPeriod].arType;
         this.requestType_ENUM = res.result.type;
         this.requestType = this.requestTypes[res.result.type].type;
+        this.arRequestType = this.requestTypes[res.result.type].arType;
         if (res.result.type == 4 || res.result.type == 2) {
           this.showRequestDetailsTable = true;
         }
@@ -205,6 +223,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
           this.showCancelButton = true;
         }
         this.productStatus = this.ProductStatus[res.result.productStatus].type;
+        this.arProductStatus = this.ProductStatus[res.result.productStatus].arType;
         this.spinner.hide();
         localStorage.setItem('customerRequestType', this.requestType);
 

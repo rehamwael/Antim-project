@@ -67,6 +67,28 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   requestTypeInStore: any;
   showRequestDetailsTable: boolean;
 
+  installmentTypes: any[] = [
+    {
+      type: 'Null'
+    },
+    {
+      type: '3 Months',
+      arType: '3 اشهر'
+    },
+    {
+      type: '6 Months',
+      arType: '6 اشهر'
+    },
+    {
+      type: '9 Months',
+      arType: '9 اشهر'
+    },
+    {
+      type: '12 Months',
+      arType: '12 اشهر'
+    }
+  ];
+
   requestTypes: any[] = [
     {
       type: 'All Requests'
@@ -112,6 +134,10 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   monthlyInstallmentsData: any;
   showTable = false;
   userLang: any;
+  arProductStatus: any;
+  arRequestType: any;
+  arInstallmentPeriod: any;
+  arRequestDate: any;
 
   constructor(
     private modalService: NgbModal,
@@ -285,6 +311,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         this.requestDetails = res.result;
         this.productList = res.result.customerRequestProducts.slice();
         this.requestDate = moment(res.result.startingDate).format('LL');
+        this.arRequestDate =  moment(res.result.startingDate).locale('ar-sa').format('LL');
         // this.monthlyInstallment = res.result.monthlyInstallmentAmount;
         this.requestName = res.result.requestName;
         this.totalPrice = res.result.fundedAmount;
@@ -292,25 +319,17 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         this.totalProfit = this.totalPriceWithProfit - this.totalPrice;
         this.totalProfit = Math.round((this.totalProfit * 80) / 100);
         this.monthlyInstallment = Math.round((this.totalPrice + this.totalProfit) / (res.result.paybackPeriod * 3));
-        this.installmentPeriod_ENUM = res.result.paybackPeriod;
-        if (this.installmentPeriod_ENUM === 1) {
-          this.installmentPeriod = '3-Months';
-        }
-        if (this.installmentPeriod_ENUM === 2) {
-          this.installmentPeriod = '6-Months';
-        }
-        if (this.installmentPeriod_ENUM === 3) {
-          this.installmentPeriod = '9-Months';
-        }
-        if (this.installmentPeriod_ENUM === 4) {
-          this.installmentPeriod = '12-Months';
-        }
+        this.installmentPeriod = this.installmentTypes[res.result.paybackPeriod].type;
+        this.arInstallmentPeriod = this.installmentTypes[res.result.paybackPeriod].arType;
+
         this.RequestType_ENUM = res.result.requestType;
         this.RequestType = this.requestTypes[res.result.requestType].type;
+        this.arRequestType = this.requestTypes[res.result.requestType].arType;
         if (this.RequestType_ENUM == 2) {
           this.showRequestDetailsTable = true;
         }
         this.productStatus = this.ProductStatus[res.result.productStatus].type;
+        this.arProductStatus = this.ProductStatus[res.result.productStatus].arType;
         this.customerRequestId = res.result.customerRequestId;
         if (res.result.productStatus == 3) {
           this.showRequestDetailsTable = true;

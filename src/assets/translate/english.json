@@ -402,7 +402,11 @@
         "EditProduct" : "Edit Product",
         "RequestUpdated" : "Request Updated",
         "RequestUpdatedAsDraft" : "Your request has been Updated as Draft.",
-        "EditRequest" : "Edit Request"
+        "EditRequest" : "Edit Request",
+        "MakeFund" : "Make Fund",
+        "DoYouWant" : "Do you  want to Make Fund of",
+        "thisRequestName" : "SAR for this Request Name :"
+
     },
     "CreateOrder" : {
         "CreateOrderDesc" : "Well, it is very easy to make a request, just follow the below step and we will take care of it!",

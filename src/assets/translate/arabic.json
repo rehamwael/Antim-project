@@ -403,7 +403,10 @@
         "EditProduct" : "تحرير المنتج",
         "RequestUpdated" : "تم تحديث الطلب",
         "RequestUpdatedAsDraft" : "تم تحديث طلبك كمسودة.",
-        "EditRequest" : "تحرير الطلب"
+        "EditRequest" : "تحرير الطلب",
+        "MakeFund" : "ادفع المبلغ",
+        "DoYouWant" : "هل تريد أن تدفع مبلغ",
+        "thisRequestName" : "ريال لهذا الطلب الاسم:"
     },
     "CreateOrder" : {
         "CreateOrderDesc" : "حسنًا ، من السهل جدًا تقديم طلب ، ما عليك سوى اتباع الخطوة الموضحة أدناه وسنتولى هذا الأمر!",

@@ -87,7 +87,7 @@
                     <div class="row" style="width: 100%;">
                         <div class="col-lg-4">
                           <label for="RequestDate" class="font-bold mt-2">{{ 'Requests.RequestDate' | translate }}</label>
-                          <input formControlName="RequestDate" class="form-control form-control-lg" value="{{requestDate}}" placeholder="{{ 'Requests.RequestDate' | translate }}" readonly [attr.disabled]="true">
+                          <input formControlName="RequestDate" class="form-control form-control-lg" value="{{ userLang == 'arabic' ? arRequestDate : requestDate }}" placeholder="{{ 'Requests.RequestDate' | translate }}" readonly [attr.disabled]="true">
                       </div>
                       <div class="col-lg-4">
                           <label for="Amount" class="font-bold mt-2">{{ 'Requests.TotalPrice' | translate }}</label>
@@ -102,7 +102,7 @@
                    <div class="row" style="width: 100%;">
                    <div class="col-lg-4" >
                       <label for="Installment" class="font-bold mt-2">{{ 'Requests.InstallmentPeriod' | translate }}</label>
-                      <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{installmentPeriod}}" placeholder="{{ 'Requests.InstallmentPeriod' | translate }}" readonly [attr.disabled]="true">
+                      <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{ userLang == 'arabic' ? arInstallmentPeriod : installmentPeriod }}" placeholder="{{ 'Requests.InstallmentPeriod' | translate }}" readonly [attr.disabled]="true">
                   </div>
 
                       <div class="col-lg-4">
@@ -117,12 +117,12 @@
                   <div class="row" style="width: 100%;">
                       <div class="col-lg-6">
                         <label for="RequestStatus" class="font-bold mt-2">{{ 'Requests.RequestStatus' | translate }}</label>
-                        <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{requestType}}" readonly [attr.disabled]="true">
+                        <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{userLang == 'arabic' ? arRequestType : requestType }}" readonly [attr.disabled]="true">
                       </div>
 
                       <div class="col-lg-6" *ngIf="requestType == 'Ongoing Requests'">
                         <label  class="font-bold mt-2">{{ 'Requests.ProductStatus' | translate }}</label>
-                        <input  class="form-control form-control-lg " value="{{productStatus}}" readonly [attr.disabled]="true" >
+                        <input  class="form-control form-control-lg " value="{{userLang == 'arabic' ? arProductStatus : productStatus  }}" readonly [attr.disabled]="true" >
                       </div>
                       </div>
 

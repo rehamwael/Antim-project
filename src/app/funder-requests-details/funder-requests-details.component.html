@@ -43,16 +43,16 @@
                         <div class="col-lg-8 ">
                           </div>
                           <div class="form-group col-lg-4" >
-                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  (click)="OpenPopUp(content)">Make Fund</button>
+                            <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  (click)="OpenPopUp(content)">{{ 'Requests.MakeFund' | translate }}</button>
                         </div>
                         </div>
                     <div class="row" style="width: 100%;">
                       <div class="col-lg-8">
-                          <label for="Name" class="font-bold mt-2">Request Name: </label>
-                          <input formControlName="ProductName" class="form-control form-control-lg" value="{{requestName}}"  placeholder="Product Name"  [attr.disabled]="true">
+                          <label for="Name" class="font-bold mt-2">{{ 'Requests.RequestName' | translate }} </label>
+                          <input formControlName="ProductName" class="form-control form-control-lg" value="{{requestName}}"  [attr.disabled]="true">
                       </div>
                       <div class="col-lg-4">
-                        <label  class="font-bold mt-2">Request Number: </label>
+                        <label  class="font-bold mt-2">{{ 'Requests.RequestNumber' | translate }} </label>
                         <input  class="form-control form-control-lg" value="{{requestDetails?.requestNumber}}" readonly   [attr.disabled]="true">
                     </div>
                     </div>
@@ -60,45 +60,45 @@
 
                     <div class="row" style="width: 100%;" *ngFor="let product of productList; let i = index;" >
                         <div class="form-group text-left col-lg-9"   >
-                            <label  class="font-bold mt-2">Product Link</label>
-                            <input  class="form-control form-control-lg" placeholder="Enter product link here …" type="text" readonly value="{{product.productUrl}}">
+                            <label  class="font-bold mt-2">{{ 'Requests.ProductLink' | translate }}</label>
+                            <input  class="form-control form-control-lg"  type="text" readonly value="{{product.productUrl}}">
                         </div>
                         <div class="form-group text-left col-lg-3"   >
-                            <label  class="font-bold mt-2">Product Price:</label>
-                            <input  class="form-control form-control-lg" placeholder="Enter price here..."  type="number" readonly value="{{product.amount}}">
+                            <label  class="font-bold mt-2">{{ 'Requests.ProductPrice' | translate }}</label>
+                            <input  class="form-control form-control-lg"   type="number" readonly value="{{product.amount}}">
                           </div>
                       </div>
 
                     <div class="row" style="width: 100%;">
                         <div class="col-lg-4">
-                          <label for="RequestDate" class="font-bold mt-2">Request Date</label>
-                          <input formControlName="RequestDate" class="form-control form-control-lg" value="{{requestDate}}" placeholder="Request Date" readonly [attr.disabled]="true">
+                          <label for="RequestDate" class="font-bold mt-2">{{ 'Requests.RequestDate' | translate }}</label>
+                          <input formControlName="RequestDate" class="form-control form-control-lg" value="{{ userLang == 'arabic' ? arRequestDate : requestDate }}"  readonly [attr.disabled]="true">
                       </div>
                       <div class="col-lg-4">
-                          <label for="Amount" class="font-bold mt-2">Total price</label>
-                          <input formControlName="FundingAmount" class="form-control form-control-lg" value="{{totalPrice}}" type="number" placeholder="Amount of funding"  [attr.disabled]="true" readonly>
+                          <label for="Amount" class="font-bold mt-2">{{ 'Requests.TotalPrice' | translate }}</label>
+                          <input formControlName="FundingAmount" class="form-control form-control-lg" value="{{totalPrice}}" type="number"   [attr.disabled]="true" readonly>
                       </div>
                       <div class="col-lg-4">
-                        <label for="totalAmount" class="font-bold mt-2">Total Funder Profit</label>
+                        <label for="totalAmount" class="font-bold mt-2">{{ 'Requests.TotalFunderProfit' | translate }}</label>
                         <input formControlName="TotalAmount" class="form-control form-control-lg" value="{{totalProfit}}" type="number"  [attr.disabled]="true" readonly>
                     </div>
                   </div>
 
                    <div class="row" style="width: 100%;">
                    <div class="col-lg-4" >
-                      <label for="Installment" class="font-bold mt-2">Installment Period</label>
-                      <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{installmentPeriod}}" placeholder="Installment Period" [attr.disabled]="true">
+                      <label for="Installment" class="font-bold mt-2">{{ 'Requests.InstallmentPeriod' | translate }}</label>
+                      <input formControlName="installmentPeriod" class="form-control form-control-lg" value="{{ userLang == 'arabic' ? arInstallmentPeriod : installmentPeriod }}" placeholder="Installment Period" [attr.disabled]="true">
                   </div>
 
                       <div class="col-lg-4">
-                          <label for="InstallmentAmount" class="font-bold mt-2">Monthly Installment</label>
+                          <label for="InstallmentAmount" class="font-bold mt-2">{{ 'Requests.MonthlyInstallment' | translate }}</label>
                           <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}"   readonly placeholder="Installment amount per month" [attr.disabled]="true">
                       </div>
                   </div>
                   <div class="row" style="width: 100%;">
                       <div class="col-lg-6">
-                        <label for="RequestStatus" class="font-bold mt-2">Request Status</label>
-                        <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{requestType}}" readonly [attr.disabled]="true">
+                        <label for="RequestStatus" class="font-bold mt-2">{{ 'Requests.RequestStatus' | translate }}</label>
+                        <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{userLang == 'arabic' ? arRequestType : requestType }}"  readonly [attr.disabled]="true">
                       </div>
 
 
@@ -118,19 +118,19 @@
             <ng-template #content let-modal>
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Make Fund</h4>
+                    <h4 class="modal-title">{{ 'Requests.MakeFund' | translate }}</h4>
                     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body py-3">
                     <p class="my-3 mx-3">
-                          Do you  want to Make Fund of {{totalPrice}} SAR for this Request Name : {{requestName}}?
+                      {{ 'Requests.DoYouWant' | translate }} {{totalPrice}} {{ 'Requests.thisRequestName' | translate }} {{requestName}}?
                     </p>
                     <div class="row py-2" style="width: 100%;">
                         <div class="col-lg-6"></div>
-                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="makeFund()">CONFIRM</button></div>
-                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">CLOSE</button></div>
+                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="makeFund()">{{ 'Setting.CONFIRM' | translate }}</button></div>
+                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Setting.CLOSE' | translate }}</button></div>
                   </div>
                   </div>
                 </ng-template>
