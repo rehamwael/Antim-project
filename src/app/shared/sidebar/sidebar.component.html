@@ -10,7 +10,7 @@
             <div class="col-lg-8 ml-1">
             <p class="white-text mt-1" *ngIf="currentUser">
                 {{currentUser?.firstName}}  {{ 'Dashbored.Hi' | translate }}<br/>
-                <span>   {{role}}</span>
+                <span> {{ userLang == 'arabic' ? arRole : role }}</span>
             </p>
         </div>
         <i class="material-icons">

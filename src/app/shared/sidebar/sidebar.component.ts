@@ -32,6 +32,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public dashboredUrl = '';
   public profileUrl = '';
   public notificationUrl = '';
+  arRole: any;
 
   // this is for the open close
   addExpandClass(element: any) {
@@ -50,6 +51,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private titleService: Title
   ) {
     this.getState = this.store.select(selectAuthenticationState);
+    this.userLang = this.translate.currentLang;
     this.translate.onLangChange.subscribe((event) => {
       this.userLang = event.lang;
     });
@@ -72,8 +74,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
       if (this.currentUser) {
         if (this.currentUser.roles[0] == 'customer') {
           this.role = 'Borrower';
+          this.arRole = 'مقترض';
         } else if (this.currentUser.roles[0] == 'funder') {
           this.role = 'Lender';
+          this.arRole = 'المقرض';
         } else {
           this.role = '';
         }
