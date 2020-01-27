@@ -494,7 +494,7 @@ textarea {resize: none}
 svg.arrow {
     position: absolute;
     display: block;
-    top: 5.0em;
+    top: 3.5em;
     right: 2em;
 }
 .custom-select{
@@ -594,8 +594,8 @@ select.form-control.form-control-lg{
 }
 .headingh2{
     text-transform: uppercase;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 19px;
+    font-weight: 600;
     letter-spacing: 0.07em;
 }
 .antim-form{
@@ -2448,14 +2448,10 @@ ul.inline{
   color: rgb(124, 117, 117)
 }
 
-// @media (max-width: 692px){
+@media (max-width: 692px){
 
-//   #fc_frame.h-open-container {
-//     bottom: 0!important;
-//     height: 100%!important;
-//     max-height: 60vh!important;
-//     overflow: hidden;
-//     right: 0!important;
-//     width: 100%!important;
-//       }
-// }
+  // .mobile-header {
+  //   top: 400px !important;
+  //   height: 40vh !important;
+  // }
+}

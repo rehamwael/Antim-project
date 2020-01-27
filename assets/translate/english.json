@@ -163,8 +163,8 @@
         "customersService" : "customers service",
         "OurLocation" : "Our Location",
         "MarketingSales" : "Marketing & Sales",
-        "OutsideSA" : "From outside the Kingdom of Saudia Arabia",
-        "InsideSA" : "From within Kingdom of Saudia Arabia"
+        "OutsideSA" : "From outside the Kingdom",
+        "InsideSA" : "From within the Kingdom "
     },
     "login" : {
         "loginDesc1" : "Hello sir, nice to see you again!",
