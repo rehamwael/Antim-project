@@ -112,6 +112,10 @@ export class LenderInfoComponent implements OnInit, OnDestroy {
     }
   };
   getState: Observable<any>;
+  image = 'assets/images/tab1.png';
+  status1 = true;
+  status2 = false;
+  status3 = false;
 
   constructor(
     public translate: TranslateService,
@@ -144,5 +148,24 @@ export class LenderInfoComponent implements OnInit, OnDestroy {
     body.classList.remove('who-we-are');
 
   }
+  changeImage(Image: any) {
+    this.image = Image;
+    if (Image == 'assets/images/tab1.png') {
+      this.status1 = true;
+      this.status2 = false;
+      this.status3 = false;
+    }
+    if (Image == 'assets/images/tab2.png') {
+      this.status1 = false;
+      this.status2 = true;
+      this.status3 = false;
+    }
+    if (Image == 'assets/images/asad.png') {
+      this.status1 = false;
+      this.status2 = false;
+      this.status3 = true;
+    }
+  }
+
 
 }

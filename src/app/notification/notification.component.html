@@ -77,7 +77,7 @@
                             <h5 class="font-purple font-bold no-letter-spacing m-0">{{ userLang == 'arabic' ? notification.arNotificationTitle : notification.enNotificationTitle }}</h5>
                             <div class="grey-text-color mb-2 mt-1">{{ userLang == 'arabic' ? notification.arDate : notification.date }} </div>
                         </div>
-                            <p class="dark-text-color col-lg-12" >{{ userLang == 'arabic' ? notification.arNotificationDescription : notification.enNotificationDescription }} {{notification.enNotificationDescription}}</p>
+                            <p class="dark-text-color margin-notificaiton col-lg-12">{{ userLang == 'arabic' ? notification.arNotificationDescription : notification.enNotificationDescription }} </p>
 
                         <div class="col-lg-12  row d-flex flex-row-reverse" *ngIf="notification.status == 2">
                               <div class="form-group col-lg-3">
