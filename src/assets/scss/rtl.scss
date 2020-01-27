@@ -355,13 +355,20 @@
       width: 110px;
   }
   #fc_frame{
-    position: relative !important;
-    float: left !important;
-    margin-left: 25px !important;
+    position: fixed !important;
+    right: 93vw !important;
   }
   .hide-menu {
     margin-left: 3em !important;
   }
+  @media (max-width: 692px){
+    #fc_frame{
+      position: fixed !important;
+      right: 80vw !important;
+    }
+
+  }
+
 
 }
 .logo-img{
@@ -382,7 +389,4 @@ body .btn-Red , body .btn-Red:hover{
 button:active , button:focus{
     outline:none !important;
  }
- #fc_frame{
-  position: relative !important;
-  float: right !important;
-}
+
