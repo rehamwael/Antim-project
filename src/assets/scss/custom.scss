@@ -361,12 +361,12 @@ input[type=number] {
     display: block;
     width: 20px;
     height: 20px;
-    border:1px solid #a8a6a6;
+    border: 1px solid #222222;
     position: absolute;
     left: 0;
     right: -40px;
     top: 0;
-    opacity: .6;
+    opacity: .8;
     -webkit-transition: all .12s, border-color .08s;
     transition: all .12s, border-color .08s;
     border-radius: 5px;
@@ -1264,7 +1264,7 @@ nav#navbar-app {
     div.page-wraper-right {
         margin-left: 0;
         padding-right: 17px;
-        padding-left: 40px;
+        padding-left: 30px;
         margin-top: 20px;
         width: 100%;
     }

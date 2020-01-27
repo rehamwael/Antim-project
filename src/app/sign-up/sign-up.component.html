@@ -111,16 +111,30 @@
 
                                 </div>
 
-                                 <div class="row mb-4 justify-content-center align-items-center">
-                                  <div class="col-lg-8 col-11 text-center">
-                                      <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
-                                      <label for="box-1">{{ 'SignUp.IAgreeOnMy' | translate }} <a [routerLink]="['/terms-conditions']" target="blank">{{ 'SignUp.TermsCondtions' | translate }}</a></label>
+                                 <!-- <div class="row mb-4 justify-content-center align-items-center"> -->
+                                  <div class="row my-1  w-100">
+                                    <!-- <div class="col-1"></div> -->
+                                    <div class="col-12 items-center">
+                                      <!-- <input type="checkbox" id="box-1" (change)="changeCheck1($event)">
+                                      <label style="color: black !important;" for="box-1">{{ 'SignUp.IAgreeOnMy' | translate }} <u> <a style="color: rgb(0, 140, 255) !important;" [routerLink]="['/terms-conditions']" target="blank"> {{ 'SignUp.TermsCondtions' | translate }}</a></u></label> -->
+                                      <label class="container pt-2" style="color: black !important;">{{ 'SignUp.IAgreeOnMy' | translate }} <u><a style="color:  rgb(0, 140, 255) !important;" [routerLink]="['/terms-conditions']" target="blank"> {{ 'SignUp.TermsCondtions' | translate }}</a></u>
+                                        <input type="checkbox" (change)="changeCheck1($event)">
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </div>
+                                    </div>
+                                  <div class="row my-1 mb-3 w-100 ">
+                                    <!-- <div class="col-1"></div> -->
+                                    <div class="col-12 items-center">
+                                    <label class="container pt-2" style="color: black !important;">{{ 'SignUp.IAgreeOnAntim' | translate }} <u><a style="color:  rgb(0, 140, 255) !important;" [routerLink]="['/terms-conditions']" target="blank"> {{ 'SignUp.TermsCondtions' | translate }}</a></u>
+                                      <input type="checkbox" (change)="changeCheck2($event)">
+                                      <span class="checkmark"></span>
+                                    </label>
+                                    </div>
+                                      <!-- <input type="checkbox" id="box-2"  (change)="changeCheck2($event)">
+                                      <label style="color: black !important;" for="box-2">{{ 'SignUp.IAgreeOnAntim' | translate }} <u> <a style="color:  rgb(0, 140, 255) !important;" [routerLink]="['/terms-conditions']" target="blank"> {{ 'SignUp.TermsCondtions' | translate }}</a></u></label> -->
                                   </div>
-                                  <div class="col-lg-8 col-11 mt-4 text-center">
-                                      <input type="checkbox" id="box-2"  (change)="changeCheck2($event)">
-                                      <label for="box-2">{{ 'SignUp.IAgreeOnMy' | translate }} <a [routerLink]="['/terms-conditions']" target="blank">{{ 'SignUp.TermsCondtions' | translate }}</a></label>
-                                  </div>
-                                 </div>
+                                 <!-- </div> -->
                                  <div class="col-lg-12 mt-2 row justify-content-center align-items-center pb-4">
                                  <div class="form-group col-lg-1"></div>
                                     <div class="form-group col-lg-4">

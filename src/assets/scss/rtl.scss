@@ -346,8 +346,11 @@
       direction: rtl !important;
     }
     #paginator{
-        display: flex !important;
-        justify-content: flex-start !important;
+        // display: flex !important;
+        // justify-content: flex-start !important;
+        flex-direction: row-reverse !important;
+        direction: rtl !important;
+        margin-left: 35px !important;
     }
     #button{
       direction: rtl !important;

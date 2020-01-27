@@ -22,7 +22,7 @@ let AllFunderRequests: any[] = [];
 @Component({
   selector: 'app-request-lender',
   templateUrl: './request-lender.component.html',
-  styleUrls: ['./request-lender.component.css'],
+  styleUrls: ['./request-lender.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 

@@ -254,9 +254,9 @@
         "SAR" : "SAR",
         "YourAntimBalance" : "Your Antim Balance : ",
         "FundedUsers" : "Funded Users",
-        "TotalAmountofFund" : "Total Amount of Fund",
-        "TotalreservedInstallments" : "Total reserved Installments",
-        "Totalprofits" : "Total profits (SAR)",
+        "TotalAmountofFund" : "Total Amount of Fund (SAR)",
+        "TotalreservedInstallments" : "Total reserved Installments(SAR)",
+        "Totalprofits" : "Total Profits (SAR)",
         "InternalServerError" : "SORRY!! Dashboard Not Loaded Due to 500 Internal Server Error :(",
         "MyRequest" : "My Requests",
         "LogOut" : "Log out",
@@ -395,10 +395,9 @@
         "Noo" : "No",
         "Yes" : "Yes",
         "DeleteRequest" : "Delete Request",
-        "DeleteRequestSure" : "Do you really Want To Delete this Request Name : ",
+        "DeleteRequestSure" : "Do you really Want To Delete this Request?",
         "CancelRequest" : "Cancel Request",
-        "CancelRequestSure1" : "Do you really Want To Cancel this Request Name :",
-        "CancelRequestSure2" : "If you cancel this Request, it would be permanently deleted.",
+        "CancelRequestSure" : "Do you really Want To Cancel this Request? If you cancel this Request, it would be permanently deleted.",
         "EditRequestAsk" : "Well, it is very easy to edit your request, just follow the below steps!",
         "EditProduct" : "Edit Product",
         "RequestUpdated" : "Request Updated",
@@ -406,7 +405,7 @@
         "EditRequest" : "Edit Request",
         "MakeFund" : "Make Fund",
         "DoYouWant" : "Do you  want to Make Fund of",
-        "thisRequestName" : "SAR for this Request Name :"
+        "thisRequestName" : "SAR for this Request ?"
 
     },
     "CreateOrder" : {

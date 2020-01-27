@@ -47,7 +47,7 @@
                         <div class="col-lg-8 ">
                           </div>
                         <div class="form-group col-lg-4" *ngIf="showCancelButton">
-                            <button class="btn btn-info btn-lg btn-block btn-Red mt-2"  (click)="OpenCancelRequestPopup(contentCancel)">Cancel Request</button>
+                            <button class="btn btn-info btn-lg btn-block btn-Red mt-2"  (click)="OpenCancelRequestPopup(contentCancel)">{{ 'Requests.CancelRequest' | translate }}</button>
                         </div>
                         <div class="col-lg-4" *ngIf="deleteButton">
                             <button class="btn btn-danger btn-lg btn-block btn-red  mb-3 cursor-pointer col-lg-12" (click)="openDeletePopup(contentDel)">
@@ -214,7 +214,6 @@
                 <div class="modal-body py-4">
                   <p class="my-3 mx-3" style="text-align: center; font-size: 15px;">
                       {{ 'Requests.DeleteRequestSure' | translate }}
-                       {{requestName}}?
                   </p>
                   <div class="row py-1" style="width: 100%;">
                   <div class="col-lg-6"></div>
@@ -232,10 +231,7 @@
                     </div>
                     <div class="modal-body py-4">
                         <p class="my-3 mx-3" style="text-align: center; font-size: 15px;">
-                            {{ 'Requests.CancelRequestSure1' | translate }}
-                             {{requestName}}?
-                             {{ 'Requests.CancelRequestSure2' | translate }}
-
+                            {{ 'Requests.CancelRequestSure' | translate }}
                     </p>
                     <div class="row py-2" style="width: 100%;">
                         <div class="col-lg-6"></div>
