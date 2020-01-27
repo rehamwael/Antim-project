@@ -25,7 +25,7 @@
                     <!-- <span *ngIf="userLang == 'english'" class="icon-close col-lg-1" [routerLink]="['/requests-customer']"><i class="material-icons">
                       <svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span> -->
-                      <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" style="text-align: left;" *ngIf="userLang == 'english'">
+                      <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" style="text-align: center;" *ngIf="userLang == 'english'">
                         <i  [routerLink]="['/requests-customer']" class="fa fa-chevron-left pt-3 cursor-pointer " aria-hidden="true"></i>
                       </div>
                       <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" style="text-align: center;" *ngIf="userLang == 'arabic'">
@@ -315,7 +315,7 @@
                                       </div>
                                  </div>
                             </form>
-                            <div class="alert mt-3 alert-warning row" id="move-icon" role="alert">
+                            <div class="alert mt-3 alert-warning " id="move-icon" role="alert">
                               <p class= "mb-0">
                                 <i class="mx-1 fa fa-exclamation-circle"></i>
                                  <b> {{ 'CreateOrder.Note' | translate }} : </b>{{ 'CreateOrder.CreateOrderNote' | translate }}
@@ -452,7 +452,7 @@
                                                   <label for="radio-2" class="col-5 pl-0 pr-3 w-100">{{ 'CreateOrder.PickUptheProducts' | translate }}
                                                   </label>
                                               </div>
-                                                                                            <div class="alert mt-5 mb-2 alert-warning" role="alert" *ngIf="showAlert">
+                                              <div class="alert mt-5 mb-2 alert-warning" role="alert" *ngIf="showAlert">
                                                 <p class="mb-0 grey-text-color">
                                                 <i class="fa fa-exclamation-circle"></i>
                                                 {{ 'CreateOrder.SelectingadditionalDelivery' | translate }}{{deliveryFee}}{{ 'Dashbored.SAR' | translate }}

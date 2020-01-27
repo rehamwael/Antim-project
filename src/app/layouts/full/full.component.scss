@@ -4,3 +4,10 @@
   font-size: 14px !important;
   font-weight: bold !important;
 }
+
+@media (max-width: 692px){
+  .margin-header {
+    // margin-right: 30px !important;
+    margin-left: 30px !important;
+  }
+}

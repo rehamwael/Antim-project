@@ -112,16 +112,20 @@ export class CustomerRequestDetailsComponent implements OnInit {
   ];
   ProductStatus: any[] = [
     {
-      type: 'Pending (Products Not Purchased Yet).'
+      type: 'Pending (Products Not Purchased Yet)',
+      arType: 'في انتظار (منتجات لم يتم شراؤها بعد)'
     },
     {
-      type: 'Products Purchased.'
+      type: 'Products Purchased',
+      arType: 'المنتجات المشتراة'
     },
     {
-      type: 'Products Delivered to Customer.'
+      type: 'Products Delivered to Customer',
+      arType: 'المنتجات تسليمها إلى العملاء'
     },
     {
-      type: 'Products Recieved by Customer.'
+      type: 'Products Recieved by Customer',
+      arType: 'المنتجات المستلمة من قبل العملاء'
     }
   ];
   amountStatus: any[] = [

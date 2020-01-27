@@ -72,25 +72,31 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       type: 'All Requests'
     },
     {
-      type: 'Ongoing Requests'
+      type: 'Ongoing Requests',
+      arType: 'الطلبات الجارية'
     },
     {
-      type: 'Closed Requests'
+      type: 'Closed Requests',
+      arType: 'الطلبات المغلقة'
     }
   ];
 
   ProductStatus: any[] = [
     {
-      type: 'Pending (Products Not Purchased Yet).'
+      type: 'Pending (Products Not Purchased Yet)',
+      arType: 'في انتظار (منتجات لم يتم شراؤها بعد)'
     },
     {
-      type: 'Products Purchased.'
+      type: 'Products Purchased',
+      arType: 'المنتجات المشتراة'
     },
     {
-      type: 'Products Delivered to Customer.'
+      type: 'Products Delivered to Customer',
+      arType: 'المنتجات تسليمها إلى العملاء'
     },
     {
-      type: 'Products Recieved by Customer.'
+      type: 'Products Recieved by Customer',
+      arType: 'المنتجات المستلمة من قبل العملاء'
     }
   ];
   amountStatus: any[] = [
@@ -128,10 +134,10 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   GetFunderAllRequests() {
     this.spinner.show();
     this.funderRequestService.getFunderAllRequests().subscribe(res => {
+      this.spinner.hide();
       console.log(res);
       if (res.result.otherRequests.length == 0 && res.result.awaitingRequests == null) {
         this.showMessage = true;
-        this.spinner.hide();
         // this.profileService.showErrorToastr(res.message);
       } else {
         AllFunderRequests.length = 0;
@@ -142,23 +148,28 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
             AllFunderRequests.push(element);
             element.name = element.requestName;
             element.date = moment(element.startingDate).format('LL');
+            element.arDate = moment(element.updatedAt).locale('ar-sa').format('LL');
             element.price = element.fundedAmount + ' SAR';
-            element.status = this.requestTypes[element.requestType].type;
+            element.arPrice = element.totalFundAmount + ' ريال سعودي ';
+            element.enStatus = this.requestTypes[element.requestType].type;
+            element.arStatus = this.requestTypes[element.requestType].arType;
           });
         }
         if (this.awaitingRequestsData != null) {
           this.awaitingRequestsData.forEach(element => {
             AllFunderRequests.push(element);
             element.date = moment(element.updatedAt).format('LL');
+            element.arDate = moment(element.updatedAt).locale('ar-sa').format('LL');
             element.price = element.totalFundAmount + ' SAR';
-            element.status = 'Awaiting For Fund Requests';
+            element.arPrice = element.totalFundAmount + ' ريال سعودي ';
+            element.enStatus = 'Awaiting For Fund Requests';
+            element.arStatus = 'الطلبات بإنتظار تمويل';
           });
         }
         this.dataSource = new MatTableDataSource<any>(AllFunderRequests);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.showMessage = false;
-        this.spinner.hide();
         console.log('FunderAllRequests:', AllFunderRequests);
       }
     }, err => {
@@ -182,9 +193,12 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
         this.awaitingRequestsData.forEach(element => {
           AllAwaitingRequests.push(element);
           element.date = moment(element.updatedAt).format('LL');
+          element.arDate = moment(element.updatedAt).locale('ar-sa').format('LL');
           element.price = element.totalFundAmount + ' SAR';
-          element.status = 'Awaiting For Fund Requests';
-        });
+          element.arPrice = element.totalFundAmount + ' ريال سعودي ';
+          element.enStatus = 'Awaiting For Fund Requests';
+          element.arStatus = 'الطلبات بإنتظار تمويل';
+      });
         this.dataSource = new MatTableDataSource<any>(AllAwaitingRequests);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -304,6 +318,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           this.spinner.show();
           // tslint:disable-next-line: no-shadowed-variable
           this.funderRequestService.getRequestInstallmentDetails(this.customerRequestId).subscribe(res => {
+            this.spinner.hide();
             console.log(res);
             this.monthlyInstallmentsData = res.result.customerInstallments;
             InstallmentDetails.length = 0;
@@ -326,7 +341,6 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
             });
             this.InstallmentDetailsTable = new MatTableDataSource<any>(InstallmentDetails);
             console.log('InstallmentDetails:', InstallmentDetails);
-            this.spinner.hide();
           }, err => {
             this.spinner.hide();
             console.log(err);

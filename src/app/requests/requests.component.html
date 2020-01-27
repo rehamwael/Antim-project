@@ -79,17 +79,17 @@
 
                                             <ng-container matColumnDef="date">
                                               <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Requests.RequestDate' | translate }}</th>
-                                              <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                                              <td mat-cell *matCellDef="let element"> {{ userLang == 'arabic' ? element.arDate : element.date }}</td>
                                             </ng-container>
 
                                             <ng-container matColumnDef="price">
                                               <th mat-header-cell *matHeaderCellDef >{{ 'Requests.TotalPrice' | translate }}   </th>
-                                              <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                                              <td mat-cell *matCellDef="let element">  {{ userLang == 'arabic' ? element.arPrice : element.price }} </td>
                                             </ng-container>
 
                                            <ng-container matColumnDef="type">
                                               <th mat-header-cell *matHeaderCellDef > {{ 'Requests.RequestStatus' | translate }}  </th>
-                                              <td mat-cell *matCellDef="let element" class="mat-cell {{element.status}}"> {{element.status}} </td>
+                                              <td mat-cell *matCellDef="let element" class="mat-cell {{element.enStatus}}"> {{ userLang == 'arabic' ? element.arStatus : element.enStatus }} </td>
                                             </ng-container>
 
                                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

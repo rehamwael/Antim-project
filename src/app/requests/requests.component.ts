@@ -11,6 +11,7 @@ import { AppState, customerState } from './../store/app.states';
 import { GetAllCustomerRequests } from './../store/actions/customer.actions';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ProfileService } from '../services/userProfile.service';
+import { TranslateService } from '@ngx-translate/core';
 
 let allCustomerRequestData: any[] = [];
 let filterRequestData: any[] = [];
@@ -51,24 +52,33 @@ export class RequestsComponent implements OnInit, OnDestroy {
       type: 'All Requests'
     },
     {
-      type: 'Awaiting For Fund Requests'
+      type: 'Awaiting For Fund Requests',
+      arType: 'الطلبات بإنتظار تمويل'
     },
     {
-      type: 'Closed Requests'
+      type: 'Closed Requests',
+      arType: 'الطلبات المغلقة'
     },
     {
-      type: 'Rejected Requests'
+      type: 'Rejected Requests',
+      arType: 'الطلبات المرفوضة'
     },
     {
-      type: 'Ongoing Requests'
+      type: 'Ongoing Requests',
+      arType: 'الطلبات الجارية'
     },
     {
-      type: 'Draft Requests'
+      type: 'Draft Requests',
+      arType: 'الطلبات المسودة'
+
     },
     {
-      type: 'Under Review Requests'
+      type: 'Under Review Requests',
+      arType: 'الطلبات تحت المراجعة'
     }
   ];
+  userLang: any;
+
   constructor(
     private modalService: NgbModal,
     public router: Router,
@@ -76,9 +86,15 @@ export class RequestsComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private store: Store<AppState>,
     private profileService: ProfileService,
+    public translate: TranslateService,
   ) {
     this.getState = this.store.select(customerState);
     this.showMessage = false;
+    this.userLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
+
   }
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
@@ -122,8 +138,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
           allCustomerRequestData.push(element);
           // element.date = moment(element.createdAt).format('LL');
           element.date = moment(element.updatedAt).format('LL');
+          element.arDate = moment(element.updatedAt).locale('ar-sa').format('LL');
           element.price = element.totalPaybackAmount + element.delieveryFees + ' SAR';
-          element.status = this.requestTypes[element.type].type;
+          element.arPrice = element.totalPaybackAmount + element.delieveryFees + ' ريال سعودي ';
+          element.enStatus = this.requestTypes[element.type].type;
+          element.arStatus = this.requestTypes[element.type].arType;
         });
         // this.CustomerRequestType = 'All Requests';
         this.dataSourceAll = new MatTableDataSource<any>(allCustomerRequestData);
