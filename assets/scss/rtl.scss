@@ -158,7 +158,7 @@
     }
     .page-wraper-right {
         margin-right: 220px;
-        margin-left: 2em !important;
+        margin-left: 2.5em !important;
 
     }
     @media (max-width: 692px){
@@ -206,6 +206,7 @@
     .dropdown-menu.show {
         top: 14px !important;
         left: -75px !important;
+        margin-left: 30px;
     }
     app-setting {
         width: 100%;
@@ -355,12 +356,33 @@
       width: 110px;
   }
   #fc_frame{
-    position: relative !important;
-    float: left !important;
-    margin-left: 25px !important;
+    position: fixed !important;
+    right: 93vw !important;
+  }
+  #fc_frame.h-open-container {
+    position: fixed !important;
+    right: 70vw !important;
   }
   .hide-menu {
     margin-left: 3em !important;
+  }
+  @media (max-width: 692px){
+    #fc_frame{
+      position: fixed !important;
+      right: 80vw !important;
+    }
+    #fc_frame.h-open-container {
+      position: fixed !important;
+      right: 1vw !important;
+      max-height: 60vh!important;
+    }
+
+  }
+  @media (max-width: 692px){
+    .margin-header {
+      margin-right: 30px !important;
+      // margin-left: 30px !important;
+    }
   }
 
 }
@@ -382,7 +404,4 @@ body .btn-Red , body .btn-Red:hover{
 button:active , button:focus{
     outline:none !important;
  }
- #fc_frame{
-  position: relative !important;
-  float: right !important;
-}
+

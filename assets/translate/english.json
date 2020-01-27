@@ -36,8 +36,6 @@
        "TypeEmail" : "enter your email here ...",
        "Subscribe" : "Subscribe"
 
-
-
     },
     "WHOWEARE" : {
         "whoDescription": "We're working on elevating the Kingdom of Saudi Arabia's digital footprint in the Financial technology services sector, in pursuit of the national vision.",
@@ -180,7 +178,10 @@
         "SignIn" : "Sign In" ,
         "newUser" : "Are you new user ? " ,
         "SignUp" : "Sign Up",
-        "forgetPassword" : "Forget Password ?"
+        "forgetPassword" : "Forget Your Password ?",
+        "PleaseSetPaswrd" : "Please set a New Password ",
+        "InsertEmail" : "Please insert your email address and we’ll send a link to reset your password"
+
     } ,
     "SignUp" : {
         "SignUp" : "Sign Up",
@@ -202,6 +203,7 @@
         "TypeUsername" : "Type Username here...",
         "UsernameRequired" : "Username required",
         "UsernameValidate" : "User Name must be at least 5 characters long.",
+        "ProperUsername" : "The username must contains only the English alphabet, letters and special characters",
         "NationalID" : "National ID No/Iqama" ,
         "NationalIDrequired" : "National ID is required",
         "NationalIDValidate" : "National ID number must be at least 10 characters long.",
@@ -232,7 +234,9 @@
         "approveTheFollow" : "The last thing, Please approve the below",
         "IAgreeOnMy" : "I agree on my",
         "TermsCondtions" : "Terms & Condtions" ,
-        "IAgreeOnAntim" : "I agree on Antim"
+        "IAgreeOnAntim" : "I agree on Antim",
+        "ResetPassword" : "Reset Password",
+        "changePassword" : "Change Password"
 
     },
     "Dashbored" : {
@@ -399,7 +403,11 @@
         "EditProduct" : "Edit Product",
         "RequestUpdated" : "Request Updated",
         "RequestUpdatedAsDraft" : "Your request has been Updated as Draft.",
-        "EditRequest" : "Edit Request"
+        "EditRequest" : "Edit Request",
+        "MakeFund" : "Make Fund",
+        "DoYouWant" : "Do you  want to Make Fund of",
+        "thisRequestName" : "SAR for this Request Name :"
+
     },
     "CreateOrder" : {
         "CreateOrderDesc" : "Well, it is very easy to make a request, just follow the below step and we will take care of it!",
