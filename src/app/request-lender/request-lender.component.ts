@@ -176,7 +176,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
             element.date = moment(element.startingDate).format('LL');
             element.arDate = moment(element.updatedAt).locale('ar-sa').format('LL');
             element.price = element.fundedAmount + ' SAR';
-            element.arPrice = element.totalFundAmount + ' ريال سعودي ';
+            element.arPrice = element.fundedAmount + ' ريال سعودي ';
             element.enStatus = this.requestTypes[element.requestType].type;
             element.arStatus = this.requestTypes[element.requestType].arType;
           });
