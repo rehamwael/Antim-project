@@ -282,7 +282,7 @@ select#langSelctor{
             right: 7px;
         }
         span{
-            color: #39a4e9;
+            color: #39a4e9 !important;
         }
     }
 
@@ -494,7 +494,7 @@ textarea {resize: none}
 svg.arrow {
     position: absolute;
     display: block;
-    top: 3.5em;
+    top: 3.8em;
     right: 2em;
 }
 .custom-select{

@@ -356,8 +356,12 @@
         "IBANNumberValidation" : "يجب أن يبدأ رقم الآيبان بـ 'SA' + 24 رقمًا",
         "MaximunFundingLimit" : "حد التمويل الأقصى (500 ريال - 10،000 ريال سعودي)",
         "FundingLimitRequired" : "حد التمويل مطلوب",
-        "FundingLimitValidation" : "يجب أن يتراوح حد التمويل بين 500 ريال سعودي و 10000 ريال سعودي"
-
+        "FundingLimitValidation" : "يجب أن يتراوح حد التمويل بين 500 ريال سعودي و 10000 ريال سعودي",
+        "DeleteFile" : "حذف ملف ",
+        "DeleteAccountFileConfirm" : "هل تريد حقًا حذف ملف كشف الحساب المصرفي هذا ؟",
+        "DeleteSalaryFileConfirm" : "هل تريد حقًا حذف ملف الراتب هذا ؟",
+        "Delete" : "حذف",
+        "Download" : "تحميل"
     },
     "Requests" : {
         "SelectRequestType" : "اختر نوع الطلب",
