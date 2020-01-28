@@ -15,6 +15,7 @@ import { EditUserProfile } from './../store/actions/auth.actions';
 import { Observable } from 'rxjs';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from './../../environments/environment';
 
 
 @Component({
@@ -131,6 +132,9 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   ];
   getState: Observable<any>;
   userLang: any;
+  accountStatementId: any;
+  deletedAccountFileIndex: any;
+  BaseUrl = environment.URLForDownloadFiles;
 
   constructor(private store: Store<AppState>,
     private fb: FormBuilder,
@@ -748,13 +752,6 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
     });
   }
 
-  closeAccountDetails(i: number) {
-    this.AccountDocs.splice(i, 1);
-    if (this.AccountDocs.length == 0) {
-      this.showAccountUploadImg = true;
-      this.disableAccountButton = false;
-    }
-  }
   closeNewAccountDetails(i: number) {
     this.NewUploadedAccountDocs.splice(i, 1);
     if (this.NewUploadedAccountDocs.length == 0) {
@@ -762,7 +759,40 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
       this.disableAccountButton = false;
     }
   }
+  downloadFile(fileName: any) {
+    return new Promise((resolve, reject) => {
+      window.location.assign(this.BaseUrl + fileName);
+      resolve();
+    });
+  }
 
+  openDeleteFilePopUp(i, content, id) {
+    this.deletedAccountFileIndex = i;
+    this.accountStatementId = id;
+    this.modalService.open(content, { centered: false });
+  }
+  DownloadAccountFile(fileName: any) {
+    this.spinner.show();
+    this.downloadFile(fileName).then(e => {
+      this.spinner.hide();
+    });
+  }
+  deleteFile() {
+    this.spinner.show();
+    this.profileService.deleteBankStatement(this.accountStatementId).subscribe(res => {
+      this.modalService.dismissAll();
+      this.spinner.hide();
+      this.profileService.showSuccessToastr(res);
+      this.AccountDocs.splice(this.deletedAccountFileIndex, 1);
+      if (this.AccountDocs.length == 0) {
+        this.showAccountUploadImg = true;
+        this.disableAccountButton = false;
+      }
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+    });
+  }
 
   // tslint:disable-next-line: member-ordering
   public barChartColors: Color[] = [

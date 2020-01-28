@@ -358,7 +358,8 @@
         "FundingLimitRequired" : "حد التمويل مطلوب",
         "FundingLimitValidation" : "يجب أن يتراوح حد التمويل بين 500 ريال سعودي و 10000 ريال سعودي",
         "DeleteFile" : "حذف ملف ",
-        "DeleteFileConfirm" : "هل تريد حقًا حذف هذا الملف ؟",
+        "DeleteAccountFileConfirm" : "هل تريد حقًا حذف ملف كشف الحساب المصرفي هذا ؟",
+        "DeleteSalaryFileConfirm" : "هل تريد حقًا حذف ملف الراتب هذا ؟",
         "Delete" : "حذف",
         "Download" : "تحميل"
     },

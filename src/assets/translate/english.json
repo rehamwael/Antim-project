@@ -358,7 +358,8 @@
         "FundingLimitRequired" : "Funding Limit is required",
         "FundingLimitValidation" : "Funding Limit must be between 500 SAR to 10000 SAR.",
         "DeleteFile" : "Delete File",
-        "DeleteFileConfirm" : "Do You really Want to Delete this File?",
+        "DeleteAccountFileConfirm" : "Do You really Want to Delete this Account Statement File?",
+        "DeleteSalaryFileConfirm" : "Do You really Want to Delete this Salary Statement File?",
         "Delete" : "Delete",
         "Download" : "Download"
 

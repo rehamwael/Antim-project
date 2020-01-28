@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -83,7 +84,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   disableAccountButton = false;
   disableSalaryButton = false;
   showAddress = false;
-  showBank = false;
+  showBank = true;
   showUser = false;
   BankArray: any = [];
   AddressArray: any = [];
@@ -101,9 +102,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   showNewSalaryUploadImg = false;
   userLang: any;
   accountStatementId: any;
-  downloadAccountButton = false;
-  deletedAccountFile: any;
-  downloadAccountFile: any;
+  salaryStatementId: any;
+  deletedAccountFileIndex: any;
+  deletedSalaryFileIndex: any;
+  BaseUrl = environment.URLForDownloadFiles;
 
   constructor(private store: Store<AppState>,
     private fb: FormBuilder,
@@ -252,28 +254,45 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.NewUploadedAccountDocs.length = 0;
     this.NewUploadedSalaryDocs.length = 0;
-    this.showUser = true;
-    this.spinner.show();
-    this.getUserINFO().then(e => {
-      this.spinner.hide();
-      if (this.AddressArray.length > 0) {
+    // this.showUser = true;
+    // this.spinner.show();
+    // this.getUserINFO().then(e => {
+    //   this.spinner.hide();
+    //   if (this.AddressArray.length > 0) {
+    //     // this.spinner.show();
+    //     this.profileService.getUserAddress().subscribe(res => {
+    //       this.userAddress = res.result;
+    //       this.address = res.result.address;
+    //       this.city = res.result.city;
+    //       this.country = res.result.country;
+    //       this.zip = res.result.postalCode;
+    //       this.state = res.result.state;
+    //       this.addressID = res.result.id;
+    //       console.log('userAddressINFO:', res.result);
+    //       // this.spinner.hide();
+    //     }, err => {
+    //       // this.spinner.hide();
+    //       console.log('ERROR:', err);
+    //     });
+    //   }
+    //   if (this.BankArray.length > 0) {
         // this.spinner.show();
-        this.profileService.getUserAddress().subscribe(res => {
-          this.userAddress = res.result;
-          this.address = res.result.address;
-          this.city = res.result.city;
-          this.country = res.result.country;
-          this.zip = res.result.postalCode;
-          this.state = res.result.state;
-          this.addressID = res.result.id;
-          console.log('userAddressINFO:', res.result);
-          // this.spinner.hide();
-        }, err => {
-          // this.spinner.hide();
-          console.log('ERROR:', err);
-        });
-      }
-      if (this.BankArray.length > 0) {
+      //   this.profileService.getUserAddress().subscribe(res => {
+      //     this.userAddress = res.result;
+      //     this.address = res.result.address;
+      //     this.city = res.result.city;
+      //     this.country = res.result.country;
+      //     this.zip = res.result.postalCode;
+      //     this.state = res.result.state;
+      //     this.addressID = res.result.id;
+      //     console.log('userAddressINFO:', res.result);
+      //     // this.spinner.hide();
+      //   }, err => {
+      //     // this.spinner.hide();
+      //     console.log('ERROR:', err);
+      //   });
+      // }
+      // if (this.BankArray.length > 0) {
         // this.spinner.show();
         this.profileService.getUserBankInfo().subscribe(res => {
           this.userBankInfo = res.result;
@@ -285,7 +304,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           if (res.result.accountStatementFiles.length > 0) {
             this.showAccountUploadImg = false;
           }
-          console.log('AccountDocs: ', this.AccountDocs);
+          // console.log('AccountDocs: ', this.AccountDocs);
           this.SalaryDocs = res.result.salaryStatementFiles;
           if (res.result.salaryStatementFiles.length > 0) {
             this.showSalaryUploadImg = false;
@@ -297,8 +316,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
           // this.spinner.hide();
           console.log('ERROR:', err);
         });
-      }
-    });
+    //   }
+    // });
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
@@ -651,6 +670,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
+  downloadFile(fileName: any) {
+    return new Promise((resolve, reject) => {
+      window.location.assign(this.BaseUrl + fileName);
+      resolve();
+    });
+  }
 
   uploadAccoutFile(event) {
     if (event.target.files && event.target.files[0]) {
@@ -680,13 +705,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileService.showErrorToastr(err.error.message);
     });
   }
-  closeAccountDetails(i: number) {
-    this.AccountDocs.splice(i, 1);
-    if (this.AccountDocs.length == 0) {
-      this.showAccountUploadImg = true;
-      this.disableAccountButton = false;
-    }
-  }
+
   closeNewAccountDetails(i: number) {
     this.NewUploadedAccountDocs.splice(i, 1);
     if (this.NewUploadedAccountDocs.length == 0) {
@@ -724,13 +743,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
 
   }
-  closeSalaryDetails(i: number) {
-    this.SalaryDocs.splice(i, 1);
-    if (this.SalaryDocs.length == 0) {
-      this.showSalaryUploadImg = true;
-      this.disableSalaryButton = false;
-    }
-  }
+
   closeNewSalaryDetails(i: number) {
     this.NewUploadedSalaryDocs.splice(i, 1);
     if (this.NewUploadedSalaryDocs.length == 0) {
@@ -738,15 +751,54 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.disableSalaryButton = false;
     }
   }
-  openDeleteFilePopUp(content, i) {
-    console.log(i);
+  openDeleteFilePopUp(i, content, file) {
+    if (file.fileType == 1) {
+    this.deletedAccountFileIndex = i;
+    this.accountStatementId = file.id;
+    }
+    if (file.fileType == 2) {
+      this.deletedSalaryFileIndex = i;
+      this.salaryStatementId = file.id;
+    }
     this.modalService.open(content, { centered: false });
   }
-  DownloadAccountFile() {
-    // window.location.assign(this.BaseUrl + res.result)
+  DownloadAccountFile(fileName: any) {
+    this.spinner.show();
+    this.downloadFile(fileName).then(e => {
+      this.spinner.hide();
+    });
   }
-  deleteFile() {
-
+  deleteAccountFile() {
+    this.spinner.show();
+    this.profileService.deleteBankStatement(this.accountStatementId).subscribe(res => {
+      this.modalService.dismissAll();
+      this.spinner.hide();
+      this.profileService.showSuccessToastr(res);
+      this.AccountDocs.splice(this.deletedAccountFileIndex, 1);
+      if (this.AccountDocs.length == 0) {
+        this.showAccountUploadImg = true;
+        this.disableAccountButton = false;
+      }
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+    });
+  }
+  deleteSalaryFile() {
+    this.spinner.show();
+    this.profileService.deleteBankStatement(this.salaryStatementId).subscribe(res => {
+      this.modalService.dismissAll();
+      this.spinner.hide();
+      this.profileService.showSuccessToastr(res);
+      this.SalaryDocs.splice(this.deletedSalaryFileIndex, 1);
+      if (this.SalaryDocs.length == 0) {
+        this.showSalaryUploadImg = true;
+        this.disableSalaryButton = false;
+      }
+      }, err => {
+      this.spinner.hide();
+      console.log(err);
+    });
   }
 
 }

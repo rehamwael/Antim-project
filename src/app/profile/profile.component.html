@@ -267,27 +267,27 @@
                                  </ngx-spinner>
                           </div>
                             <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
-                              <label for="AccountStatement" class=" my-3" style="font-size: 15px; font-weight: bold;">{{ 'Profile.AccountStatement' | translate }} </label>
-                              <div  *ngIf="!showAccountUploadImg">
-                                <div class="row w-100" *ngFor="let file of AccountDocs; let i = index;">
-                                <div class="col-lg-6 " >
-                                 <img src="assets/images/doc.png" width="60px" height="60px">
-                                 <p class="mt-2">{{ file.name }}</p>
-                                </div>
-                                <div class="col-lg-2" ></div>
-                                <div class="col-lg-2 mt-4" >
-                                  <button type="button" class="btn  btn-primary " [disabled]="!downloadAccountButton" (click)="DownloadAccountFile(i)">{{ 'Profile.Download' | translate }} </button>
-                                </div>
-                                <div class="col-lg-2 mt-4" >
-                                  <button type="button" class="btn  btn-danger" (click)="openDeleteFilePopUp(contentDelete, file)">{{ 'Profile.Delete' | translate }} </button>
-                                </div>
+                              <label for="AccountStatement" class=" my-3" style="font-size: 18px; font-weight: bold;">{{ 'Profile.AccountStatement' | translate }} </label>
+                              <div *ngIf="!showAccountUploadImg">
+                                  <div class="row w-100" *ngFor="let file of AccountDocs; let i = index;">
+                                  <div class="col-lg-6" >
+                                    <img src="assets/images/doc.png" width="60px" height="60px">
+                                    <p class="mt-2">{{ file.name }}</p>
+                                  </div>
+                                  <div class="col-lg-2" ></div>
+                                  <div class="col-lg-2 col-sm-6  col-6 mt-4 mb-2" >
+                                    <button type="button" class="btn download-btn btn-primary" (click)="DownloadAccountFile(file.name)">{{ 'Profile.Download' | translate }} </button>
+                                  </div>
+                                  <div class="col-lg-2 col-sm-6 col-6 mt-4 mb-2" >
+                                    <button type="button" class="btn delete-btn btn-danger" (click)="openDeleteFilePopUp(i, DeleteAccountFile, file)">{{ 'Profile.Delete' | translate }} </button>
+                                  </div>
+                                  </div>
                                </div>
-                              </div>
                                <div class="row w-100" *ngIf="showNewAccountUploadImg">
-                                <div class="col-lg-12" *ngFor="let file of NewUploadedAccountDocs; let i = index;">
-                                 <img src="assets/images/doc.png" width="60px" height="60px">
-                                 <a class="close-icon" (click)="closeNewAccountDetails(i)"><img src="assets/images/close.svg"></a>
-                                 <p class="mt-2">{{ file.name }}</p>
+                                 <div class="col-lg-12" *ngFor="let file of NewUploadedAccountDocs; let i = index;">
+                                  <img src="assets/images/doc.png" width="60px" height="60px">
+                                  <a class="close-icon" (click)="closeNewAccountDetails(i)"><img src="assets/images/close.svg"></a>
+                                  <p class="mt-2">{{ file.name }}</p>
                                 </div>
                                </div>
                                   <div class="mt-3 h-70" >
@@ -314,21 +314,29 @@
                               </form>
 
                                   <form [formGroup]="SalaryForm" (ngSubmit)="onSalaryFormsubmit()" class="col-lg-12">
-                                    <label for="SalaryStatement" class=" my-3" style="font-size: 15px; font-weight: bold;">{{ 'Profile.SalaryStatement' | translate }} </label>
-                                    <div class="row w-100" *ngIf="!showSalaryUploadImg">
-                                      <div class="col-lg-10 mx-auto" *ngFor="let file of SalaryDocs; let i = index;">
+                                    <label for="SalaryStatement" class=" my-3" style="font-size: 18px; font-weight: bold;">{{ 'Profile.SalaryStatement' | translate }} </label>
+                                    <div *ngIf="!showSalaryUploadImg">
+                                      <div class="row w-100" *ngFor="let file of SalaryDocs; let i = index;">
+                                      <div class="col-lg-6" >
                                         <img src="assets/images/doc.png" width="60px" height="60px">
-                                        <a class="close-icon" (click)="closeSalaryDetails(i)"><img src="assets/images/close.svg"></a>
                                         <p class="mt-2">{{ file.name }}</p>
-                                       </div>
-                                     </div>
-                                     <div class="row w-100" *ngIf="showNewSalaryUploadImg">
-                                      <div class="col-lg-10 mx-auto" *ngFor="let file of NewUploadedSalaryDocs; let i = index;">
-                                       <img src="assets/images/doc.png" width="60px" height="60px">
-                                       <a class="close-icon" (click)="closeNewSalaryDetails(i)"><img src="assets/images/close.svg"></a>
-                                       <p class="mt-2">{{ file.name }}</p>
                                       </div>
-                                     </div>
+                                      <div class="col-lg-2" ></div>
+                                      <div class="col-lg-2 col-sm-6  col-6 mt-4 mb-2" >
+                                        <button type="button" class="btn download-btn btn-primary" (click)="DownloadAccountFile(file.name)">{{ 'Profile.Download' | translate }} </button>
+                                      </div>
+                                      <div class="col-lg-2 col-sm-6 col-6 mt-4 mb-2" >
+                                        <button type="button" class="btn delete-btn btn-danger" (click)="openDeleteFilePopUp(i, DeleteSalaryFile, file)">{{ 'Profile.Delete' | translate }} </button>
+                                      </div>
+                                      </div>
+                                   </div>
+                                   <div class="row w-100" *ngIf="showNewSalaryUploadImg">
+                                     <div class="col-lg-12" *ngFor="let file of NewUploadedSalaryDocs; let i = index;">
+                                      <img src="assets/images/doc.png" width="60px" height="60px">
+                                      <a class="close-icon" (click)="closeNewAccountDetails(i)"><img src="assets/images/close.svg"></a>
+                                      <p class="mt-2">{{ file.name }}</p>
+                                    </div>
+                                   </div>
 
                                      <div class="h-70 mt-3">
                                       <input type="file" name="SalaryStatement" class="custom-file-input" accept=".xlsx, .xls, .doc, .docx, .pdf" (change)="uploadSalaryFile($event)" multiple>
@@ -354,24 +362,42 @@
                                   </form>
                                 </form>
 
-                                <ng-template #contentDelete let-modal>
-                                  <div class="modal-header">
-                                      <h4 class="modal-title">{{ 'Profile.DeleteFile' | translate }}</h4>
-                                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body py-4">
-                                        <p class="my-3 mx-3" style="text-align: center; font-size: 15px;">
-                                            {{ 'Profile.DeleteFileConfirm' | translate }}
-                                    </p>
-                                    <div class="row py-2" style="width: 100%;">
-                                        <div class="col-lg-6"></div>
-                                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteFile()">{{ 'Requests.Yes' | translate }}</button></div>
-                                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Requests.Noo' | translate }}</button></div>
-                                    </div>
+                              <ng-template #DeleteAccountFile let-modal>
+                                <div class="modal-header">
+                                    <h4 class="modal-title">{{ 'Profile.DeleteFile' | translate }}</h4>
+                                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
                                   </div>
-                                </ng-template>
+                                  <div class="modal-body ">
+                                      <p class="my-3" style="font-size: 16px;">
+                                          {{ 'Profile.DeleteAccountFileConfirm' | translate }}
+                                  </p>
+                                  <div class="row py-2" style="width: 100%;">
+                                      <div class="col-lg-6"></div>
+                                      <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteAccountFile()">{{ 'Requests.Yes' | translate }}</button></div>
+                                      <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Requests.Noo' | translate }}</button></div>
+                                  </div>
+                                </div>
+                              </ng-template>
+                              <ng-template #DeleteSalaryFile let-modal>
+                                <div class="modal-header">
+                                    <h4 class="modal-title">{{ 'Profile.DeleteFile' | translate }}</h4>
+                                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body ">
+                                      <p class="my-3" style="font-size: 16px;">
+                                          {{ 'Profile.DeleteSalaryFileConfirm' | translate }}
+                                  </p>
+                                  <div class="row py-2" style="width: 100%;">
+                                      <div class="col-lg-6"></div>
+                                      <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteSalaryFile()">{{ 'Requests.Yes' | translate }}</button></div>
+                                      <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Requests.Noo' | translate }}</button></div>
+                                  </div>
+                                </div>
+                              </ng-template>
 
                                 <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser">
                                   <div class="col-lg-12 mb-3"> <h3 class="headingh2">{{ 'Profile.AddressInformation' | translate }}  </h3></div>

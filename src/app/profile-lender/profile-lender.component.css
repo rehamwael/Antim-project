@@ -22,3 +22,13 @@ label{
   direction: ltr !important;
 }
 
+.download-btn{
+  border: 1px solid rgb(65, 134, 238);
+  background-color: rgb(65, 134, 238);
+  border-radius: 5px;
+}
+.delete-btn{
+border: 1px solid rgb(231, 80, 80);
+background-color: rgb(231, 80, 80);
+border-radius: 5px;
+}
