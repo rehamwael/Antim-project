@@ -84,7 +84,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   disableAccountButton = false;
   disableSalaryButton = false;
   showAddress = false;
-  showBank = true;
+  showBank = false;
   showUser = false;
   BankArray: any = [];
   AddressArray: any = [];
@@ -254,45 +254,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.NewUploadedAccountDocs.length = 0;
     this.NewUploadedSalaryDocs.length = 0;
-    // this.showUser = true;
-    // this.spinner.show();
-    // this.getUserINFO().then(e => {
-    //   this.spinner.hide();
-    //   if (this.AddressArray.length > 0) {
-    //     // this.spinner.show();
-    //     this.profileService.getUserAddress().subscribe(res => {
-    //       this.userAddress = res.result;
-    //       this.address = res.result.address;
-    //       this.city = res.result.city;
-    //       this.country = res.result.country;
-    //       this.zip = res.result.postalCode;
-    //       this.state = res.result.state;
-    //       this.addressID = res.result.id;
-    //       console.log('userAddressINFO:', res.result);
-    //       // this.spinner.hide();
-    //     }, err => {
-    //       // this.spinner.hide();
-    //       console.log('ERROR:', err);
-    //     });
-    //   }
-    //   if (this.BankArray.length > 0) {
+    this.showUser = true;
+    this.spinner.show();
+    this.getUserINFO().then(e => {
+      this.spinner.hide();
+      if (this.AddressArray.length > 0) {
         // this.spinner.show();
-      //   this.profileService.getUserAddress().subscribe(res => {
-      //     this.userAddress = res.result;
-      //     this.address = res.result.address;
-      //     this.city = res.result.city;
-      //     this.country = res.result.country;
-      //     this.zip = res.result.postalCode;
-      //     this.state = res.result.state;
-      //     this.addressID = res.result.id;
-      //     console.log('userAddressINFO:', res.result);
-      //     // this.spinner.hide();
-      //   }, err => {
-      //     // this.spinner.hide();
-      //     console.log('ERROR:', err);
-      //   });
-      // }
-      // if (this.BankArray.length > 0) {
+        this.profileService.getUserAddress().subscribe(res => {
+          this.userAddress = res.result;
+          this.address = res.result.address;
+          this.city = res.result.city;
+          this.country = res.result.country;
+          this.zip = res.result.postalCode;
+          this.state = res.result.state;
+          this.addressID = res.result.id;
+          console.log('userAddressINFO:', res.result);
+          // this.spinner.hide();
+        }, err => {
+          // this.spinner.hide();
+          console.log('ERROR:', err);
+        });
+      }
+      if (this.BankArray.length > 0) {
         // this.spinner.show();
         this.profileService.getUserBankInfo().subscribe(res => {
           this.userBankInfo = res.result;
@@ -316,8 +299,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
           // this.spinner.hide();
           console.log('ERROR:', err);
         });
-    //   }
-    // });
+      }
+    });
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('dashbored');
