@@ -1110,6 +1110,10 @@ nav#navbar-app {
     .bg-dark-right{
         display: none;
     }
+    .mt-min-100{
+      margin-top: -40vh;
+  }
+
     .steps-antim .col-lg-3, .steps-antim .col-lg-3 p {
         text-align: center !important;
     }
@@ -1517,7 +1521,7 @@ nav#navbar-app {
     }
     header .col-lg-6.h-100.d-flex.justify-content-center.flex-column{
         text-align: center;
-        height: 80vh !important;
+        height: 60vh !important;
     }
     .dropdown-menu.lang-selector-dropdown.show .dropdown-item {
         font-size: 12px !important;
@@ -2448,10 +2452,4 @@ ul.inline{
   color: rgb(124, 117, 117)
 }
 
-@media (max-width: 692px){
 
-  // .mobile-header {
-  //   top: 400px !important;
-  //   height: 40vh !important;
-  // }
-}

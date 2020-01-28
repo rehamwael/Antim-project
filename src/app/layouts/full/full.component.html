@@ -7,7 +7,7 @@
     <!-- ============================================================== -->
     <!-- Topbar header - style you can find in topbar.scss -->
     <!-- ============================================================== -->
-    <header class="bg-image h-100 mobile-header">
+    <header class="bg-image h-100 mobile-view">
         <div class="sticky-nav-wrapper">
         <nav id="navbar" class="navbar navbar-expand-lg navbar-light container py-4 mb-auto sticky-nav wow fadeInDown" data-wow-duration="1.4s" data-wow-delay="0.7s" ngStickyNav stickyClass="sticky-fixed-header">
             <a class="navbar-brand" (click)="setTitle('Antim | Home', ' انتيم | الصفحة الرئيسية')">
@@ -95,7 +95,7 @@
         </div>
           <div class="container flex-center justify-content-start">
                 <div class="row">
-                    <div class="col-lg-6  margin-header d-flex justify-content-center flex-column">
+                    <div class="col-lg-6 h-100 d-flex justify-content-center flex-column">
                         <h1 class="main-header-font wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="0.5s">
                           {{ 'HOME.SELECT' | translate }}<br/>  {{ 'HOME.SEND' | translate }} <br/> {{ 'HOME.PAY' | translate }}
                         </h1>
@@ -108,7 +108,7 @@
 
                     </div>
           </div>
-          <div class="bg-dark-right"></div>
+          <!-- <div class="bg-dark-right"></div> -->
 
 
     </header>
