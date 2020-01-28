@@ -173,6 +173,15 @@ export class ProfileService {
       })
     );
   }
+
+  deleteBankStatement(id: any) {
+    this.getTokenAndHeaders();
+    return this.httpClient.delete(`${this.Url}UserBanks/DeleteBankStatement?bankStatementId=${id}`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
+
   uploadAccountStatement(formData: any): Observable<any> {
     this.getTokenAndHeaders();
     return this.httpClient.patch(`${this.Url}UserBanks/UploadAccountStatements`, formData, this.httpOptions).pipe(

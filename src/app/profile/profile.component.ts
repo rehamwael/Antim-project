@@ -11,6 +11,7 @@ import { EditUserProfile } from './../store/actions/auth.actions';
 import { Observable } from 'rxjs';
 import { UserEmailPasswordService } from '../services/user-EmailPassword.service';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profile',
@@ -99,6 +100,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   showNewAccountUploadImg = false;
   showNewSalaryUploadImg = false;
   userLang: any;
+  accountStatementId: any;
+  downloadAccountButton = false;
+  deletedAccountFile: any;
+  downloadAccountFile: any;
 
   constructor(private store: Store<AppState>,
     private fb: FormBuilder,
@@ -107,6 +112,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private editUserService: UserEmailPasswordService,
     public translate: TranslateService,
+    private modalService: NgbModal,
 
   ) {
     this.userLang = this.translate.currentLang;
@@ -731,6 +737,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.showNewSalaryUploadImg = false;
       this.disableSalaryButton = false;
     }
+  }
+  openDeleteFilePopUp(content, i) {
+    console.log(i);
+    this.modalService.open(content, { centered: false });
+  }
+  DownloadAccountFile() {
+    // window.location.assign(this.BaseUrl + res.result)
+  }
+  deleteFile() {
+
   }
 
 }

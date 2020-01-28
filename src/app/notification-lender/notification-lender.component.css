@@ -26,3 +26,7 @@
     margin-right: 0;
    }
 }
+.dir-rtl {
+  direction: rtl !important;
+}
+

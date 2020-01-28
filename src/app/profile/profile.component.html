@@ -268,15 +268,23 @@
                           </div>
                             <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
                               <label for="AccountStatement" class=" my-3" style="font-size: 15px; font-weight: bold;">{{ 'Profile.AccountStatement' | translate }} </label>
-                              <div class="row w-100" *ngIf="!showAccountUploadImg">
-                                <div class="col-lg-10 mx-auto" *ngFor="let file of AccountDocs; let i = index;">
+                              <div  *ngIf="!showAccountUploadImg">
+                                <div class="row w-100" *ngFor="let file of AccountDocs; let i = index;">
+                                <div class="col-lg-6 " >
                                  <img src="assets/images/doc.png" width="60px" height="60px">
-                                 <a class="close-icon" (click)="closeAccountDetails(i)"><img src="assets/images/close.svg"></a>
                                  <p class="mt-2">{{ file.name }}</p>
                                 </div>
+                                <div class="col-lg-2" ></div>
+                                <div class="col-lg-2 mt-4" >
+                                  <button type="button" class="btn  btn-primary " [disabled]="!downloadAccountButton" (click)="DownloadAccountFile(i)">{{ 'Profile.Download' | translate }} </button>
+                                </div>
+                                <div class="col-lg-2 mt-4" >
+                                  <button type="button" class="btn  btn-danger" (click)="openDeleteFilePopUp(contentDelete, file)">{{ 'Profile.Delete' | translate }} </button>
+                                </div>
                                </div>
+                              </div>
                                <div class="row w-100" *ngIf="showNewAccountUploadImg">
-                                <div class="col-lg-10 mx-auto" *ngFor="let file of NewUploadedAccountDocs; let i = index;">
+                                <div class="col-lg-12" *ngFor="let file of NewUploadedAccountDocs; let i = index;">
                                  <img src="assets/images/doc.png" width="60px" height="60px">
                                  <a class="close-icon" (click)="closeNewAccountDetails(i)"><img src="assets/images/close.svg"></a>
                                  <p class="mt-2">{{ file.name }}</p>
@@ -345,6 +353,25 @@
                                     </div>
                                   </form>
                                 </form>
+
+                                <ng-template #contentDelete let-modal>
+                                  <div class="modal-header">
+                                      <h4 class="modal-title">{{ 'Profile.DeleteFile' | translate }}</h4>
+                                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body py-4">
+                                        <p class="my-3 mx-3" style="text-align: center; font-size: 15px;">
+                                            {{ 'Profile.DeleteFileConfirm' | translate }}
+                                    </p>
+                                    <div class="row py-2" style="width: 100%;">
+                                        <div class="col-lg-6"></div>
+                                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="deleteFile()">{{ 'Requests.Yes' | translate }}</button></div>
+                                        <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Requests.Noo' | translate }}</button></div>
+                                    </div>
+                                  </div>
+                                </ng-template>
 
                                 <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser">
                                   <div class="col-lg-12 mb-3"> <h3 class="headingh2">{{ 'Profile.AddressInformation' | translate }}  </h3></div>

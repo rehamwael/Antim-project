@@ -356,7 +356,12 @@
         "IBANNumberValidation" : "IBAN Number must start with 'SA' + 24 digits.",
         "MaximunFundingLimit" : "Maximun Funding Limit  (500 SAR - 10,000 SAR)",
         "FundingLimitRequired" : "Funding Limit is required",
-        "FundingLimitValidation" : "Funding Limit must be between 500 SAR to 10000 SAR."
+        "FundingLimitValidation" : "Funding Limit must be between 500 SAR to 10000 SAR.",
+        "DeleteFile" : "Delete File",
+        "DeleteFileConfirm" : "Do You really Want to Delete this File?",
+        "Delete" : "Delete",
+        "Download" : "Download"
+
     },
     "Requests" : {
         "SelectRequestType" : "Select Request Type",

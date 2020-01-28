@@ -73,8 +73,8 @@ export class ContactComponent implements OnInit, OnDestroy {
       ])],
       'contactFormSubjects': ['', Validators.required],
       'contactFormMessage': ['', Validators.required],
-      'contactFormCopy': [''],
-      'contactFormPhone': ['', Validators.required]
+      // 'contactFormCopy': [''],
+      // 'contactFormPhone': ['', Validators.required]
     });
     this.leafletLayers = [tileLayer(
       'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
