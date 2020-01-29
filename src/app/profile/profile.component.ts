@@ -276,8 +276,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
         });
       }
       if (this.BankArray.length > 0) {
-        // this.spinner.show();
+        this.spinner.show();
         this.profileService.getUserBankInfo().subscribe(res => {
+          this.spinner.hide();
           this.userBankInfo = res.result;
           this.bankName = res.result.bankName;
           this.bankAddress = res.result.address;
@@ -294,9 +295,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
           }
           this.bankID = res.result.id;
           console.log('userBankInfo:', this.userBankInfo);
-          // this.spinner.hide();
         }, err => {
-          // this.spinner.hide();
+          this.spinner.hide();
           console.log('ERROR:', err);
         });
       }
@@ -315,6 +315,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       window.scrollTo(0, 0);
     });
+    this.spinner.hide();
   }
   ngOnDestroy(): void {
     const body = document.getElementsByTagName('body')[0];
@@ -655,7 +656,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   downloadFile(fileName: any) {
     return new Promise((resolve, reject) => {
-      window.location.assign(this.BaseUrl + fileName);
+      window.open(this.BaseUrl + fileName, '_blank');
       resolve();
     });
   }
