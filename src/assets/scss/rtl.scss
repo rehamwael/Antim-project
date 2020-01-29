@@ -347,10 +347,16 @@
     }
     #paginator{
         display: flex !important;
-        justify-content: flex-start !important;
+        justify-content: flex-end !important;
         // flex-direction: row-reverse !important;
-        // direction: rtl !important;
-        // margin-left: 35px !important;
+        direction: rtl !important;
+        margin-left: 35px !important;
+    }
+    .mat-paginator-range-actions {
+      direction: ltr !important;
+    }
+    .mat-paginator-range-label{
+      direction: rtl !important;
     }
     #button{
       direction: rtl !important;

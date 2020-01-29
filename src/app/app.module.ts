@@ -33,7 +33,7 @@ import { WhoWeAreComponent } from './who-we-are/who-we-are.component';
 import { DashboredComponent } from './dashbored/dashbored.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
 import { MatStepperModule, MatTabsModule, MatInputModule, MatButtonModule, MatAutocompleteModule,
-         MatCheckboxModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+         MatCheckboxModule, MatPaginatorModule, MatSortModule, MatPaginatorIntl } from '@angular/material';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestsComponent } from './requests/requests.component';
 import {MatTableModule} from '@angular/material/table';
@@ -67,6 +67,7 @@ import { StarterComponent } from './starter/starter.component';
 import {MatSelectModule} from '@angular/material/select';
 import { FooterComponent } from './footer/footer.component';
 import { DashboredNavbarComponent } from './dashbored-navbar/dashbored-navbar.component';
+import { CustomMatPaginatorIntl } from './services/mat-paginator-intl-arabic';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
@@ -165,6 +166,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    },
+    {
+      provide: MatPaginatorIntl,
+      useClass: CustomMatPaginatorIntl
     }
   ],
   bootstrap: [AppComponent]

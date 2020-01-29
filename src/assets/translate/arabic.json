@@ -459,5 +459,9 @@
         "YourRequestSavedAsDraft" : "تم حفظ طلبك كمسودة.",
         "CnnotDeactivateMsg" : "عذرًا ، لا يمكنك إلغاء تنشيط حسابك ، لأن هناك معاملات جارية"
 
+    },
+    "PAGINATOR" : {
+      "ITEMS_PER_PAGE" : "العناصر للصفحة:",
+      "OF" : " من "
     }
 }

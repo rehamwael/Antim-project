@@ -461,5 +461,9 @@
         "YourRequestSavedAsDraft" : "Your request has been Saved as Draft.",
         "CnnotDeactivateMsg" : "Sorry, you can't deactivate your account, because there are ongoing transactions."
 
+    },
+    "PAGINATOR" : {
+      "ITEMS_PER_PAGE" : "Items per Page",
+      "OF" : "of"
     }
 }
