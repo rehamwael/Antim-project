@@ -11,7 +11,7 @@
           <div class="col col-lg-3 col-12">
               <ul class="inline">
                   <li>
-                  <a href="https://twitter.com/antim_app" target="_blank">
+                  <a href="{{twitter}}" target="blank">
                   <svg width="37px" height="37px" viewBox="0 0 37 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g id="landing-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                           <g id="HomeV2" transform="translate(-648.000000, -5987.000000)">
@@ -31,8 +31,7 @@
                   </a>
                   </li>
                   <li>
-                      <!-- <a href="#"> -->
-                      <a >
+                <a href="{{instagram}}" target="blank">
 
                   <svg width="37px" height="37px" viewBox="0 0 37 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g id="landing-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -51,11 +50,10 @@
                           </g>
                       </g>
                   </svg>
-                      </a>
+                </a>
                   </li>
                   <li>
-                    <!-- <a href="#"> -->
-                      <a >
+                    <a href="{{facebook}}" target="blank">
                       <svg width="37px" height="37px" viewBox="0 0 37 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                           <g id="landing-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                               <g id="HomeV2" transform="translate(-762.000000, -5987.000000)">
@@ -81,7 +79,7 @@
                 <div class="form-group text-left">
                   <input formControlName="email" type="email" placeholder="{{ 'HOME.TypeEmail' | translate }}" [(ngModel)]="email" style="color: white;">
                   <!-- Enter proper Email -->
-                  <button type="submit" [disabled]="!SubscribeForm.valid" class="btn btn-block btn-antim btn-subscribe" (click)="Subscribe()">{{ 'HOME.Subscribe' | translate }}</button>
+                  <button type="submit" [disabled]="!SubscribeForm.valid || !disableButton" class="btn btn-block btn-antim btn-subscribe" (click)="Subscribe()">{{ 'HOME.Subscribe' | translate }}</button>
                  </div>
                  <div class="ml-5">
                   <div *ngIf="SubscribeForm.controls['email'].touched && SubscribeForm.controls['email'].hasError('pattern')" class="error ">Enter proper Email.</div>

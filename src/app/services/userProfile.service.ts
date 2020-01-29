@@ -253,5 +253,12 @@ export class ProfileService {
       })
     );
   }
+  getConfigData() {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}ConfigData/GetConfigDataByKey?key=`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
 }
