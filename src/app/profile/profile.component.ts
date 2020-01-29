@@ -662,7 +662,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   uploadAccoutFile(event) {
-    if (event.target.files && event.target.files[0]) {
+    if (event.target.files) {
       this.Accountsfiles = event.target.files.length;
       for (let i = 0; i < this.Accountsfiles; i++) {
         this.NewUploadedAccountDocs.push(event.target.files[i]);
@@ -675,7 +675,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   onAccountFormSubmit() {
     let formData = new FormData();
     for (let i = 0; i < this.Accountsfiles; i++) {
-      formData.append('file-' + i, this.NewUploadedAccountDocs[i]);
+      formData.append('ACCOUNTfile.no.' + (i + 1), this.NewUploadedAccountDocs[i]);
     }
     this.spinner.show();
     this.profileService.uploadAccountStatement(formData).subscribe(res => {
@@ -699,7 +699,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   uploadSalaryFile(event) {
-    if (event.target.files && event.target.files[0]) {
+    if (event.target.files) {
       this.Salaryfiles = event.target.files.length;
       for (let i = 0; i < this.Salaryfiles; i++) {
         this.NewUploadedSalaryDocs.push(event.target.files[i]);
@@ -712,7 +712,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   onSalaryFormsubmit() {
     let formData = new FormData();
     for (let i = 0; i < this.Salaryfiles; i++) {
-      formData.append('file-' + i, this.NewUploadedSalaryDocs[i]);
+      formData.append('SALARYfile.no.' + (i + 1), this.NewUploadedSalaryDocs[i]);
     }
     this.spinner.show();
     this.profileService.uploadSalaryStatement(formData).subscribe(res => {
