@@ -44,6 +44,49 @@ export class ContactComponent implements OnInit, OnDestroy {
       ContentEn: '',
       ContentAr: ''
     },
+    Section2: {
+      section_name: 'Antim Care: Email',
+      TitleEn: '',
+      TitleAr: '',
+      ContentEn: '',
+      ContentAr: ''
+    },
+    Section3: {
+      section_name: 'Customers Service: Email',
+      TitleEn: '',
+      TitleAr: '',
+      ContentEn: '',
+      ContentAr: ''
+    },
+    Section4: {
+      section_name: 'Customers Service: Mobile Number',
+      TitleEn: '',
+      TitleAr: '',
+      ContentEn: '',
+      ContentAr: ''
+    },
+    Section5: {
+      section_name: 'From within the Kingdom: Mobile Number',
+      TitleEn: '',
+      TitleAr: '',
+      ContentEn: '',
+      ContentAr: ''
+    },
+    Section6: {
+      section_name: 'From outside the Kingdom: Mobile Number',
+      TitleEn: '',
+      TitleAr: '',
+      ContentEn: '',
+      ContentAr: ''
+    },
+    Section7: {
+      section_name: 'Marketing & Sales: Mobile Number',
+      TitleEn: '',
+      TitleAr: '',
+      ContentEn: '',
+      ContentAr: ''
+    },
+
   };
   getState: Observable<any>;
 
