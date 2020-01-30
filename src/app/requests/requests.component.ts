@@ -7,7 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState, customerState } from './../store/app.states';
+import { AppState, customerState, selectAuthenticationState } from './../store/app.states';
 import { GetAllCustomerRequests } from './../store/actions/customer.actions';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ProfileService } from '../services/userProfile.service';
@@ -47,6 +47,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
   allRequestData: any;
   allFilterRequests: any;
   getState: Observable<any>;
+  getuserState: Observable<any>;
+  enumRequestTypes: any[] = [];
   requestTypes: any[] = [
     {
       type: 'All Requests'
@@ -88,6 +90,14 @@ export class RequestsComponent implements OnInit, OnDestroy {
     private profileService: ProfileService,
     public translate: TranslateService,
   ) {
+    // this.getuserState = this.store.select(selectAuthenticationState);
+    // this.getuserState.subscribe((state) => {
+    //   if (state.enumConfigs != null) {
+    //     this.enumRequestTypes = state.enumConfigs.requestType;
+    //   }
+    // });
+    let enumValues = JSON.parse(localStorage.getItem('EnumConfigs'));
+    this.enumRequestTypes = enumValues.requestType;
     this.getState = this.store.select(customerState);
     this.showMessage = false;
     this.userLang = this.translate.currentLang;
@@ -99,7 +109,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   getCustomerRequestFromStore() {
     return new Promise((resolve, reject) => {
       this.getState.subscribe((state) => {
-        console.log('in requests', state);
+        // console.log('in requests', state);
         if (state.requestsArrayIsEmpty == false) {
           this.isDatainArray = true;
           resolve();
@@ -133,7 +143,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     });
     this.getCustomerRequestFromStore().then(e => {
       allCustomerRequestData.length = 0;
-      if (this.isDatainArray == true && this.allRequestData.length > 0) {
+      if (this.isDatainArray == true && this.allRequestData.length > 0 && this.enumRequestTypes.length > 0) {
         this.allRequestData.forEach(element => {
           allCustomerRequestData.push(element);
           // element.date = moment(element.createdAt).format('LL');
@@ -141,8 +151,13 @@ export class RequestsComponent implements OnInit, OnDestroy {
           element.arDate = moment(element.updatedAt).locale('ar-sa').format('LL');
           element.price = element.totalPaybackAmount + element.delieveryFees + ' SAR';
           element.arPrice = element.totalPaybackAmount + element.delieveryFees + ' ريال سعودي ';
-          element.enStatus = this.requestTypes[element.type].type;
-          element.arStatus = this.requestTypes[element.type].arType;
+          this.enumRequestTypes.map( el => {
+             if ( el.key == element.type) {
+              element.enStatus = el.value;
+             }
+          });
+          // element.enStatus = this.requestTypes[element.type].type;
+          // element.arStatus = this.requestTypes[element.type].arType;
         });
         // this.CustomerRequestType = 'All Requests';
         this.dataSourceAll = new MatTableDataSource<any>(allCustomerRequestData);
@@ -237,8 +252,13 @@ export class RequestsComponent implements OnInit, OnDestroy {
             element.arDate = moment(element.createdAt).locale('ar-sa').format('LL');
             element.price = element.totalPaybackAmount + element.delieveryFees + ' SAR';
             element.arPrice = element.totalPaybackAmount + element.delieveryFees + ' ريال سعودي ';
-            element.enStatus = this.requestTypes[element.type].type;
-            element.arStatus = this.requestTypes[element.type].arType;
+            // element.enStatus = this.requestTypes[element.type].type;
+            // element.arStatus = this.requestTypes[element.type].arType;
+            this.enumRequestTypes.map( el => {
+              if ( el.key == element.type) {
+               element.enStatus = el.value;
+              }
+           });
           });
           // if (this.dataSourceAll.filteredData.length == 0) {
           //   this.showMessage = true;

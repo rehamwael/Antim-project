@@ -260,5 +260,12 @@ export class ProfileService {
       })
     );
   }
+  getENUMvalues() {
+    this.getTokenAndHeaders();
+    return this.httpClient.get(`${this.Url}StaticData/GetAllEnumsValues`, this.httpOptions).pipe(
+      tap((res: any) => {
+      })
+    );
+  }
 
 }

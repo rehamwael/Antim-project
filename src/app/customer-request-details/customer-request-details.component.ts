@@ -29,7 +29,6 @@ export class CustomerRequestDetailsComponent implements OnInit {
 
   requestName: any;
   requestID: any;
-  requestType_ENUM: any;
   requestType: any;
   totalPrice: number;
   totalPriceWithProfit: number;
@@ -161,6 +160,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   arRequestType: any;
   arInstallmentPeriod: any;
   arRequestDate: any;
+  enumRequestTypes: any[] = [];
 
   constructor(private modalService: NgbModal,
     private _formBuilder: FormBuilder,
@@ -172,6 +172,9 @@ export class CustomerRequestDetailsComponent implements OnInit {
     private profileService: ProfileService,
     public translate: TranslateService,
   ) {
+    let enumValues = JSON.parse(localStorage.getItem('EnumConfigs'));
+    this.enumRequestTypes = enumValues.requestType;
+
     this.getUserState = this.store.select(selectAuthenticationState);
     this.getState = this.store.select(customerState);
     this.userLang = this.translate.currentLang;
@@ -206,22 +209,36 @@ export class CustomerRequestDetailsComponent implements OnInit {
         this.installmentPeriod_ENUM = res.result.paybackPeriod;
         this.installmentPeriod = this.installmentTypes[res.result.paybackPeriod].type;
         this.arInstallmentPeriod = this.installmentTypes[res.result.paybackPeriod].arType;
-        this.requestType_ENUM = res.result.type;
-        this.requestType = this.requestTypes[res.result.type].type;
-        this.arRequestType = this.requestTypes[res.result.type].arType;
-        if (res.result.type == 4 || res.result.type == 2) {
-          this.showRequestDetailsTable = true;
-        }
-        // if (this.requestType_ENUM == 1) {
+        // this.requestType = this.requestTypes[res.result.type].type;
+        // this.arRequestType = this.requestTypes[res.result.type].arType;
+        this.enumRequestTypes.map( element => {
+          if ( element.key == res.result.type) {
+            this.requestType = element.value;
+          }
+          if ( element.value == 'UnderReview' && element.key == res.result.type) {
+            this.showCancelButton = true;
+          }
+          if ( (element.value == 'Closed' || element.value == 'Ongoing')  && element.key == res.result.type ) {
+            this.showRequestDetailsTable = true;
+          }
+          if ( element.value == 'Draft' && element.key == res.result.type) {
+            this.deleteButton = true;
+            this.showEditButton = true;
+          }
+       });
+        // if (res.result.type == 4 || res.result.type == 2) {
+        //   this.showRequestDetailsTable = true;
+        // }
+        // // if (res.result.type == 1) {
+        // //   this.showCancelButton = true;
+        // // }
+        // if (res.result.type == 5) {
+        //   this.deleteButton = true;
+        //   this.showEditButton = true;
+        // }
+        // if (res.result.type == 6) {
         //   this.showCancelButton = true;
         // }
-        if (this.requestType_ENUM == 5) {
-          this.deleteButton = true;
-          this.showEditButton = true;
-        }
-        if (this.requestType_ENUM == 6) {
-          this.showCancelButton = true;
-        }
         this.productStatus = this.ProductStatus[res.result.productStatus].type;
         this.arProductStatus = this.ProductStatus[res.result.productStatus].arType;
         this.spinner.hide();

@@ -89,6 +89,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     }
   ];
 
+  enumRequestTypes: any[] = [];
   requestTypes: any[] = [
     {
       type: 'All Requests'
@@ -149,6 +150,9 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
 
   ) {
+    let enumValues = JSON.parse(localStorage.getItem('EnumConfigs'));
+    this.enumRequestTypes = enumValues.funderRequestType;
+    console.log(this.enumRequestTypes);
     this.getState = this.store.select(funderState);
     this.userLang = this.translate.currentLang;
     this.translate.onLangChange.subscribe((event) => {
@@ -177,8 +181,14 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
             element.arDate = moment(element.updatedAt).locale('ar-sa').format('LL');
             element.price = element.fundedAmount + ' SAR';
             element.arPrice = element.fundedAmount + ' ريال سعودي ';
-            element.enStatus = this.requestTypes[element.requestType].type;
-            element.arStatus = this.requestTypes[element.requestType].arType;
+            // element.enStatus = this.requestTypes[element.requestType].type;
+            // element.arStatus = this.requestTypes[element.requestType].arType;
+            this.enumRequestTypes.map( el => {
+              if ( el.key == element.requestType) {
+               element.enStatus = el.value;
+              }
+           });
+
           });
         }
         if (this.awaitingRequestsData != null) {
@@ -188,8 +198,9 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
             element.arDate = moment(element.updatedAt).locale('ar-sa').format('LL');
             element.price = element.totalFundAmount + ' SAR';
             element.arPrice = element.totalFundAmount + ' ريال سعودي ';
-            element.enStatus = 'Awaiting For Fund Requests';
-            element.arStatus = 'الطلبات بإنتظار تمويل';
+            element.enStatus = 'Awaiting';
+            // element.enStatus = 'Awaiting For Fund Requests';
+            // element.arStatus = 'الطلبات بإنتظار تمويل';
           });
         }
         this.dataSource = new MatTableDataSource<any>(AllFunderRequests);
@@ -222,8 +233,9 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
           element.arDate = moment(element.updatedAt).locale('ar-sa').format('LL');
           element.price = element.totalFundAmount + ' SAR';
           element.arPrice = element.totalFundAmount + ' ريال سعودي ';
-          element.enStatus = 'Awaiting For Fund Requests';
-          element.arStatus = 'الطلبات بإنتظار تمويل';
+          element.enStatus = 'Awaiting';
+          // element.enStatus = 'Awaiting For Fund Requests';
+          // element.arStatus = 'الطلبات بإنتظار تمويل';
       });
         this.dataSource = new MatTableDataSource<any>(AllAwaitingRequests);
         this.dataSource.paginator = this.paginator;

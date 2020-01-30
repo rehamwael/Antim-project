@@ -61,7 +61,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   // End open close
   ngOnInit() {
     this.getState.subscribe((state) => {
-      // console.log( 'state:' , state);
+      // console.log( 'state in side bar:' , state);
       let token = localStorage.getItem('token');
       if (state.userProfile == null && token) {
         this.store.dispatch(new UserProfile());
@@ -113,9 +113,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   SetTitle(enTitle, arTitle) {
     if (this.translate.currentLang == 'arabic') {
-      this.titleService.setTitle( arTitle );
+      this.titleService.setTitle(arTitle);
     } else {
-      this.titleService.setTitle( enTitle );
+      this.titleService.setTitle(enTitle);
     }
   }
 
@@ -125,9 +125,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     localStorage.clear();
     this.store.dispatch(new Logout());
     if (this.translate.currentLang == 'arabic') {
-      this.titleService.setTitle( arTitle );
+      this.titleService.setTitle(arTitle);
     } else {
-      this.titleService.setTitle( enTitle );
+      this.titleService.setTitle(enTitle);
     }
   }
 }

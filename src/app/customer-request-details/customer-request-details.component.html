@@ -110,14 +110,15 @@
                           <input formControlName="MonthlyInstallment" class="form-control form-control-lg" value="{{monthlyInstallment}}"   readonly placeholder="{{ 'CreateOrder.InstallmentAmountperMonth' | translate }}" [attr.disabled]="true">
                       </div>
                       <div class="col-lg-4" *ngIf="isdeliveryFees">
-                        <label  class="font-bold mt-2">{{ 'CreateOrder.InstallmentAmountperMonth' | translate }}</label>
+                        <label  class="font-bold mt-2">{{ 'Requests.DeliveryFees' | translate }}</label>
                         <input formControlName="DelieveryFees" class="form-control form-control-lg" value="{{deliveryFees}}"   readonly  [attr.disabled]="true">
                     </div>
                   </div>
                   <div class="row" style="width: 100%;">
                       <div class="col-lg-6">
                         <label for="RequestStatus" class="font-bold mt-2">{{ 'Requests.RequestStatus' | translate }}</label>
-                        <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{userLang == 'arabic' ? arRequestType : requestType }}" readonly [attr.disabled]="true">
+                        <!-- <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{userLang == 'arabic' ? arRequestType : requestType }}" readonly [attr.disabled]="true"> -->
+                        <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{ ( 'Requests.' + requestType )| translate }}" readonly [attr.disabled]="true">
                       </div>
 
                       <div class="col-lg-6" *ngIf="requestType == 'Ongoing Requests'">
@@ -484,33 +485,29 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  <p>
-                                      {{ 'CreateOrder.Thankyou' | translate }}
+                                  <p>{{ 'CreateOrder.Thankyou' | translate }}
                                          {{currentUser?.firstName}},<br/>
-                                         {{ 'CreateOrder.ThankyourequestSuccessfully' | translate }}
-
-
-                                  </p>
+                                         {{ 'CreateOrder.ThankyourequestSuccessfully' | translate }} </p>
+                                </div>
+                                <div class="modal-footer">
                                   <div class="col-lg-9 "></div>
-                                  <div class="col-lg-3 "><button class="btn btn-info btn-lg btn-block btn-purple mt-2" [routerLink]="[ '/requests-customer' ]" (click)="closeModal()">{{ 'CreateOrder.OK' | translate }}</button></div>
-
+                                  <div class="col-lg-3 "><button class="btn btn-info btn-lg btn-block btn-purple mt-2" (click)="closeModal()">{{ 'CreateOrder.OK' | translate }}</button></div>
                                 </div>
                               </ng-template>
                               <ng-template #content let-modal>
                                   <div class="modal-header">
-                                      <h4 class="modal-title">{{ 'CreateOrder.RequestUpdated' | translate }}</h4>
+                                      <h4 class="modal-title">{{ 'Requests.RequestUpdated' | translate }}</h4>
                                       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                 <div class="modal-body">
-                                  <p>
-                                      {{ 'CreateOrder.Thankyou' | translate }} !<br/>
-                                      {{ 'Requests.RequestUpdatedAsDraft' | translate }}
-                                  </p>
+                                  <p>{{ 'CreateOrder.Thankyou' | translate }} !<br/>
+                                      {{ 'Requests.RequestUpdatedAsDraft' | translate }}</p>
+                                </div>
+                                <div class="modal-footer">
                                   <div class="col-lg-9 "></div>
-                                  <div class="col-lg-3 "><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " [routerLink]="[ '/requests-customer' ]" (click)="closeModal()"> {{ 'CreateOrder.OK' | translate }}</button></div>
-
+                                  <div class="col-lg-3 "><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="closeModal()"> {{ 'CreateOrder.OK' | translate }}</button></div>
                                 </div>
                               </ng-template>
             </div>

@@ -120,6 +120,13 @@ export class AuthenticationEffects {
         this.spinner.show();
         return this.userDataService.getUserData().subscribe(res => {
           this.store.dispatch(new SaveUserProfile(res.result));
+          this.userDataService.getENUMvalues().subscribe(result => {
+            // console.log(result);
+            // this.store.dispatch(new SaveEnumConfigs(result.result));
+            localStorage.setItem('EnumConfigs', JSON.stringify(result.result));
+          }, err => {
+            console.log(err);
+          });
           this.spinner.hide();
         }, err => {
           this.spinner.hide();

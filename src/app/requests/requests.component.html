@@ -26,12 +26,13 @@
                                     <!-- <option *ngFor="let options of requestTypes" >{{options.type}}</option> -->
                                     <option value=""  selected disabled>{{ 'Requests.SelectRequestType' | translate }}</option>
                                     <option value="{{ 'Requests.AllRequests' | translate }}">{{ 'Requests.AllRequests' | translate }} </option>
-                                    <option value="{{ 'Requests.AwaitingforFundRequests' | translate }}">{{ 'Requests.AwaitingforFundRequests' | translate }}</option>
-                                    <option value="{{ 'Requests.ClosedRequests' | translate }}">{{ 'Requests.ClosedRequests' | translate }} </option>
-                                    <option value="{{ 'Requests.RejectedRequests' | translate }}">{{ 'Requests.RejectedRequests' | translate }} </option>
-                                    <option value="{{ 'Requests.OngoingRequests' | translate }} ">{{ 'Requests.OngoingRequests' | translate }} </option>
-                                    <option value="{{ 'Requests.DraftRequests' | translate }} ">{{ 'Requests.DraftRequests' | translate }}  </option>
-                                    <option value="{{ 'Requests.UnderReviewRequests' | translate }}">{{ 'Requests.UnderReviewRequests' | translate }}  </option>
+                                    <option *ngFor="let options of enumRequestTypes" value="{{ options.value }}" >{{ ('Requests.'  + options.value) | translate }} </option>
+                                    <!-- <option value="{{ 'Requests.Awaiting' | translate }}">{{ 'Requests.Awaiting' | translate }}</option>
+                                    <option value="{{ 'Requests.Closed' | translate }}">{{ 'Requests.Closed' | translate }} </option>
+                                    <option value="{{ 'Requests.Rejected' | translate }}">{{ 'Requests.Rejected' | translate }} </option>
+                                    <option value="{{ 'Requests.Ongoing' | translate }} ">{{ 'Requests.Ongoing' | translate }} </option>
+                                    <option value="{{ 'Requests.Draft' | translate }} ">{{ 'Requests.Draft' | translate }}  </option>
+                                    <option value="{{ 'Requests.UnderReview' | translate }}">{{ 'Requests.UnderReview' | translate }}  </option> -->
                                  </select>
                                 <!-- <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg> -->
                              </div>
@@ -89,7 +90,8 @@
 
                                            <ng-container matColumnDef="type">
                                               <th mat-header-cell *matHeaderCellDef > {{ 'Requests.RequestStatus' | translate }}  </th>
-                                              <td mat-cell *matCellDef="let element" class="mat-cell {{element.enStatus}}"> {{ userLang == 'arabic' ? element.arStatus : element.enStatus }} </td>
+                                              <!-- <td mat-cell *matCellDef="let element" class="mat-cell {{element.enStatus}}"> {{ userLang == 'arabic' ? element.arStatus : element.enStatus }} </td> -->
+                                              <td mat-cell *matCellDef="let element" class="mat-cell {{element.enStatus}}">{{ ('Requests.' + element.enStatus) | translate }} </td>
                                             </ng-container>
 
                                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
