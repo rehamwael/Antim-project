@@ -164,7 +164,8 @@
         "OurLocation" : "Our Location",
         "MarketingSales" : "Marketing & Sales",
         "OutsideSA" : "From outside the Kingdom",
-        "InsideSA" : "From within the Kingdom "
+        "InsideSA" : "From within the Kingdom ",
+        "maxMessagelength": "Maximum 1000 characters."
     },
     "login" : {
         "loginDesc1" : "Hello sir, nice to see you again!",

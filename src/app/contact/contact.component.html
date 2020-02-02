@@ -69,8 +69,9 @@
                                         <div class="form-group col-lg-12 mb-4">
                                         <label class="text-left  contact-headings">{{ 'contact.Message' | translate }}</label>
                                         <textarea formControlName="contactFormMessage" class="form-control rounded-0" mdbInput [(ngModel)]="message" id="exampleFormControlTextarea2"
-                                            rows="4" placeholder="{{ 'contact.MessageType' | translate }}"></textarea>
-                                       <div *ngIf="contactForm.controls['contactFormMessage'].touched && !contactForm.controls['contactFormMessage'].valid" class="error-msg alert alert-danger text-left">{{ 'contact.MessageRequired' | translate }}</div>
+                                        maxlength="1000" rows="4" placeholder="{{ 'contact.MessageType' | translate }}"></textarea>
+                                       <div *ngIf="contactForm.controls['contactFormMessage'].touched && contactForm.controls['contactFormMessage'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'contact.MessageRequired' | translate }}</div>
+                                       <div class="msg-max-length mt-1 d-flex justify-content-end">{{ 'contact.maxMessagelength' | translate }}</div>
 
                                         </div>
 
