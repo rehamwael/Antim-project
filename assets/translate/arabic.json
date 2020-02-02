@@ -163,7 +163,8 @@
         "OurLocation" : "موقعنا" ,
         "MarketingSales" : "التسويق والمبيعات",
         "OutsideSA" : "من خارج المملكة ",
-        "InsideSA" : "من داخل المملكة "
+        "InsideSA" : "من داخل المملكة ",
+        "maxMessagelength": "1000 حرف كحد اقصى"
 
     },
     "login" : {
