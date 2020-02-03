@@ -33,7 +33,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   name: any;
   email: any;
   mobile: any;
-  messageType = 0;
+  messageType = '';
   message: any;
   ContactUsPage: any = {
     page_name: 'Contact Us Page',

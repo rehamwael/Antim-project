@@ -51,7 +51,7 @@
                                         <div class="form-group col-lg-4 mb-4">
                                             <label class="text-left  contact-headings">{{ 'contact.CommentType' | translate }}<span class="red-color"> *</span></label>
                                             <select formControlName="contactFormSubjects" class="browser-default custom-select" [(ngModel)]="messageType" >
-                                                <option value="0" selected>{{ 'contact.Chooseoption' | translate }}</option>
+                                                <option value=""  selected disabled>{{ 'contact.Chooseoption' | translate }}</option>
                                                 <option value="1" >{{ 'contact.Suggestion' | translate }}</option>
                                                 <option value="2">{{ 'contact.ReportAbug' | translate }}</option>
                                                 <option value="3">{{ 'contact.FeatureRequest' | translate }}</option>
@@ -78,7 +78,7 @@
                                         <!-- Copy -->
                                         <!-- Send button -->
                                         <button block="true"class="btn btn-info btn-lg btn-block btn-purple col-lg-3 " (click)="sendMessage()"
-                                        mdbWavesEffect type="button" [disabled]="disabledSubmitButton">{{ 'contact.Send' | translate }}</button>
+                                        mdbWavesEffect type="button" [disabled]="!contactForm.valid">{{ 'contact.Send' | translate }}</button>
 
                                     </form>
                                     <div class="pattern-up pattern-form"></div>
