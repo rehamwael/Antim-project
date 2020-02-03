@@ -38,7 +38,7 @@
                               </div>
                             <div class="row" style="width: 100%;">
                               <div class="form-group text-left col-lg-12  " >
-                                <label for="name" class="font-bold mt-2">{{ 'Requests.RequestName' | translate }}</label>
+                                <label for="name" class="font-bold dir-rtl mt-2">{{ 'Requests.RequestName' | translate }}<span class="red-color"> *</span></label>
                                 <input formControlName="Name" class="form-control form-control-lg" placeholder="{{ 'CreateOrder.EnterRequestNamehere' | translate }}"  type="text" [(ngModel)]="requestName" required>
                                 <div *ngIf="firstFormGroup.controls['Name'].touched && firstFormGroup.controls['Name'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'CreateOrder.RequestNamerequired' | translate }}</div>
                                 <div *ngIf="firstFormGroup.controls['Name'].touched && firstFormGroup.controls['Name'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'CreateOrder.RequestNameValidation' | translate }}</div>
@@ -48,11 +48,11 @@
                             <div class="row mb-3" style="width: 100%;" *ngFor="let product of userPoductList; let i = index;" >
                               <a class="close-icon col-lg-1  col-1" (click)="removeItems(i)"><img src="assets/images/close.svg"></a>
                               <div class="form-group text-left col-lg-8">
-                                  <label  class="font-bold mt-2">{{ 'Requests.ProductLink' | translate }}</label>
+                                  <label  class="font-bold dir-rtl mt-2">{{ 'Requests.ProductLink' | translate }}<span class="red-color"> *</span></label>
                                   <input  class="form-control form-control-lg" placeholder="{{ 'CreateOrder.Enterproductlinkhere' | translate }}" type="text" [(ngModel)]="product.productUrl"  [ngModelOptions]="{standalone: true}" >
                               </div>
                               <div class="form-group text-left col-lg-3">
-                                  <label  class="font-bold mt-2">{{ 'Requests.ProductPrice' | translate }}</label>
+                                  <label  class="font-bold dir-rtl mt-2">{{ 'Requests.ProductPrice' | translate }}<span class="red-color"> *</span></label>
                                   <input  class="form-control form-control-lg" placeholder="{{ 'CreateOrder.Enterpricehere' | translate }}"  type="number" digitOnly [(ngModel)]="product.amount" [ngModelOptions]="{standalone: true}" (focusout)="onFocusoutMethod()" >
                               </div>
                             </div>
@@ -100,7 +100,7 @@
                                     </ng-template>
                                     <div class="row mt-4">
                                     <div class="col-lg-6">
-                                        <label for="Installment" class="font-bold mt-2">{{ 'CreateOrder.SelectInstallmentPeroid' | translate }} </label>
+                                        <label for="Installment" class="font-bold dir-rtl mt-2">{{ 'CreateOrder.SelectInstallmentPeroid' | translate }} <span class="red-color"> *</span> </label>
                                         <select formControlName="firstCtrl" matNativeControl required class="form-control custom-select form-control-lg mt-3" (change)="onChange($event.target.value)">
                                           <option value="" selected>{{ 'CreateOrder.PleaseSelectInstallmentPeriod' | translate }}   </option>
                                           <option value="3-Months" >{{ 'CreateOrder.3 Months' | translate }} </option>

@@ -46,13 +46,13 @@
                        </div>
                             <div class="row form-group "  style="width: 100%;">
                           <div class="col-lg-6">
-                            <label class="font-bold mt-2">{{ 'SignUp.FirstName' | translate }} :</label>
+                            <label class="font-bold dir-rtl mt-2">{{ 'SignUp.FirstName' | translate }} <span class="red-color"> *</span></label>
                             <input matInput formControlName="FirstName" type="text" class="form-control form-control-lg" value= "{{firstName}}" [(ngModel)]="firstName" placeholder="{{ 'SignUp.FirstName' | translate }}" >
                             <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNamerequired' | translate }}</div>
                             <!-- <div *ngIf="EditForm.controls['FirstName'].touched && EditForm.controls['FirstName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.FirstNameValidate' | translate }}</div> -->
                         </div>
                         <div class="col-lg-6">
-                          <label class="font-bold mt-2">{{ 'SignUp.LastName' | translate }} :</label>
+                          <label class="font-bold dir-rtl mt-2">{{ 'SignUp.LastName' | translate }} <span class="red-color"> *</span></label>
                           <input matInput formControlName="LastName" type="text" class="form-control form-control-lg" value= "{{lastName}}" [(ngModel)]="lastName" placeholder="{{ 'SignUp.LastName' | translate }} " >
                           <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNamerequired' | translate }} </div>
                           <!-- <div *ngIf="EditForm.controls['LastName'].touched && EditForm.controls['LastName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.LastNameValidate' | translate }}</div> -->
@@ -60,14 +60,14 @@
                       </div>
                       <div class="row form-group "  style="width: 100%;">
                       <div class="col-lg-6">
-                        <label class="font-bold mt-2">{{ 'SignUp.Username' | translate }} :</label>
+                        <label class="font-bold dir-rtl mt-2">{{ 'SignUp.Username' | translate }} <span class="red-color"> *</span></label>
                         <input matInput formControlName="UserName" type="text" class="form-control form-control-lg" value= "{{userName}}" [(ngModel)]="userName" placeholder="{{ 'SignUp.Username' | translate }}" >
                         <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('required')" class="error-msg alert alert-danger text-left"> {{ 'SignUp.UsernameRequired' | translate }}</div>
                         <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'SignUp.UsernameValidate' | translate }}</div>
                         <div *ngIf="EditForm.controls['UserName'].touched && EditForm.controls['UserName'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.ProperUsername' | translate }}</div>
                     </div>
                         <div class="col-lg-6">
-                            <label for="NID" class="font-bold mt-2">{{ 'SignUp.NationalID' | translate }} :</label>
+                            <label for="NID" class="font-bold dir-rtl mt-2">{{ 'SignUp.NationalID' | translate }} <span class="red-color"> *</span></label>
                             <input matInput formControlName="NID" type="text" class="form-control form-control-lg" value= "{{NID}}" [(ngModel)]="NID" placeholder="{{ 'SignUp.NationalID' | translate }}">
                             <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.NationalIDrequired' | translate }}</div>
                             <div *ngIf="EditForm.controls['NID'].touched && EditForm.controls['NID'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'SignUp.NationalIDValidate' | translate }}</div>
@@ -94,7 +94,7 @@
                     <div class="row form-group "  style="width: 100%;">
 
                             <div class=" col-lg-8">
-                                <label for="Email" class="font-bold mt-2">{{ 'contact.Email' | translate }} :</label>
+                                <label for="Email" class="font-bold dir-rtl mt-2">{{ 'contact.Email' | translate }} <span class="red-color"> *</span></label>
                                 <input matInput formControlName="Email" type="email" class="form-control form-control-lg" value= "{{email}}" [(ngModel)]="email" placeholder="{{ 'contact.Email' | translate }}">
                                 <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'contact.Emailrequired' | translate }}</div>
                                 <div *ngIf="EditForm.controls['Email'].touched && EditForm.controls['Email'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.EmailValidate' | translate }}</div>
@@ -108,12 +108,12 @@
                             <div class="row form-group " id="edit-moible" dir="ltr" style="width: 100%;">
 
                             <div class="col-lg-3">
-                                <label for="countrycode" class="font-bold mt-2">{{ 'SignUp.CountryCode' | translate }} :</label>
+                                <label for="countrycode" class="font-bold dir-rtl mt-2">{{ 'SignUp.CountryCode' | translate }} <span class="red-color"> *</span></label>
                                 <input matInput id="countrycode" formControlName="CountryCode" type="text" class="form-control form-control-lg" value="{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" readonly>
                                 <div *ngIf="EditForm.controls['CountryCode'].touched && EditForm.controls['CountryCode'].hasError('required')" class="error-msg alert alert-danger text-left"> {{ 'SignUp.CountryCodeValidate' | translate }}</div>
                             </div>
                         <div class="col-lg-5">
-                            <label for="mobile" class="font-bold mt-2">{{ 'SignUp.MobileNo' | translate }} :</label>
+                            <label for="mobile" class="font-bold dir-rtl mt-2">{{ 'SignUp.MobileNo' | translate }} <span class="red-color"> *</span></label>
                             <input matInput formControlName="MobileNo" type="text" class="form-control form-control-lg" value= "{{phone}}" [(ngModel)]="phone" placeholder="{{ 'SignUp.MobileNo' | translate }}" (keyup)="inputNumber($event)" digitOnly
                             oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
                             else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
@@ -172,17 +172,17 @@
                           <div class="col-lg-12 mt-3"> <h3 class="headingh2">{{ 'Profile.ChangeYourPassword' | translate }} </h3>
                         </div>
                         <div class="col-lg-8">
-                          <label class="font-bold mt-2">{{ 'Profile.OldPassword' | translate }} :</label>
+                          <label class="font-bold dir-rtl mt-2">{{ 'Profile.OldPassword' | translate }} <span class="red-color"> *</span></label>
                           <input matInput formControlName="OldPassword" type="password" class="form-control form-control-lg"  [(ngModel)]="oldPassword" placeholder="{{ 'Profile.TypeOldPassword' | translate }}" >
                           <div *ngIf="EditForm.controls['OldPassword'].touched && EditForm.controls['OldPassword'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'Profile.TypeOldPasswordValidation' | translate }}</div>
                       </div>
                       <div class="col-lg-8">
-                        <label class="font-bold mt-2">{{ 'Profile.NewPassword' | translate }} :</label>
+                        <label class="font-bold dir-rtl mt-2">{{ 'Profile.NewPassword' | translate }} <span class="red-color"> *</span></label>
                         <input matInput formControlName="NewPassword" type="password" class="form-control form-control-lg"  [(ngModel)]="newPassword" placeholder="{{ 'Profile.TypeNewPassword' | translate }}" >
                         <div *ngIf="EditForm.controls['NewPassword'].touched && EditForm.controls['NewPassword'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'Profile.TypeNewPasswordValidation' | translate }}</div>
                       </div>
                     <div class="col-lg-8">
-                      <label class="font-bold mt-2">{{ 'Profile.ConfirmPassword' | translate }} :</label>
+                      <label class="font-bold dir-rtl mt-2">{{ 'Profile.ConfirmPassword' | translate }} <span class="red-color"> *</span></label>
                       <input matInput formControlName="ConfirmPassword" type="password" class="form-control form-control-lg" [(ngModel)]="confirmPassword" placeholder="{{ 'Profile.TypeConfirmPassword' | translate }}" >
                       <div *ngIf="EditForm.controls['ConfirmPassword'].touched && EditForm.value.NewPassword != EditForm.value.ConfirmPassword" class="error-msg alert alert-danger text-left">{{ 'Profile.TypeConfirmPasswordValidation' | translate }}</div>
                   </div>
@@ -202,7 +202,7 @@
                         <form class="row antim-form" [formGroup]="BankInfoForm" *ngIf="!showAddress && showBank && !showUser">
                                 <div class="col-lg-12 mb-3"> <h3 class="headingh2">{{ 'Profile.BankInformation' | translate }} </h3></div>
                                 <div class="col-lg-6">
-                                    <label for="bankName" class="font-bold mt-2">{{ 'Profile.BankName' | translate }} </label>
+                                    <label for="bankName" class="font-bold dir-rtl mt-2">{{ 'Profile.BankName' | translate }} <span class="red-color"> *</span></label>
                                     <select formControlName="BankName" class="form-control form-control-lg custom-select" value="{{bankName}}" [(ngModel)]="bankName" (change)="onSelectChange($event.target.value)">
                                       <option value="select" selected>{{ 'Profile.SelectyourBank' | translate }}</option>
                                       <option value="AlBilad Bank">{{ 'Profile.AlBiladBank' | translate }} </option>
@@ -230,20 +230,20 @@
                                     <!-- <div *ngIf="BankInfoForm.controls['BankName'].touched && BankInfoForm.controls['BankName'].hasError('minlength')" class="error-msg alert alert-danger text-left">Bank Name must be at least 4 characters long.</div> -->
                                   </div>
                                 <div class="col-lg-6">
-                                    <label for="bankAccountNo" class="font-bold mt-2">{{ 'Profile.BankAccountNumber' | translate }}</label>
+                                    <label for="bankAccountNo" class="font-bold dir-rtl mt-2">{{ 'Profile.BankAccountNumber' | translate }}<span class="red-color"> *</span></label>
                                     <input matInput formControlName="BankAccountNo" class="form-control form-control-lg" value="{{bankAccountNo}}" maxlength="24" [(ngModel)]="bankAccountNo" placeholder="{{ 'Profile.BankAccountNumber' | translate }}...">
                                     <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'Profile.BankAccountNumberValidation1' | translate }}</div>
                                     <div *ngIf="BankInfoForm.controls['BankAccountNo'].touched && BankInfoForm.controls['BankAccountNo'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'Profile.BankAccountNumberValidation2' | translate }}</div>
                                 </div>
 
                                 <div class="col-lg-6">
-                                    <label for="accountTitle" class="font-bold mt-2">{{ 'Profile.AccountTitle' | translate }}  </label>
+                                    <label for="accountTitle" class="font-bold dir-rtl mt-2">{{ 'Profile.AccountTitle' | translate }}  <span class="red-color"> *</span></label>
                                     <input matInput formControlName="AccountTitle" class="form-control form-control-lg" value="{{accountTitle}}" [(ngModel)]="accountTitle" placeholder="{{ 'Profile.AccountTitle' | translate }}...">
                                     <div *ngIf="BankInfoForm.controls['AccountTitle'].touched && BankInfoForm.controls['AccountTitle'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'Profile.AccountTitleValidation1' | translate }}</div>
                                     <div *ngIf="BankInfoForm.controls['AccountTitle'].touched && BankInfoForm.controls['AccountTitle'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'Profile.AccountTitleValidation2' | translate }}</div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="bankAddress" class="font-bold mt-2">{{ 'Profile.BankAddress' | translate }} </label>
+                                    <label for="bankAddress" class="font-bold dir-rtl mt-2">{{ 'Profile.BankAddress' | translate }} <span class="red-color"> *</span></label>
                                     <input matInput formControlName="BankAddress" class="form-control form-control-lg" value="{{bankAddress}}"[(ngModel)]="bankAddress"  placeholder="{{ 'Profile.BankAddress' | translate }}">
                                     <div *ngIf="BankInfoForm.controls['BankAddress'].touched && BankInfoForm.controls['BankAddress'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'Profile.BankAddressValidation1' | translate }}</div>
                                     <div *ngIf="BankInfoForm.controls['BankAddress'].touched && BankInfoForm.controls['BankAddress'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'Profile.BankAddressValidation2' | translate }}</div>
@@ -267,7 +267,7 @@
                                  </ngx-spinner>
                           </div>
                             <form [formGroup]="AccountForm" (ngSubmit)="onAccountFormSubmit()" class="col-lg-12">
-                              <label for="AccountStatement" class=" my-3" style="font-size: 18px; font-weight: bold;">{{ 'Profile.AccountStatement' | translate }} </label>
+                              <label for="AccountStatement" class="dir-rtl my-3" style="font-size: 18px; font-weight: bold;">{{ 'Profile.AccountStatement' | translate }} <span class="red-color"> *</span></label>
                               <div *ngIf="!showAccountUploadImg">
                                   <div class="row w-100" *ngFor="let file of AccountDocs; let i = index;">
                                   <div class="col-lg-6" >
@@ -314,7 +314,7 @@
                               </form>
 
                                   <form [formGroup]="SalaryForm" (ngSubmit)="onSalaryFormsubmit()" class="col-lg-12">
-                                    <label for="SalaryStatement" class=" my-3" style="font-size: 18px; font-weight: bold;">{{ 'Profile.SalaryStatement' | translate }} </label>
+                                    <label for="SalaryStatement" class="dir-rtl my-3" style="font-size: 18px; font-weight: bold;">{{ 'Profile.SalaryStatement' | translate }} <span class="red-color"> *</span></label>
                                     <div *ngIf="!showSalaryUploadImg">
                                       <div class="row w-100" *ngFor="let file of SalaryDocs; let i = index;">
                                       <div class="col-lg-6" >
@@ -402,7 +402,7 @@
                                 <form class="row antim-form" [formGroup]="AddressForm" *ngIf="showAddress && !showBank && !showUser">
                                   <div class="col-lg-12 mb-3"> <h3 class="headingh2">{{ 'Profile.AddressInformation' | translate }}  </h3></div>
                                   <div class="col-lg-12">
-                                      <label for="address" class="font-bold mt-2">{{ 'Profile.CompleteAddress' | translate }} </label>
+                                      <label for="address" class="font-bold dir-rtl mt-2">{{ 'Profile.CompleteAddress' | translate }} <span class="red-color"> *</span></label>
                                       <input matInput formControlName="Address" type="text" class="form-control form-control-lg" value="{{address}}" placeholder="{{ 'Profile.enterYourAdresshere' | translate }}" [(ngModel)]="address">
                                       <div *ngIf="AddressForm.controls['Address'].touched && AddressForm.controls['Address'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'Profile.Addressisrequired' | translate }} </div>
                                       <div *ngIf="AddressForm.controls['Address'].touched && AddressForm.controls['Address'].hasError('minlength')" class="error-msg alert alert-danger text-left">{{ 'Profile.AddressVlidation' | translate }}</div>

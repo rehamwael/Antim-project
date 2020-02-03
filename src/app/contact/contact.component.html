@@ -21,7 +21,7 @@
                                 <form class="text-center mat-card p-5 contact-form row justify-content-end" [formGroup]="contactForm" >
                                         <!-- Name -->
                                         <div class="form-group col-lg-12 mb-4">
-                                            <label class="text-left  contact-headings">{{ 'contact.Name' | translate }}</label>
+                                            <label class="text-left  contact-headings">{{ 'contact.Name' | translate }}<span class="red-color"> *</span></label>
                                             <input type="text" formControlName="contactFormName" id="defaultContactFormName" mdbInput [(ngModel)]="name"
                                             class="form-control" placeholder="{{ 'contact.NameType' | translate }}">
                                             <div *ngIf="contactForm.controls['contactFormName'].touched && contactForm.controls['contactFormName'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'contact.Namerequired' | translate }}</div>
@@ -30,11 +30,11 @@
                                         </div>
                                         <!-- Email -->
                                         <div class="form-group col-lg-8 mb-4">
-                                            <label class="text-left  contact-headings">{{ 'contact.Email' | translate }}</label>
+                                            <label class="text-left  contact-headings">{{ 'contact.Email' | translate }}<span class="red-color"> *</span></label>
                                             <input type="email" formControlName="contactFormEmail" id="defaultContactFormEmail" mdbInput [(ngModel)]="email"
                                             class="form-control" placeholder="{{ 'contact.emailType' | translate }}">
                                             <div *ngIf="contactForm.controls['contactFormEmail'].touched && contactForm.controls['contactFormEmail'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'contact.Emailrequired' | translate }} </div>
-                                            <div *ngIf="contactForm.controls['contactFormEmail'].touched && contactForm.controls['contactFormEmail'].hasError('pattern')" class="error-msg alert alert-danger text-left">Enter valid Email Address.</div>
+                                            <div *ngIf="contactForm.controls['contactFormEmail'].touched && contactForm.controls['contactFormEmail'].hasError('pattern')" class="error-msg alert alert-danger text-left">{{ 'SignUp.EmailValidate' | translate }}</div>
 
                                          </div>
                                           <!-- Phone Number -->
@@ -49,7 +49,7 @@
                                        </div> -->
                                         <!-- Subject -->
                                         <div class="form-group col-lg-4 mb-4">
-                                            <label class="text-left  contact-headings">{{ 'contact.CommentType' | translate }}</label>
+                                            <label class="text-left  contact-headings">{{ 'contact.CommentType' | translate }}<span class="red-color"> *</span></label>
                                             <select formControlName="contactFormSubjects" class="browser-default custom-select" [(ngModel)]="messageType" >
                                                 <option value="0" selected>{{ 'contact.Chooseoption' | translate }}</option>
                                                 <option value="1" >{{ 'contact.Suggestion' | translate }}</option>
@@ -67,7 +67,7 @@
 
                                         <!-- Message -->
                                         <div class="form-group col-lg-12 mb-4">
-                                        <label class="text-left  contact-headings">{{ 'contact.Message' | translate }}</label>
+                                        <label class="text-left contact-headings">{{ 'contact.Message' | translate }} <span class="red-color"> *</span></label>
                                         <textarea formControlName="contactFormMessage" class="form-control rounded-0" mdbInput [(ngModel)]="message" id="exampleFormControlTextarea2"
                                         maxlength="1000" rows="4" placeholder="{{ 'contact.MessageType' | translate }}"></textarea>
                                        <div *ngIf="contactForm.controls['contactFormMessage'].touched && contactForm.controls['contactFormMessage'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'contact.MessageRequired' | translate }}</div>

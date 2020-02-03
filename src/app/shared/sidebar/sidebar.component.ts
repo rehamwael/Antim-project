@@ -95,7 +95,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     this.notificationService.getNotificationsCount().subscribe(res => {
       console.log(res);
-      this.notificationsCount = res.result.count;
+      this.notificationsCount = res.result.unreadNotifications;
       if (this.notificationsCount == 0) {
         this.showCount = false;
       } else {
