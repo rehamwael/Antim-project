@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-page-not-found',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public translate: TranslateService,
+  ) {
+    let language =  localStorage.getItem('language');
+    translate.use(language);
+  }
 
   ngOnInit() {
   }

@@ -1,0 +1,21 @@
+.home-btn-style{
+  font-size: 20px;
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  background: #df4327;;
+  color: #ffffff;
+  padding: 15px 25px;
+  border-radius: 7px;
+  display: inline-block;
+}
+.btn-style{
+  font-size: 20px;
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  background: #5c20d2;
+  color: #ffffff;
+  padding: 15px 25px;
+  border-radius: 7px;
+  display: inline-block;
+}
+

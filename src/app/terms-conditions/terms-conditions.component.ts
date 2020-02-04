@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-terms-conditions',
@@ -6,8 +7,15 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
   styleUrls: ['./terms-conditions.component.css']
 })
 export class TermsConditionsComponent implements OnInit , OnDestroy {
+  userLang: any;
 
-  constructor() { }
+  constructor(
+    public translate: TranslateService,
+  ) {
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
+  }
 
 
   ngOnInit(): void {

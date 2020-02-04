@@ -2,15 +2,14 @@
     <div class="row m-0"
     style="background: #5c20d2; text-align: center ; display: flex; justify-content: center ; height: 40%; ">
     <h1 style="font-size: 48px; color: white; padding-top:100px; font-weight: bold; ">
-      Thank You!
+      {{ 'CONFIRMEMAIL.Thankyou' | translate }}
     </h1>
   </div>
   <p style="margin: 20px;text-align: center ; font-family: Arial, Helvetica, sans-serif; font-size: 20px;  ">
-    Your Email has been Confirmed! Please Login to get access
+    {{ 'CONFIRMEMAIL.YourEmailConfirmed' | translate }}
   </p>
   <div class="row" style="display: flex; justify-content: center ; margin-top:30px;">
-    <a [routerLink]="['/login']"
-      style="font-size: 20px; text-align: center;font-family: Helvetica, Arial, sans-serif; background: #5c20d2; color: #ffffff; text-decoration: none;  padding: 15px 25px; border-radius: 2px; text-align: center; display: inline-block;">Login</a>
+    <a [routerLink]="['/login']" class="btn-style" >{{ 'CONFIRMEMAIL.Login' | translate }}</a>
   </div>
 </div>
 
@@ -18,8 +17,11 @@
   <div class="row m-0"
     style="background: #dd3518; text-align: center ; display: flex; justify-content: center ; height: 50%; ">
     <h1 style="font-size: 48px; color: white; padding-top:100px; font-weight: bold; ">
-      An Error has Occurred!!
+      {{ 'CONFIRMEMAIL.ErrorOccured' | translate }}
     </h1>
+  </div>
+  <div class="row" style="display: flex; justify-content: center ; margin-top:50px;">
+    <a class="home-btn-style" [routerLink]="['/home']" >{{ 'CONFIRMEMAIL.GotoHomePage' | translate }}</a>
   </div>
 </div>
 
@@ -28,7 +30,10 @@
       style="background: #dd3518; text-align: center ; display: flex; justify-content: center ; height: 50%; ">
 
         <h1 style="font-size: 48px; color: white; padding-top:100px; font-weight: bold; ">
-            <span style="font-size: 84px; padding-top:10px; color: white; font-weight: bold; margin-right: 20px;" > 500</span> Internal Server Error !!
+            <span style="font-size: 84px; padding-top:10px; color: white; font-weight: bold; margin-right: 20px;" > 500</span> {{ 'CONFIRMEMAIL.InternalError' | translate }}
         </h1>
+    </div>
+    <div class="row" style="display: flex; justify-content: center ; margin-top:50px;">
+      <a class="home-btn-style" [routerLink]="['/home']" >{{ 'CONFIRMEMAIL.GotoHomePage' | translate }}</a>
     </div>
   </div>

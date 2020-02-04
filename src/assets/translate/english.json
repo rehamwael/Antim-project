@@ -49,7 +49,22 @@
         "TheTeamDesc" :  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         "IsmaelAlAkhras" : "Ismael Al-Akhras",
         "BashayerAlSaqir" :"Bashayer AlSaqir",
-        "ReachUs" : "Reach to Us"
+        "ReachUs" : "Reach to Us",
+        "CoFounder" : "Co-Founder and COO",
+        "Founder" : "Founder and CEO"
+    },
+    "CONFIRMEMAIL" : {
+      "Thankyou": "Thank You!",
+      "YourEmailConfirmed": "Your Email has been Confirmed! Please Login to get access",
+      "Login": "Login",
+      "ErrorOccured": "An Error has Occurred!",
+      "InternalError": "Internal Server Error !",
+      "GotoHomePage": "Go to Homepage"
+    },
+    "PAGENOTFOUND" : {
+      "NotFound": "PAGE NOT FOUND",
+      "PageNotExist": "Oops, the page you're looking for doesn't exist.",
+      "GotoHomePage": "Go to Homepage"
     },
     "Borrower" : {
         "BorrowerDescription": "We're working on elevating the Kingdom of Saudi Arabia's digital footprint in the Financial technology services sector, in pursuit of the national vision.",
@@ -91,6 +106,10 @@
         "FrequentlyAskedQuestions2" : "Can I be a borrower and an investor at the same time?",
         "FrequentlyAskedQuestions3" : "What is the action taken if I default on payment?",
         "FrequentlyAskedQuestions4" : "What is the minimum order limit?",
+        "FrequentlyAskedAnswer1" : "No matter if you are using your laptop or are on the go with your mobile, you will always have a convenient and user-friendly interface offered by our white-label crowdfunding software. LenderKit works great across all popular devices.",
+        "FrequentlyAskedAnswer2" : "No matter if you are using your laptop or are on the go with your mobile, you will always have a convenient and user-friendly interface offered by our white-label crowdfunding software. LenderKit works great across all popular devices.",
+        "FrequentlyAskedAnswer3" : "No matter if you are using your laptop or are on the go with your mobile, you will always have a convenient and user-friendly interface offered by our white-label crowdfunding software. LenderKit works great across all popular devices.",
+        "FrequentlyAskedAnswer4" : "No matter if you are using your laptop or are on the go with your mobile, you will always have a convenient and user-friendly interface offered by our white-label crowdfunding software. LenderKit works great across all popular devices.",
         "SignUpas" : "Sign Up as a Borrower"
     },
     "Lender" : {
@@ -133,6 +152,10 @@
         "FrequentlyAskedQuestions2" : "Can I be a borrower and an investor at the same time?",
         "FrequentlyAskedQuestions3" : "What is the action taken if I default on payment?",
         "FrequentlyAskedQuestions4" : "What is the minimum order limit?",
+        "FrequentlyAskedAnswer1" : "No matter if you are using your laptop or are on the go with your mobile, you will always have a convenient and user-friendly interface offered by our white-label crowdfunding software. LenderKit works great across all popular devices.",
+        "FrequentlyAskedAnswer2" : "No matter if you are using your laptop or are on the go with your mobile, you will always have a convenient and user-friendly interface offered by our white-label crowdfunding software. LenderKit works great across all popular devices.",
+        "FrequentlyAskedAnswer3" : "No matter if you are using your laptop or are on the go with your mobile, you will always have a convenient and user-friendly interface offered by our white-label crowdfunding software. LenderKit works great across all popular devices.",
+        "FrequentlyAskedAnswer4" : "No matter if you are using your laptop or are on the go with your mobile, you will always have a convenient and user-friendly interface offered by our white-label crowdfunding software. LenderKit works great across all popular devices.",
         "SignUpas" : "Sign Up as a Lender"
     },
     "contact" :{
