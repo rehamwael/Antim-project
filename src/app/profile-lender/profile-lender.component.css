@@ -36,3 +36,21 @@ border-radius: 5px;
   padding-left: 20px;
   padding-right: 0px;
 }
+.margin-save-button-funder{
+  margin-right: -10px;
+  margin-left: 8px;
+}
+@media (max-width: 692px) {
+
+  .antim-form{
+    padding-left: 20px !important;
+  }
+  .padding-mobile-button {
+    padding-right: 15px !important;
+    padding-left: 10px !important;
+  }
+  .margin-save-button-funder{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+}
