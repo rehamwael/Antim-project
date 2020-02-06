@@ -1,0 +1,14 @@
+.first-line-black-text{
+  color: black;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+.second-line-grey-text{
+  color: grey;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.font-13{
+  font-size: 13px;
+  font-weight: 500;
+}

@@ -32,3 +32,7 @@ border: 1px solid rgb(231, 80, 80);
 background-color: rgb(231, 80, 80);
 border-radius: 5px;
 }
+.padding-mobile-button{
+  padding-left: 20px;
+  padding-right: 0px;
+}

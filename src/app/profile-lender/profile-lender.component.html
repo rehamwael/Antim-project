@@ -102,30 +102,31 @@
 
                                   </div>
                                   <div class="col-lg-1"></div>
-                                  <div class="col-lg-3 p-0 mt-5">
-                                      <button class="btn btn-info  btn-block btn-purple mt-3"  [disabled]="!emailButton"  (click)="editEmail()">{{ 'Profile.ChangeEmail' | translate }}</button>
+                                  <div class="col-lg-3 mx-auto mt-5">
+                                      <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!emailButton"  (click)="editEmail()">{{ 'Profile.ChangeEmail' | translate }}</button>
                                   </div>
                                 </div>
-                                <div class="row form-group " id="edit-moible" dir="ltr" style="width: 100%;">
-
-                                  <div class="col-lg-3">
+                              <div class="row form-group " style="width: 100%;">
+                                <div class="col-lg-8 row" id="edit-moible">
+                                  <div class="col-lg-5">
                                       <label for="countrycode" class="font-bold dir-rtl mt-2">{{ 'SignUp.CountryCode' | translate }} <span class="red-color"> *</span></label>
                                       <input matInput formControlName="CountryCode" type="text" class="form-control form-control-lg" value="{{countryCode}}" [(ngModel)]="countryCode" placeholder="+966" id="countrycode" readonly >
                                       <div *ngIf="EditForm.controls['CountryCode'].touched && EditForm.controls['CountryCode'].hasError('required')" class="error-msg alert alert-danger text-left"> {{ 'SignUp.CountryCodeValidate' | translate }}</div>
                                   </div>
-                              <div class="col-lg-5">
-                                  <label for="mobile" class="font-bold dir-rtl mt-2">{{ 'SignUp.MobileNo' | translate }} <span class="red-color"> *</span></label>
-                                  <input matInput formControlName="MobileNo" type="text" class="form-control form-control-lg" value= "{{phone}}" [(ngModel)]="phone" placeholder="{{ 'SignUp.MobileNo' | translate }}" (keyup)="inputNumber($event)" digitOnly
-                                  oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
-                                  else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
-                                   <div *ngIf="EditForm.controls['MobileNo'].touched && EditForm.controls['MobileNo'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.MobileNoRequired' | translate }}</div>
-                                   <span class="redColor" id="phonenumber">{{ 'SignUp.MobileNoValidate' | translate }}</span>
-                              </div>
+                                  <div class="col-lg-7">
+                                      <label for="mobile" class="font-bold dir-rtl mt-2">{{ 'SignUp.MobileNo' | translate }} <span class="red-color"> *</span></label>
+                                      <input matInput formControlName="MobileNo" type="text" class="form-control form-control-lg" value= "{{phone}}" [(ngModel)]="phone" placeholder="{{ 'SignUp.MobileNo' | translate }}" (keyup)="inputNumber($event)" digitOnly
+                                      oninput="javascript: if (this.value.length >= 9) { document.getElementById('phonenumber').style.visibility = 'hidden'; }
+                                      else { document.getElementById('phonenumber').style.visibility = 'visible'; }">
+                                      <div *ngIf="EditForm.controls['MobileNo'].touched && EditForm.controls['MobileNo'].hasError('required')" class="error-msg alert alert-danger text-left">{{ 'SignUp.MobileNoRequired' | translate }}</div>
+                                      <span class="redColor" id="phonenumber">{{ 'SignUp.MobileNoValidate' | translate }}</span>
+                                    </div>
+                                </div>
                               <div class="col-lg-1"></div>
-                                      <div class=" col-lg-3 p-0 mt-5">
-                                          <button class="btn btn-info  btn-block btn-purple mt-3"  [disabled]="!phoneButton"  (click)="editMobileNo()">{{ 'Profile.ChangeMobile' | translate }}</button>
-                                      </div>
-                                      </div>
+                              <div class=" col-lg-3 mx-auto mt-5 padding-mobile-button">
+                                <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!phoneButton"  (click)="editMobileNo()">{{ 'Profile.ChangeMobile' | translate }}</button>
+                              </div>
+                            </div>
 
 
                             <div *ngIf="showUser && showOTPstep">
