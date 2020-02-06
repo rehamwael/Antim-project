@@ -151,14 +151,12 @@
 
 
                                         <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">
-                                                <div class="form-group col-lg-3">
-                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious>{{ 'SignUp.back' | translate }}</button>
-                                                </div>
-
-                                                <div class="form-group col-lg-3">
-                                                    <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disabledAgreement" mat-button matStepperNext>{{ 'CreateOrder.AgreeProceed' | translate }}
-                                                        </button>
-                                                </div>
+                                            <div class="form-group col-lg-3 div-width">
+                                                <button class="btn btn-info btn-lg btn-block btn-black mt-2 min-width" mat-button matStepperPrevious>{{ 'SignUp.back' | translate }}</button>
+                                            </div>
+                                            <div class="form-group col-lg-3 div-width">
+                                                <button class="btn btn-info btn-lg btn-block btn-purple mt-2 min-width"  [disabled]="!disabledAgreement" mat-button matStepperNext>{{ 'CreateOrder.AgreeProceed' | translate }}</button>
+                                            </div>
                                         </div>
                                   </div>
                                   <div class="alert mt-3 alert-warning row" id="confirm-icon" role="alert">
@@ -219,14 +217,14 @@
 
                                             <div>
                                             <div class="col-lg-12 mt-3 row justify-content-center align-items-center py-4 mt-5">
-                                                    <div class="form-group col-lg-3">
-                                                            <button class="btn btn-info btn-lg btn-block btn-black mt-2" mat-button matStepperPrevious> {{ 'SignUp.back' | translate }}</button>
+                                                    <div class="form-group col-lg-3 div-width">
+                                                            <button class="btn btn-info btn-lg btn-block btn-black mt-2 min-width" mat-button matStepperPrevious> {{ 'SignUp.back' | translate }}</button>
                                                     </div>
-                                                    <div class="form-group col-lg-4">
-                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2" [disabled]="!disableButton" (click)="saveAsDraft(content)"> {{ 'CreateOrder.SaveasDraft' | translate }}</button>
+                                                    <div class="form-group col-lg-4 div-width">
+                                                        <button class="btn btn-info btn-lg btn-block btn-black mt-2 min-width" [disabled]="!disableButton" (click)="saveAsDraft(content)"> {{ 'CreateOrder.SaveasDraft' | translate }}</button>
                                                 </div>
-                                                    <div class="form-group col-lg-3">
-                                                        <button class="btn btn-info btn-lg btn-block btn-purple mt-2" [disabled]="!disableButton" mat-button matStepperNext (click)="saveRequest(content3)">{{ 'CreateOrder.SendRequest' | translate }}</button>
+                                                    <div class="form-group col-lg-3 div-width">
+                                                        <button class="btn btn-info btn-lg btn-block btn-purple mt-2 min-width" [disabled]="!disableButton" mat-button matStepperNext (click)="saveRequest(content3)">{{ 'CreateOrder.SendRequest' | translate }}</button>
 
                                                     </div>
 
