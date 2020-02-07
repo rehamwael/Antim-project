@@ -31,11 +31,17 @@
 }
 
 @media (max-width: 992px){
+  form.col-lg-9.row.antim-form{
+    padding: 33px 20px !important;
+  }
   #paginator{
     margin-right: 35px !important;
   }
   table.mat-table {
     margin-left: -20px !important;
+  }
+  #InstallmentDetailsTable{
+    margin-left: 10px !important;
   }
 }
 

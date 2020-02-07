@@ -25,13 +25,13 @@
                     <!-- <span *ngIf="userLang == 'english'" class="icon-close col-lg-1" [routerLink]="['/requests-customer']"><i class="material-icons">
                       <svg fill="none" height="14" viewBox="0 0 7 18" width="7" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 13L7 7L1 1" stroke="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span> -->
-                      <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" style="text-align: center;" *ngIf="userLang == 'english'">
+                      <div class="col-lg-1 col-1" style="text-align: center; margin-left: 10px;" *ngIf="userLang == 'english'">
                         <i  [routerLink]="['/requests-customer']" class="fa fa-chevron-left pt-3 cursor-pointer " aria-hidden="true"></i>
                       </div>
-                      <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" style="text-align: center;" *ngIf="userLang == 'arabic'">
+                      <div class="col-lg-1 col-1" style="text-align: center; margin-left: 5px;" *ngIf="userLang == 'arabic'">
                         <i  [routerLink]="['/requests-customer']" class="fa fa-chevron-right pt-3 cursor-pointer " aria-hidden="true"></i>
                       </div>
-                      <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 pl-0 mr-0">
+                      <div class="col-lg-10 col-10 pr-0 pl-0 mr-0">
                         <h1 class="mt-1 pl-2">{{ 'Requests.RequestDetails' | translate }}</h1>
                       </div>
                   </div>
@@ -39,7 +39,7 @@
                 <form class="col-lg-10 row antim-form p-5 mt-2 mb-5 m-auto" [formGroup]="editRequestForm">
                     <div class="row mb-3" style="width: 100%;">
                       <div class=" col-lg-8"></div>
-                      <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" *ngIf="requestType == 'Ongoing Requests'" (click)="openVerticallyCentered(content1)">{{ 'Requests.Requestreschedule' | translate }} </button>
+                      <button class="btn btn-info btn-lg btn-block btn-purple mt-2 col-lg-4" *ngIf="requestType == 'Ongoing'" (click)="openVerticallyCentered(content1)">{{ 'Requests.Requestreschedule' | translate }} </button>
                     </div>
                     <div class="row" style="width: 100%;">
                       <!-- <div class="col-lg-6 padding"><h3 class="headingh3">Request Details</h3>
@@ -121,7 +121,7 @@
                         <input formControlName="RequestStatus" class="form-control form-control-lg " value="{{ ( 'Requests.' + requestType )| translate }}" readonly [attr.disabled]="true">
                       </div>
 
-                      <div class="col-lg-6" *ngIf="requestType == 'Ongoing Requests'">
+                      <div class="col-lg-6" *ngIf="requestType == 'Ongoing'">
                         <label  class="font-bold mt-2">{{ 'Requests.ProductStatus' | translate }}</label>
                         <input  class="form-control form-control-lg " value="{{userLang == 'arabic' ? arProductStatus : productStatus  }}" readonly [attr.disabled]="true" >
                       </div>
