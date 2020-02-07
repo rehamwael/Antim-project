@@ -1112,7 +1112,13 @@ nav#navbar-app {
     }
     .mt-min-100{
       margin-top: -40vh;
-  }
+    }
+    .mt-min-100-lfr{
+      margin-top: -55vh !important;
+    }
+    .mt-min-100-signup{
+      margin-top: -45vh !important;
+    }
 
     .steps-antim .col-lg-3, .steps-antim .col-lg-3 p {
         text-align: center !important;
@@ -1672,7 +1678,7 @@ table td.mat-cell:last-child, td.mat-footer-cell, table th.mat-header-cell:last-
     border-top-right-radius: 0;
 }
 table td.mat-cell, td.mat-footer-cell, table th.mat-header-cell {
-    padding: 13px;
+    padding: 9px;
     border-bottom-width: 1px;
     border-bottom-style: none;
     background: #fff;
