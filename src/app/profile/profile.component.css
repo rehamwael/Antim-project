@@ -35,7 +35,7 @@ label{
   padding-right: 0px;
 }
 .margin-save-button{
-  margin-right: -7px;
+  margin-right: -8px;
   margin-left: 7px;
 }
 @media (max-width: 692px) {
@@ -52,3 +52,10 @@ label{
     margin-right: 0px !important;
   }
 }
+.min-width {
+  min-width: 150px !important;
+}
+.div-width {
+  min-width: 160px !important;
+}
+

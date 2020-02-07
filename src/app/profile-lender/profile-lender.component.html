@@ -102,8 +102,8 @@
 
                                   </div>
                                   <div class="col-lg-1"></div>
-                                  <div class="col-lg-3 mx-auto mt-5">
-                                      <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!emailButton"  (click)="editEmail()">{{ 'Profile.ChangeEmail' | translate }}</button>
+                                  <div class="col-lg-3 mx-auto mt-5 div-width">
+                                      <button class="btn btn-info  btn-block btn-purple mt-2 min-width"  [disabled]="!emailButton"  (click)="editEmail()">{{ 'Profile.ChangeEmail' | translate }}</button>
                                   </div>
                                 </div>
                               <div class="row form-group " style="width: 100%;">
@@ -123,8 +123,8 @@
                                     </div>
                                 </div>
                               <div class="col-lg-1"></div>
-                              <div class=" col-lg-3 mx-auto mt-5 padding-mobile-button">
-                                <button class="btn btn-info  btn-block btn-purple mt-2"  [disabled]="!phoneButton"  (click)="editMobileNo()">{{ 'Profile.ChangeMobile' | translate }}</button>
+                              <div class=" col-lg-3 mx-auto mt-5 padding-mobile-button div-width">
+                                <button class="btn btn-info  btn-block btn-purple mt-2 min-width"  [disabled]="!phoneButton"  (click)="editMobileNo()">{{ 'Profile.ChangeMobile' | translate }}</button>
                               </div>
                             </div>
 
@@ -224,11 +224,11 @@
                             </div>
                             </div>
                             <div class="col-lg-12 row justify-content-end py-4 mt-4" >
-                              <div class="form-group col-lg-4">
-                                <button class="btn btn-lg btn-block btn-blue mt-2" (click)="editPassword()">{{ 'Profile.ChangePassword' | translate }}</button>
+                              <div class="form-group col-lg-4 div-width">
+                                <button class="btn btn-lg btn-block btn-blue mt-2 min-width" (click)="editPassword()">{{ 'Profile.ChangePassword' | translate }}</button>
                             </div>
-                             <div class="form-group col-lg-3">
-                                 <button class="btn btn-info btn-lg btn-block btn-purple mt-2"  [disabled]="!disablePasswordButton" (click)="changeCurrentPassword()">{{ 'Profile.Save' | translate }}</button>
+                             <div class="form-group col-lg-3 div-width">
+                                 <button class="btn btn-info btn-lg btn-block btn-purple mt-2 min-width"  [disabled]="!disablePasswordButton" (click)="changeCurrentPassword()">{{ 'Profile.Save' | translate }}</button>
                              </div>
                       </div>
                     </form>
@@ -340,11 +340,11 @@
                                 <p class="mt-2">{{ file.name }}</p>
                               </div>
                               <div class="col-lg-2" ></div>
-                              <div class="col-lg-2 col-sm-6  col-6 mt-4 mb-2" >
-                                <button type="button" class="btn download-btn btn-primary" (click)="DownloadAccountFile(file.name)">{{ 'Profile.Download' | translate }} </button>
+                              <div class="col-lg-2 col-sm-4 col-4 mt-4 mb-2" style="min-width: 100px !important;">
+                                <button type="button" class="btn download-btn btn-primary" style="min-width: 90px !important;" (click)="DownloadAccountFile(file.name)">{{ 'Profile.Download' | translate }} </button>
                               </div>
-                              <div class="col-lg-2 col-sm-6 col-6 mt-4 mb-2" >
-                                <button type="button" class="btn delete-btn btn-danger" (click)="openDeleteFilePopUp(i, contentDelete, file.id)">{{ 'Profile.Delete' | translate }} </button>
+                              <div class="col-lg-2 col-sm-4 col-4 mt-4 mb-2" style="min-width: 100px !important;">
+                                <button type="button" class="btn delete-btn btn-danger" style="min-width: 90px !important;" (click)="openDeleteFilePopUp(i, contentDelete, file.id)">{{ 'Profile.Delete' | translate }} </button>
                               </div>
                               </div>
                            </div>
