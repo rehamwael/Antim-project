@@ -60,6 +60,7 @@ export class StarterComponent implements OnInit {
     private store: Store<AppState>,
   ) {
     this.getState = this.store.select(staticPagesState);
+    this.userLang = this.translate.currentLang;
     translate.addLangs(['english', 'arabic']);
     this.translate.onLangChange.subscribe((event) => {
       this.userLang = event.lang;

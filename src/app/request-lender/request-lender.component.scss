@@ -34,4 +34,11 @@
   #paginator{
     margin-right: 35px !important;
   }
+  table.mat-table {
+    margin-left: -20px !important;
+  }
+}
+
+#table-req td.mat-cell, td.mat-footer-cell, table th.mat-header-cell {
+  padding: 14px !important;
 }

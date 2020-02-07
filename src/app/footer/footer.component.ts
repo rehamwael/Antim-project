@@ -31,6 +31,7 @@ export class FooterComponent implements OnInit {
     private notificationsService: NotificationsService,
     private profileService: ProfileService,
     ) {
+      this.userLang = this.translate.currentLang;
     translate.addLangs([ 'english' , 'arabic']);
       this.translate.onLangChange.subscribe((event) => {
         this.userLang = event.lang;

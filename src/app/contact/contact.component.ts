@@ -104,7 +104,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
   ) {
     this.getState = this.store.select(staticPagesState);
-
+    this.userLang = this.translate.currentLang;
     this.contactForm = fb.group({
       'contactFormName': [null, Validators.compose([
         Validators.required,

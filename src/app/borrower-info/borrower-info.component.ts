@@ -120,6 +120,7 @@ export class BorrowerInfoComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private store: Store<AppState>,
   ) {
+    this.userLang = this.translate.currentLang;
     this.getState = this.store.select(staticPagesState);
     translate.addLangs(['english', 'arabic']);
     this.translate.onLangChange.subscribe((event) => {
