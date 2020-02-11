@@ -250,7 +250,7 @@
         "MobileNoRequired" : "Phone Number is required",
         "MobileNoValidate" : "Phone number must be at least 9 characters long.",
         "back" : "back" ,
-        "Loading" : "Loading... ",
+        "Loading" : "Loading",
         "Well" : "Well !" ,
         "SignUpNextstepDesc1" : "just to be sure, Please enter your verification code to verify your " ,
         "SignUpNextstepDesc2" : "mobile number." ,

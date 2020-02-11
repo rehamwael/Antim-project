@@ -249,7 +249,7 @@
         "MobileNoRequired" : "رقم الهاتف مطلوب",
         "MobileNoValidate" : "يجب أن يكون رقم الهاتف 9 أحرف على الأقل",
         "back" : "رجوع" ,
-        "Loading" : " ...جار التحميل",
+        "Loading" : " جار التحميل",
         "Well" : "حسنا !" ,
         "SignUpNextstepDesc1" : "فقط للتأكد ، الرجاء إدخال رمز التحقق للتحقق من صحة" ,
         "SignUpNextstepDesc2" : "رقم الهاتف المحمول." ,
