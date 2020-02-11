@@ -433,7 +433,7 @@ nav.navbar.navbar-expand-lg{
 }
 
 .h-100 {
-    height: 100vh !important;
+    height: 95vh !important;
 }
 ul.nav.nav-pills.justify-content-start {
     -webkit-box-pack: center !important;
@@ -549,7 +549,7 @@ a {
 .heading-icon svg {
     position: relative;
     top: 9px;
-    margin-right: 13px;
+    margin-right: 10px;
 }
 div.alert-danger {
     color: #e2022b;
@@ -2461,6 +2461,14 @@ ul.inline{
     color: black;
     font-size: 12px;
     letter-spacing: 0.04em;
+}
+.margin-top-ve{
+  margin-top: -40px !important;
+}
+@media (max-width: 992px){
+  .margin-top-ve{
+    margin-top: 30px !important;
+  }
 }
 
 

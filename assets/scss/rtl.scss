@@ -49,10 +49,10 @@
     }
     img.women-image {
         position: absolute;
-        top: -19em;
+        top: -10em;
         left: 13em;
         right: auto;
-        height: 400px;
+        height: 350px;
     }
     .header-inner p{
         letter-spacing: 0;
@@ -142,7 +142,7 @@
         text-align: right;
     }
     .path-dashed {
-        right:  11em;
+        right: 15em;
         left: auto;
         height: 542px;
         display: block;
@@ -405,6 +405,10 @@
     }
     #InstallmentDetailsTable {
       margin-left: -30px !important;
+    }
+  .padding-accept-fund{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
   }
   .contact-headings{
@@ -424,6 +428,16 @@
   .margin-save-button-funder{
     margin-left: -7px !important;
     margin-right: 8px !important;
+  }
+  .padding-accept-fund{
+    padding-left: 0px !important;
+    padding-right: 50px !important;
+  }
+  .heading-icon svg {
+    position: relative;
+    top: 9px;
+    margin-right: 0px !important;
+    margin-left: 10px !important;
   }
 
 }
