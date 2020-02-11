@@ -30,3 +30,6 @@
 .dir-rtl {
   direction: rtl !important;
 }
+.col-lg-11{
+  max-width:  96% !important;
+}

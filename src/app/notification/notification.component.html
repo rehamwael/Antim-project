@@ -19,8 +19,12 @@
         <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2 align-items-center">
           <div class="col-lg-3 ">
             <div class="row">
-              <img  src="assets/images/bookWithMen 2.svg">
-              <p class="grey-text-color ml-2 mt-5">{{ 'Notifications.Notifications' | translate }} </p>
+              <div class="col-lg-7 pl-4 pr-5">
+                <img  src="assets/images/bookWithMen 2.svg">
+              </div>
+              <div class="col-lg-5 p-0">
+                <p class="grey-text-color mt-5">{{ 'Notifications.Notifications' | translate }} </p>
+              </div>
               </div>
             </div>
             <form class="col-lg-3">
@@ -80,7 +84,7 @@
                             <p class="dark-text-color margin-notificaiton col-lg-12" *ngIf="userLang == 'english'">{{ notification.enNotificationDescription }} </p>
                             <p class="dark-text-color margin-notificaiton dir-rtl col-lg-12" *ngIf="userLang == 'arabic'">{{ notification.arNotificationDescription  }} </p>
 
-                        <div class="col-lg-12  row d-flex flex-row-reverse" *ngIf="notification.status == 2">
+                        <div class="col-lg-12  row base-row d-flex flex-row-reverse" *ngIf="notification.status == 2">
                               <div class="form-group col-lg-3">
                                   <button class="btn btn-info btn-lg btn-block btn-purple" (click)="markAsReadNotification(notification.id)">{{ 'Notifications.MarkasRead' | translate }} </button>
                               </div>
