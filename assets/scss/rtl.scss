@@ -316,7 +316,7 @@
     }
 
     .mt-min-4 {
-        margin-top: -1em;
+        margin-top: -3em;
     }
     .mt-22 {
         margin-right: 5em;
@@ -438,6 +438,24 @@
     top: 9px;
     margin-right: 0px !important;
     margin-left: 10px !important;
+  }
+
+  @supports (-ms-ime-align:auto) {
+    .base-row {
+        direction: rtl !important;
+    }
+    .sidebar-nav, app-setting, .row{
+        direction: ltr;
+    }
+    .page-wraper-right{
+        margin-right: 270px !important;
+        margin-left: 2.0em !important;
+    }
+    .bottom-sidebar i {
+      position: relative;
+      right: 2em;
+      left: auto;
+    }
   }
 
 }
