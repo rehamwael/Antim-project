@@ -11,7 +11,7 @@
                 <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm">
                     <div class="first-step row" *ngIf="!firstStep  && !secondStep  && chooseRole">
                     <div class="col-lg-2">
-                        <h5 class="vertical-text mt-4">{{ 'SignUp.whataboutyou' | translate }}</h5>
+                        <!-- <h5 class="vertical-text mt-4">{{ 'SignUp.whataboutyou' | translate }}</h5> -->
                     </div>
                     <div class="form-group text-left col-lg-4 col-6 text-center">
                         <div class="select-options-radio" [ngClass]="{'active': id === 1 }" id="1" (click)="addClass(id=1)">
