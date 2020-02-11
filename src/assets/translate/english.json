@@ -20,7 +20,7 @@
        "OpenPurchasesDesc" :  "Cancun is back, better than ever! Over a hundred Mexico resorts have reopened and the state tourism minister predicts Cancun will draw as many visitors in 2006 as it did two years ago. And the travel deals are great! If you haven’t been, now may be the best time to take a vacation to Cancun.",
        "ImmediantFund" : "Immediant fund",
        "ImmediantFundDesc" : "Cancun is back, better than ever! Over a hundred Mexico resorts have reopened and the state tourism minister predicts Cancun will draw as many visitors in 2006 as it did two years ago. And the travel deals are great! If you haven’t been, now may be the best time to take a vacation to Cancun.",
-       "DepositFudingAmount" : "Deposit fuding amount for intime max.10k SAR",
+       "DepositFudingAmount" : "Deposit Fuding Amount for ANTIM maximum 10K SAR",
        "Customer" : "Customer" ,
        "SendRequestonplatform" : "Send Request on platform",
        "ProductDeliveryMonthlypayment" : "Product delivery & Monthly payment",
@@ -204,7 +204,9 @@
         "SignUp" : "Sign Up",
         "forgetPassword" : "Forget Your Password ?",
         "PleaseSetPaswrd" : "Please set a New Password ",
-        "InsertEmail" : "Please insert your email address and we’ll send a link to reset your password"
+        "InsertEmail" : "Please insert your email address and we’ll send a link to reset your password",
+        "reactiveRequest" : "Request For Reactivation Account",
+        "reactiveRequestMSG" : "Your account is currently deactivated, would you like to send a Reactivation request to Antim?"
 
     } ,
     "SignUp" : {

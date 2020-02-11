@@ -27,35 +27,35 @@
                         <p style="color: white; margin-top:50px;font-size: 26px;" > {{ 'SignUp.Loading' | translate }} </p>
                         </ngx-spinner>
                       </div>
-                      <div class="row dir-rtl pt-2" >
+                      <div class="row  pt-2" >
                         <div class="col-lg-3 col-2"></div>
                         <div class="col-lg-9 col-9 d-flex justify-content-start">
-                        <p class="dark-grey-text-color" >{{ 'login.newUser' | translate }}<a [routerLink]="[ '/signup' ]" class="font-purple mx-2">{{ 'login.SignUp' | translate }}</a></p>
+                          <p><a class="font-purple cursor-pointer font-14" [routerLink]="[ '/forget-password' ]" ><u>{{ 'login.forgetPassword' | translate }}</u></a></p>
                         </div>
                       </div>
-                        <div class="row dir-rtl">
+                        <div class="row ">
                         <div class="col-lg-3 col-2"></div>
                         <div class="col-lg-9 col-9 d-flex justify-content-start">
-                          <p><a class="font-purple cursor-pointer font-13" [routerLink]="[ '/forget-password' ]" ><u>{{ 'login.forgetPassword' | translate }}</u></a></p>
+                          <p class="dark-grey-text-color font-14" >{{ 'login.newUser' | translate }}<a [routerLink]="[ '/signup' ]" class="font-purple font-14 mx-2">{{ 'login.SignUp' | translate }}</a></p>
                       </div>
                       </div>
                 </form>
                 <ng-template #content let-modal>
 
                   <div class="modal-header">
-                      <h4 class="modal-title">Request For Reactivation Account</h4>
+                      <h4 class="modal-title">{{ 'login.reactiveRequest' | translate }}</h4>
                       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body py-3">
                       <p class="my-3 mx-3">
-                        Your account is currently deactivated, would you like to send a Reactivation request to Antim?"
+                        {{ 'login.reactiveRequestMSG' | translate }}
                         </p>
                       <div class="row py-2" style="width: 100%;">
                           <div class="col-lg-6"></div>
-                      <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="sendRequestToAdmin()">Yes</button></div>
-                      <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">No</button></div>
+                      <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="sendRequestToAdmin()">{{ 'Requests.Yes' | translate }}</button></div>
+                      <div class="col-lg-3"><button class="btn btn-info btn-lg btn-block btn-purple mt-2 " (click)="modal.close('Close click')">{{ 'Requests.Noo' | translate }}</button></div>
 
                     </div>
                     </div>

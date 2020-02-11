@@ -1,0 +1,14 @@
+.padding-accept-fund{
+  padding-left: 45px;
+  padding-right: 0px;
+}
+.text-bold{
+  font-weight: bold;
+}
+
+@media (max-width: 692px){
+  .padding-accept-fund{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+}
