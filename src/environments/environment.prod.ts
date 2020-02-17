@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  BaseURL: 'https://antim.azurewebsites.net/api/',
-  URLForDownloadFiles: 'https://antim.azurewebsites.net/'
+  BaseURL: 'https://antimapis.azurewebsites.net/api/',
+  URLForDownloadFiles: 'https://antimapis.azurewebsites.net/'
 
 };
