@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, staticPagesState } from './../store/app.states';
 import { GetLenderPage } from './../store/actions/static-pages.actions';
+import { ProfileService } from '../services/userProfile.service';
 
 @Component({
   selector: 'app-lender-info',
@@ -111,6 +112,22 @@ export class LenderInfoComponent implements OnInit, OnDestroy {
       Content5Ar: ''
     }
   };
+  FAQ_Lender: any = {
+    page_name: 'FAQ Lender Page',
+    Section: {
+      TitleEn: '',
+      TitleAr: '',
+      En_QA: [{
+        EnQuestion: '',
+        EnAnswer: ''
+      }],
+      Ar_QA:  [{
+        ArQuestion: '',
+        ArAnswer: ''
+      }],
+    }
+  };
+
   getState: Observable<any>;
   image = 'assets/images/tab1.png';
   status1 = true;
@@ -120,6 +137,7 @@ export class LenderInfoComponent implements OnInit, OnDestroy {
   constructor(
     public translate: TranslateService,
     private store: Store<AppState>,
+    private profileService: ProfileService,
   ) {
     this.userLang = this.translate.currentLang;
     this.getState = this.store.select(staticPagesState);
@@ -127,6 +145,14 @@ export class LenderInfoComponent implements OnInit, OnDestroy {
     this.translate.onLangChange.subscribe((event) => {
       this.userLang = event.lang;
     });
+    this.profileService.getStaticPageByKey('FAQLenderPage').subscribe(res => {
+      // console.log(res);
+      this.FAQ_Lender = JSON.parse(res.result.sections);
+      // console.log(this.FAQ_Lender);
+    }, err => {
+      console.log(err);
+    });
+
   }
 
   ngOnInit(): void {
