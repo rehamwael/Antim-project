@@ -1532,6 +1532,15 @@ nav#navbar-app {
     .dropdown-menu.lang-selector-dropdown.show .dropdown-item {
         font-size: 12px !important;
     }
+    .mat-paginator-container{
+      padding-right: 1px !important;
+      padding-left: 1px !important;
+      margin-right: 35px !important;
+      margin-left: 0px !important;
+    }
+    .mat-paginator-range-label {
+      margin: 0 4px 0 4px !important;
+    }
     ///rtl mobile
     [lang="arabic"]{
         button.btn.lang-selector.dropdown-toggle {
