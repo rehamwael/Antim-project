@@ -167,6 +167,17 @@
         margin-right: 10px;
         margin-left: 0.5em !important;
       }
+      .mat-paginator-container{
+        padding: 1px !important;
+        margin-left: 27px !important;
+        margin-right: 0px !important;
+      }
+      .mat-paginator-range-label {
+        margin: 0px !important;
+      }
+      .mat-paginator-page-size-label {
+        margin: 0px 1px !important;
+      }
     }
     p.grey-text.mt-3.text-left.col-lg-8.mr-4{
         margin-left: 5.5rem !important;
@@ -350,7 +361,7 @@
         justify-content: flex-end !important;
         // flex-direction: row-reverse !important;
         direction: rtl !important;
-        margin-left: 35px !important;
+        // margin-left: 35px !important;
     }
     .mat-paginator-range-actions {
       direction: ltr !important;

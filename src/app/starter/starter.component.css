@@ -1,3 +1,6 @@
+.h100 {
+  height: 101vh !important;
+}
 .padding-accept-fund{
   padding-left: 45px;
   padding-right: 0px;
@@ -5,10 +8,21 @@
 .text-bold{
   font-weight: bold;
 }
-
-@media (max-width: 692px){
+.margin-top {
+  margin-top: 50px !important;
+}
+@media (max-width: 667px){
   .padding-accept-fund{
     padding-left: 0px !important;
     padding-right: 0px !important;
+  }
+  .margin-top{
+    margin-top: 0 !important;
+  }
+  .margin-bottom{
+    margin-bottom: 40px !important;
+  }
+  .mt-50{
+    margin-top: 60px !important;
   }
 }
