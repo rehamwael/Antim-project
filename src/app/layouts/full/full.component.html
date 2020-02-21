@@ -47,10 +47,10 @@
                   <a class="nav-link" [routerLink]="[ '/who-we-are' ]" (click)="closeMenuAndSetTitle('Antim | Who We Are', ' انتيم | من نحن')">{{ 'HOME.who' | translate }}</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/lender-info' ]" (click)="closeMenuAndSetTitle('Antim | Lender', ' انتيم | المقرض')">{{ 'HOME.Lender' | translate }}</a>
+                  <a class="nav-link" [routerLink]="[ '/borrower-info' ]" (click)="closeMenuAndSetTitle('Antim | Borrower', ' انتيم | مقترض')">{{ 'HOME.Borrower' | translate }}</a>
                 </li>
                 <li class="nav-item" [routerLinkActive]="['active']">
-                  <a class="nav-link" [routerLink]="[ '/borrower-info' ]" (click)="closeMenuAndSetTitle('Antim | Borrower', ' انتيم | مقترض')">{{ 'HOME.Borrower' | translate }}</a>
+                  <a class="nav-link" [routerLink]="[ '/lender-info' ]" (click)="closeMenuAndSetTitle('Antim | Lender', ' انتيم | المقرض')">{{ 'HOME.Lender' | translate }}</a>
                 </li>
 
                 <li class="nav-item" [routerLinkActive]="['active']">
@@ -96,10 +96,11 @@
         </div>
           <div class="container flex-center justify-content-start">
                 <div class="row">
-                    <div class="col-lg-6 h-100 d-flex justify-content-center flex-column">
+                    <div class="col-lg-6 h-100 d-flex p-3 justify-content-center flex-column">
                         <h1 class="main-header-font wow fadeInUp" data-wow-duration="1.2s" data-wow-delay="0.5s">
-                          {{ 'HOME.SELECT' | translate }}<br/>  {{ 'HOME.SEND' | translate }} <br/> {{ 'HOME.PAY' | translate }}
+                          {{ 'HOME.Desc1' | translate }}<br/>
                         </h1>
+                        <span class="home-desc-2 mt-3"> {{ 'HOME.Desc2' | translate }}</span>
                         <button type="button" class="btn btn-block btn-antim btn-rounded mt-5 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.7s" (click)="btnClick();">{{ 'HOME.GetStarted' | translate }}</button>
 
                     </div>

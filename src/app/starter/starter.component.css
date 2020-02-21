@@ -2,7 +2,7 @@
   height: 101vh !important;
 }
 .padding-accept-fund{
-  padding-left: 45px;
+  padding-left: 120px;
   padding-right: 0px;
 }
 .text-bold{
@@ -15,7 +15,8 @@
   .padding-accept-fund{
     padding-left: 0px !important;
     padding-right: 0px !important;
-  }
+    width: 100% !important;
+    }
   .margin-top{
     margin-top: 0 !important;
   }

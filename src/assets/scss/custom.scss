@@ -1541,6 +1541,9 @@ nav#navbar-app {
     .mat-paginator-range-label {
       margin: 0 4px 0 4px !important;
     }
+    .margin-top-bl{
+      margin-top: 80px !important;
+    }
     ///rtl mobile
     [lang="arabic"]{
         button.btn.lang-selector.dropdown-toggle {
@@ -2373,17 +2376,17 @@ ul.inline{
     & input{
             background: none;
             border: 2px solid #5c20d2;
-            padding: 5px 18px;
+            padding: 8px 10px;
             border-radius: 25px;
-            width: 65%;
-            margin-right: 10px;
+            width: 74%;
+            margin-right: 5px;
             &::placeholder{
-                color: #6d6c6d;
+                color: #8b8b8b;
                 font-size: 12px;
             }
     }
     .btn-subscribe {
-        width: 29%;
+        width: 23%;
         display: inline-block;
         background: none;
         border: 2px solid #5c1fd2;
