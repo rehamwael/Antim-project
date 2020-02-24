@@ -126,9 +126,6 @@ export class FullComponent implements OnInit {
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }
-  btnClick = function () {
-    this.router.navigateByUrl('/signup');
-  };
   closeMenuAndSetTitle(enTitle, arTitle) {
     if (this.userLang == 'arabic') {
       this.titleService.setTitle(arTitle);
@@ -149,4 +146,12 @@ export class FullComponent implements OnInit {
     this.router.navigateByUrl('/home');
   }
 
+  getStarted(enTitle, arTitle) {
+    if (this.userLang == 'arabic') {
+      this.titleService.setTitle(arTitle);
+    } else {
+      this.titleService.setTitle(enTitle);
+    }
+    this.router.navigateByUrl('/signup');
+  }
 }
