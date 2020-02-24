@@ -5,7 +5,8 @@
                 <div *ngIf="!firstStep  && !secondStep  && chooseRole">
                     <h2 class="mt-5">{{ 'SignUp.SignUp' | translate }}</h2>
                     <p class="grey-text-color mt-3 mb-4">{{ 'SignUp.SignUpDesc1' | translate }}
-                    <br/>{{ 'SignUp.SignUpDesc2' | translate }} </p>
+                    <!-- <br/>{{ 'SignUp.SignUpDesc2' | translate }}  -->
+                  </p>
                 </div>
                 <!-- <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm" (keydown)="keyDownFunction($event)"> -->
                 <form class="form-log-in mt-4 form-antim" [formGroup]="SigUpForm">
@@ -162,9 +163,8 @@
                    <div *ngIf="!firstStep  && secondStep && !chooseRole">
                        <a class="close-icon" (click)="closeBack()"><img src="assets/images/close.svg"></a>
                         <img src="assets/images/mobile.svg" alt="antim" class="mb-2 mt-5">
-                        <p class="mt-2 mb-4 text-left">{{ 'SignUp.Well' | translate }}<br/>
-                            {{ 'SignUp.SignUpNextstepDesc1' | translate }}<br/>
-                            {{ 'SignUp.SignUpNextstepDesc2' | translate }}</p>
+                        <p class="mt-3 mb-5 text-left dir-rtl font-15">{{ 'SignUp.Well' | translate }}<br/>
+                            {{ 'SignUp.SignUpNextstepDesc1' | translate }}</p>
                         <div class="row mt-3 justify-content-center align-items-center phone-number-code">
                           <div class="row justify-content-center align-items-center phone-number-code" id="direction" dir="ltr">
                             <div class="form-group text-left col-lg-2 col-3 text-center">
