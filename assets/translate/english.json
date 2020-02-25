@@ -366,6 +366,7 @@
         "Summary" : "Summary",
         "UndertakingPurchase" : "Undertaking to Purchase",
         "Numberofproduct" : "Number of product",
+        "product" : "Product",
         "TotalPriceOfProduct" : "Total price of products" ,
         "TotalPayableProductPrice" : "Total Payable Product Price",
         "DeliverproductstoMyAddress" : "Deliver products to my Address",
