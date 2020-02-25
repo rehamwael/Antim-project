@@ -212,6 +212,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     }, err => {
       this.spinner.hide();
       console.log(err);
+      this.profileService.showErrorToastr(err.error.message);
     });
   }
 
