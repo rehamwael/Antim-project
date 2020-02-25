@@ -103,10 +103,10 @@
                                         <label for="Installment" class="font-bold dir-rtl mt-2">{{ 'CreateOrder.SelectInstallmentPeroid' | translate }} <span class="red-color"> *</span> </label>
                                         <select formControlName="firstCtrl" matNativeControl required class="form-control custom-select form-control-lg mt-3" (change)="onChange($event.target.value)">
                                           <option value="" selected>{{ 'CreateOrder.PleaseSelectInstallmentPeriod' | translate }}   </option>
-                                          <option value="3-Months" >{{ 'CreateOrder.3 Months' | translate }} </option>
-                                          <option  value="6-Months">{{ 'CreateOrder.6 Months' | translate }} </option>
-                                          <option *ngIf="showOptions" value="9-Months">{{ 'CreateOrder.9 Months' | translate }}</option>
-                                          <option *ngIf="showOptions" value="12-Months">{{ 'CreateOrder.12 Months' | translate }}</option>
+                                          <option value="3" >{{ 'CreateOrder.3 Months' | translate }} </option>
+                                          <option  value="6">{{ 'CreateOrder.6 Months' | translate }} </option>
+                                          <option *ngIf="showOptions" value="9">{{ 'CreateOrder.9 Months' | translate }}</option>
+                                          <option *ngIf="showOptions" value="12">{{ 'CreateOrder.12 Months' | translate }}</option>
                                         </select>
                                         <svg class="arrow" style="top: 3.8em !important;" fill="none" height="14" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                                     </div>
@@ -175,17 +175,17 @@
                                     <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                             <mat-form-field>
                                                 <label for="numberOfProduct" class="font-bold mt-2">{{ 'CreateOrder.Numberofproduct' | translate }}  </label>
-                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} product" readonly>
+                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} {{ 'CreateOrder.product' | translate }}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
-                                                <label for="total" class="font-bold mt-2">{{ 'CreateOrder.TotalPriceOfProduct' | translate }} :</label>
+                                                <label for="total" class="font-bold mt-2">{{ 'CreateOrder.TotalPriceOfProduct' | translate }} </label>
                                                 <input matInput class="form-control form-control-lg" formControlName="TotalPrice" value="{{totalPrice}}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>
                                                 <label for="InstallmentPeriod" class="font-bold mt-2">{{ 'Requests.InstallmentPeriod' | translate }}</label>
-                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{installmentPeriod}}" readonly>
+                                                <input matInput class="form-control form-control-lg" formControlName="InstallmentPeriod" value="{{ userLang == 'arabic' ? ARinstallmentPeriod : installmentPeriod }}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>

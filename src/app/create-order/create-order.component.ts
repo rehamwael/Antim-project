@@ -9,6 +9,7 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { AddCustomerRequest, IsUpdatedFalse } from '../store/actions/customer.actions';
 import { ProfileService } from '../services/userProfile.service';
 import { CustomerRequestService } from '../services/customer-request.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-order',
@@ -30,6 +31,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   totalPriceWithProfit: number;
   showOptions = false;
   installmentPeriod: any;
+  ARinstallmentPeriod: any;
   installmentPeriod_ENUM: number;
   totalProducts: any;
   requestType: any;
@@ -50,6 +52,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     productUrl: '',
     amount: 0
   }];
+  userLang: any;
 
   @HostListener('input') oninput() {
     if (this.firstFormGroup.valid) {
@@ -64,7 +67,12 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private profileService: ProfileService,
     private customerService: CustomerRequestService,
+    public translate: TranslateService,
   ) {
+    this.userLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event) => {
+      this.userLang = event.lang;
+    });
     this.getCustomerState = this.store.select(customerState);
     this.getUserState = this.store.select(selectAuthenticationState);
   }
@@ -152,29 +160,33 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   }
 
   onChange(Value) {
-    if (Value === '3-Months') {
+    if (Value === '3') {
       this.installmentPeriod = '3-Months';
+      this.ARinstallmentPeriod = '3 اشهر';
       this.installmentPeriod_ENUM = 1;
       this.monthlyPrice = this.totalPriceWithProfit / 3;
       this.monthlyPrice = Math.round(this.monthlyPrice);
       this.disabledSubmitButtonSecond = true;
     }
-    if (Value === '6-Months') {
+    if (Value === '6') {
       this.installmentPeriod = '6-Months';
+      this.ARinstallmentPeriod = '6 اشهر';
       this.installmentPeriod_ENUM = 2;
       this.monthlyPrice = this.totalPriceWithProfit / 6;
       this.monthlyPrice = Math.round(this.monthlyPrice);
       this.disabledSubmitButtonSecond = true;
     }
-    if (Value === '9-Months') {
+    if (Value === '9') {
       this.installmentPeriod = '9-Months';
+      this.ARinstallmentPeriod = '9 اشهر';
       this.installmentPeriod_ENUM = 3;
       this.monthlyPrice = this.totalPriceWithProfit / 9;
       this.monthlyPrice = Math.round(this.monthlyPrice);
       this.disabledSubmitButtonSecond = true;
     }
-    if (Value === '12-Months') {
+    if (Value === '12') {
       this.installmentPeriod = '12-Months';
+      this.ARinstallmentPeriod = '12 اشهر';
       this.installmentPeriod_ENUM = 4;
       this.monthlyPrice = this.totalPriceWithProfit / 12;
       this.monthlyPrice = Math.round(this.monthlyPrice);

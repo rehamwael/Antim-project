@@ -111,15 +111,15 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
     },
     {
       type: 'Products Purchased',
-      arType: 'المنتجات المشتراة'
+      arType: 'تم شراء المنتجات'
     },
     {
       type: 'Products Delivered to Customer',
-      arType: 'المنتجات تسليمها إلى العملاء'
+      arType: 'جاري توصيل المنتجات'
     },
     {
       type: 'Products Recieved by Customer',
-      arType: 'المنتجات المستلمة من قبل العملاء'
+      arType: 'تم إستلام المنتجات من قبل العميل'
     }
   ];
   amountStatus: any[] = [

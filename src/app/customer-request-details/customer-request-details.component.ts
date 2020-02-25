@@ -34,6 +34,7 @@ export class CustomerRequestDetailsComponent implements OnInit {
   totalPriceWithProfit: number;
   monthlyInstallment: number;
   installmentPeriod: any;
+  ARinstallmentPeriod: any;
   installmentPeriod_ENUM: any;
   requestDate: any;
   editRequestForm: FormGroup;
@@ -127,15 +128,15 @@ export class CustomerRequestDetailsComponent implements OnInit {
     },
     {
       type: 'Products Purchased',
-      arType: 'المنتجات المشتراة'
+      arType: 'تم شراء المنتجات'
     },
     {
       type: 'Products Delivered to Customer',
-      arType: 'المنتجات تسليمها إلى العملاء'
+      arType: 'جاري توصيل المنتجات'
     },
     {
       type: 'Products Recieved by Customer',
-      arType: 'المنتجات المستلمة من قبل العملاء'
+      arType: 'تم إستلام المنتجات من قبل العميل'
     }
   ];
   amountStatus: any[] = [
@@ -402,29 +403,33 @@ export class CustomerRequestDetailsComponent implements OnInit {
   }
 
   onChange(Value) {
-    if (Value === '3-Months') {
+    if (Value === '3') {
       this.installmentPeriod = '3-Months';
+      this.ARinstallmentPeriod = '3 اشهر';
       this.installmentPeriod_ENUM = 1;
       this.monthlyInstallment = this.totalPriceWithProfit / 3;
       this.monthlyInstallment = Math.round(this.monthlyInstallment);
       this.disabledSubmitButtonSecond = true;
     }
-    if (Value === '6-Months') {
+    if (Value === '6') {
       this.installmentPeriod = '6-Months';
+      this.ARinstallmentPeriod = '6 اشهر';
       this.installmentPeriod_ENUM = 2;
       this.monthlyInstallment = this.totalPriceWithProfit / 6;
       this.monthlyInstallment = Math.round(this.monthlyInstallment);
       this.disabledSubmitButtonSecond = true;
     }
-    if (Value === '9-Months') {
+    if (Value === '9') {
       this.installmentPeriod = '9-Months';
+      this.ARinstallmentPeriod = '9 اشهر';
       this.installmentPeriod_ENUM = 3;
       this.monthlyInstallment = this.totalPriceWithProfit / 9;
       this.monthlyInstallment = Math.round(this.monthlyInstallment);
       this.disabledSubmitButtonSecond = true;
     }
-    if (Value === '12-Months') {
+    if (Value === '12') {
       this.installmentPeriod = '12-Months';
+      this.ARinstallmentPeriod = '12 اشهر';
       this.installmentPeriod_ENUM = 4;
       this.monthlyInstallment = this.totalPriceWithProfit / 12;
       this.monthlyInstallment = Math.round(this.monthlyInstallment);
