@@ -104,32 +104,32 @@ export class ProfileLenderComponent implements OnInit, OnDestroy {
   NewUploadedAccountDocs: any[] = [];
   showNewAccountUploadImg = false;
 
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    legend: {
-      display: false
-    },
-    scales: {
-      xAxes: [{
-        barPercentage: 0.2
-      }], yAxes: [{}]
-    },
-    plugins: {
-      datalabels: {
-        anchor: 'end',
-        align: 'end',
-      }
-    },
-  };
-  public barChartLabels: Label[] = ['2014', '2016', '2018', '2019', '2020'];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [pluginDataLabels];
+  // public barChartOptions: ChartOptions = {
+  //   responsive: true,
+  //   legend: {
+  //     display: false
+  //   },
+  //   scales: {
+  //     xAxes: [{
+  //       barPercentage: 0.2
+  //     }], yAxes: [{}]
+  //   },
+  //   plugins: {
+  //     datalabels: {
+  //       anchor: 'end',
+  //       align: 'end',
+  //     }
+  //   },
+  // };
+  // public barChartLabels: Label[] = ['2014', '2016', '2018', '2019', '2020'];
+  // public barChartType: ChartType = 'bar';
+  // public barChartLegend = true;
+  // public barChartPlugins = [pluginDataLabels];
 
-  public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56], label: 'Total Fund' },
-    { data: [28, 48, 40, 19, 86], label: 'Total Profit' }
-  ];
+  // public barChartData: ChartDataSets[] = [
+  //   { data: [65, 59, 80, 81, 56], label: 'Total Fund' },
+  //   { data: [28, 48, 40, 19, 86], label: 'Total Profit' }
+  // ];
   getState: Observable<any>;
   userLang: any;
   accountStatementId: any;
