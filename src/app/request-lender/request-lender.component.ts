@@ -152,7 +152,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   ) {
     let enumValues = JSON.parse(localStorage.getItem('EnumConfigs'));
     this.enumRequestTypes = enumValues.funderRequestType;
-    console.log(this.enumRequestTypes);
+    // console.log(this.enumRequestTypes);
     this.getState = this.store.select(funderState);
     this.userLang = this.translate.currentLang;
     this.translate.onLangChange.subscribe((event) => {
@@ -289,8 +289,9 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   }
 
   onChange(deviceValue) {
+    console.log(deviceValue);
     this.selectedRequestType = deviceValue;
-    if (deviceValue != 'Awaiting For Fund Requests') {
+    if (deviceValue != 'Awaiting') {
       this.dataSource = new MatTableDataSource<any>(AllFunderRequests);
       this.dataSource.filter = deviceValue;
     }
@@ -306,7 +307,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (deviceValue == 'Awaiting For Fund Requests' || deviceValue == 'الطلبات بإنتظار تمويل') {
+    if (deviceValue == 'Awaiting') {
       this.dataSource = new MatTableDataSource<any>(null);
       this.getFundingLimitingMatchingRequest();
     }
@@ -319,7 +320,7 @@ export class RequestLenderComponent implements OnInit, OnDestroy {
   openProductDetails(row) {
     this.reqID = row.id;
     if (row.type == 1) {
-      this.store.dispatch(new SaveRequestType('Awaiting For Fund Requests'));
+      this.store.dispatch(new SaveRequestType('Awaiting'));
       this.router.navigate(['requests-funder', this.reqID]);
     } else {
       this.spinner.show();

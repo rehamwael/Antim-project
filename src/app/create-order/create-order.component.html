@@ -175,7 +175,7 @@
                                     <form [formGroup]="lastFormGroup" class="Payment-Details-form">
                                             <mat-form-field>
                                                 <label for="numberOfProduct" class="font-bold mt-2">{{ 'CreateOrder.Numberofproduct' | translate }}  </label>
-                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{totalProducts}} {{ 'CreateOrder.product' | translate }}" readonly>
+                                                <input matInput class="form-control form-control-lg" formControlName="numberOfProduct" value="{{ userLang == 'arabic' ? ARtotalProducts : ENtotalProducts }}" readonly>
                                             </mat-form-field>
 
                                             <mat-form-field>

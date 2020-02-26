@@ -34,6 +34,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   ARinstallmentPeriod: any;
   installmentPeriod_ENUM: number;
   totalProducts: any;
+  ENtotalProducts: any;
+  ARtotalProducts: any;
   requestType: any;
   disabledAgreement = false;
   showAlert = false;
@@ -50,7 +52,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   content: any;
   userPoductList: any[] = [{
     productUrl: '',
-    amount: 0
+    amount: null
   }];
   userLang: any;
 
@@ -144,6 +146,14 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.stepper.next();
     }
     this.totalProducts = Object.keys(this.userPoductList).length;
+    if (this.totalProducts == 1) {
+      this.ENtotalProducts = this.totalProducts + ' Product';
+      this.ARtotalProducts = 'منتج واحد';
+    }
+    if (this.totalProducts > 1) {
+      this.ENtotalProducts = this.totalProducts + ' Products';
+      this.ARtotalProducts = this.totalProducts + ' منتجات ';
+    }
     if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
       this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);

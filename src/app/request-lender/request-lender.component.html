@@ -20,7 +20,7 @@
             <div class="mat-card col-lg-11 mt-5 row welcome-card inner p-2 align-items-center">
                 <img class="col-lg-2 " src="assets/images/bookWithMen 2.svg">
                 <div class="col-lg-2 px-0">
-                    <p class="grey-text-color" [innerHTML]="selectedRequestType"></p>
+                    <!-- <p class="grey-text-color" [innerHTML]="selectedRequestType"></p> -->
                 </div>
                 <form class="col-lg-4">
                 <div class="form-group">
@@ -32,7 +32,7 @@
                     <option *ngFor="let options of enumRequestTypes" value="{{ options.value }}" >{{ ('Requests.'  + options.value) | translate }} </option>
                     <!-- <option value="{{ 'Requests.OngoingRequests' | translate }} ">{{ 'Requests.OngoingRequests' | translate }} </option>
                     <option value="{{ 'Requests.ClosedRequests' | translate }}">{{ 'Requests.ClosedRequests' | translate }} </option> -->
-                    <option value="{{ 'Requests.Awaiting' | translate }}">{{ 'Requests.Awaiting' | translate }}</option>
+                    <option value="Awaiting">{{ 'Requests.Awaiting' | translate }}</option>
                  </select>
                 </div>
                 </form>

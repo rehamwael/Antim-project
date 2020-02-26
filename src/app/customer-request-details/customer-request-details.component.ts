@@ -60,6 +60,8 @@ export class CustomerRequestDetailsComponent implements OnInit {
   showRequestDetailsTable = false;
 
   totalProducts: any;
+  ENtotalProducts: any;
+  ARtotalProducts: any;
   getState: Observable<any>;
   content: any;
   checkIsUpdated = false;
@@ -381,6 +383,14 @@ export class CustomerRequestDetailsComponent implements OnInit {
       stepper.next();
     }
     this.totalProducts = Object.keys(this.productList).length;
+    if (this.totalProducts == 1) {
+      this.ENtotalProducts = this.totalProducts + ' Product';
+      this.ARtotalProducts = 'منتج واحد';
+    }
+    if (this.totalProducts > 1) {
+      this.ENtotalProducts = this.totalProducts + ' Products';
+      this.ARtotalProducts = this.totalProducts + ' منتجات ';
+    }
     if (this.totalPrice >= 500 && this.totalPrice <= 5000) {
       this.totalPriceWithProfit = this.totalPrice + ((this.totalPrice * 25) / 100);
       this.totalPriceWithProfit = Math.round(this.totalPriceWithProfit);
