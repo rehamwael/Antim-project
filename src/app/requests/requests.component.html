@@ -27,12 +27,7 @@
                                     <option value=""  selected disabled>{{ 'Requests.SelectRequestType' | translate }}</option>
                                     <option value="{{ 'Requests.AllRequests' | translate }}">{{ 'Requests.AllRequests' | translate }} </option>
                                     <option *ngFor="let options of enumRequestTypes" value="{{ options.value }}" >{{ ('Requests.'  + options.value) | translate }} </option>
-                                    <!-- <option value="{{ 'Requests.Awaiting' | translate }}">{{ 'Requests.Awaiting' | translate }}</option>
-                                    <option value="{{ 'Requests.Closed' | translate }}">{{ 'Requests.Closed' | translate }} </option>
-                                    <option value="{{ 'Requests.Rejected' | translate }}">{{ 'Requests.Rejected' | translate }} </option>
-                                    <option value="{{ 'Requests.Ongoing' | translate }} ">{{ 'Requests.Ongoing' | translate }} </option>
-                                    <option value="{{ 'Requests.Draft' | translate }} ">{{ 'Requests.Draft' | translate }}  </option>
-                                    <option value="{{ 'Requests.UnderReview' | translate }}">{{ 'Requests.UnderReview' | translate }}  </option> -->
+
                                  </select>
                                 <!-- <svg class="arrow" fill="none" height="7" viewBox="0 0 14 12" width="10" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-pkd-c13="" d="M1 1.2113L7 10.7606L13 1.2113" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg> -->
                              </div>
